@@ -1,6 +1,9 @@
 #ifndef WINDOWMANAGER_H
 	#define WINDOWMANAGER_H
 
+//#include "View.h"
+
+
 #include <QMainWindow>
 #include <vector>
 #include <memory>
@@ -16,11 +19,9 @@ namespace Ui {
 class Keyboard;
 class WindowManager: public QMainWindow
 {
-    Q_OBJECT
-
 public:
-    WindowManager();
-    WindowManager(int argc, char** argv, QMainWindow * parent, const std::string& title, int window_width, int window_height);
+	WindowManager();
+	WindowManager(int argc, char** argv, const std::string& title, int window_width, int window_height);
 	WindowManager(const WindowManager&);
 	~WindowManager();
 
@@ -59,9 +60,8 @@ private:
 	Keyboard* keyboard;
 	int mainWindowContex;
 
-    void drawLineDDA(const Vector &v1, const Vector &v2, float const*);
-    void drawLineBSH(const Vector &v1, const Vector &v2, float const*);
-    Ui::MainWindow *ui;
+	void drawLineDDA(const Vector &v1, const Vector &v2, float const*);
+	void drawLineBSH(const Vector &v1, const Vector &v2, float const*);
 };
 
 

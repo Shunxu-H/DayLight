@@ -5,7 +5,6 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include <QOpenGLWidget>
 #include "Index.h"
 #include "Vector.h"
 #include "View.h"
@@ -20,7 +19,7 @@ class WindowManager;
 class OrthoView: public View
 {
 public:
-    OrthoView(){};
+	OrthoView(){};
 	OrthoView(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
 	~OrthoView();
 
@@ -28,7 +27,6 @@ public:
 	void drawLineBSH(const std::shared_ptr<Vector> &v1, const std::shared_ptr<Vector> &v2, float*);
 
 	void updateWindow();
-    void paintGL();
 
 	void reshapeWindow(const Vector& min, const Vector& max);
 	void drawAxis();
@@ -65,4 +63,4 @@ private:
 
 
 
-#endif
+#endif 

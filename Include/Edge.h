@@ -20,7 +20,7 @@ public:
 	void clear();
 	void transform(const Matrix & m);
 	void draw(float const*)const;
-    void insert(std::shared_ptr<Vector> v){}
+	void insert(std::shared_ptr<Vector> v){};
 
 	void makeUnitVector();
 	double length();
@@ -36,8 +36,8 @@ public:
 	void selectVertices(const Vector & v1, const Vector & v2){}
 	void deleteVertices(){};
 
-    void push_front(std::shared_ptr<Vector> v){}
-    void push_back(std::shared_ptr<Vector> v){}
+	void push_front(std::shared_ptr<Vector> v){};
+	void push_back(std::shared_ptr<Vector> v){};
 	friend std::ostream& operator<< (std::ostream& stream, const Edge & edge);
 
 

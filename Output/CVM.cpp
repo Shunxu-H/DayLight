@@ -110,6 +110,37 @@ Vector CVM::translateFromViewPortToWorld(Vector v)const{
 	Vector v_j = UpVector.makeUnitVector() * ( - (0.5*viewPort_height - viewPort_j));
 	return (fromPoint + (atPoint - fromPoint).makeUnitVector() ) + (v_i + v_j);
 
+	// Matrix mt;
+	// mt.makeTranslationMatrix(-fromPoint[X], -fromPoint[Y], -fromPoint[Z]);
+	// v = mt*v;
+
+	// Matrix mr(4, 0);
+	// Vector c = atPoint - fromPoint;
+	// Vector a = c.cross(UpVector);
+	
+	// c.normalize();
+	// a.normalize();
+
+	// // does not have to unify because it is the cross product of two unit vectors 
+	// // also because they are perpendicular to each other.
+	// Vector b = a.cross(c); 
+	// mr.concatenate(a);
+	// mr.concatenate(b);
+	// mr.concatenate(c);
+	// mr.concatenate(Vector(0, 0, 0));
+	// mr[3][3] = 1;
+
+	// mr = mr.transpose();
+
+	// v = mr*v;
+
+	// int xCenter = 0.5*width;
+	// int yCenter = 0.5*height;
+	// Vector ret;
+	// ret[X] = xCenter + (v[X] / v[Z]*width) / (2*tan(horizontalViewAngle / 2) );
+	// ret[Y] = yCenter + (v[Y] / v[Z]*height) / (2*tan(verticalViewAngle / 2) );
+	// return ret;
+
 
 }
 
@@ -184,37 +215,8 @@ void CVM::updateWindow(){
 	View::drawOutline();
 	
 	glDrawPixels(width, height, GL_RGB, GL_FLOAT, PixelBuffer.get());
-
-}
-
-void CVM::paintGL(){
-    glClear(GL_COLOR_BUFFER_BIT);
-    glLoadIdentity();
-    clear();
-
-    // draw coordinate
-    drawAxis();
-
-    //drawLineDDA(*shader->rotationVector.getHead(), *shader->rotationVector.getTail(), progConfig.COLOR_rotVec);
-
-
-    if(progConfig.fillMode == FILL)
-        rayTrace();
-    else
-        shader->drawAll();
-
-    if( progConfig.opMode == CLIPPING )
-        mouse->viewClipLine();
-    else if ( progConfig.opMode == EDITING)
-        mouse->drawSelectionBox();
-
-    // draw buffers
-    if (curveBuffer->size() > 0)
-        curveBuffer->draw(progConfig.COLOR_regStroke);
-
-    View::drawOutline();
-
-    glDrawPixels(width, height, GL_RGB, GL_FLOAT, PixelBuffer.get());
+	
+	glutPostRedisplay();
 }
 
 void CVM::reshapeWindow(const Vector& min, const Vector& max){

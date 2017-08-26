@@ -11,7 +11,7 @@ public:
 	
 	void drawLineDDA(Vector v1, Vector v2, float const*);
 	void drawLineBSH(const std::shared_ptr<Vector> &v1, const std::shared_ptr<Vector> &v2, float const*);
-
+    void paintGL();
 	//Vector translateFromWorldToViewPort(Vector v)const{};
 protected:
 
@@ -19,7 +19,6 @@ private:
 	void drawAxis();
 	friend class WindowManager;
 	void updateWindow();
-    void paintGL();
 };
 
 

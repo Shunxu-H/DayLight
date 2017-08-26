@@ -27,7 +27,6 @@ public:
 	void drawLineBSH(const std::shared_ptr<Vector> &v1, const std::shared_ptr<Vector> &v2, float*);
 
 	void updateWindow();
-    void paintGL();
 
 	void reshapeWindow(const Vector& min, const Vector& max);
 	void drawAxis();

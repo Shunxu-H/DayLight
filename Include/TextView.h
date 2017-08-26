@@ -18,7 +18,6 @@ protected:
 private:
 	friend class WindowManager;
 	void updateWindow();
-    void paintGL();
 };
 
 

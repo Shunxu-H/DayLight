@@ -63,7 +63,7 @@ void Curve::draw(float const * color)const{
 
 
 	// connect the control points
-    for (unsigned int i = 0; i < vertices.size()-1; i++)
+	for (unsigned int i = 0; i < vertices.size()-1; i++)
 	{
 		winMan->drawLine(*vertices[i], *vertices[i+1], Color().LGREY);
 	}
@@ -75,7 +75,7 @@ void Curve::draw(float const * color)const{
 
 
 
-    // draw vertices on top
+	// draw vertices on top 
 	for (auto v: vertices){
 		if (!isSelected(v.get()))
 			v->draw(c_regPoint);

@@ -1,9 +1,7 @@
 #include <GL/glut.h>
 #include <string>
 #include <iostream>
-
 #include "WindowManager.h"
-#include "ui_windowmanager.h"
 #include "Keyboard.h"
 #include "Cabinet.h"
 #include "Shader.h"
@@ -13,142 +11,21 @@
 #include "Config.h"
 #include "CVM.h"
 
+extern Config progConfig;
+extern Shader* shader;
 
-#include <iostream>
-#include <cstdlib>
-#include <string>
-#include <cstring>
-#include <vector>
-#include <cstdlib>
-#include <fstream>
-#include <memory>
-#include <QDebug>
-#include "OrthoView.h"
-#include "Geometry.h"
-#include "Shader.h"
-#include "Config.h"
-#include "Keyboard.h"
-#include "Mouse.h"
-#include "TextView.h"
-#include "Curve.h"
+void update();
+void keyboardHandler(unsigned char key, int x, int y);
+void keyboardReleaseHandler(unsigned char key, int x, int y);
 
-#include <QOpenGLWidget>
-#include <QDesktopWidget>
-#include <QDockWidget>
-#include <oglwidget.h>
-
-
-int CANVAS_WIDTH = 0;
-int CANVAS_HEIGHT = 0;
-int WINDOW_WIDTH = 0;
-int WINDOW_HEIGHT = 0;
-
-
-WindowManager* winMan;
-Shader* shader;
-std::vector<std::shared_ptr<Vector>> vertexBuffer;
-std::shared_ptr<Curve> curveBuffer;
-Config progConfig;
-
-bool fexists(const std::string& filename);
-
-/*
- *
-int main(int argc, char *argv[]) {
-
-    std::string fileName;
-    int offset = 1;
-
-    while ( offset < argc){
-        if (0 == strcmp(argv[offset], "-d"))
-        {
-            offset++;
-            if (1 != sscanf(argv[offset], "%d", &WINDOW_WIDTH) || WINDOW_WIDTH <= 0)
-            {
-                std::cerr << "Invalid parameters for -d" << std::endl;
-                return 1;
-            }
-            else
-                offset++;
-
-
-            if (1 != sscanf(argv[offset], "%d", &WINDOW_HEIGHT) || WINDOW_HEIGHT <= 0)
-            {
-                std::cerr << "Invalid parameters for -d" << std::endl;
-                return 1;
-            }
-            else
-                offset++;
-        }
-        else if (0 == strcmp(argv[offset], "-f")){
-            offset++;
-            if ( fexists(std::string(argv[offset]))){
-                //offset++;
-                //std::cout << "!!!!!" << argv[offset] << std::endl;
-                fileName = std::string(argv[offset]);
-                offset++;
-                //std::cout << "here" << std::endl;
-            }
-            else
-            {
-                std::cerr << "Invalid parameters for -f" << std::endl;
-                return 1;
-            }
-
-        }
-        else
-        {
-            std::cerr << "Invalid flags, pass '-h' to see manu" << std::endl;
-            return 1;
-        }
-    }
-
-    if ( WINDOW_HEIGHT == 0 && WINDOW_WIDTH == 0 )
-    {
-        std::cerr << " '-d' unset, windows dimensionality fall back to default(500, 500)" << std::endl;
-
-        WINDOW_WIDTH  = 500;
-        WINDOW_HEIGHT = 500;
-    }
-
-
-
-    if(fileName.size() > 0)
-        shader = new Shader(fileName);
-    else
-        shader = new Shader();
-
-    vertexBuffer = std::vector<std::shared_ptr<Vector>>();
-    curveBuffer = std::make_shared<Curve>();
-
-    shader->loadFile();
-
-    return 0;
-}
- */
-
-
-
-bool fexists(const std::string& filename);
 
 int MARGIN = 20;
 
-
 WindowManager::WindowManager(){
-    views = nullptr;
+	views = nullptr;
 }
 
-WindowManager::WindowManager(int argc, char** argv, QMainWindow * parent, const std::string& title, int window_width, int window_height)
-    :QMainWindow(parent),
-     ui(new Ui::MainWindow())
-{
-    ui->setupUi(this);
-    resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
-
-    QDockWidget *dock = new QDockWidget(tr("Canvas"), this);
-    dock->setWidget(new OGLWidget());
-    addDockWidget(Qt::LeftDockWidgetArea, dock);
-
+WindowManager::WindowManager(int argc, char** argv, const std::string& title, int window_width, int window_height){
 	mainWindowWidth = window_width;
 	mainWindowHeight = window_height;
 	numOfWindows = 2;
@@ -162,7 +39,8 @@ WindowManager::WindowManager(int argc, char** argv, QMainWindow * parent, const 
 	//set window position 
 	glutInitWindowPosition(400, 200);
 	//create and set main window title 
-    mainWindowContex = glutCreateWindow(title.c_str());
+	mainWindowContex = glutCreateWindow(title.c_str()); 
+    //glutDisplayFunc(::update);
 
 	glClear(GL_COLOR_BUFFER_BIT); 
 
@@ -170,9 +48,9 @@ WindowManager::WindowManager(int argc, char** argv, QMainWindow * parent, const 
 	views = new View*[numOfWindows];
 
 	views[0] 	= new CVM (PERSP, mainWindowContex, MARGIN, 					MARGIN, window_width, window_height);
-    // views[1] 	= new TextView 	(TEXTVIEW, mainWindowContex, window_width + MARGIN*2, MARGIN, window_width, window_height);
-
-    // viewss[4] = new views(mainWindowContex, 0, 0, window_width, window_height);
+	views[1] 	= new TextView 	(TEXTVIEW, mainWindowContex, window_width + MARGIN*2, MARGIN, window_width, window_height);
+	
+	//viewss[4] = new views(mainWindowContex, 0, 0, window_width, window_height);
 
 
 
@@ -213,7 +91,19 @@ void WindowManager::updateWindow(const int & winID){
 	//viewss[4]->updateWindow()
 	glutPostRedisplay();
 }
+/*
+void WindowManager::reshapeWindows(){
+	if( shader->size() < 1 )
+		return;
+	Vector min(shader->getMinX(), shader->getMinY(), shader->getMinZ());
+	Vector max(shader->getMaxX(), shader->getMaxY(), shader->getMaxZ());
 
+	for( int i = 0; i < numOfWindows; i++ )
+		if(views[i]->viewType == XY || views[i]->viewType == XZ || views[i]->viewType == ZY)
+			static_cast<OrthoView*>(views[i])->reshapeWindow(min, max);
+
+}
+*/
 
 void WindowManager::fillPolygon(Geometry &geo, const float* color){
 	for ( int i = 0; i < numOfWindows; i++)
@@ -246,10 +136,24 @@ void WindowManager::drawLineDDA(const Vector &v1, const Vector &v2, float const*
 	}
 }
 
+void WindowManager::drawLineBSH(const Vector &v1, const Vector &v2, float const*color){
+	// for ( int i = 0; i < 4; i++)
+	// 	views[i]->drawLineBSH(v1, v2, color);
+}
+
 void WindowManager::drawLine(const Vector &v1, const Vector &v2, float const*color){
 	if (progConfig.lineAlg == DDA)
-        drawLineDDA(v1, v2, color);
+		drawLineDDA(v1, v2, color);
+	else 
+		drawLineBSH(v1, v2, color);
 }
+/*
+void WindowManager::drawLine( const std::vector<Vector> &vertexBuffer, float* color){
+	
+	for ( int i = 0; i < 4; i++)
+		views[i]->drawLine(vertexBuffer,color);
+
+}*/
 
 
 void WindowManager::setPix(const Vector* v,  float const* color){
@@ -291,8 +195,3 @@ View* WindowManager::operator[](const int& windowID)const {
 }
 
 
-
-bool fexists(const std::string& filename) {
-  std::ifstream ifile(filename.c_str());
-  return (bool)ifile;
-}

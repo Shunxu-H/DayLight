@@ -26,8 +26,9 @@ void Cabinet::updateWindow(){
 		mouse->viewClipLine();
 	
 	glDrawPixels(width, height, GL_RGB, GL_FLOAT, PixelBuffer.get());
-
+	
 }
+
 
 void Cabinet::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT);

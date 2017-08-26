@@ -9,7 +9,6 @@
 #include <climits>
 #include <algorithm>
 #include <memory>
-#include <QDebug>
 #include "Shader.h"
 #include "Config.h"
 #include "OrthoView.h"
@@ -71,8 +70,6 @@ void Shader::loadFile (const std::string& _fileName){
 	fss << f.rdbuf();
 
 	f.close();
-
-
 	
 	std::deque<std::string> tokens = mystrtok( fss.str(), " \n");
 
@@ -309,6 +306,41 @@ void Shader::drawAll(){
 	for (auto obj: objects){
 		obj->draw(progConfig.COLOR_regStroke);	
 	}
+
+
+	/*
+	for( auto geo: objects)
+		geo->computeColors(lightSource, viewPtr);
+	normalizeColors(getColorNormalizeRate());
+
+	if(progConfig.fillMode == FILL && progConfig.opMode != TRANSFORM ) {
+		winMan->fillPolygons(objects);
+	}
+	else if (progConfig.fillMode == HALFTONE){
+		for (auto geo:objects){
+			winMan->halfToning(*geo);
+		}
+	}
+	else {
+		for (unsigned int i = 0; i < size(); i++){
+			//objects[i]->print();
+			curRendering = objects[i];
+			objects[i]->draw();
+		}
+	}
+
+
+	// draw normals 
+	if(progConfig.showNormal == true){	
+		for (auto geo:objects){
+			geo->drawNormal();
+		}
+	
+	}
+
+
+	drawLight();
+	*/
 }
 
 

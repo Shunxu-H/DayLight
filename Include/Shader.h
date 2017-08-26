@@ -13,7 +13,7 @@ class Geometry;
 class Shader
 {
 public:
-    Shader(const std::string& file="./data/temp.gmt");
+	Shader(const std::string& file="./data/temp.gmt");
 	~Shader();
 	void addObj(std::shared_ptr<Object> newObj );
 	void clear();

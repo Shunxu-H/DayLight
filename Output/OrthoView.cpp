@@ -27,6 +27,15 @@ extern std::vector<std::shared_ptr<Vector>> vertexBuffer;
 extern std::shared_ptr<Curve> curveBuffer;
 extern WindowManager* winMan;
 
+void update();
+void mouseClick(int button, int state, int x, int y);
+void mouseHold(int x, int y);
+void mouseHover(int x, int y);
+
+void keyboardHandler(unsigned char key, int x, int y);
+void keyboardReleaseHandler(unsigned char key, int x, int y);
+void keyboardHandler(unsigned char key, int x, int y);
+void keyboardReleaseHandler(unsigned char key, int x, int y);
 
 int PADDING = 20;
 
@@ -91,34 +100,8 @@ void OrthoView::updateWindow(){
 	
 	
 	glDrawPixels(width, height, GL_RGB, GL_FLOAT, PixelBuffer.get());
-
-}
-
-void OrthoView::paintGL(){
-
-    //glClear(GL_COLOR_BUFFER_BIT);
-    glLoadIdentity();
-    clear();
-
-    // draw coordinate
-    drawAxis();
-
-    //drawLineDDA(*shader->rotationVector.getHead(), *shader->rotationVector.getTail(), progConfig.COLOR_rotVec);
-    shader->drawAll();
-    View::drawOutline();
-
-    if( progConfig.opMode == CLIPPING )
-        mouse->viewClipLine();
-    else if ( progConfig.opMode == EDITING)
-        mouse->drawSelectionBox();
-
-    // draw buffers
-    if (curveBuffer->size() > 0)
-        curveBuffer->draw(progConfig.COLOR_regStroke);
-
-
-
-    glDrawPixels(width, height, GL_RGB, GL_FLOAT, PixelBuffer.get());
+	
+	glutPostRedisplay();
 }
 
 void OrthoView::reshapeWindow(const Vector& min, const Vector& max){

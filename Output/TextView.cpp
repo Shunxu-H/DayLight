@@ -22,15 +22,6 @@ void TextView::updateWindow(){
 
 }
 
-void TextView::paintGL(){
-    glClear(GL_COLOR_BUFFER_BIT);
-    glLoadIdentity();
-
-    // draw coordinate
-    keyboard.renderInput();
-    keyboard.renderTips();
-}
-
 
 void TextView::drawLineDDA(Vector v1, Vector v2, const float* color){
 

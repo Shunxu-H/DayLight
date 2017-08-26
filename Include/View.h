@@ -5,8 +5,7 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include <QWidget>
-#include <QOpenGLWidget>
+
 
 #include <memory>
 #include "Index.h"
@@ -31,28 +30,22 @@ enum ViewType
 };
 
 
-class View:public QOpenGLWidget
+class View
 {
 public:
-    View(QWidget *parent = nullptr);
+	View(){};
 	View(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
 	~View();
-
-    void initializeGL();
-    void resizeGL(int w, int h);
-    virtual void paintGL()=0;
-
-    virtual void updateWindow() = 0;
 
 	inline bool isOrthoView()const{ return viewType == XY || viewType == XZ || viewType == ZY;}
 	inline bool isCVM()const {return viewType == PERSP; }
 
 //view->getPixelPerUnit(), view->getX(), view->getY(), view->getZ()
-    inline void toCOORDS(Vector & v)const{v.toCOORDS(pixelsPerUnit, coordLoc[X], coordLoc[Y], coordLoc[Z]);}
-    inline void toPXLPOS(Vector & v)const{v.toPXLPOS(pixelsPerUnit, coordLoc[X], coordLoc[Y], coordLoc[Z]);}
+	inline void toCOORDS(Vector & v)const{v.toCOORDS(pixelsPerUnit, coordLoc[X], coordLoc[Y], coordLoc[Z]);};
+	inline void toPXLPOS(Vector & v)const{v.toPXLPOS(pixelsPerUnit, coordLoc[X], coordLoc[Y], coordLoc[Z]);};
 	
-    inline Vector returnCOORDS(const Vector & v)const{return v.inCOORDS(pixelsPerUnit, coordLoc[X], coordLoc[Y], coordLoc[Z]);}
-    inline Vector returnPXLPOS(const Vector & v)const{return v.inPXLPOS(pixelsPerUnit, coordLoc[X], coordLoc[Y], coordLoc[Z]);}
+	inline Vector returnCOORDS(const Vector & v)const{return v.inCOORDS(pixelsPerUnit, coordLoc[X], coordLoc[Y], coordLoc[Z]);};
+	inline Vector returnPXLPOS(const Vector & v)const{return v.inPXLPOS(pixelsPerUnit, coordLoc[X], coordLoc[Y], coordLoc[Z]);};
 
 	virtual void fillPolygon(Geometry &geo, const float *);
 	virtual void fillPolygons(std::vector<std::shared_ptr<Geometry>> &geo){}
@@ -72,18 +65,19 @@ public:
 	void setPix(const int&, const int&, const float*);
 	void clear();
 
+	virtual void updateWindow() = 0;
 	void drawOutline();
 	void drawVertex(const Vector & v);
 	void drawLines(const std::vector<std::shared_ptr<Vector>> &line)const;
 
-    inline int getHeight()const { return width; }
-    inline int getWidth()const { return height; }
-    inline float* getBuffer()const { return PixelBuffer.get(); }
+	inline int getHeight()const { return width; };
+	inline int getWidth()const { return height; };
+	inline float* getBuffer()const { return PixelBuffer.get(); };
 
-    inline float getX()const { return coordLoc[X]; }
-    inline float getY()const { return coordLoc[Y]; }
-    inline float getZ()const { return coordLoc[Z]; }
-    inline float getPixelPerUnit()const { return pixelsPerUnit; }
+	inline float getX()const { return coordLoc[X]; };
+	inline float getY()const { return coordLoc[Y]; };
+	inline float getZ()const { return coordLoc[Z]; };
+	inline float getPixelPerUnit()const { return pixelsPerUnit; };
 	void mouseClick(const int& button, const int& state, const int& x, const int& y);
 	void mouseHold(int x, int y);
 	void mouseHover(int x, int y);
@@ -93,7 +87,7 @@ public:
 
 	//void reshapeWindow(const Vector& min, const Vector& max);
 
-    friend class Mouse;
+	friend Mouse;
 
 	void drawRect(const float & xMin, const float & yMin, const float & xMax, const float & yMax, float const*);
 
