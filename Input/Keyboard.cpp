@@ -241,7 +241,7 @@ void Keyboard::keyboardHandler(unsigned char key, int x, int y){
 		}
 	}
 
-	glutPostRedisplay();
+    //glutPostRedisplay();
 	
 }
 
@@ -261,7 +261,7 @@ void Keyboard::keyboardReleaseHandler(unsigned char key, int x, int y){
 		}
 	}
 	
-	glutPostRedisplay();
+    //glutPostRedisplay();
 }
 
 void Keyboard::drawBitmapText(const char*string,float x,float y)

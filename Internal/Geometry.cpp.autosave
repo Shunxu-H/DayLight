@@ -279,6 +279,8 @@ void Geometry::draw(float const* color)const
     glBufferSubData( GL_ARRAY_BUFFER, sizeof(vPositions),
                      sizeof(vColors), vColors);
 
+    GLuint vPosition = 
+            glGetAttribLocation( program);
 
 }
 

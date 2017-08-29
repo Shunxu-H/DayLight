@@ -38,7 +38,7 @@ void keyboardHandler(unsigned char key, int x, int y);
 void keyboardReleaseHandler(unsigned char key, int x, int y);
 
 int PADDING = 20;
-
+/*
 OrthoView::OrthoView(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
 :View(vt,mainContext, loc_x, loc_y, window_width, window_height)
 { //, int canvas_width, int canvas_height){
@@ -101,7 +101,7 @@ void OrthoView::updateWindow(){
 	
 	glDrawPixels(width, height, GL_RGB, GL_FLOAT, PixelBuffer.get());
 	
-	glutPostRedisplay();
+    //glutPostRedisplay();
 }
 
 void OrthoView::reshapeWindow(const Vector& min, const Vector& max){
@@ -312,9 +312,9 @@ void OrthoView::halfToning(Geometry &geo){
 }
 
 std::shared_ptr<Vector> OrthoView::getMagePixel(const Vector& c){
-	/* MAGIC NUMBERS */	
+
 	int pixelWidth = 3;
-	/* END: MAGIC NUMBERS */
+
 
 
 	int n_pix = pow(pixelWidth, 2);
@@ -344,9 +344,9 @@ std::shared_ptr<Vector> OrthoView::getMagePixel(const Vector& c){
 }
 
 void OrthoView::setMagaPix(std::shared_ptr<Vector> magaPix, const int& x, const int& y){
-	/* MAGIC NUMBERS */	
+
 	int pixelWidth = 3;
-	/* END: MAGIC NUMBERS */
+
 
 	for (int rowPtr = 0; rowPtr < pixelWidth; rowPtr++){
 		for (int colPtr = 0; colPtr < pixelWidth; colPtr++){
@@ -385,3 +385,4 @@ Vector OrthoView::translateFromWorldToViewPort(Vector v)const{
 	Vector position = v.inPXLPOS(pixelsPerUnit, coordLoc[X], coordLoc[Y], coordLoc[Z]);
 	return Vector(position[axis1], position[axis2]);
 }
+*/

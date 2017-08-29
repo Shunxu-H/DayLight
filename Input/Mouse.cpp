@@ -25,7 +25,7 @@ extern std::shared_ptr<Curve> curveBuffer;
 extern Shader* shader;
 
 #define _USE_MATH_DEFINES
-
+/*
 Mouse::Mouse(){
 	view = nullptr;
 	isTranslating = false;
@@ -89,10 +89,10 @@ void Mouse::mouseHold(int x, int y)
 		}
 		else if(view->isCVM()){
 			if (isRotatingCamera){
-				dynamic_cast<CVM*>(view)->rotateCamera(Vector(prevPos[X] - x,y - prevPos[Y], 0));
+                //dynamic_cast<CVM*>(view)->rotateCamera(Vector(prevPos[X] - x,y - prevPos[Y], 0));
 			}			
 			else {
-				dynamic_cast<CVM*>(view)->translateCamera(Vector(x - prevPos[X], - (y - prevPos[Y]), 0));
+                //dynamic_cast<CVM*>(view)->translateCamera(Vector(x - prevPos[X], - (y - prevPos[Y]), 0));
 			}
 			prevPos[X] = x;
 			prevPos[Y] = y; 
@@ -128,103 +128,7 @@ void Mouse::mouseHold(int x, int y)
 			// v2[view->getDeptAxis()] = -std::numeric_limits<float>::max();
 			// shader->selectVertices(v1, v2);
 		
-		}
-		/*
-		else if (progConfig.transMode == ROTATE){
-
-
-			Edge rotAxis( std::shared_ptr<Vector>(new Vector(*shader->rotationVector.getHead())),
-						  std::shared_ptr<Vector>(new Vector(*shader->rotationVector.getTail())));
-			rotAxis.makeUnitVector();
-
-			Vector centroid (shader->nGetGeo(progConfig.curSelected)->getCentroid());
-			Vector v1(prevPos[X], prevPos[Y], 0);
-			Vector v2(x, y, 0);
-
-			v1.toCOORDS(view->getPixelPerUnit(), view->getX(), view->getY(), view->getZ());
-			v2.toCOORDS(view->getPixelPerUnit(), view->getX(), view->getY(), view->getZ());
-			
-			//float alpha;
-
-			Matrix tm, m2XZ, m2Z, m, rm2Z, rm2XZ, rtm;
-
-			// make translation matrix
-			tm.makeTranslationMatrix(-rotAxis.getHead()->getX(),-rotAxis.getHead()->getY(),-rotAxis.getHead()->getZ());
-			// makr reverse translation matrix
-			rtm.makeTranslationMatrix(rotAxis.getHead()->getX(),rotAxis.getHead()->getY(),rotAxis.getHead()->getZ());
-
-			rotAxis.getHead()->transform(tm);
-			rotAxis.getTail()->transform(tm);
-
-			float alpha2XZ = acos( (rotAxis.getTail()->getZ() - rotAxis.getHead()->getZ()) / 
-							 sqrt( pow( rotAxis.getTail()->getY() - rotAxis.getHead()->getY(), 2) +
-						     	   pow( rotAxis.getTail()->getZ() - rotAxis.getHead()->getZ(), 2) ) ); 
-			// rotation/reverse rotation to XZ plane
-			m2XZ.makeBaseRotMatrix(alpha2XZ, X);
-			rm2XZ.makeBaseRotMatrix(-alpha2XZ, X);
-
-			if (std::isnan(alpha2XZ) ){
-
-				std::cout << "a" << alpha2XZ  << std::endl;
-				alpha2XZ = 0.0f;
-
-			}
-			rotAxis.getHead()->transform(m2XZ);
-			rotAxis.getTail()->transform(m2XZ);
-
-			float alpha2Z = -asin( rotAxis.getTail()->getX() - rotAxis.getHead()->getX() / 
-									sqrt( pow( rotAxis.getTail()->getX() - rotAxis.getHead()->getX(), 2) +
-									      pow( rotAxis.getTail()->getZ() - rotAxis.getHead()->getZ(), 2) ) ); 
-			float alpha = atan( (centroid.getY() - v1.getY())/(v1.getX() - centroid.getX()) ) + atan( (v2.getY() - centroid.getY())/(v2.getX() - centroid.getX()) );
-			
-			if (std::isnan(alpha2Z) ){
-				alpha2Z = 0.0f;
-
-			}
-
-			// rotation/reverse rotation to Z axis
-			m2Z.makeBaseRotMatrix(alpha2Z, Y);
-			rm2Z.makeBaseRotMatrix(-alpha2Z, Y);
-			m.makeBaseRotMatrix(alpha, Z);
-
-
-			Matrix M = rtm*rm2XZ*rm2Z*m*m2Z*m2XZ*tm;
-
-			shader->nGetGeo(progConfig.curSelected)->transform(M);
-	
-		}
-		else if (progConfig.transMode == SCALE){
-			
-			Vector centroid (shader->nGetGeo(progConfig.curSelected)->getCentroid());
-
-			v1.toCOORDS(view->getPixelPerUnit(), view->getX(), view->getY(), view->getZ());
-			v2.toCOORDS(view->getPixelPerUnit(), view->getX(), view->getY(), view->getZ());
-			//centroid.toCOORDS();
-
-			if (!(v1[view->axis1] == 0 || v1[view->axis2] == 0)){
-				float alpha[3];
-
-				alpha[0] = 1.0f;alpha[1] = 1.0f;alpha[2] = 1.0f;
-				alpha[view->axis1] = v2[view->axis1]/v1[view->axis1];
-				alpha[view->axis2] = v2[view->axis2]/v1[view->axis2];
-				
-				//centroid.print();
-
-				Matrix m1, m2, m3;
-
-				m1.makeTranslationMatrix(-centroid.getX(), -centroid.getY(), -centroid.getZ());
-
-				m2.makeScalingMatrix(alpha[0], alpha[1], alpha[2]);
-				m3.makeTranslationMatrix(centroid.getX(), centroid.getY(), centroid.getZ());
-
-
-
-				shader->nGetGeo(progConfig.curSelected)->transform(m3*m2*m1);
-			}
-			
-
-		}
-		*/
+        }
 
 		prevPos[X] = x;
 		prevPos[Y] = y; 
@@ -240,7 +144,7 @@ void Mouse::mouseHold(int x, int y)
 		// shader->selectVertices(v1, v2);
 	}
 
-	glutPostRedisplay();
+    //glutPostRedisplay();
 }
 
 void Mouse::drawSelectionBox(){
@@ -311,7 +215,7 @@ void Mouse::mouseClick(int button, int state, int x, int y) {
 		}
 
 
-		glutPostRedisplay();
+        //glutPostRedisplay();
 	}
 	// buddon pressing down
 	else {
@@ -343,27 +247,7 @@ void Mouse::mouseClick(int button, int state, int x, int y) {
 
 			}
 			else if(progConfig.opMode == CLIPPING){
-				/*
-				Vector v(x, y, 0);
-				v.toCOORDS(view->getPixelPerUnit(), view->getX(), view->getY(), view->getZ());
 
-				if (progConfig.curSelected != -1 || shader->nGetGeo(progConfig.curSelected) != nullptr){
-					shader->nGetGeo(progConfig.curSelected)->clip(v);
-				}
-				else{
-					if (shader->size() > 0){
-						progConfig.curSelected = 0;
-						shader->nGetGeo(progConfig.curSelected)->clip(v);
-					}
-				}
-
-
-				// change dimensionality of clippint method
-				if (progConfig.clipMode == LEFT)
-					progConfig.opMode = DRAWING;
-				else 
-					progConfig.clipMode = static_cast<ClipMode>(static_cast<int>(progConfig.clipMode)+1);
-					*/
 			}
 			else if (progConfig.opMode == TRANSFORM)
 			{
@@ -409,10 +293,10 @@ void Mouse::mouseClick(int button, int state, int x, int y) {
 		{
 			if(progConfig.opMode == MOVING && view->isCVM()){
 				// /std::cout << "what: " << button << std::endl;
-				if (button == 3)
-					dynamic_cast<CVM*>(view)->translateCamera(Vector(0, 0, 10));
-				else if (button == 4)
-					dynamic_cast<CVM*>(view)->translateCamera(Vector(0, 0, -10));
+//				if (button == 3)
+//					dynamic_cast<CVM*>(view)->translateCamera(Vector(0, 0, 10));
+//				else if (button == 4)
+//					dynamic_cast<CVM*>(view)->translateCamera(Vector(0, 0, -10));
 			}
 
 			std::cout << "button: " << button << std::endl;
@@ -444,7 +328,7 @@ void Mouse::mouseClick(int button, int state, int x, int y) {
 			}
 		}
 	}
-	glutPostRedisplay();
+    //glutPostRedisplay();
 
 }
 
@@ -523,3 +407,4 @@ void Mouse::clipRIGHT(){
 	view->drawVertical(curPos[X]);
 
 }
+*/

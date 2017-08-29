@@ -5,25 +5,32 @@
 
 
 #include <QMainWindow>
+#include <QMainWindow>
 #include <vector>
 #include <memory>
+#include "Shader.h"
+
 class View;
 class Vector;
 class Geometry;
 class Face;
 
+QT_USE_NAMESPACE
+QT_BEGIN_NAMESPACE
 namespace Ui {
-    class MainWindow;
+    class WindowManager;
 }
+QT_END_NAMESPACE
 
 class Keyboard;
 class WindowManager: public QMainWindow
 {
+    Q_OBJECT
 public:
-	WindowManager();
+    WindowManager(QWidget *parent = nullptr);
 	WindowManager(int argc, char** argv, const std::string& title, int window_width, int window_height);
 	WindowManager(const WindowManager&);
-	~WindowManager();
+    virtual ~WindowManager();
 
 	inline int getHeight()const{return mainWindowHeight;}
 	inline int getwidth()const{return mainWindowWidth;}
@@ -53,15 +60,21 @@ protected:
 
 
 private:
+
+    Ui::WindowManager *ui;
+
 	int numOfWindows;
 	int mainWindowWidth;
 	int mainWindowHeight;
 	View** views;
 	Keyboard* keyboard;
-	int mainWindowContex;
+    int mainWindowContex;
+
+    Shader shader;
 
 	void drawLineDDA(const Vector &v1, const Vector &v2, float const*);
 	void drawLineBSH(const Vector &v1, const Vector &v2, float const*);
+
 };
 
 

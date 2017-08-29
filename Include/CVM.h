@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <QWidget>
 #include "Index.h"
 #include "Vector.h"
 #include "View.h"
@@ -19,10 +20,11 @@ class WindowManager;
 class CVM: public View
 {
 public:
-	CVM(){};
+    CVM(){}
+    CVM(QWidget *parent);
 	CVM(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
-	~CVM();
-
+    virtual ~CVM(){}
+/*
 	void drawLineDDA(Vector v1, Vector v2, const float*);
 	void drawLineBSH(const std::shared_ptr<Vector> &v1, const std::shared_ptr<Vector> &v2, float*);
 
@@ -46,18 +48,22 @@ public:
 
 	void rayTrace();
 
-
+*/
 
 protected:
+    void initializeGL();
+    void resizeGL(int w, int h);
+    void paintGL();
+
 
 private:
 	friend class WindowManager;
 
 	std::shared_ptr<Vector> getMagePixel(const Vector& c);
 
-	void setMagaPix(std::shared_ptr<Vector> magaPix, const int& x, const int& y);
+    //void setMagaPix(std::shared_ptr<Vector> magaPix, const int& x, const int& y);
 
-	void drawOutline(const Face & face, const float * color);
+    //void drawOutline(const Face & face, const float * color);
 
 	Vector fromPoint;
 	Vector atPoint;

@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <glm/vec3.hpp>
 #include "Object.h"
 #include "Edge.h"
 #include "Vector.h"
@@ -23,7 +24,7 @@ public:
 	void print()const;
 	Vector getColor(const Vector& v, const Vector & normal)const;
 
-	inline unsigned int size()const{ return objects.size(); };
+    inline unsigned int size()const{ return objects.size(); }
 	Edge rotationVector;
 
 	// float getMaxX()const;
@@ -81,6 +82,10 @@ private:
 	std::shared_ptr<Object> curRendering;
 	Vector getNormalVector(const Vector& v)const;
 	std::shared_ptr<Object> curSelection;
+
+    std::vector<glm::vec3> vertices;
+    //function
+    bool loadFile_obj(const std::string &);
 
 
 };

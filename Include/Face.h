@@ -12,8 +12,11 @@ class Face
 {
 public:
 	Face();
-	Face(const Face& f);
-	void addV(std::shared_ptr<Vector> v);
+    Face(const Face& f);
+    void addV(std::shared_ptr<Vector> v);
+    void setVertexIndeces(const int & n1, const int & n2, const int & n3);
+    void setUvIndeces(const int & n1, const int & n2, const int & n3);
+    void setNormalIndeces(const int & n1, const int & n2, const int & n3);
 
 	std::shared_ptr<Vector> getV(const unsigned int & index)const;
 	~Face();
@@ -27,7 +30,7 @@ public:
 	void print();
 	Vector getNormalVector()const;
 	Vector getCentroid();
-	const std::vector<std::shared_ptr<Vector>>& getVertices()const{ return vertices;};
+    const std::vector<std::shared_ptr<Vector>>& getVertices()const{ return vertices;}
 
 	
 	std::shared_ptr<Vector> getIntersection(const Line & line)const;
@@ -37,15 +40,15 @@ public:
 	void clear();
 	void transform(const Matrix & m);
 	void draw(float const*)const;
-	void insert(std::shared_ptr<Vector> v){};
-	void deleteVertices(){};
+    void insert(std::shared_ptr<Vector> v){}
+    void deleteVertices(){}
 
-	friend std::ostream& operator<< (std::ostream& stream, const Face & f);
+    friend std::ostream& operator<< (std::ostream& stream, const Face & f);
 	
-	void push_front(std::shared_ptr<Vector> v){};
-	void push_back(std::shared_ptr<Vector> v){};
+    void push_front(std::shared_ptr<Vector> v){}
+    void push_back(std::shared_ptr<Vector> v){}
 
-	void selectVertices(const Vector & v1, const Vector & v2){};
+    void selectVertices(const Vector & v1, const Vector & v2){}
 
 	bool contain(const Vector & point)const;
 	float getDistance(const Vector & point)const;
@@ -53,6 +56,10 @@ public:
 protected:
 
 private:
+    unsigned int verticesIndeces[3];
+    unsigned int uvIndeces[3];
+    unsigned int normalIndeces[3];
+
 	void toPXLPOS(const float& pixelUnit, const float& w_x, const float& w_y, const float& w_z);
 	std::vector<std::shared_ptr<Vector>> vertices;
 

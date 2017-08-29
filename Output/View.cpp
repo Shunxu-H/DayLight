@@ -38,7 +38,17 @@ void keyboardReleaseHandler(unsigned char key, int x, int y);
 void keyboardHandler(unsigned char key, int x, int y);
 void keyboardReleaseHandler(unsigned char key, int x, int y);
 
-View::View(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height){ //, int canvas_width, int canvas_height){
+View::View(QWidget *parent)
+    : QOpenGLWidget(parent)
+{
+
+}
+
+
+/*
+View::View(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
+
+{ //, int canvas_width, int canvas_height){
 	viewType = vt;
 	//allocate new pixel buffer, need initialization!! 
 	windPos[X] = loc_x;
@@ -59,15 +69,18 @@ View::View(const ViewType &vt, const int& mainContext, const int& loc_x, const i
 	for (int i = 0; i < window_width * window_width * 3; i++)
 		PixelBuffer.get()[i] = 0.0f;
 	
-	windowContext = glutCreateSubWindow(mainContext, loc_x,loc_y, window_width, window_height);
+    //windowContext = glutCreateSubWindow(mainContext, loc_x,loc_y, window_width, window_height);
 
 	//glewInit()
 	init();
 
 }
 
+
 View::~View(){
+
 }
+
 
 void View::init() {
     //glutDisplayFunc(update);
@@ -425,3 +438,4 @@ void View::drawVertex(const Vector & v, float const* color){
 	drawRect(x-2, y-2, x+2, y+2, color);
 	setPix(x, y, color);
 }
+*/

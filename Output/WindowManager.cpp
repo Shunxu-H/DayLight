@@ -1,6 +1,9 @@
 #include <GL/glut.h>
 #include <string>
 #include <iostream>
+#include <QDesktopWidget>
+#include <QDockWidget>
+#include "oglwidget.h"
 #include "WindowManager.h"
 #include "Keyboard.h"
 #include "Cabinet.h"
@@ -21,48 +24,67 @@ void keyboardReleaseHandler(unsigned char key, int x, int y);
 
 int MARGIN = 20;
 
-WindowManager::WindowManager(){
-	views = nullptr;
+WindowManager::WindowManager(QWidget *parent)
+    :QMainWindow(parent)
+     //ui(new Ui::WindowManager)
+{
+
+    // Initialize Ui
+    //ui->setupUi(this);
+    resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
+
+
+    QDockWidget *dock = new QDockWidget(tr("Canvas"), this);
+    dock->setWidget(new CVM(dock));
+    //dock->setWidget(new OGLWidget());
+    addDockWidget(Qt::LeftDockWidgetArea, dock);
+
+    // load Object
+    shader.loadFile();
+
+
 }
+
+
 
 WindowManager::WindowManager(int argc, char** argv, const std::string& title, int window_width, int window_height){
 	mainWindowWidth = window_width;
 	mainWindowHeight = window_height;
 	numOfWindows = 2;
 
-	glutInit(&argc, argv); 
-	glutInitDisplayMode(GLUT_SINGLE); 
+    //glutInit(&argc, argv);
+    //glutInitDisplayMode(GLUT_SINGLE);
 
 	//set window size to 200*200 
-	glutInitWindowSize(window_width*2 + 3*MARGIN, window_height + 2*MARGIN); 
+    //glutInitWindowSize(window_width*2 + 3*MARGIN, window_height + 2*MARGIN);
 
 	//set window position 
-	glutInitWindowPosition(400, 200);
+    //glutInitWindowPosition(400, 200);
 	//create and set main window title 
-	mainWindowContex = glutCreateWindow(title.c_str()); 
+    //mainWindowContex = glutCreateWindow(title.c_str());
     //glutDisplayFunc(::update);
 
-	glClear(GL_COLOR_BUFFER_BIT); 
+    //glClear(GL_COLOR_BUFFER_BIT);
 
 
 	views = new View*[numOfWindows];
 
-	views[0] 	= new CVM (PERSP, mainWindowContex, MARGIN, 					MARGIN, window_width, window_height);
-	views[1] 	= new TextView 	(TEXTVIEW, mainWindowContex, window_width + MARGIN*2, MARGIN, window_width, window_height);
-	
+    //views[0] 	= new CVM (PERSP, mainWindowContex, MARGIN, 					MARGIN, window_width, window_height);
+    //views[1] 	= nullptr;// new TextView 	(TEXTVIEW, mainWindowContex, window_width + MARGIN*2, MARGIN, window_width, window_height);
+    //views[2]    = nullptr;views[3] = nullptr;
 	//viewss[4] = new views(mainWindowContex, 0, 0, window_width, window_height);
 
 
 
-	glClearColor(0, 0, 0, 0); 
+    //glClearColor(0, 0, 0, 0);
 	//clears the buffer of OpenGL //sets views function 
 }
 
 WindowManager::~WindowManager(){
 	if (views != nullptr){
-		for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 0; i++)
 			delete (views[i]);
-		delete[] (views);
+        //delete[] (views);
 	}
 }
 
@@ -74,7 +96,7 @@ WindowManager::WindowManager(const WindowManager& rhs){
 }
 
 void WindowManager::updateWindow(const int & winID){
-
+/*
 	View* curD = (*this)[winID];
 	if (curD != nullptr){
 		if ( curD->viewType == CABINET)
@@ -89,7 +111,8 @@ void WindowManager::updateWindow(const int & winID){
 			dynamic_cast<CVM*>(curD)->updateWindow();
 	}
 	//viewss[4]->updateWindow()
-	glutPostRedisplay();
+    //glutPostRedisplay();
+    */
 }
 /*
 void WindowManager::reshapeWindows(){
@@ -106,34 +129,25 @@ void WindowManager::reshapeWindows(){
 */
 
 void WindowManager::fillPolygon(Geometry &geo, const float* color){
-	for ( int i = 0; i < numOfWindows; i++)
-		views[i]->fillPolygon(geo, color);
+
 }
 
 
 void WindowManager::fillPolygons(std::vector<std::shared_ptr<Geometry>> &geo){
-	for ( int i = 0; i < numOfWindows; i++)
-		views[i]->fillPolygons(geo);
+
 }
 
 void WindowManager::drawVertex(const Vector & v, float const* color){
-	for ( int i = 0; i < numOfWindows; i++)
-		views[0]->drawVertex(v, color);
+
 }
 
 void WindowManager::halfToning(Geometry &geometries){
-	for ( int i = 0; i < numOfWindows; i++)
-		views[i]->halfToning(geometries);
+
 }
 
 void WindowManager::drawLineDDA(const Vector &v1, const Vector &v2, float const*color){
 
-	for ( int i = 0; i < numOfWindows - 1; i++){
-		if (views[i]->viewType == CABINET)
-			(dynamic_cast<Cabinet*>(views[i]))->drawLineDDA(v1, v2, color);
-		else if (views[i]->viewType == PERSP)
-			(dynamic_cast<CVM*>(views[i]))->drawLineDDA(v1, v2, color);
-	}
+
 }
 
 void WindowManager::drawLineBSH(const Vector &v1, const Vector &v2, float const*color){
@@ -147,31 +161,20 @@ void WindowManager::drawLine(const Vector &v1, const Vector &v2, float const*col
 	else 
 		drawLineBSH(v1, v2, color);
 }
-/*
-void WindowManager::drawLine( const std::vector<Vector> &vertexBuffer, float* color){
-	
-	for ( int i = 0; i < 4; i++)
-		views[i]->drawLine(vertexBuffer,color);
-
-}*/
-
 
 void WindowManager::setPix(const Vector* v,  float const* color){
 	
-	for ( int i = 0; i < 4; i++)
-		views[i]->setPix( v, color);
+
 }
 
 void WindowManager::setPix(const int& x, const int& y,  float const* color){
 
-	for ( int i = 0; i < 4; i++)
-		views[i]->setPix(x, y, color);
 }
 
 
 void WindowManager::keyboardHandler(const unsigned char &key, const int &x, const int &y)const{
 	keyboard->keyboardHandler(key, x, y);
-	((TextView*)views[TEXTVIEW])->updateWindow();
+    //((TextView*)views[TEXTVIEW])->updateWindow();
 }
 void WindowManager::keyboardReleaseHandler(const unsigned char &key, const int &x, const int &y)const{
 	keyboard->keyboardReleaseHandler(key, x, y);

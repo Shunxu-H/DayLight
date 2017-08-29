@@ -10,6 +10,7 @@
 extern Config progConfig; 
 extern Shader* shader;
 
+/*
 void Cabinet::updateWindow(){
 
 	glClear(GL_COLOR_BUFFER_BIT); 
@@ -71,3 +72,4 @@ void Cabinet::drawAxis(){
 
 	drawLineDDA(zMin, zMax, progConfig.COLOR_axis);
 }
+*/

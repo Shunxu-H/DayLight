@@ -29,6 +29,46 @@ extern std::shared_ptr<Curve> curveBuffer;
 extern WindowManager* winMan;
 
 
+CVM::CVM(QWidget *parent):View(parent){
+
+//    QDockWidget *dock = new QDockWidget(tr("Canvas"), this);
+//    dock->setWidget(new OGLWidget());
+}
+
+void CVM::initializeGL(){
+    glClearColor(0,0,0,1);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHTING);
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+    glEnable(GL_COLOR_MATERIAL);
+}
+
+void CVM::resizeGL(int w, int h){
+    glViewport(0,0,w,h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45, (float)w/h, 0.01, 100.0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(0,0,5,0,0,0,0,1,0);
+
+}
+
+void CVM::paintGL(){
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glBegin(GL_TRIANGLES);
+        glColor3f(1.0, 0.0, 0.0);
+        glVertex3f(-0.5, -0.5, 0);
+        glColor3f(0.0, 1.0, 0.0);
+        glVertex3f( 0.5, -0.5, 0);
+        glColor3f(0.0, 0.0, 1.0);
+        glVertex3f( 0.0,  0.5, 0);
+    glEnd();
+}
+
+/*
 CVM::CVM(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
 :View(vt,mainContext, loc_x, loc_y, window_width, window_height)
 { 
@@ -48,7 +88,17 @@ CVM::~CVM(){
 
 }
 
+void CVM::initializeGL(){
 
+}
+
+void CVM::resizeGL(int w, int h){
+
+}
+
+void CVM::paintGL(){
+
+}
 
 
 void CVM::drawLineDDA(Vector v1, Vector v2, const float *color){
@@ -216,7 +266,7 @@ void CVM::updateWindow(){
 	
 	glDrawPixels(width, height, GL_RGB, GL_FLOAT, PixelBuffer.get());
 	
-	glutPostRedisplay();
+    //glutPostRedisplay();
 }
 
 void CVM::reshapeWindow(const Vector& min, const Vector& max){
@@ -250,181 +300,11 @@ void CVM::drawOutline(const Face & face, const float * color){
 
 void CVM::fillPolygon(Geometry &geo){
 
-/*
-	if (&geo == nullptr)
-		return;
 
-	// sort faces
-	sort(geo.getFaces().begin(), geo.getFaces().end(),  
-		[&, this](const std::shared_ptr<Face> &f1, const std::shared_ptr<Face> &f2 ) -> bool{
-			//return f1 > f2;
-			return f1->getNormalVector()[getDeptAxis()] > 
-					f2->getNormalVector()[getDeptAxis()];
-		});
-
-
-	for (auto face: geo.getFaces()){
-		if(face->getNormalVector()[getDeptAxis()] < 0)
-			continue;
-
-		std::vector<std::pair<int, Vector>> bucket;
-		std::vector<int> prevBucket;
-		std::vector<AEL*> AELs = face->getAELs(pixelsPerUnit, coordLoc[X], coordLoc[Y], coordLoc[Z],axis1, axis2);
-		
-
-		// int looking = 1;
-		// for (int lineCnt = AELs[looking]->getY(); lineCnt > 0; lineCnt--){
-		// 	if (AELs[looking]->hasEnded(lineCnt))
-		// 		break;
-		// 	std::cout << interpolate(AELs[looking]->getY(), AELs[looking]->getLastY(), lineCnt, AELs[looking]->getC1(), AELs[looking]->getC2()) << std::endl;
-					 
-		// }
-		// exit(0);
-
-		if(AELs.size() <= 0)
-			return;
-		for (int lineCnt = AELs[0]->getY(); lineCnt > 0; lineCnt--){
-			for (unsigned int i = 0; i < AELs.size(); i++){
-				//std::cout << i << " " << std::endl;
-				AEL* ael = AELs[i]; 
-				if (lineCnt<=ael->getY())
-				{
-					bucket.push_back(
-						std::pair<int, Vector>(static_cast<int>(ael->next()), 
-										interpolate(AELs[i]->getY(), AELs[i]->getLastY(), lineCnt, AELs[i]->getC1(), AELs[i]->getC2())));
-					 // if (i == 1){
-
-					 // 	std::cout << interpolate(AELs[i]->getY(), AELs[i]->getLastY(), lineCnt, AELs[i]->getC1(), AELs[i]->getC2()) << std::endl;
-					 // }
-				}
-				else if (AELs.size() <= 0)
-					break;
-
-
-				if (ael->hasEnded(lineCnt)){
-					//bucket.push_back(static_cast<int>(ael->next()));
-					remove(&AELs, i);
-					lineCnt++;
-					bucket.clear();
-					break;
-				}
-			}
-			// this is sorted in descending order so I can use pop_back in the next while loop 
-			sort(bucket.begin(), bucket.end(), 
-				[](std::pair<int, Vector> p1, std::pair<int, Vector> p2 ){ 
-					return p1.first > p2.first;
-				});
-			
-			// drawPics
-			while(bucket.size() >= 2){
-				const std::pair<int, Vector>  & startPair = bucket[bucket.size() - 1];
-				const std::pair<int, Vector>  & endPair = bucket[bucket.size() - 2];
-
-				//std::cout << startPair.second << std::endl;
-				for ( int x_i = startPair.first; x_i <= endPair.first; x_i++ ){
-					//Vector firstColor = interpolate(startPair.getY(), startPair.getLastY(), lineCnt, startPair.getC1(), startPair.getC2());
-					//Vector secondColor = interpolate(endPair.getY(), endPair.getLastY(), lineCnt, endPair.getC1(), endPair.getC2());
-					setPix(x_i, lineCnt, //
-
-						static_cast<Matrix>(
-						interpolate(startPair.first, endPair.first, x_i, startPair.second, endPair.second)
-
-						)[0] );
-				}
-				bucket.pop_back();
-				bucket.pop_back();
-			}
-
-			bucket.clear();
-		}
-		if (progConfig.showEdge == true)
-			drawOutline(*face, Color().DGREY);
-	}
-*/
 }
 
 void CVM::halfToning(Geometry &geo){
-/*
 
-	if (&geo == nullptr)
-		return;
-
-	// sort faces
-	sort(geo.getFaces().begin(), geo.getFaces().end(),  
-		[&, this](const std::shared_ptr<Face> &f1, const std::shared_ptr<Face> &f2 ) -> bool{
-			//return f1 > f2;
-			return f1->getNormalVector()[getDeptAxis()] > 
-					f2->getNormalVector()[getDeptAxis()];
-		});
-
-
-	for (auto face: geo.getFaces()){
-		if(face->getNormalVector()[getDeptAxis()] < 0)
-			continue;
-
-		std::vector<std::pair<int, Vector>> bucket;
-		std::vector<int> prevBucket;
-		std::vector<AEL*> AELs = face->getAELs(pixelsPerUnit, coordLoc[X], coordLoc[Y], coordLoc[Z],axis1, axis2);
-		
-
-
-		if(AELs.size() <= 0)
-			return;
-		for (int lineCnt = AELs[0]->getY(); lineCnt > 0; lineCnt -= 3){
-			for (unsigned int i = 0; i < AELs.size(); i++){
-				//std::cout << i << " " << std::endl;
-				AEL* ael = AELs[i]; 
-				if (lineCnt<=ael->getY())
-				{
-
-					ael->next();
-					ael->next();
-					bucket.push_back(
-						std::pair<int, Vector>(static_cast<int>(ael->next()), 
-										interpolate(AELs[i]->getY(), AELs[i]->getLastY(), lineCnt, AELs[i]->getC1(), AELs[i]->getC2())));
-					 // if (i == 1){
-
-					 // 	std::cout << interpolate(AELs[i]->getY(), AELs[i]->getLastY(), lineCnt, AELs[i]->getC1(), AELs[i]->getC2()) << std::endl;
-					 // }
-				}
-				else if (AELs.size() <= 0)
-					break;
-
-
-				if (ael->hasEnded(lineCnt)){
-					//bucket.push_back(static_cast<int>(ael->next()));
-					remove(&AELs, i);
-					lineCnt+=3;
-					bucket.clear();
-					break;
-				}
-			}
-			// this is sorted in descending order so I can use pop_back in the next while loop 
-			sort(bucket.begin(), bucket.end(), 
-				[](std::pair<int, Vector> p1, std::pair<int, Vector> p2 ){ 
-					return p1.first > p2.first;
-				});
-			
-			// drawPics
-			while(bucket.size() >= 2){
-				const std::pair<int, Vector>  & startPair = bucket[bucket.size() - 1];
-				const std::pair<int, Vector>  & endPair = bucket[bucket.size() - 2];
-
-				//std::cout << startPair.second << std::endl;
-				for ( int x_i = startPair.first; x_i <= endPair.first; x_i+=3 ){
-					Vector c ( interpolate(startPair.first, endPair.first, x_i, startPair.second, endPair.second));
-//std::cout << c << std::endl;
-					setMagaPix(getMagePixel(c), x_i, lineCnt);
-
-				}
-				bucket.pop_back();
-				bucket.pop_back();
-			}
-
-			bucket.clear();
-		}
-	}
-	*/
 }
 
 
@@ -483,3 +363,4 @@ void CVM::rayTrace(){
 	}
 
 }
+*/

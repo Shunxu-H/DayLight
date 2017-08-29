@@ -4,6 +4,10 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <glm/vec3.hpp> // glm::vec3
+#include <glm/vec4.hpp> // glm::vec4
+#include <glm/mat4x4.hpp> // glm::mat4
+#include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspectiv
 #include "Vector.h"
 #include "AEL.h"
 #include "Object.h"
@@ -27,7 +31,12 @@ public:
 	Geometry(const Geometry&);
 	~Geometry();
 
-	inline void pop(){vertices.pop_back();};
+    void addVertex(const glm::vec3 & v);
+    void addFace(const Face & f);
+    void addVu(const glm::vec2& uv);
+    void addNormal(const glm::vec3& n);
+
+    inline void pop(){vertices.pop_back();}
 	inline bool isType(UnitType _t) const { return _t == unitType; }
 	inline unsigned int size() const { return vertices.size(); }
 	
@@ -36,7 +45,7 @@ public:
 	virtual void draw(float const*)const;
 	void drawNormal()const;
 	std::string save()const;
-	void insert(std::shared_ptr<Vector> v){};
+    void insert(std::shared_ptr<Vector> v){}
 
 
 	void transpose();
@@ -58,7 +67,7 @@ public:
 	std::shared_ptr<Vector> nGetV(const unsigned int& index);
 
 	Vector getNormalVector(const Vector& v)const;
-	std::vector<std::shared_ptr<Face>>& getFaces(){ return faces;}
+    //std::vector<std::shared_ptr<Face>>& getFaces(){ return faces;}
 
 	float getMaxX()const;
 	float getMinX()const;
@@ -69,7 +78,7 @@ public:
 
 	void computeColors(const Vector & lightSource, const Vector &viewPtr);
 	std::vector<Vector> getColors(const Face & face)const ;
-	std::vector<Vector> getColors()const{ return colors; } ;
+    std::vector<Vector> getColors()const{ return colors; }
 
 	float getHighestColor()const;
 
@@ -85,13 +94,19 @@ public:
 	Vector getNormal(const Vector & v)const;
 	
 private:
+    std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
+    std::vector< glm::vec3 > vertices;
+    std::vector< glm::vec2 > uvs;
+    std::vector< glm::vec3 > normals;
+    std::vector< Face > faces;
+
 	void toPXLPOS(const float& pixelUnit, const float& w_x, const float& w_y, const float& w_z);
 	UnitType unitType;
 	Vector centroid;
-	std::vector<std::shared_ptr<Vector>> vertices;
+    //std::vector<std::shared_ptr<Vector>> vertices;
 	std::vector<Vector> colors;
-	std::vector<std::shared_ptr<Edge>> edges;
-	std::vector<std::shared_ptr<Face>> faces;
+    //std::vector<std::shared_ptr<Edge>> edges;
+    //std::vector<std::shared_ptr<Face>> faces;
 
 	void clipUP(const float&);
 	void clipDOWN(const float&);
