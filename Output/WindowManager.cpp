@@ -3,6 +3,7 @@
 #include <iostream>
 #include <QDesktopWidget>
 #include <QDockWidget>
+#include <experimental/filesystem>
 #include "oglwidget.h"
 #include "WindowManager.h"
 #include "Keyboard.h"
@@ -15,23 +16,25 @@
 #include "CVM.h"
 
 extern Config progConfig;
-extern Shader* shader;
 
 void update();
 void keyboardHandler(unsigned char key, int x, int y);
 void keyboardReleaseHandler(unsigned char key, int x, int y);
 
+namespace Lumos {
+
 
 int MARGIN = 20;
 
 WindowManager::WindowManager(QWidget *parent)
-    :QMainWindow(parent)
+    :QMainWindow(parent),
+     gProgram( nullptr )
      //ui(new Ui::WindowManager)
 {
 
     // Initialize Ui
     //ui->setupUi(this);
-    resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
+    resize( INITIAL_WIN_SIZE[0], INITIAL_WIN_SIZE[1] );
 
 
     QDockWidget *dock = new QDockWidget(tr("Canvas"), this);
@@ -40,60 +43,41 @@ WindowManager::WindowManager(QWidget *parent)
     addDockWidget(Qt::LeftDockWidgetArea, dock);
 
     // load Object
-    shader.loadFile();
-
+    // shader.loadFile();
 
 }
 
-
-
-WindowManager::WindowManager(int argc, char** argv, const std::string& title, int window_width, int window_height){
-	mainWindowWidth = window_width;
-	mainWindowHeight = window_height;
-	numOfWindows = 2;
-
-    //glutInit(&argc, argv);
-    //glutInitDisplayMode(GLUT_SINGLE);
-
-	//set window size to 200*200 
-    //glutInitWindowSize(window_width*2 + 3*MARGIN, window_height + 2*MARGIN);
-
-	//set window position 
-    //glutInitWindowPosition(400, 200);
-	//create and set main window title 
-    //mainWindowContex = glutCreateWindow(title.c_str());
-    //glutDisplayFunc(::update);
-
-    //glClear(GL_COLOR_BUFFER_BIT);
-
-
-	views = new View*[numOfWindows];
-
-    //views[0] 	= new CVM (PERSP, mainWindowContex, MARGIN, 					MARGIN, window_width, window_height);
-    //views[1] 	= nullptr;// new TextView 	(TEXTVIEW, mainWindowContex, window_width + MARGIN*2, MARGIN, window_width, window_height);
-    //views[2]    = nullptr;views[3] = nullptr;
-	//viewss[4] = new views(mainWindowContex, 0, 0, window_width, window_height);
-
-
-
-    //glClearColor(0, 0, 0, 0);
-	//clears the buffer of OpenGL //sets views function 
-}
 
 WindowManager::~WindowManager(){
-	if (views != nullptr){
-        for (int i = 0; i < 0; i++)
-			delete (views[i]);
-        //delete[] (views);
-	}
+
 }
 
-WindowManager::WindowManager(const WindowManager& rhs){
-	mainWindowWidth = rhs.mainWindowWidth;
-	mainWindowHeight = rhs.mainWindowHeight;
-	views = rhs.views;
-	mainWindowContex = rhs.mainWindowContex;
+void WindowManager::setUpProgram( const std::string & shaderDir ){
+    std::vector<Lumos::Shader> shaders;
+
+    {
+        namespace fs = std::experimental::filesystem;
+
+        for (const auto & p : fs::directory_iterator(shaderDir))
+        {
+
+            //std::cout << fs::path(p).extension() << std::endl;
+            if ( std::string( fs::path(p).extension() ).compare(".vert") == 0 )
+                shaders.push_back(Shader::readFromFile( fs::path( p ), GL_VERTEX_SHADER ));
+            else if ( std::string( fs::path(p).extension() ).compare(".frag") == 0 )
+                shaders.push_back(Shader::readFromFile( fs::path( p ), GL_FRAGMENT_SHADER ));
+        }
+
+    }
+    gProgram = new Program(shaders);
+
 }
+
+void WindowManager::setUpProgram( const std::vector<Lumos::Shader> & shader ){
+
+}
+
+
 
 void WindowManager::updateWindow(const int & winID){
 /*
@@ -173,11 +157,11 @@ void WindowManager::setPix(const int& x, const int& y,  float const* color){
 
 
 void WindowManager::keyboardHandler(const unsigned char &key, const int &x, const int &y)const{
-	keyboard->keyboardHandler(key, x, y);
+//	keyboard->keyboardHandler(key, x, y);
     //((TextView*)views[TEXTVIEW])->updateWindow();
 }
 void WindowManager::keyboardReleaseHandler(const unsigned char &key, const int &x, const int &y)const{
-	keyboard->keyboardReleaseHandler(key, x, y);
+    //keyboard->keyboardReleaseHandler(key, x, y);
 }
 
 
@@ -190,11 +174,13 @@ int WindowManager::getWindowID(View* d) {
 }
 
 View* WindowManager::operator[](const int& windowID)const { 
-	for ( int i = 0; i < numOfWindows; i++) 
+/*
+    for ( int i = 0; i < numOfWindows; i++)
 		if (views[i]->windowContext == windowID) 
 			return views[i];  
 
 	return nullptr; 
+    */
 }
 
-
+}

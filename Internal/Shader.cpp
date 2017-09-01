@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <memory>
 #include <QDebug>
+#include "GLObject.h"
 #include "Shader.h"
 #include "Config.h"
 #include "OrthoView.h"
@@ -27,6 +28,9 @@ extern Config progConfig;
 extern std::vector<std::shared_ptr<Vector>> vertexBuffer;
 extern WindowManager* winMan;
 
+namespace Lumos {
+
+
 
 Shader::Shader(const std::string& file){
 	lightSource = Vector(0.0f, 20.0f, 0.0f);
@@ -36,9 +40,89 @@ Shader::Shader(const std::string& file){
 	rotationVector = Edge( std::shared_ptr<Vector>(new Vector(0.0f, 0.0f, 0.0f)) , std::shared_ptr<Vector>(new Vector(1.0f, 1.0f, 1.0f)));
 }
 
-Shader::~Shader(){
+
+Shader::Shader( const Shader & other )
+                : _refCount( other._refCount )
+{
+    _retain();
 }
 
+Shader& Shader::operator = (const Shader & other ){
+    _release();
+    _glObjId = other._glObjId;
+    _refCount = other._refCount;
+    _retain();
+    return *this;
+}
+
+Shader::Shader(const std::string & shaderCode, const GLenum & shaderType):_refCount( nullptr ){
+    _glObjId = glCreateShader( shaderType );
+
+    if ( _glObjId == 0 )
+        throw std::runtime_error( "glCreateShader failed");
+
+    // link code
+    const char * code = shaderCode.c_str();
+    glShaderSource( _glObjId, 1, &code, nullptr );
+
+    // compile
+    glCompileShader( _glObjId );
+
+    // error checking
+    GLint status;
+    glGetShaderiv( _glObjId, GL_COMPILE_STATUS, &status );
+
+    if( status == GL_FALSE ){
+        std::string msg("Compile failure in shader:\n");
+
+        GLint infoLogLength;
+        glGetShaderiv(_glObjId, GL_INFO_LOG_LENGTH, &infoLogLength);
+        char* strInfoLog = new char[infoLogLength + 1];
+        glGetShaderInfoLog(_glObjId, infoLogLength, NULL, strInfoLog);
+        msg += strInfoLog;
+        delete[] strInfoLog;
+
+        glDeleteShader(_glObjId); _glObjId = 0;
+        throw std::runtime_error(msg);
+    }
+
+    _refCount = new unsigned;
+    *_refCount = 1;
+}
+
+Shader::~Shader(){
+    if( _refCount ) _release();
+}
+
+void Shader::_retain(){
+    assert( _refCount );
+    *_refCount += 1;
+
+}
+
+void Shader::_release(){
+    assert( _refCount && *_refCount > 0);
+    *_refCount -= 1;
+    if(*_refCount == 0){ // delete pointer if nothing pointing to THIS
+        glDeleteShader(_glObjId); _glObjId = 0;
+        delete _refCount; _refCount = NULL;
+    }
+}
+
+Shader Shader::readFromFile(const std::string & fileName, const GLenum & shaderType ){
+    std::ifstream f (fileName.c_str());
+
+    if( !f.is_open() ){
+        throw std::runtime_error( "Failed to open shader file: " + fileName  );
+    }
+
+    std::stringstream buffer;
+    buffer << f.rdbuf();
+
+    // construct shader and return
+    return Shader(buffer.str(), shaderType);
+
+}
 
 
 void Shader::addObj( std::shared_ptr<Object> newObj ){
@@ -183,6 +267,7 @@ void Shader::loadFile (const std::string& _fileName){
 			newC->setResolution(std::atoi(tokens.front().c_str()));
 			tokens.pop_front();
 
+
 			int uCnt = std::atoi(tokens.front().c_str());
 			tokens.pop_front();
 			std::vector<float> uVector;
@@ -215,66 +300,11 @@ void Shader::loadFile (const std::string& _fileName){
 
 	// // if( size() > 0)
 	// 	winMan->reshapeWindows();
-	drawAll();
+    //drawAll();
 
 }
 
 
-bool Shader::loadFile_obj(const std::string & f_name){
-    FILE * file = fopen(f_name.c_str(), "r");
-    if( file == NULL ){
-        printf("Faild To Open File\n");
-        return false;
-    }
-
-
-    char lineHeader[128];
-    int res;
-    Geometry newGeo;
-
-
-    while (true){
-        res = fscanf(file, "%s", lineHeader);
-
-        if (res = EOF)
-            break;
-
-        // do the parsing here
-        // parsing vertex
-        if( strcmp( lineHeader, "v") == 0){
-            glm::vec3 vertex;
-            fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z );
-            newGeo.addVertex(vertex);
-        }
-        else if ( strcmp( lineHeader, "vt" ) == 0 ){
-            glm::vec2 uv;
-            fscanf(file, "%f %f\n", &uv.x, &uv.y );
-            newGeo.addVu(uv);
-        }
-        else if ( strcmp( lineHeader, "vn" ) == 0 ){
-            glm::vec3 normal;
-            fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z );
-            newGeo.addNormal(normal);
-        }
-        else if ( strcmp( lineHeader, "f" ) == 0 ){
-            Face newF;
-            std::string vertex1, vertex2, vertex3;
-            unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-            int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n",
-                                    &vertexIndex[0], &uvIndex[0], &normalIndex[0],
-                                    &vertexIndex[1], &uvIndex[1], &normalIndex[1],
-                                    &vertexIndex[2], &uvIndex[2], &normalIndex[2] );
-            if (matches != 9){
-                printf("File can't be read by our simple parser : ( Try exporting with other options\n");
-                return false;
-            }
-            newF.setVertexIndeces(vertexIndex[0],vertexIndex[1],vertexIndex[2]);
-            newF.setUvIndeces(uvIndex[0],uvIndex[1],uvIndex[2]);
-            newF.setNormalIndeces(normalIndex[0],normalIndex[1],normalIndex[2]);
-        }
-    }
-
-}
 
 std::shared_ptr<Object> Shader::getCurSelection()const{
 	return curSelection;
@@ -479,7 +509,8 @@ void Shader::print()const{
 
 
 void Shader::drawLight()const{
-	Vector dir[27];
+/*
+    Vector dir[27];
 
 	for (int i = -1; i <= 1; i++){
 		for (int j = -1; j <= 1; j++){
@@ -488,6 +519,7 @@ void Shader::drawLight()const{
 			}
 		}
 	}
+    */
 }
 
 void Shader::moveLight(const Vector& newPos){
@@ -711,4 +743,6 @@ std::pair<Vector, std::shared_ptr<const Object>> Shader::getIntersection(const L
 		});
 
 	return found[0];
+}
+
 }

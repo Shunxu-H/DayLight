@@ -77,3 +77,8 @@ std::shared_ptr<int> generateUniqeInt(const int& numOfE){
 
 	return ret;
 }
+
+
+void logOpenGLError(){
+
+}

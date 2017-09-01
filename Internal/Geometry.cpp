@@ -11,21 +11,16 @@ TO DO:
 #include <algorithm>
 #include <memory>
 #include <limits>
-#include <GL/gl.h>
-#include <GL/glu.h>
+#include "GL_include.h"
 #include <GL/glext.h>
 #include "Geometry.h"
 #include "Config.h"
 #include "AEL.h"
-#include "Shader.h"
-#include "Matrix.h"
 #include "WindowManager.h"
 #include "Edge.h"
 #include "Face.h"
 #include "Object.h"
 //extern OrthoView* OrthoView;
-extern WindowManager* winMan;
-extern Shader* shader;
 extern Config progConfig;
 
 
@@ -50,27 +45,33 @@ Geometry::~Geometry(){
 }
 
 
-void Geometry::addVertex(const glm::vec3 & v){
-    vertices.push_back(v);
+
+size_t Geometry::copyVertexData( const size_t & initPos )const{
+    glBufferSubData( GL_ARRAY_BUFFER, initPos,
+                     sizeof(point4)*numOfVertices(),  &(_vertices[0]) );
+    return numOfVertices();
+}
+
+void Geometry::addVertex(const point4 & v){
+    _vertices.push_back(v);
 }
 
 void Geometry::addFace(const Face &f){
-    faces.push_back(f);
+    _faces.push_back(f);
 }
 
 
 void Geometry::addVu(const glm::vec2& uv){
-    uvs.push_back(uv);
+    _uvs.push_back(uv);
 }
 
 void Geometry::addNormal(const glm::vec3& n){
-    normals.push_back(n);
+    _normals.push_back(n);
 }
 
 
 
 int Geometry::getID()const{
-	return shader->geoGetN(this);
 	
 }
 
@@ -218,8 +219,6 @@ std::shared_ptr<Vector> Geometry::nGetV(const unsigned int& index){
 void Geometry::draw(float const* color)const
 {
     const int NumVertices = 36;
-    typedef glm::vec4 point4;
-    typedef glm::vec4 color4;
 
 
     point4 vPositions[NumVertices];
@@ -279,6 +278,8 @@ void Geometry::draw(float const* color)const
     glBufferSubData( GL_ARRAY_BUFFER, sizeof(vPositions),
                      sizeof(vColors), vColors);
 
+    //GLuint vPosition =
+     //       glGetAttribLocation( program);
 
 }
 

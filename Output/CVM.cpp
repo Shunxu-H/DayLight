@@ -23,7 +23,7 @@
 #include "Line.h"
 
 extern Config progConfig; 
-extern Shader* shader;
+extern Lumos::Shader* shader;
 extern std::vector<std::shared_ptr<Vector>> vertexBuffer;
 extern std::shared_ptr<Curve> curveBuffer;
 extern WindowManager* winMan;
@@ -58,6 +58,9 @@ void CVM::resizeGL(int w, int h){
 void CVM::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    //glDrawArrays( GL_TRIANGLES, 0, NumOfVertices);
+
+    //swapBuffer();
     glBegin(GL_TRIANGLES);
         glColor3f(1.0, 0.0, 0.0);
         glVertex3f(-0.5, -0.5, 0);

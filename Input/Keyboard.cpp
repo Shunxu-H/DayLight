@@ -18,7 +18,7 @@ TO DO:
 #include "Utility.h"
 #include "Curve.h"
 
-
+using namespace Lumos;
 extern Config progConfig;
 extern Shader *shader;
 extern WindowManager* winMan;
@@ -50,7 +50,7 @@ std::vector<std::string> menu = { "'1' to draw with DDA",
 					  "'ESCAPE' to go back to DRAW mode"};
 
 
-
+/*
 void Keyboard::keyboardHandler(unsigned char key, int x, int y){
 
 	std::cout << "pressed " << key << std::endl;
@@ -489,3 +489,4 @@ void Keyboard::moveView(std::deque<std::string>& tokens)const{
 	shader->moveView(Vector( data[0], data[1], data[2] ));
 
 }
+*/

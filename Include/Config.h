@@ -4,6 +4,8 @@
 #include "Color.h"
 class Geometry;
 
+const int INITIAL_WIN_SIZE[] = {500, 500};
+
 enum CurveType {
 	BEZIER,
 	BSPLINE

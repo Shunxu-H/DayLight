@@ -139,7 +139,7 @@ void Vector::transform(const Matrix& tm)
 }
 
 void Vector::draw(float const * color)const{
-	winMan->drawVertex(*this, color);
+//	winMan->drawVertex(*this, color);
 }
 
 Vector Vector::operator*(const float& n)const { 

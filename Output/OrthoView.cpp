@@ -22,7 +22,7 @@
 #include "WindowManager.h"
 
 extern Config progConfig; 
-extern Shader* shader;
+extern Lumos::Shader* shader;
 extern std::vector<std::shared_ptr<Vector>> vertexBuffer;
 extern std::shared_ptr<Curve> curveBuffer;
 extern WindowManager* winMan;

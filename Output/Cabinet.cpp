@@ -8,7 +8,7 @@
 #include "Mouse.h"
 
 extern Config progConfig; 
-extern Shader* shader;
+extern Lumos::Shader* shader;
 
 /*
 void Cabinet::updateWindow(){

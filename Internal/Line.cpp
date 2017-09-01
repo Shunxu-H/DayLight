@@ -4,8 +4,6 @@
 #include "Shader.h"
 #include "Config.h"
 
-extern WindowManager* winMan;
-extern Shader* shader;
 extern Config progConfig;
 
 
@@ -25,5 +23,5 @@ void Line::normalize(){
 }
 
 void Line::draw(float const* color)const{
-	winMan->drawLine(origin, velocity, color);
+    //winMan->drawLine(origin, velocity, color);
 }

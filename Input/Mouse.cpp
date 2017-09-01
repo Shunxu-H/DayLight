@@ -22,7 +22,7 @@ extern WindowManager* winMan;
 extern Config progConfig;
 extern std::vector<std::shared_ptr<Vector>> vertexBuffer;
 extern std::shared_ptr<Curve> curveBuffer;
-extern Shader* shader;
+extern Lumos::Shader* shader;
 
 #define _USE_MATH_DEFINES
 /*

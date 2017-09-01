@@ -48,8 +48,8 @@ public:
 	inline float getReflectionCoefficient()const{return reflectionCoefficient;}
 	inline float getRefractionCoefficient()const{return refractionCoefficient;}
 	
-	inline float getReflectionCoefficient(const float & n){ reflectionCoefficient = n;}
-	inline float getRefractionCoefficient(const float & n){ refractionCoefficient = n;}
+    inline void setReflectionCoefficient(const float & n){ reflectionCoefficient = n;}
+    inline void setRefractionCoefficient(const float & n){ refractionCoefficient = n;}
 	
 
 	friend std::ostream& operator<< (std::ostream& stream, Object const* obj);

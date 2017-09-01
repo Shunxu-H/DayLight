@@ -8,7 +8,10 @@ QT       += opengl core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-LIBS += -lglut -lGL -lGLU
+unix{
+    LIBS += -lstdc++fs
+    LIBS += -lglut -lGL -lGLU
+}
 
 TARGET = DayLight
 TEMPLATE = app
@@ -51,7 +54,10 @@ SOURCES += main.cpp\
     Utility/Config.cpp \
     Utility/Matrix.cpp \
     Utility/Utility.cpp \
-    Output/WindowManager.cpp
+    Output/WindowManager.cpp \
+    Internal/Program.cpp \
+    Internal/Shaper.cpp \
+    Internal/Countable.cpp
 
 HEADERS  += mainwindow.h \
     oglwidget.h \
@@ -77,7 +83,22 @@ HEADERS  += mainwindow.h \
     Include/Utility.h \
     Include/Vector.h \
     Include/View.h \
-    Include/WindowManager.h
+    Include/WindowManager.h \
+    Include/Program.h \
+    Include/GLObject.h \
+    Include/Shaper.h \
+    Include/GL_include.h \
+    Include/Countable.h
 
 FORMS    += mainwindow.ui \
     windowmanager.ui
+
+DISTFILES += \
+    Shader/shader.frag \
+    Shader/shader.vert \
+    Shader/rotate.NONE \
+    GLSL/rotate.NONE \
+    GLSL/shader.frag \
+    GLSL/shader.vert \
+    data/3d.gmt \
+    data/cube.obj

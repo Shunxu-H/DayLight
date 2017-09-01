@@ -58,4 +58,5 @@ int numOfSlotFilled(int* a, const int& len);
 
 std::shared_ptr<int> generateUniqeInt(const int& numOfE);
 
+void logOpenGLError();
 #endif

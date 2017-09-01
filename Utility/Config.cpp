@@ -4,7 +4,6 @@
 #include "Shader.h"
 
 
-extern Shader* shader;
 
 Config::Config()
 {
@@ -34,5 +33,5 @@ Config::Config()
 
 
 bool Config::isValidSelection(){
-	return shader->nGetGeo(curSelected) != nullptr;
+    //return shader->nGetGeo(curSelected) != nullptr;
 }		

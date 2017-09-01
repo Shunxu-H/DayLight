@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include "GL_include.h"
 #include <glm/vec3.hpp> // glm::vec3
 #include <glm/vec4.hpp> // glm::vec4
 #include <glm/mat4x4.hpp> // glm::mat4
@@ -31,14 +32,25 @@ public:
 	Geometry(const Geometry&);
 	~Geometry();
 
-    void addVertex(const glm::vec3 & v);
+    void addVertex(const point4 & v);
     void addFace(const Face & f);
     void addVu(const glm::vec2& uv);
     void addNormal(const glm::vec3& n);
 
-    inline void pop(){vertices.pop_back();}
+    inline int
+        getNumOfVertices() const { return _vertices.size(); }
+
+    /**
+     * @brief copyVertices copy all the vec3 ( vertices ) to mem, designed this way so mem can be passed directly to OpenGL
+     * @param mem trunk of memory that will be used to hold all the vertices
+     * @param initPos the starting position where the data will be copied to
+     * @return the number of point4 copied to openGL
+     */
+    size_t copyVertexData( const size_t & initPos )const;
+
+
 	inline bool isType(UnitType _t) const { return _t == unitType; }
-	inline unsigned int size() const { return vertices.size(); }
+    inline size_t numOfVertices() const { return _vertices.size(); }
 	
 	int getID()const;
 	void clear();
@@ -87,18 +99,20 @@ public:
 	friend std::ostream& operator<< (std::ostream& stream, const Geometry& matrix);
 	void print();
 
-	void selectVertices(const Vector & v1, const Vector & v2){};
+    void selectVertices(const Vector & v1, const Vector & v2){}
 
 
 	std::shared_ptr<Vector> getIntersection(const Line & line)const;
 	Vector getNormal(const Vector & v)const;
 	
 private:
-    std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
-    std::vector< glm::vec3 > vertices;
-    std::vector< glm::vec2 > uvs;
-    std::vector< glm::vec3 > normals;
-    std::vector< Face > faces;
+    std::vector< unsigned int > _vertexIndices, _uvIndices, _normalIndices;
+    std::vector< point4 > _vertices;
+    std::vector< glm::vec2 > _uvs;
+    std::vector< glm::vec3 > _normals;
+    std::vector< Face > _faces;
+
+
 
 	void toPXLPOS(const float& pixelUnit, const float& w_x, const float& w_y, const float& w_z);
 	UnitType unitType;

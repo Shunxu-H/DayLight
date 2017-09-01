@@ -5,9 +5,9 @@
 #include "Config.h"
 #include "Shader.h"
 
-extern WindowManager* winMan;
+//extern WindowManager* winMan;
 extern Config progConfig;
-extern Shader* shader;
+//extern Lumos::Shader* shader;
 
 Curve::Curve():Object(CURVE){
 	curveType = BSPLINE;
@@ -44,6 +44,7 @@ Vector Curve::getBezierHandle(const float & t)const{
 }
 
 void Curve::draw(float const * color)const{
+    /*
 	float* c_hlPoint;
 	float* c_regPoint;
 	float* c_curve;
@@ -83,9 +84,11 @@ void Curve::draw(float const * color)const{
 			v->draw(c_hlPoint);
 	}
 
+    */
 }
 
 void Curve::drawBezier(const float * const c_curve)const{
+    /*
 	float t = 0;
 
 	std::vector<Vector> points; 
@@ -100,6 +103,7 @@ void Curve::drawBezier(const float * const c_curve)const{
 	{
 		winMan->drawLine(points[i], points[i+1], c_curve);
 	}
+    */
 }
 
 Vector Curve::getSplinepoint(const float & t)const{
@@ -144,6 +148,7 @@ Vector Curve::getSplinepoint(const float & t)const{
 }
 
 void Curve::drawBSpline(const float * const c_curve)const{
+    /*
 	if( k < 1)
 		return;
 	if(vertices.size() < k + 1)
@@ -166,6 +171,7 @@ void Curve::drawBSpline(const float * const c_curve)const{
 	{
 		winMan->drawLine(points[i], points[i+1], c_curve);
 	}
+    */
 }
 
 
@@ -351,6 +357,7 @@ void Curve::insert(std::shared_ptr<Vector> v){
 
 
 void Curve::deleteVertices(){
+    /*
 	if (selectedVertices.size() <= 0)
 		return;
 	for (auto v: selectedVertices){
@@ -359,6 +366,7 @@ void Curve::deleteVertices(){
 	}
 	if(vertices.size() == 0)
 		shader->deleteObj(this);
+        */
 }
 
 

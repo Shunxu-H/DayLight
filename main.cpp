@@ -8,8 +8,7 @@
 #include "Curve.h"
 
 Config progConfig;
-Shader *shader;
-WindowManager* winMan;
+Lumos::Shader *shader;
 std::vector<std::shared_ptr<Vector>> vertexBuffer;
 std::shared_ptr<Curve> curveBuffer;
 
@@ -17,9 +16,9 @@ int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
-    WindowManager winMan{};
-
+    Lumos::WindowManager winMan{};
     winMan.show();
+    winMan.setUpProgram("/home/shunxu/QtProj/DayLight/GLSL");
 
     return a.exec();
 }

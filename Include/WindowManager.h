@@ -8,7 +8,9 @@
 #include <QMainWindow>
 #include <vector>
 #include <memory>
+#include "Program.h"
 #include "Shader.h"
+#include "Config.h"
 
 class View;
 class Vector;
@@ -22,63 +24,71 @@ namespace Ui {
 }
 QT_END_NAMESPACE
 
-class Keyboard;
-class WindowManager: public QMainWindow
-{
-    Q_OBJECT
-public:
-    WindowManager(QWidget *parent = nullptr);
-	WindowManager(int argc, char** argv, const std::string& title, int window_width, int window_height);
-	WindowManager(const WindowManager&);
-    virtual ~WindowManager();
+namespace Lumos {
+    class Keyboard;
+    class WindowManager: public QMainWindow
+    {
+        Q_OBJECT
+    public:
+        // Disable copy constructor
+        WindowManager( const WindowManager& ) = delete;
+        // Disable assignment operator
+        WindowManager& operator = ( const WindowManager& ) = delete;
 
-	inline int getHeight()const{return mainWindowHeight;}
-	inline int getwidth()const{return mainWindowWidth;}
-	void updateWindow(const int & winID);
+        WindowManager(QWidget *parent = nullptr);
+        virtual ~WindowManager();
 
-	void setPix(const Vector*, float const*);
-	void setPix(const int&, const int&, float const*);
-	
-	void fillPolygon(Geometry &geometries, const float*);
+        void setUpProgram( const std::string & shaderDir );
+        void setUpProgram( const std::vector<Shader> & shader );
 
-	void fillPolygons(std::vector<std::shared_ptr<Geometry>> &geos);
-	void halfToning(Geometry &geometries);
+        inline int getHeight()const{return mainWindowHeight;}
+        inline int getwidth()const{return mainWindowWidth;}
+        void updateWindow(const int & winID);
 
-	void drawLine(const Vector &v1, const Vector &v2, float const*);
-	void drawLine( const std::vector<Vector> &vertexBuffer, float*);
+        void setPix(const Vector*, float const*);
+        void setPix(const int&, const int&, float const*);
 
-	View* operator[](const int& windowID)const;
-	int getWindowID(View* d);
+        void fillPolygon(Geometry &geometries, const float*);
 
-	void keyboardHandler(const unsigned char &key, const int &x, const int &y)const;
-	void keyboardReleaseHandler(const unsigned char &key, const int &x, const int &y)const;
+        void fillPolygons(std::vector<std::shared_ptr<Geometry>> &geos);
+        void halfToning(Geometry &geometries);
 
-	//void reshapeWindows();
+        void drawLine(const Vector &v1, const Vector &v2, float const*);
+        void drawLine( const std::vector<Vector> &vertexBuffer, float*);
 
-	void drawVertex(const Vector & v, float const *);
-protected:
+        View* operator[](const int& windowID)const;
+        int getWindowID(View* d);
 
+        void keyboardHandler(const unsigned char &key, const int &x, const int &y)const;
+        void keyboardReleaseHandler(const unsigned char &key, const int &x, const int &y)const;
 
-private:
+        //void reshapeWindows();
 
-    Ui::WindowManager *ui;
-
-	int numOfWindows;
-	int mainWindowWidth;
-	int mainWindowHeight;
-	View** views;
-	Keyboard* keyboard;
-    int mainWindowContex;
-
-    Shader shader;
-
-	void drawLineDDA(const Vector &v1, const Vector &v2, float const*);
-	void drawLineBSH(const Vector &v1, const Vector &v2, float const*);
-
-};
+        void drawVertex(const Vector & v, float const *);
+    protected:
 
 
+    private:
 
+        Ui::WindowManager *ui;
+
+        int numOfWindows;
+        int mainWindowWidth;
+        int mainWindowHeight;
+        View** views;
+        Keyboard* keyboard;
+        int mainWindowContex;
+
+        Shader shader;
+        Program *gProgram;
+
+        void drawLineDDA(const Vector &v1, const Vector &v2, float const*);
+        void drawLineBSH(const Vector &v1, const Vector &v2, float const*);
+
+    };
+
+
+}
 
 
 	#endif

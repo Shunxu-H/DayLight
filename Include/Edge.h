@@ -8,7 +8,7 @@ class Edge{
 public:
 	Edge(){};
 	Edge(const Edge& e);
-	inline Edge(std::shared_ptr<Vector> h, std::shared_ptr<Vector> t):head(h), tail(t){};
+    inline Edge(std::shared_ptr<Vector> h, std::shared_ptr<Vector> t):head(h), tail(t){}
 	inline std::shared_ptr<Vector> getHead()const {return head;}
 	inline std::shared_ptr<Vector> getTail()const {return tail;}
 	

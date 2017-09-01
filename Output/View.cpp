@@ -22,8 +22,7 @@
 #include "Face.h"
 
 
-extern Config progConfig; 
-extern Shader* shader;
+extern Config progConfig;
 extern std::vector<std::shared_ptr<Vector>> vertexBuffer;
 
 Keyboard View::keyboard;

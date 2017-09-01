@@ -5,8 +5,7 @@
 #include "Shader.h"
 #include "Config.h"
 
-extern WindowManager* winMan;
-extern Shader* shader;
+extern Lumos::Shader* shader;
 extern Config progConfig;
 
 
