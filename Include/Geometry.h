@@ -12,9 +12,9 @@
 #include "Vector.h"
 #include "AEL.h"
 #include "Object.h"
+#include "Face.h"
 
 class Edge;
-class Face;
 
 enum UnitType
 {
@@ -28,8 +28,7 @@ class Geometry: public Object
 public:
 
 	//Geometry(std::vector<Vector*> v=std::vector<Vector*>(),std::vector<Edge*> e=std::vector<Edge*>(), GeoType gt=AUTO,UnitType ut=COORDS);
-	Geometry();
-	Geometry(const Geometry&);
+    Geometry();
 	~Geometry();
 
     void addVertex(const point4 & v);
@@ -37,16 +36,18 @@ public:
     void addVu(const glm::vec2& uv);
     void addNormal(const glm::vec3& n);
 
-    inline int
+    inline size_t
         getNumOfVertices() const { return _vertices.size(); }
+    inline size_t
+        getNumOfFaces() const { return _faces.size(); }
 
     /**
-     * @brief copyVertices copy all the vec3 ( vertices ) to mem, designed this way so mem can be passed directly to OpenGL
-     * @param mem trunk of memory that will be used to hold all the vertices
-     * @param initPos the starting position where the data will be copied to
-     * @return the number of point4 copied to openGL
+     * @brief copyVertices all the faces ( triangles ) and copy the appropriate vertices to buffer
+     *        should have called glBindBuffer before calling this function
+     * @param initPos the starting position where the data will be copied to, initPos will be incremented
+     *        each time a vertex is copied to the bufer
      */
-    size_t copyVertexData( const size_t & initPos )const;
+    void copyVertexData( size_t * initPos )const;
 
 
 	inline bool isType(UnitType _t) const { return _t == unitType; }
@@ -106,7 +107,7 @@ public:
 	Vector getNormal(const Vector & v)const;
 	
 private:
-    std::vector< unsigned int > _vertexIndices, _uvIndices, _normalIndices;
+
     std::vector< point4 > _vertices;
     std::vector< glm::vec2 > _uvs;
     std::vector< glm::vec3 > _normals;

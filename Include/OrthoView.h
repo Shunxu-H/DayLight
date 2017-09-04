@@ -19,8 +19,7 @@ class WindowManager;
 class OrthoView: public View
 {
 public:
-	OrthoView(){};
-	OrthoView(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
+    OrthoView(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
 	~OrthoView();
 
 	void drawLineDDA(Vector v1, Vector v2, const float*);

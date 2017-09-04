@@ -39,19 +39,19 @@ void keyboardReleaseHandler(unsigned char key, int x, int y);
 
 int PADDING = 20;
 /*
-OrthoView::OrthoView(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
+OrthoView::OrthoView(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
 :View(vt,mainContext, loc_x, loc_y, window_width, window_height)
 { //, int canvas_width, int canvas_height){
 	//allocate new pixel buffer, need initialization!! 
-	if (viewType == XY){
+	if (Patronus::CameraType == XY){
 		axis1 = X;
 		axis2 = Y;
 	} 
-	else if (viewType == ZY){
+	else if (Patronus::CameraType == ZY){
 		axis1 = Z;
 		axis2 = Y;
 	}
-	else if (viewType == XZ){
+	else if (Patronus::CameraType == XZ){
 		axis1 = X;
 		axis2 = Z;
 	}

@@ -16,31 +16,21 @@ Face::Face(){
 }
 
 
+
 void Face::setVertexIndeces(const int & n1, const int & n2, const int & n3){
-    verticesIndeces[0] = n1;
-    verticesIndeces[1] = n3;
-    verticesIndeces[2] = n2;
+    _verticesIndeces = std::vector<unsigned int>({n1, n2, n3});
 }
 
 void Face::setUvIndeces(const int & n1, const int & n2, const int & n3){
-    uvIndeces[0] = n1;
-    uvIndeces[1] = n3;
-    uvIndeces[2] = n2;
+    _uvIndeces = std::vector<unsigned int>({n1, n2, n3});
 
 }
 
 void Face::setNormalIndeces(const int & n1, const int & n2, const int & n3){
-    normalIndeces[0] = n1;
-    normalIndeces[1] = n3;
-    normalIndeces[2] = n2;
+    _normalIndeces = std::vector<unsigned int>({n1, n2, n3});
 
 }
 
-
-Face::Face(const Face& f){
-	for(auto v: f.vertices)
-		vertices.push_back(std::shared_ptr<Vector>(new Vector(*v)));
-}
 
 Face::~Face(){
 	

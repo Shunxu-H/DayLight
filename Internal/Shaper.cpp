@@ -1,18 +1,26 @@
+#include <QDebug>
+#include <fstream>
+#include <deque>
 #include <experimental/filesystem>
 #include <GL/gl.h>
 #include <iostream>
+
 #include <memory>
 #include "Utility.h"
 #include "Shaper.h"
 
 #include "Face.h"
 
+#include "Extern.h"
+
+
 namespace Patronus {
 
 
-Shaper::Shaper( const std::string & fileName ){
+Shaper::Shaper( const std::string & fileName )
+    :_pers( std::make_shared<Camera, CameraType> ( CameraType::PERSPECTIVE ))
+{
     loadFile( fileName );
-
 
 }
 
@@ -27,56 +35,48 @@ bool Shaper::loadFile( const std::string & fileName ){
 }
 
 bool Shaper::_loadFile_obj(const std::string & f_name){
-    FILE * file = fopen(f_name.c_str(), "r");
-    if( file == NULL ){
+    std::ifstream file (f_name.c_str());
+    if( !file.is_open() ){
         printf("Faild To Open File\n");
         return false;
     }
 
 
-    char lineHeader[128];
-    int res;
     Geometry newGeo;
+    std::deque<std::string> tokens;
+    std::string line;
 
-
-    while (true){
-        res = fscanf(file, "%s", lineHeader);
-
-        if (res = EOF)
-            break;
+    while (std::getline( file, line) ){
+        tokens = Utils::mystrtok( line, " /" );
 
         // do the parsing here
         // parsing vertex
-        if( strcmp( lineHeader, "v") == 0){
-            point4 vertex;
-            fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z );
-            newGeo.addVertex(vertex);
+        if( tokens[0].compare( "v" ) == 0){
+            newGeo.addVertex(point4 (std::stof(tokens[1]), std::stof(tokens[2]), std::stof(tokens[3]), 1 ));
+            tokens.erase( tokens.begin(), tokens.begin()+4 );
+
         }
-        else if ( strcmp( lineHeader, "vt" ) == 0 ){
-            glm::vec2 uv;
-            fscanf(file, "%f %f\n", &uv.x, &uv.y );
-            newGeo.addVu(uv);
+        else if ( tokens[0].compare( "vt" ) == 0 ){
+            newGeo.addVu(glm::vec2( std::stof(tokens[1]), std::stof(tokens[2])) );
+            tokens.erase( tokens.begin(), tokens.begin()+3 );
         }
-        else if ( strcmp( lineHeader, "vn" ) == 0 ){
-            glm::vec3 normal;
-            fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z );
-            newGeo.addNormal(normal);
+        else if ( tokens[0].compare( "vn" ) == 0 ){
+            newGeo.addNormal(glm::vec3 (std::stof(tokens[1]), std::stof(tokens[2]), std::stof(tokens[3]) ));
+            tokens.erase( tokens.begin(), tokens.begin()+4 );
         }
-        else if ( strcmp( lineHeader, "f" ) == 0 ){
+        else if ( tokens[0].compare( "f" ) == 0 ){
+            tokens.pop_front();
             Face newF;
             std::string vertex1, vertex2, vertex3;
-            unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-            int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n",
-                                    &vertexIndex[0], &uvIndex[0], &normalIndex[0],
-                                    &vertexIndex[1], &uvIndex[1], &normalIndex[1],
-                                    &vertexIndex[2], &uvIndex[2], &normalIndex[2] );
-            if (matches != 9){
-                printf("File can't be read by our simple parser : ( Try exporting with other options\n");
-                return false;
-            }
+            int vertexIndex[] = {std::stoi( tokens[0] )-1, std::stoi( tokens[3] )-1, std::stoi( tokens[6] )-1},
+                uvIndex[]     = {std::stoi( tokens[1] )-1, std::stoi( tokens[4] )-1, std::stoi( tokens[7] )-1},
+                normalIndex[] = {std::stoi( tokens[2] )-1, std::stoi( tokens[5] )-1, std::stoi( tokens[8] )-1};
+
+            tokens.erase( tokens.begin(), tokens.begin()+9 );
             newF.setVertexIndeces(vertexIndex[0],vertexIndex[1],vertexIndex[2]);
             newF.setUvIndeces(uvIndex[0],uvIndex[1],uvIndex[2]);
             newF.setNormalIndeces(normalIndex[0],normalIndex[1],normalIndex[2]);
+            newGeo.addFace( newF );
         }
 
     }
@@ -85,36 +85,20 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
 
 }
 
-GLuint Shaper::getBuffer( )const
+Lumos::ArrayBuffer Shaper::getBuffer( )const
 {
+    Lumos::ArrayBuffer ret{};
+    ret.setVertexBuffer(_shapes);
+    return ret;
+}
+
+
+
+int Shaper::getNumOfVertices() const{
     size_t size = 0;
     for ( const auto & shape: _shapes )
         size += shape.getNumOfVertices();
-
-    // check error
-//    GLenum err;
-//    if((err = glGetError()) != GL_NO_ERROR)
-//    {
-//        std::cerr << "Error: " << err << std::endl;
-//        while ((err = glGetError()) != GL_NO_ERROR){
-//            std::cerr << "Error: " << err << std::endl;
-//        }
-//        throw std::runtime_error("Program terminated, check log please");
-//    }
-
-    GLuint buffer;
-    glGenBuffers(1, &buffer);
-    glBindBuffer( GL_ARRAY_BUFFER, buffer );
-    glBufferData( GL_ARRAY_BUFFER,
-                  sizeof(point4)*size,
-                  nullptr, GL_STATIC_DRAW);
-
-    size_t startPos = 0;
-    for ( const auto & shape: _shapes ){
-        startPos += shape.copyVertexData( startPos );
-    }
-
-
+    return size;
 }
 
 

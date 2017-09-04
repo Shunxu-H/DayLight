@@ -57,7 +57,9 @@ SOURCES += main.cpp\
     Output/WindowManager.cpp \
     Internal/Program.cpp \
     Internal/Shaper.cpp \
-    Internal/Countable.cpp
+    Internal/Countable.cpp \
+    Internal/ArrayBuffer.cpp \
+    Internal/Camera.cpp
 
 HEADERS  += mainwindow.h \
     oglwidget.h \
@@ -88,7 +90,11 @@ HEADERS  += mainwindow.h \
     Include/GLObject.h \
     Include/Shaper.h \
     Include/GL_include.h \
-    Include/Countable.h
+    Include/Countable.h \
+    Include/ArrayBuffer.h \
+    Include/Extern.h \
+    Include/Camera.h \
+    Include/Transformable.h
 
 FORMS    += mainwindow.ui \
     windowmanager.ui

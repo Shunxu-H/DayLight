@@ -44,8 +44,7 @@ struct textConfig
 	void* font;
 	int fontSize;
 
-	inline textConfig(): font(GLUT_BITMAP_HELVETICA_10), fontSize(10){
-	};
+
 };
 
 class Keyboard

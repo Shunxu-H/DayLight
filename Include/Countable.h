@@ -12,15 +12,14 @@ namespace Lumos {
         Countable();
         Countable( const Countable & other );
         Countable & operator = (const Countable & other );
-        ~Countable();
+        virtual ~Countable();
 
     protected:
+        unsigned int *_refCount; // use to keep the reference count for the shader
 
     private:
-        unsigned int *_refCount; // use to keep the reference count for the shader
         void _retain();
         void _release();
-        virtual void _glCleanUp()=0;
     };
 
 }

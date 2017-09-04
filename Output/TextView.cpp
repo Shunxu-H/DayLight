@@ -6,7 +6,7 @@
 
 //extern Keyboard View::keyboard;
 /*
-TextView::TextView(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
+TextView::TextView(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
 	:View(vt, mainContext, loc_x, loc_y, window_width, window_height){
 
 

@@ -30,15 +30,6 @@ Geometry::Geometry():Object(POLYHEDRON){
 	unitType = COORDS;
 }
 
-Geometry::Geometry(const Geometry& geo):Object(POLYHEDRON){
-
-	unitType = geo.unitType;
-	centroid = geo.centroid;
-	
-    //for (auto v: geo.vertices)
-        //vertices.push_back(std::shared_ptr<Vector>(new Vector(*v.get())));
-
-}
 
 
 Geometry::~Geometry(){
@@ -46,10 +37,11 @@ Geometry::~Geometry(){
 
 
 
-size_t Geometry::copyVertexData( const size_t & initPos )const{
-    glBufferSubData( GL_ARRAY_BUFFER, initPos,
-                     sizeof(point4)*numOfVertices(),  &(_vertices[0]) );
-    return numOfVertices();
+void Geometry::copyVertexData( size_t * initPos )const{
+    for( const Face & f: _faces)
+        for( const unsigned int & ind : f.verticesInds())
+            glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point4),
+                            sizeof(point4),  &(_vertices[ind]) );
 }
 
 void Geometry::addVertex(const point4 & v){

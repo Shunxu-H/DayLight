@@ -8,6 +8,7 @@
 #include <glm/vec3.hpp>
 #include "Object.h"
 #include "GLObject.h"
+#include "Countable.h"
 #include "Edge.h"
 #include "Vector.h"
 
@@ -15,15 +16,26 @@ class Coordinate;
 class Geometry;
 namespace Lumos {
 
-    class Shader : public GLObject
+    class Shader : public GLObject, public Countable
     {
     public:
-        Shader( const std::string& file="./data/temp.gmt" );
-        Shader( const Shader & other );
-        Shader & operator = (const Shader & other );
-        ~Shader();
+        Shader( const std::string& file="./data/cube.obj" );
+        virtual ~Shader();
+        virtual void bind () const{}
 
+        /**
+         * @brief readFromFile, creat a shader from file
+         * @param filePath, path to the shader file
+         * @param shaderType,
+         * @return the constructed shader
+         */
         static Shader readFromFile(const std::string & filePath, const GLenum & shaderType );
+        /**
+         * @brief readFromFiles, construct a vector of shader using the shader files in @shaderDir
+         * @param shaderDir, path to the directory where shader files are stored
+         * @return a vector of shader
+         */
+        static std::vector<Shader> readFromFiles( const std::string & shaderDir );
 
         void addObj(std::shared_ptr<Object> newObj );
         void clear();
@@ -95,10 +107,7 @@ namespace Lumos {
          */
         Shader(const std::string & filePath, const GLenum & shaderType );
 
-
-        unsigned int *_refCount; // use to keep the reference count for the shader
-        void _retain();
-        void _release();
+        void _glCleanUp();
 
         std::string fileName;
         std::vector<std::shared_ptr<Object>> objects;

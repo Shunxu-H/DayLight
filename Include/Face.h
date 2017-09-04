@@ -3,23 +3,30 @@
 
 #include <vector>
 #include <memory>
-#include "Geometry.h"
 #include "Index.h"
+#include "Line.h"
 class Edge;
 class AEL;
 
 class Face
 {
 public:
-	Face();
-    Face(const Face& f);
+    Face();
+    ~Face();
+
     void addV(std::shared_ptr<Vector> v);
     void setVertexIndeces(const int & n1, const int & n2, const int & n3);
     void setUvIndeces(const int & n1, const int & n2, const int & n3);
     void setNormalIndeces(const int & n1, const int & n2, const int & n3);
 
+    inline const std::vector<unsigned int> &
+        verticesInds() const { return _verticesIndeces; }
+    inline const std::vector<unsigned int> &
+        uvInds() const { return _uvIndeces; }
+    inline const std::vector<unsigned int> &
+        normalInds() const { return _normalIndeces; }
+
 	std::shared_ptr<Vector> getV(const unsigned int & index)const;
-	~Face();
 
 	bool hasVector(const Vector&)const;
 	int getVerticesCnt()const{return vertices.size();}
@@ -56,9 +63,9 @@ public:
 protected:
 
 private:
-    unsigned int verticesIndeces[3];
-    unsigned int uvIndeces[3];
-    unsigned int normalIndeces[3];
+    std::vector<unsigned int> _verticesIndeces;
+    std::vector<unsigned int> _uvIndeces;
+    std::vector<unsigned int> _normalIndeces;
 
 	void toPXLPOS(const float& pixelUnit, const float& w_x, const float& w_y, const float& w_z);
 	std::vector<std::shared_ptr<Vector>> vertices;

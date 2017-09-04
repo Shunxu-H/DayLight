@@ -27,8 +27,7 @@ namespace Lumos {
 int MARGIN = 20;
 
 WindowManager::WindowManager(QWidget *parent)
-    :QMainWindow(parent),
-     gProgram( nullptr )
+    :QMainWindow(parent)
      //ui(new Ui::WindowManager)
 {
 
@@ -38,7 +37,7 @@ WindowManager::WindowManager(QWidget *parent)
 
 
     QDockWidget *dock = new QDockWidget(tr("Canvas"), this);
-    dock->setWidget(new CVM(dock));
+    dock->setWidget(new View(dock));
     //dock->setWidget(new OGLWidget());
     addDockWidget(Qt::LeftDockWidgetArea, dock);
 
@@ -50,32 +49,9 @@ WindowManager::WindowManager(QWidget *parent)
 
 WindowManager::~WindowManager(){
 
-}
-
-void WindowManager::setUpProgram( const std::string & shaderDir ){
-    std::vector<Lumos::Shader> shaders;
-
-    {
-        namespace fs = std::experimental::filesystem;
-
-        for (const auto & p : fs::directory_iterator(shaderDir))
-        {
-
-            //std::cout << fs::path(p).extension() << std::endl;
-            if ( std::string( fs::path(p).extension() ).compare(".vert") == 0 )
-                shaders.push_back(Shader::readFromFile( fs::path( p ), GL_VERTEX_SHADER ));
-            else if ( std::string( fs::path(p).extension() ).compare(".frag") == 0 )
-                shaders.push_back(Shader::readFromFile( fs::path( p ), GL_FRAGMENT_SHADER ));
-        }
-
-    }
-    gProgram = new Program(shaders);
 
 }
 
-void WindowManager::setUpProgram( const std::vector<Lumos::Shader> & shader ){
-
-}
 
 
 
@@ -83,15 +59,15 @@ void WindowManager::updateWindow(const int & winID){
 /*
 	View* curD = (*this)[winID];
 	if (curD != nullptr){
-		if ( curD->viewType == CABINET)
+        if ( curD->Patronus::CameraType == CABINET)
 			dynamic_cast<Cabinet*>(curD)->updateWindow();
-		else if ( curD->viewType == TEXTVIEW){
+        else if ( curD->Patronus::CameraType == TEXTVIEW){
 			//std::cout << "here" << std::endl;
 			dynamic_cast<TextView*>(curD)->updateWindow();
 		}
-		else if ( curD->viewType == XY || curD->viewType == ZY || curD->viewType == XZ)
+        else if ( curD->Patronus::CameraType == XY || curD->Patronus::CameraType == ZY || curD->Patronus::CameraType == XZ)
 			dynamic_cast<OrthoView*>(curD)->updateWindow();
-		else if ( curD->viewType == PERSP)
+        else if ( curD->Patronus::CameraType == PERSP)
 			dynamic_cast<CVM*>(curD)->updateWindow();
 	}
 	//viewss[4]->updateWindow()
@@ -106,7 +82,7 @@ void WindowManager::reshapeWindows(){
 	Vector max(shader->getMaxX(), shader->getMaxY(), shader->getMaxZ());
 
 	for( int i = 0; i < numOfWindows; i++ )
-		if(views[i]->viewType == XY || views[i]->viewType == XZ || views[i]->viewType == ZY)
+        if(views[i]->Patronus::CameraType == XY || views[i]->Patronus::CameraType == XZ || views[i]->Patronus::CameraType == ZY)
 			static_cast<OrthoView*>(views[i])->reshapeWindow(min, max);
 
 }

@@ -1,5 +1,6 @@
 #include <cstring>
-#include <GL/glut.h>
+#include "GL_include.h"
+
 #include <utility>
 #include <iostream>
 #include <cmath>
@@ -8,12 +9,15 @@
 #include <queue>
 #include <utility>
 #include <memory>
+#include "Extern.h"
 #include "View.h"
 #include "CVM.h"
 #include "Vector.h"
 #include "AEL.h"
 #include "Geometry.h"
 #include "Config.h"
+#include "Shaper.h"
+
 #include "Shader.h"
 #include "Mouse.h"
 #include "Keyboard.h"
@@ -21,12 +25,6 @@
 #include "Utility.h"
 #include "WindowManager.h"
 #include "Line.h"
-
-extern Config progConfig; 
-extern Lumos::Shader* shader;
-extern std::vector<std::shared_ptr<Vector>> vertexBuffer;
-extern std::shared_ptr<Curve> curveBuffer;
-extern WindowManager* winMan;
 
 
 CVM::CVM(QWidget *parent):View(parent){
@@ -45,34 +43,39 @@ void CVM::initializeGL(){
 }
 
 void CVM::resizeGL(int w, int h){
-    glViewport(0,0,w,h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(45, (float)w/h, 0.01, 100.0);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(0,0,5,0,0,0,0,1,0);
 
 }
 
 void CVM::paintGL(){
+
+    if( gProgram == nullptr )
+        return;
+
+    glClearColor(0, 0, 0, 1); // black
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //glDrawArrays( GL_TRIANGLES, 0, NumOfVertices);
+    // bind the program (the shaders)
+    gProgram->use();
 
-    //swapBuffer();
-    glBegin(GL_TRIANGLES);
-        glColor3f(1.0, 0.0, 0.0);
-        glVertex3f(-0.5, -0.5, 0);
-        glColor3f(0.0, 1.0, 0.0);
-        glVertex3f( 0.5, -0.5, 0);
-        glColor3f(0.0, 0.0, 1.0);
-        glVertex3f( 0.0,  0.5, 0);
-    glEnd();
+    glm::mat4 projection = glm::perspective( glm::radians(50.0f), static_cast<float>(width())/static_cast<float>(height()), 0.1f, 10.0f );
+    gProgram->setUniform((GLchar*)"projection", projection);
+    glm::mat4 camera = glm::lookAt(glm::vec3(0,0,5), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    gProgram->setUniform("camera", camera);
+
+    // bind the VAO (the triangle)
+    glBindVertexArray(gProgram->getCurVAO());
+    // draw the VAO
+    //GLuint a = gProgram->getCurVBO().getSize();
+    glDrawArrays(GL_TRIANGLES, 0, gProgram->getCurVBO().getNumOfEntry());
+
+
+    glBindVertexArray( 0 );
+    gProgram->stopUsing();
+
 }
 
 /*
-CVM::CVM(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
+CVM::CVM(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
 :View(vt,mainContext, loc_x, loc_y, window_width, window_height)
 { 
 	

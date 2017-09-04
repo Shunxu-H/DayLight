@@ -6,7 +6,7 @@
 class WindowManager;
 class Cabinet: public OrthoView{
 public:
-	Cabinet(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
+    Cabinet(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
 		:OrthoView(vt, mainContext, loc_x, loc_y, window_width, window_height){ axis1 = X; axis2 = Y;};
 	
 	void drawLineDDA(Vector v1, Vector v2, float const*);

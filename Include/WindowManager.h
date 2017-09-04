@@ -15,7 +15,6 @@
 class View;
 class Vector;
 class Geometry;
-class Face;
 
 QT_USE_NAMESPACE
 QT_BEGIN_NAMESPACE
@@ -80,7 +79,6 @@ namespace Lumos {
         int mainWindowContex;
 
         Shader shader;
-        Program *gProgram;
 
         void drawLineDDA(const Vector &v1, const Vector &v2, float const*);
         void drawLineBSH(const Vector &v1, const Vector &v2, float const*);

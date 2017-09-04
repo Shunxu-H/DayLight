@@ -11,10 +11,13 @@
 #endif
 #include <GL/gl.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #endif
 
 typedef glm::vec4 point4;
+typedef glm::vec3 point3;
 typedef glm::vec4 color4;
 
+#define GLM_FORCE_RADIANS
 
 #endif // GL_INCLUDE_H

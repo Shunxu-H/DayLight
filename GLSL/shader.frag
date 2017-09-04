@@ -1,10 +1,8 @@
 #version 130
 
-in vec4 color;
+out vec4 finalColor;
 
-out vec4 fColor; // fragment's final color
-
-void main (){
-    fColor = color;
+void main() {
+    //set every drawn pixel to white
+    finalColor = vec4(1.0, 1.0, 1.0, 1.0);
 }
-

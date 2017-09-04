@@ -11,8 +11,7 @@
 #include "View.h"
 #include "Face.h"
 
-class Mouse;
-class Keyboard;
+
 
 
 class WindowManager;
@@ -20,13 +19,12 @@ class WindowManager;
 class CVM: public View
 {
 public:
-    CVM(){}
     CVM(QWidget *parent);
-	CVM(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
+    CVM(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
     virtual ~CVM(){}
 /*
 	void drawLineDDA(Vector v1, Vector v2, const float*);
-	void drawLineBSH(const std::shared_ptr<Vector> &v1, const std::shared_ptr<Vector> &v2, float*);
+    void drawLineBSH(const std::shared_ptr<Vector> &v1,  const std::shared_ptr<Vector> &v2, float*);
 
 	void updateWindow();
 

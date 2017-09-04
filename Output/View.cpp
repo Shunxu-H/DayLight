@@ -1,54 +1,82 @@
-#include <cstring>
-#include <GL/glut.h>
-#include <utility>
-#include <iostream>
-#include <cmath>
-#include <array>
-#include <algorithm>
-#include <queue>
-#include <utility>
-#include <cmath>
-#include <memory>
+
+#include <QDebug>
+#include <QMouseEvent>
+#include "GL_include.h"
 #include "View.h"
-#include "OrthoView.h"
-#include "Vector.h"
-#include "AEL.h"
-#include "Geometry.h"
-#include "Config.h"
-#include "Shader.h"
-#include "Mouse.h"
-#include "Keyboard.h"
-#include "Utility.h"
-#include "Face.h"
+#include "Camera.h"
+
+#include "Extern.h"
 
 
-extern Config progConfig;
-extern std::vector<std::shared_ptr<Vector>> vertexBuffer;
-
-Keyboard View::keyboard;
-
-void update();
-void mouseClick(int button, int state, int x, int y);
-void mouseHold(int x, int y);
-void mouseHover(int x, int y);
-
-void keyboardHandler(unsigned char key, int x, int y);
-void keyboardReleaseHandler(unsigned char key, int x, int y);
-void keyboardHandler(unsigned char key, int x, int y);
-void keyboardReleaseHandler(unsigned char key, int x, int y);
-
-View::View(QWidget *parent)
+View::View(QWidget *parent, const std::shared_ptr<Patronus::Camera> & cam)
     : QOpenGLWidget(parent)
 {
+    if ( cam == nullptr )
+        _camInUse = shaper.getPerspectiveCam();
+}
+
+
+void View::initializeGL(){
+    glClearColor(0,0,0,1);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHTING);
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+    glEnable(GL_COLOR_MATERIAL);
+}
+
+void View::resizeGL(int w, int h){
+
+}
+
+void View::paintGL(){
+
+    if( gProgram == nullptr )
+        return;
+
+    glClearColor(0, 0, 0, 1); // black
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // bind the program (the shaders)
+    gProgram->use();
+
+    _camInUse->setPos(glm::vec3(0,0,5));
+    glm::mat4 projection = _camInUse->getProjectionMatrix(static_cast<float>(width())/static_cast<float>(height())) ;
+    gProgram->setUniform((GLchar*)"projection", projection);
+    glm::mat4 pers = _camInUse->getPerspectiveMatrix();
+    gProgram->setUniform("camera", pers);
+
+    // bind the VAO (the triangle)
+    glBindVertexArray(gProgram->getCurVAO());
+    // draw the VAO
+    //GLuint a = gProgram->getCurVBO().getSize();
+    glDrawArrays(GL_TRIANGLES, 0, gProgram->getCurVBO().getNumOfEntry());
+
+
+    glBindVertexArray( 0 );
+    gProgram->stopUsing();
+
+}
+
+
+void View::mousePressEvent(QMouseEvent *event){
+
+}
+
+void View::mouseMoveEvent(QMouseEvent *event){
+    qDebug() << event->pos();
+}
+
+void View::mouseReleaseEvent(QMouseEvent *event){
 
 }
 
 
 /*
-View::View(const ViewType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
+View::View(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
 
 { //, int canvas_width, int canvas_height){
-	viewType = vt;
+    Patronus::CameraType = vt;
 	//allocate new pixel buffer, need initialization!! 
 	windPos[X] = loc_x;
 	windPos[Y] = loc_y;

@@ -37,7 +37,6 @@ void Countable::_release(){
     assert( _refCount && *_refCount > 0);
     *_refCount -= 1;
     if(*_refCount == 0){ // delete pointer if nothing pointing to THIS
-        _glCleanUp();
         delete _refCount; _refCount = nullptr;
     }
 }
