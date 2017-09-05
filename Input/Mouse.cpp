@@ -7,21 +7,18 @@
 #include <limits>
 #include "Mouse.h"
 #include "Config.h"
-#include "Geometry.h"
+#include "Mesh.h"
 #include "Shader.h"
 #include "Matrix.h"
 #include "WindowManager.h"
 #include "Index.h"
-#include "Object.h"
 #include "Edge.h"
-#include "Curve.h"
 #include "OrthoView.h"
 #include "CVM.h"
 
 extern WindowManager* winMan;
 extern Config progConfig;
 extern std::vector<std::shared_ptr<Vector>> vertexBuffer;
-extern std::shared_ptr<Curve> curveBuffer;
 extern Lumos::Shader* shader;
 
 #define _USE_MATH_DEFINES

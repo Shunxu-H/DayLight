@@ -1,6 +1,7 @@
 
 #include <QDebug>
 #include <QMouseEvent>
+#include <QGLWidget>
 #include "GL_include.h"
 #include "View.h"
 #include "Camera.h"
@@ -13,12 +14,18 @@ View::View(QWidget *parent, const std::shared_ptr<Patronus::Camera> & cam)
 {
     if ( cam == nullptr )
         _camInUse = shaper.getPerspectiveCam();
+
+    QSurfaceFormat fmt;
+    fmt.setSamples(8);
+    setFormat(fmt);
+    //QOpenGLWidget::setRenderHint(QPainter::Antialiasing);
 }
 
 
 void View::initializeGL(){
     glClearColor(0,0,0,1);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_MULTISAMPLE);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
@@ -40,11 +47,21 @@ void View::paintGL(){
     // bind the program (the shaders)
     gProgram->use();
 
-    _camInUse->setPos(glm::vec3(0,0,5));
+    // set input
     glm::mat4 projection = _camInUse->getProjectionMatrix(static_cast<float>(width())/static_cast<float>(height())) ;
-    gProgram->setUniform((GLchar*)"projection", projection);
+    gProgram->setUniform("projection", projection);
     glm::mat4 pers = _camInUse->getPerspectiveMatrix();
     gProgram->setUniform("camera", pers);
+
+    gProgram->setUniform("model", glm::mat4());
+    gProgram->setUniform("inverseModel", glm::mat4());
+
+    gProgram->setUniform("light.position", shaper.getDefaultLight().getTranslate());
+    gProgram->setUniform("light.intensities", shaper.getDefaultLight().getIntensity());
+
+    gProgram->setUniform("ambient", color3(0.05f, 0.05f, 0.05f));
+
+
 
     // bind the VAO (the triangle)
     glBindVertexArray(gProgram->getCurVAO());
@@ -60,17 +77,67 @@ void View::paintGL(){
 
 
 void View::mousePressEvent(QMouseEvent *event){
+    switch(event->button()){
+    case Qt::LeftButton:
 
+        break;
+    case Qt::MiddleButton:
+
+        break;
+    case Qt::RightButton:
+
+        break;
+    }
+    _prevMousePos = event->pos();
+    update();
 }
 
 void View::mouseMoveEvent(QMouseEvent *event){
-    qDebug() << event->pos();
+    //qDebug() << event->pos();
+    QPoint diff = _prevMousePos - event->pos();
+
+    switch(progConfig.opMode){
+
+
+    case NAVIGATING:
+        switch(event->buttons()){
+        case Qt::LeftButton:
+            _camInUse->rotateAroundFocus(static_cast<float>(diff.x())/100.0f,
+                                      -static_cast<float>(diff.y())/100.0f
+                                      );
+            _camInUse->setAtGlobal(point3(0, 0, 0));
+            break;
+        case Qt::MiddleButton:
+            _camInUse->panAndPadestal(static_cast<float>(diff.x())/100.0f,
+                                      -static_cast<float>(diff.y())/100.0f
+                                      );
+
+            break;
+        case Qt::RightButton:
+
+            break;
+        }
+        break;
+
+    }
+    _prevMousePos = event->pos();
+    update();
 }
 
 void View::mouseReleaseEvent(QMouseEvent *event){
 
 }
 
+void View::wheelEvent ( QWheelEvent * event ){
+    //qDebug() << _camInUse->getPos().x << " " << _camInUse->getPos().y << " " << _camInUse->getPos().z << " " ;
+    bool isUp = event->angleDelta().y() > 0? true : false;
+    if ( isUp )
+        _camInUse->moveForward(0.2);
+    else
+        _camInUse->moveForward(-0.2);
+
+    update();
+}
 
 /*
 View::View(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height)
@@ -334,12 +401,12 @@ void View::drawLine( const std::vector<Vector> &vertexBuffer, const float *color
 	}
 }
 
-void View::fillPolygon(Geometry &geo, const float* color){
+void View::fillPolygon(Mesh &geo, const float* color){
 
 }
 
 
-void View::halfToning(Geometry &geometries){
+void View::halfToning(Mesh &geometries){
 
 }
 

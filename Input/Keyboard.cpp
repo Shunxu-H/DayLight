@@ -12,18 +12,15 @@ TO DO:
 #include "Keyboard.h"
 #include "Config.h"
 #include "Shader.h"
-#include "Geometry.h"
+#include "Mesh.h"
 #include "WindowManager.h"
-#include "Object.h"
 #include "Utility.h"
-#include "Curve.h"
 
 using namespace Lumos;
 extern Config progConfig;
 extern Shader *shader;
 extern WindowManager* winMan;
 extern std::vector<std::shared_ptr<Vector>> vertexBuffer;
-extern std::shared_ptr<Curve> curveBuffer;
 
 
 std::vector<std::string>drawTips = {"Click to draw, drag for more precision.", "'Enter' to finish"};

@@ -4,7 +4,7 @@
 #include "GL_include.h"
 #include "Countable.h"
 #include "GLObject.h"
-#include "Geometry.h"
+#include "Mesh.h"
 
 namespace Lumos {
 
@@ -18,8 +18,9 @@ namespace Lumos {
     public:
         static Type type;
         ArrayBuffer( ):GLObject(), Countable(){}
-        void setVertexBuffer( const std::vector<Geometry> & shapes );
-        void setColorBuffer( const std::vector<Geometry> & shapes );
+        void setVertexBuffer( const std::vector<Patronus::Mesh> & shapes );
+        void setVertexNormalBuffer( const std::vector<Patronus::Mesh> & shapes );
+        void setColorBuffer( const std::vector<Patronus::Mesh> & shapes );
         virtual ~ArrayBuffer();
 
         /**

@@ -30,9 +30,9 @@ public:
 
 	void reshapeWindow(const Vector& min, const Vector& max);
 	void drawAxis();
-	void fillPolygon(Geometry &geo);
-	void halfToning(Geometry &geometries);
-	void fillPolygons(std::vector<std::shared_ptr<Geometry>> &geo);
+	void fillPolygon(Mesh &geo);
+	void halfToning(Mesh &geometries);
+	void fillPolygons(std::vector<std::shared_ptr<Mesh>> &geo);
 
 	void drawVertex(const Vector & v, float const* color);
 

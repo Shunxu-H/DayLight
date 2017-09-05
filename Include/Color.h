@@ -1,7 +1,7 @@
 #ifndef COLOR_H
 	#define COLOR_H
 
-
+#include "GL_include.h"
 #include "Index.h"
 
 class Color
@@ -9,15 +9,17 @@ class Color
 public:
 	Color();
 
-	float BLACK[4];
-	float LGREY[4];
-	float GREY[4];
-	float DGREY[4];
-	float WHITE[4];
-	float RED[4];
-	float GREEN[4];
-	float DGREEN[4];
-	float BLUE[4];
+
+
+    const static color4 BLACK ;
+    const static color4 DGREY ;
+    const static color4 GREY  ;
+    const static color4 LGREY ;
+    const static color4 WHITE ;
+    const static color4 RED   ;
+    const static color4 GREEN ;
+    const static color4 DGREEN;
+    const static color4 BLUE  ;
 
 	float* getColor(const float&,const float&, const float&);
 	void print (float*);
@@ -29,4 +31,4 @@ private:
 };
 
 
-	#endif
+    #endif

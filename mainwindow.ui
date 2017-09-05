@@ -5,7 +5,7 @@
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
-  <property name="geometry">
+  <property name="Mesh">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -18,7 +18,7 @@
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
+   <property name="Mesh">
     <rect>
      <x>0</x>
      <y>0</y>

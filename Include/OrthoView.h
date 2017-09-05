@@ -6,6 +6,7 @@
 #include <utility>
 #include <vector>
 #include "Index.h"
+#include "Mesh.h"
 #include "Vector.h"
 #include "View.h"
 #include "Face.h"
@@ -29,9 +30,9 @@ public:
 
 	void reshapeWindow(const Vector& min, const Vector& max);
 	void drawAxis();
-	void fillPolygon(Geometry &geo);
-	void halfToning(Geometry &geometries);
-	void fillPolygons(std::vector<std::shared_ptr<Geometry>> &geo);
+    void fillPolygon(Patronus::Mesh &geo);
+    void halfToning(Patronus::Mesh &geometries);
+    void fillPolygons(std::vector<std::shared_ptr<Patronus::Mesh>> &geo);
 	INDEX getDeptAxis()const;
 
 	void drawVertex(const Vector & v, float const* color);

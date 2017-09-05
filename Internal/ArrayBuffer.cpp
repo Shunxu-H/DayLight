@@ -1,13 +1,13 @@
 #include "GL_include.h"
 #include "ArrayBuffer.h"
+#include "Mesh.h"
 
 namespace Lumos {
 
-void ArrayBuffer::setVertexBuffer( const std::vector<Geometry> & geos ){
-
+void ArrayBuffer::setVertexBuffer( const std::vector<Patronus::Mesh> & geos ){
     _numOfEntry = 0;
-    _bytesPerEntry = sizeof(point4);
-    for ( const Geometry & geo: geos )
+    _bytesPerEntry = sizeof(point3);
+    for ( const Patronus::Mesh & geo: geos )
         _numOfEntry += geo.getNumOfFaces()*3;
 
 
@@ -18,14 +18,32 @@ void ArrayBuffer::setVertexBuffer( const std::vector<Geometry> & geos ){
                   nullptr, GL_STATIC_DRAW);
 
     size_t startPos = 0;
-    for ( const Geometry & geo: geos ){
+    for ( const Patronus::Mesh & geo: geos ){
         geo.copyVertexData( &startPos );
     }
 
-
 }
 
-void ArrayBuffer::setColorBuffer( const std::vector<Geometry> & shapes  ){
+
+void ArrayBuffer::setVertexNormalBuffer( const std::vector<Patronus::Mesh> & meshes ){
+    _numOfEntry = 0;
+    _bytesPerEntry = sizeof(color3);
+    for ( const Patronus::Mesh & mesh: meshes )
+        _numOfEntry += mesh.getNumOfFaces()*3;
+
+    glGenBuffers(1, &_glObjId);
+    glBindBuffer( GL_ARRAY_BUFFER, _glObjId );
+    glBufferData( GL_ARRAY_BUFFER,
+                  getSizeInByte(),
+                  nullptr, GL_STATIC_DRAW);
+
+    size_t startPos = 0;
+    for ( const Patronus::Mesh & mesh: meshes ){
+        mesh.copyVertexData( &startPos );
+    }
+}
+
+void ArrayBuffer::setColorBuffer( const std::vector<Patronus::Mesh> & shapes  ){
 
 }
 

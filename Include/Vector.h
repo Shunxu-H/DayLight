@@ -6,11 +6,12 @@
 #include <cstring>
 #include <memory>
 #include <cmath>
+#include "Mesh.h"
 #include "Index.h"
 #include "Matrix.h"
-//class Geometry;
+//class Mesh;
 //#include "OrthoView.h"
-class Geometry;
+class Patronus::Mesh;
 
 class Vector: public Matrix
 {
@@ -91,7 +92,7 @@ protected:
 
 
 private:
-	friend Geometry;
+    friend Patronus::Mesh;
 	//Vector* color;
 	//int test;
 	//UnitType type;

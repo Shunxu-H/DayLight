@@ -3,7 +3,7 @@
 #include "Cabinet.h"
 #include "Config.h"
 #include "Shader.h"
-#include "Geometry.h"
+#include "Mesh.h"
 #include "Edge.h"
 #include "Mouse.h"
 

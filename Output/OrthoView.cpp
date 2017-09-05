@@ -12,19 +12,17 @@
 #include "OrthoView.h"
 #include "Vector.h"
 #include "AEL.h"
-#include "Geometry.h"
+#include "Mesh.h"
 #include "Config.h"
 #include "Shader.h"
 #include "Mouse.h"
 #include "Keyboard.h"
-#include "Curve.h"
 #include "Utility.h"
 #include "WindowManager.h"
 
 extern Config progConfig; 
 extern Lumos::Shader* shader;
 extern std::vector<std::shared_ptr<Vector>> vertexBuffer;
-extern std::shared_ptr<Curve> curveBuffer;
 extern WindowManager* winMan;
 
 void update();
@@ -133,7 +131,7 @@ void OrthoView::drawOutline(const Face & face, const float * color){
 
 }
 
-void OrthoView::fillPolygon(Geometry &geo){
+void OrthoView::fillPolygon(Mesh &geo){
 
 
 	if (&geo == nullptr)
@@ -228,7 +226,7 @@ void OrthoView::fillPolygon(Geometry &geo){
 
 }
 
-void OrthoView::halfToning(Geometry &geo){
+void OrthoView::halfToning(Mesh &geo){
 
 
 	if (&geo == nullptr)
@@ -368,9 +366,9 @@ INDEX OrthoView::getDeptAxis()const{
 }
 
 
-void OrthoView::fillPolygons(std::vector<std::shared_ptr<Geometry>> &geos){
+void OrthoView::fillPolygons(std::vector<std::shared_ptr<Mesh>> &geos){
 	sort(geos.begin(), geos.end(),  
-		[&, this](const std::shared_ptr<Geometry> & g1, const std::shared_ptr<Geometry> & g2 ) -> bool{
+        [&, this](const std::shared_ptr<Mesh> & g1, const std::shared_ptr<Mesh> & g2 ) -> bool{
 			//return f1 > f2;
 			return g1->getCentroid()[getDeptAxis()] > 
 					g2->getCentroid()[getDeptAxis()];

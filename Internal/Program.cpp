@@ -61,86 +61,41 @@ void Program::preDrawSetUp() {
         3,
         &count,
         shaderName);
-    /*
 
-    _curVAO = shaper.getBuffer();
+    glGenVertexArrays(1, &_curVAO);
     glBindVertexArray( _curVAO );
 
 
-    // make and bind the VBO
-    glGenBuffers(1, &_curVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, _curVBO);
-
-
-    // connect the xyz to the "vert" attribute of the vertex shader
-    glEnableVertexAttribArray(gProgram->getAttrib("vert"));
-    glVertexAttribPointer(gProgram->getAttrib("vert"),4 , GL_FLOAT, GL_FALSE, 0, NULL);
-    */
-    // make and bind the VAO
-/*
-        _curVAO = shaper.getBuffer();
-        glBindVertexArray( _curVAO );
-
-
-
-        //glm::mat4 projection = glm::perspective(glm::radians(50.0f), width()/SCREEN_SIZE.y, 0.1f, 10.0f);
-        // make and bind the VBO
-        glGenBuffers(1, &_curVBO);
-        glBindBuffer(GL_ARRAY_BUFFER, _curVBO);
-
-        // Put the three triangle verticies into the VBO
-        GLfloat vertexData[] = {
-            //  X     Y     Z
-             0.0f, 0.8f, 0.0f, 1.0,
-            -0.8f,-0.8f, 0.0f, 1.0,
-             0.8f,-0.8f, 0.0f, 1.0
-        };
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
-
-        // connect the xyz to the "vert" attribute of the vertex shader
-        glEnableVertexAttribArray(gProgram->getAttrib("vert"));
-        glVertexAttribPointer(gProgram->getAttrib("vert"), 4, GL_FLOAT, GL_FALSE, 0, NULL);
-
-        // unbind the VBO and VAO
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
-
-
-        glClearColor(0, 0, 0, 1); // black
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        // bind the program (the shaders)
-        glUseProgram(gProgram->getGlObjId());
-
-        // bind the VAO (the triangle)
-        glBindVertexArray(_curVAO);
-        */
-    // make and bind the VAO
-        // make and bind the VBO
-        glGenVertexArrays(1, &_curVAO);
-        glBindVertexArray( _curVAO );
-
-
-    _curVBO = shaper.getBuffer();
+    _curVBO = shaper.getVertexBuffer();
     glBindBuffer(GL_ARRAY_BUFFER, _curVBO.getGlObjId());
 
+    // connect the xyz to the "vert" attribute of the vertex shader
+    GLuint vert = gProgram->getAttrib("vert");
+
+    //glVertexAttribPointer(gProgram->getAttrib("vert"), 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), NULL);
+    glEnableVertexAttribArray(vert);
+    glVertexAttribPointer(vert, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 
-        //glBufferData(GL_ARRAY_BUFFER, sizeof(point4)*shaper.getNumOfVertices(), vertexData, GL_STATIC_DRAW);
+    _curVBO_normal = shaper.getNormalBuffer();
+    glBindBuffer(GL_ARRAY_BUFFER, _curVBO_normal.getGlObjId());
 
-        // connect the xyz to the "vert" attribute of the vertex shader
-        GLuint vert = gProgram->getAttrib("vert");
+    GLuint vertNormal = gProgram->getAttrib("vertNormal");
 
-        //glVertexAttribPointer(gProgram->getAttrib("vert"), 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), NULL);
-        glEnableVertexAttribArray(vert);
-        glVertexAttribPointer(vert, 4, GL_FLOAT, GL_FALSE, 0, 0);
+    //glVertexAttribPointer(gProgram->getAttrib("vert"), 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), NULL);
+    glEnableVertexAttribArray(vertNormal);
+    glVertexAttribPointer(vertNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-        // connect the uv coords to the "vertTexCoord" attribute of the vertex shader
-        //glEnableVertexAttribArray(gProgram->getAttrib("vertTexCoord"));
-        //glVertexAttribPointer(gProgram->getAttrib("vertTexCoord"), 2, GL_FLOAT, GL_TRUE,  5*sizeof(GLfloat), (const GLvoid*)(3 * sizeof(GLfloat)));
 
-        // unbind the VAO
-        //glBindVertexArray(0);
+    //glBufferData(GL_ARRAY_BUFFER, sizeof(point4)*shaper.getNumOfVertices(), vertexData, GL_STATIC_DRAW);
+
+
+    // connect the uv coords to the "vertTexCoord" attribute of the vertex shader
+    //glEnableVertexAttribArray(gProgram->getAttrib("vertTexCoord"));
+    //glVertexAttribPointer(gProgram->getAttrib("vertTexCoord"), 2, GL_FLOAT, GL_TRUE,  5*sizeof(GLfloat), (const GLvoid*)(3 * sizeof(GLfloat)));
+
+    // unbind the VAO
+    //glBindVertexArray(0);
 
 }
 

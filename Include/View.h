@@ -3,6 +3,7 @@
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <QPoint>
 #include <memory>
 #include "Camera.h"
 
@@ -35,12 +36,14 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
+    void wheelEvent ( QWheelEvent * event ) override;
 
 
 
 private:
     friend class WindowManager;
     std::shared_ptr<Patronus::Camera> _camInUse;
+    QPoint _prevMousePos;
 
 };
 

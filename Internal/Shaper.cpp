@@ -21,6 +21,7 @@ Shaper::Shaper( const std::string & fileName )
     :_pers( std::make_shared<Camera, CameraType> ( CameraType::PERSPECTIVE ))
 {
     loadFile( fileName );
+    lights.push_back(Light());
 
 }
 
@@ -32,6 +33,9 @@ bool Shaper::loadFile( const std::string & fileName ){
 
     if ( std::string( p.extension() ).compare( ".obj" ) == 0 )
         _loadFile_obj( fileName );
+
+
+    lights.push_back(Light());
 }
 
 bool Shaper::_loadFile_obj(const std::string & f_name){
@@ -42,7 +46,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
     }
 
 
-    Geometry newGeo;
+    Mesh newGeo;
     std::deque<std::string> tokens;
     std::string line;
 
@@ -52,7 +56,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
         // do the parsing here
         // parsing vertex
         if( tokens[0].compare( "v" ) == 0){
-            newGeo.addVertex(point4 (std::stof(tokens[1]), std::stof(tokens[2]), std::stof(tokens[3]), 1 ));
+            newGeo.addVertex(point3 (std::stof(tokens[1]), std::stof(tokens[2]), std::stof(tokens[3]) ));
             tokens.erase( tokens.begin(), tokens.begin()+4 );
 
         }
@@ -68,15 +72,29 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
             tokens.pop_front();
             Face newF;
             std::string vertex1, vertex2, vertex3;
-            int vertexIndex[] = {std::stoi( tokens[0] )-1, std::stoi( tokens[3] )-1, std::stoi( tokens[6] )-1},
-                uvIndex[]     = {std::stoi( tokens[1] )-1, std::stoi( tokens[4] )-1, std::stoi( tokens[7] )-1},
-                normalIndex[] = {std::stoi( tokens[2] )-1, std::stoi( tokens[5] )-1, std::stoi( tokens[8] )-1};
+            if (tokens.size() == 9){
 
-            tokens.erase( tokens.begin(), tokens.begin()+9 );
-            newF.setVertexIndeces(vertexIndex[0],vertexIndex[1],vertexIndex[2]);
-            newF.setUvIndeces(uvIndex[0],uvIndex[1],uvIndex[2]);
-            newF.setNormalIndeces(normalIndex[0],normalIndex[1],normalIndex[2]);
-            newGeo.addFace( newF );
+                int vertexIndex[] = {std::stoi( tokens[0] )-1, std::stoi( tokens[3] )-1, std::stoi( tokens[6] )-1},
+                    uvIndex[]     = {std::stoi( tokens[1] )-1, std::stoi( tokens[4] )-1, std::stoi( tokens[7] )-1},
+                    normalIndex[] = {std::stoi( tokens[2] )-1, std::stoi( tokens[5] )-1, std::stoi( tokens[8] )-1};
+
+                tokens.erase( tokens.begin(), tokens.begin()+9 );
+                newF.setVertexIndeces(vertexIndex[0],vertexIndex[1],vertexIndex[2]);
+                newF.setUvIndeces(uvIndex[0],uvIndex[1],uvIndex[2]);
+                newF.setNormalIndeces(normalIndex[0],normalIndex[1],normalIndex[2]);
+                newGeo.addFace( newF );
+            }
+            else if (tokens.size() == 6){
+
+                int vertexIndex[] = {std::stoi( tokens[0] )-1, std::stoi( tokens[2] )-1, std::stoi( tokens[4] )-1},
+                    uvIndex[]     = {0, 0, 0},
+                    normalIndex[] = {std::stoi( tokens[1] )-1, std::stoi( tokens[3] )-1, std::stoi( tokens[5] )-1};
+
+                tokens.erase( tokens.begin(), tokens.begin()+6 );
+                newF.setVertexIndeces(vertexIndex[0],vertexIndex[1],vertexIndex[2]);
+                newF.setNormalIndeces(normalIndex[0],normalIndex[1],normalIndex[2]);
+                newGeo.addFace( newF );
+            }
         }
 
     }
@@ -85,10 +103,23 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
 
 }
 
-Lumos::ArrayBuffer Shaper::getBuffer( )const
+
+void Shaper::_loadDefaultObjects(){
+    _pers = std::make_shared<Camera, CameraType> ( CameraType::PERSPECTIVE );
+    lights.push_back(Light());
+}
+
+Lumos::ArrayBuffer Shaper::getVertexBuffer( )const
 {
     Lumos::ArrayBuffer ret{};
     ret.setVertexBuffer(_shapes);
+    return ret;
+}
+
+Lumos::ArrayBuffer Shaper::getNormalBuffer( )const
+{
+    Lumos::ArrayBuffer ret{};
+    ret.setVertexNormalBuffer(_shapes);
     return ret;
 }
 

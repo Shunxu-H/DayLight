@@ -35,13 +35,9 @@ SOURCES += main.cpp\
     oglwidget.cpp \
     Input/Keyboard.cpp \
     Input/Mouse.cpp \
-    Internal/Curve.cpp \
     Internal/Edge.cpp \
     Internal/Ellipsoid.cpp \
     Internal/Face.cpp \
-    Internal/Geometry.cpp \
-    Internal/Line.cpp \
-    Internal/Object.cpp \
     Internal/Shader.cpp \
     Internal/Vector.cpp \
     Output/Cabinet.cpp \
@@ -59,7 +55,9 @@ SOURCES += main.cpp\
     Internal/Shaper.cpp \
     Internal/Countable.cpp \
     Internal/ArrayBuffer.cpp \
-    Internal/Camera.cpp
+    Internal/Camera.cpp \
+    Internal/Transformable.cpp \
+    Internal/Mesh.cpp
 
 HEADERS  += mainwindow.h \
     oglwidget.h \
@@ -67,18 +65,14 @@ HEADERS  += mainwindow.h \
     Include/Cabinet.h \
     Include/Color.h \
     Include/Config.h \
-    Include/Curve.h \
     Include/CVM.h \
     Include/Edge.h \
     Include/Ellipsoid.h \
     Include/Face.h \
-    Include/Geometry.h \
     Include/Index.h \
     Include/Keyboard.h \
-    Include/Line.h \
     Include/Matrix.h \
     Include/Mouse.h \
-    Include/Object.h \
     Include/OrthoView.h \
     Include/Shader.h \
     Include/TextView.h \
@@ -94,7 +88,10 @@ HEADERS  += mainwindow.h \
     Include/ArrayBuffer.h \
     Include/Extern.h \
     Include/Camera.h \
-    Include/Transformable.h
+    Include/Transformable.h \
+    Include/Light.h \
+    Include/Mesh.h \
+    Include/Instance.h
 
 FORMS    += mainwindow.ui \
     windowmanager.ui
@@ -104,7 +101,10 @@ DISTFILES += \
     Shader/shader.vert \
     Shader/rotate.NONE \
     GLSL/rotate.NONE \
+    data/3d.gmt \
+    data/cube.obj \
     GLSL/shader.frag \
     GLSL/shader.vert \
-    data/3d.gmt \
-    data/cube.obj
+    GLSL/simple.frag_ \
+    GLSL/simple.vert_ \
+    data/teapot.obj

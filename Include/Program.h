@@ -7,6 +7,7 @@
 #include "GLObject.h"
 #include "ArrayBuffer.h"
 #include "Shader.h"
+#include "Instance.h"
 
 namespace Lumos {
     /**
@@ -103,7 +104,10 @@ namespace Lumos {
 
     private:
         std::vector<Shader> _shaders;
+
+        std::vector<Instance> _drawingInstances;
         ArrayBuffer _curVBO;
+        ArrayBuffer _curVBO_normal;
         GLuint _curVAO;
 
 

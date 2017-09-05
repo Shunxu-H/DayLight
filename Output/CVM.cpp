@@ -14,17 +14,15 @@
 #include "CVM.h"
 #include "Vector.h"
 #include "AEL.h"
-#include "Geometry.h"
+#include "Mesh.h"
 #include "Config.h"
 #include "Shaper.h"
 
 #include "Shader.h"
 #include "Mouse.h"
 #include "Keyboard.h"
-#include "Curve.h"
 #include "Utility.h"
 #include "WindowManager.h"
-#include "Line.h"
 
 
 CVM::CVM(QWidget *parent):View(parent){
@@ -304,21 +302,21 @@ void CVM::drawOutline(const Face & face, const float * color){
 
 }
 
-void CVM::fillPolygon(Geometry &geo){
+void CVM::fillPolygon(Mesh &geo){
 
 
 }
 
-void CVM::halfToning(Geometry &geo){
+void CVM::halfToning(Mesh &geo){
 
 }
 
 
 
 
-void CVM::fillPolygons(std::vector<std::shared_ptr<Geometry>> &geos){
+void CVM::fillPolygons(std::vector<std::shared_ptr<Mesh>> &geos){
 	// sort(geos.begin(), geos.end(),  
-	// 	[&, this](const std::shared_ptr<Geometry> & g1, const std::shared_ptr<Geometry> & g2 ) -> bool{
+    // 	[&, this](const std::shared_ptr<Mesh> & g1, const std::shared_ptr<Mesh> & g2 ) -> bool{
 	// 		//return f1 > f2;
 	// 		return g1->getCentroid()[getDeptAxis()] > 
 	// 				g2->getCentroid()[getDeptAxis()];

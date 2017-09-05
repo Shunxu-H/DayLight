@@ -2,7 +2,7 @@
 <ui version="4.0">
  <class>WindowManager</class>
  <widget class="QMainWindow" name="WindowManager">
-  <property name="geometry">
+  <property name="Mesh">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
+   <property name="Mesh">
     <rect>
      <x>0</x>
      <y>0</y>

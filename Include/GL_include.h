@@ -16,6 +16,7 @@
 
 typedef glm::vec4 point4;
 typedef glm::vec3 point3;
+typedef glm::vec3 color3;
 typedef glm::vec4 color4;
 
 #define GLM_FORCE_RADIANS

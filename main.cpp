@@ -8,10 +8,9 @@
 #include "Program.h"
 #include "Shaper.h"
 #include "Config.h"
-#include "Curve.h"
 
 Config progConfig;
-Patronus::Shaper shaper("./data/cube.obj");
+Patronus::Shaper shaper("./data/teapot.obj");
 Lumos::Program * gProgram;
 
 int main(int argc, char *argv[])

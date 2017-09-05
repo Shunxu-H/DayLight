@@ -6,7 +6,8 @@
 #include <memory>
 #include "GL_include.h"
 #include "Camera.h"
-#include "Geometry.h"
+#include "Light.h"
+#include "Mesh.h"
 #include "ArrayBuffer.h"
 
 namespace Patronus {
@@ -16,7 +17,7 @@ namespace Patronus {
 
         Shaper( const std::string & fileName );
 
-        inline
+        inline Light getDefaultLight() const { return lights[0]; }
 
         /**
          * @brief load file and call corresponding functions based on file extension
@@ -31,18 +32,30 @@ namespace Patronus {
         inline std::shared_ptr<Camera>
             getPerspectiveCam() const { return _pers; }
 
+
+
         int getNumOfVertices() const;
 
-        Lumos::ArrayBuffer getBuffer()const;
+        Lumos::ArrayBuffer getVertexBuffer()const;
+        Lumos::ArrayBuffer getNormalBuffer()const;
+
 
 
     protected:
 
     private:
-        std::vector<Geometry> _shapes;
+
+        std::vector<Mesh> _shapes;
         std::vector<Camera> _cameras;
         std::shared_ptr<Camera> _pers;
+        std::vector<Light> lights;
 
+
+        /**
+         * @brief _loadDefaultObjects
+         *         construct a point light and perspective camera
+         */
+        void _loadDefaultObjects();
         bool _loadFile_obj(const std::string & f_name);
 
     };

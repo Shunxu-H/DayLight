@@ -2,7 +2,7 @@
 	#define CONFIG_H
 
 #include "Color.h"
-class Geometry;
+class Mesh;
 
 const int INITIAL_WIN_SIZE[] = {500, 500};
 
@@ -30,6 +30,7 @@ enum LineAlg
 
 enum OpMode
 {
+    NAVIGATING,
 	SELECTING,
 	DRAWING,
 	MOVING,
@@ -96,19 +97,17 @@ struct Config
 	SelectMode selectMode;
 
 
-	int curSelected;
-	bool showNormal;
-	bool showEdge;
-	float COLOR_bg[4];
-	float COLOR_outline[4];
-	float COLOR_text[4];
-	float COLOR_regStroke[4];
-	float COLOR_hlStroke[4];
-	float COLOR_fill[4];
-	float COLOR_rotVec[4];
-	float COLOR_axis[4];
-	float COLOR_SELECTION_BOX[4];
-	float COLOR_HIGHTLIGHTED_VERTEX[4];
+
+    color4 COLOR_bg;
+    color4 COLOR_outline;
+    color4 COLOR_text;
+    color4 COLOR_regStroke;
+    color4 COLOR_hlStroke;
+    color4 COLOR_fill;
+    color4 COLOR_rotVec;
+    color4 COLOR_axis;
+    color4 COLOR_SELECTION_BOX;
+    color4 COLOR_HIGHTLIGHTED_VERTEX;
 
 	Config();
 	bool isValidSelection();
