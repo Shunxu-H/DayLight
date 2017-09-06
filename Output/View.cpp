@@ -43,14 +43,16 @@ void View::paintGL(){
 
     glClearColor(0, 0, 0, 1); // black
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     gProgram->use();
     for(const Lumos::Instance & i : drawingInstances){
         i.render(*this);
     }
-    /*
+
+/*
     // bind the program (the shaders)
     gProgram->use();
-    glBindVertexArray( gProgram->getCurVAO() );
+    glBindVertexArray( drawingInstances[0].getAsset().VAO );
 
     // set input
     glm::mat4 projection = _camInUse->getProjectionMatrix(static_cast<float>(width())/static_cast<float>(height())) ;
@@ -67,16 +69,16 @@ void View::paintGL(){
     gProgram->setUniform("ambient", color3(0.05f, 0.05f, 0.05f));
 
 
-
     // bind the VAO (the triangle)
-    glBindVertexArray(gProgram->getCurVAO());
+    glBindVertexArray(drawingInstances[0].getAsset().VAO);
     // draw the VAO
     //GLuint a = gProgram->getCurVBO().getSize();
-    glDrawArrays(GL_TRIANGLES, 0, gProgram->getCurVBO().getNumOfEntry());
+    glDrawArrays(GL_TRIANGLES, 0, drawingInstances[0].getAsset().drawCount);
 
     glBindVertexArray( 0 );
-*/
+
     gProgram->stopUsing();
+*/
 
 }
 

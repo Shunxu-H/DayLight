@@ -157,9 +157,9 @@ void Program::loadShaders( const std::string & GLSL_path ){
 }
 
 void Program::preDrawSetUp() {
-    use();
+    //use();
     drawingInstances = shaper.getAllInstance();
-    /*
+/*
     gProgram->use();
     gProgram->enableShadingPipe("shader");
     glLinkProgram(_glObjId);
@@ -171,12 +171,12 @@ void Program::preDrawSetUp() {
         &count,
         shaderName);
 
-    glGenVertexArrays(1, &_curVAO);
-    glBindVertexArray( _curVAO );
+    //glGenVertexArrays(1, &_curVAO);
+    glBindVertexArray( drawingInstances[0].getAsset().VAO );
 
 
-    _curVBO = shaper.getVertexBuffer();
-    glBindBuffer(GL_ARRAY_BUFFER, _curVBO.getGlObjId());
+    //_curVBO = shaper.getVertexBuffer();
+    glBindBuffer(GL_ARRAY_BUFFER, drawingInstances[0].getAsset().VBO_VERT );
 
     // connect the xyz to the "vert" attribute of the vertex shader
     GLuint vert = gProgram->getAttrib("vert");
@@ -186,8 +186,8 @@ void Program::preDrawSetUp() {
     glVertexAttribPointer(vert, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 
-    _curVBO_normal = shaper.getNormalBuffer();
-    glBindBuffer(GL_ARRAY_BUFFER, _curVBO_normal.getGlObjId());
+    //_curVBO_normal = shaper.getNormalBuffer();
+    glBindBuffer(GL_ARRAY_BUFFER, drawingInstances[0].getAsset().VBO_NORMAL);
 
     GLuint vertNormal = gProgram->getAttrib("vertNormal");
 
@@ -205,8 +205,8 @@ void Program::preDrawSetUp() {
 
     // unbind the VAO
     //glBindVertexArray(0);
-    */
 
+*/
 }
 
 Program::~Program(){

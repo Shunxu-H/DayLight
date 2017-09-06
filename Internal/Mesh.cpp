@@ -82,8 +82,8 @@ Lumos::Instance Mesh::instantiate (){
     asset.drawStart = 0;
     asset.drawCount = getNumOfFaces()*3;
 
-    return Lumos::Instance( getModelMatrix(), asset );
     // return data
+    return Lumos::Instance( getModelMatrix(), asset );
 }
 
 

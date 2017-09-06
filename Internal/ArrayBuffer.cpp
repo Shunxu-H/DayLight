@@ -47,7 +47,7 @@ void ArrayBuffer::setVertexNormalBuffer( const std::vector<Patronus::Mesh> & mes
 
     size_t startPos = 0;
     for ( const Patronus::Mesh & mesh: meshes ){
-        mesh.copyVertexData( &startPos );
+        mesh.copyVertexNormalData( &startPos );
     }
 }
 
