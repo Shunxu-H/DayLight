@@ -4,6 +4,14 @@
 
 namespace Lumos {
 
+
+ArrayBuffer& ArrayBuffer::operator = ( const ArrayBuffer & other ){
+    GLObject::operator =(other);
+    Countable::operator =(other);
+    _numOfEntry = other._numOfEntry;
+    _bytesPerEntry = other._bytesPerEntry;
+}
+
 void ArrayBuffer::setVertexBuffer( const std::vector<Patronus::Mesh> & geos ){
     _numOfEntry = 0;
     _bytesPerEntry = sizeof(point3);

@@ -9,6 +9,7 @@ TO DO:
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <vector>
 #include "Keyboard.h"
 #include "Config.h"
 #include "Shader.h"
@@ -16,11 +17,6 @@ TO DO:
 #include "WindowManager.h"
 #include "Utility.h"
 
-using namespace Lumos;
-extern Config progConfig;
-extern Shader *shader;
-extern WindowManager* winMan;
-extern std::vector<std::shared_ptr<Vector>> vertexBuffer;
 
 
 std::vector<std::string>drawTips = {"Click to draw, drag for more precision.", "'Enter' to finish"};

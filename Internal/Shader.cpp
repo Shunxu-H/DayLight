@@ -6,7 +6,8 @@
 
 #include "Extern.h"
 
-
+#include <QDebug>
+#include <cstdio>
 
 
 
@@ -24,14 +25,14 @@ Shader::Shader(const std::string & shaderCode, const GLenum & shaderType){
 
     // link code
     const char * code = shaderCode.c_str();
-    glShaderSource( getObjId(), 1, &code, nullptr );
+    glShaderSource( _glObjId, 1, &code, nullptr );
 
     // compile
-    glCompileShader( getObjId() );
+    glCompileShader( _glObjId );
 
     // error checking
     GLint status;
-    glGetShaderiv( getObjId(), GL_COMPILE_STATUS, &status );
+    glGetShaderiv( _glObjId , GL_COMPILE_STATUS, &status );
 
     if( status == GL_FALSE ){
         std::string msg("Compile failure in shader:\n");
@@ -39,11 +40,11 @@ Shader::Shader(const std::string & shaderCode, const GLenum & shaderType){
         GLint infoLogLength;
         glGetShaderiv(getObjId(), GL_INFO_LOG_LENGTH, &infoLogLength);
         char* strInfoLog = new char[infoLogLength + 1];
-        glGetShaderInfoLog(getObjId(), infoLogLength, NULL, strInfoLog);
+        glGetShaderInfoLog(_glObjId , infoLogLength, NULL, strInfoLog);
         msg += strInfoLog;
         delete[] strInfoLog;
 
-        glDeleteShader(getObjId()); setObjId( 0 );
+        glDeleteShader(getObjId()); _glObjId = 0 ;
         throw std::runtime_error(msg);
     }
 
@@ -56,6 +57,62 @@ Shader::~Shader(){
     }
 }
 
+void Shader::getCurrentVaryingsAndUniforms(
+        std::vector<std::string> & varyings, std::vector<std::string> & uniforms){
+
+    // load attributes
+    GLint i;
+    GLint count;
+
+    GLint size; // size of the variable
+    GLenum type; // type of the variable (float, vec3 or mat4, etc)
+
+    const GLsizei bufSize = 128; // maximum name length
+    GLchar name[bufSize]; // variable name in GLSL
+    GLsizei length; // name length
+    glGetProgramiv(gProgram->getObjId(), GL_ACTIVE_ATTRIBUTES, &count);
+    printf("Active Attributes: %d\n", count);
+
+    for (i = 0; i < count; i++)
+    {
+        glGetActiveAttrib(gProgram->getObjId(), i, bufSize, &length, &size, &type, name);
+
+        qDebug() << "Attribute " << i << "Type:" << type << " Name: " << name;
+        varyings.push_back( name );
+    }
+
+    // load uniform
+    glGetProgramiv(gProgram->getObjId(), GL_ACTIVE_UNIFORMS, &count);
+    printf("Active Uniforms: %d\n", count);
+
+    for (i = 0; i < count; i++)
+    {
+        glGetActiveUniform(gProgram->getObjId(), (GLuint)i, bufSize, &length, &size, &type, name);
+
+        qDebug() << "Uniform " << i << "Type:" << type << " Name: " << name;
+        uniforms.push_back( name );
+    }
+
+}
+
+void Shader::use() const{
+    glAttachShader( gProgram->getObjId(), _glObjId );
+}
+
+
+void Shader::stopUsing() const{
+    glDetachShader( gProgram->getObjId(), _glObjId );
+}
+
+bool Shader::isInUse() const{
+    throw std::runtime_error( "have not built yet" );
+    /*
+    void glGetAttachedShaders(	GLuint program,
+    GLsizei maxCount,
+    GLsizei *count,
+    GLuint *shaders);
+    */
+}
 
 Shader Shader::readFromFile(const std::string & fileName, const GLenum & shaderType ){
     std::ifstream f (fileName.c_str());

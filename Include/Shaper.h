@@ -10,15 +10,21 @@
 #include "Mesh.h"
 #include "ArrayBuffer.h"
 
+namespace Lumos {
+    class Instance;
+}
+
 namespace Patronus {
     class Shaper{
     public:
-        Shaper():_pers( std::make_shared<Camera, CameraType> (CameraType::PERSPECTIVE ) ) { }
+        Shaper();
 
         Shaper( const std::string & fileName );
 
-        inline Light getDefaultLight() const { return lights[0]; }
+        //static const std::shared_ptr<Camera> _pers;
+        static Lumos::Material * _default_material;
 
+        inline Light getDefaultLight() const { return lights[0]; }
         /**
          * @brief load file and call corresponding functions based on file extension
          * @param fileName the file targeted to be loaded
@@ -29,17 +35,12 @@ namespace Patronus {
         inline bool
             isLoaded() const { return _shapes.size() > 0; }
 
-        inline std::shared_ptr<Camera>
-            getPerspectiveCam() const { return _pers; }
-
-
-
         int getNumOfVertices() const;
 
         Lumos::ArrayBuffer getVertexBuffer()const;
         Lumos::ArrayBuffer getNormalBuffer()const;
 
-
+        std::vector<Lumos::Instance> getAllInstance();
 
     protected:
 
@@ -47,7 +48,6 @@ namespace Patronus {
 
         std::vector<Mesh> _shapes;
         std::vector<Camera> _cameras;
-        std::shared_ptr<Camera> _pers;
         std::vector<Light> lights;
 
 

@@ -57,7 +57,8 @@ SOURCES += main.cpp\
     Internal/ArrayBuffer.cpp \
     Internal/Camera.cpp \
     Internal/Transformable.cpp \
-    Internal/Mesh.cpp
+    Internal/Mesh.cpp \
+    Internal/Instance.cpp
 
 HEADERS  += mainwindow.h \
     oglwidget.h \
@@ -100,11 +101,10 @@ DISTFILES += \
     Shader/shader.frag \
     Shader/shader.vert \
     Shader/rotate.NONE \
-    GLSL/rotate.NONE \
     data/3d.gmt \
     data/cube.obj \
     GLSL/shader.frag \
     GLSL/shader.vert \
-    GLSL/simple.frag_ \
-    GLSL/simple.vert_ \
-    data/teapot.obj
+    data/teapot.obj \
+    GLSL/mask.frag \
+    GLSL/mask.vert

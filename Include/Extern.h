@@ -8,5 +8,6 @@
 extern Config progConfig;
 extern Patronus::Shaper shaper;
 extern Lumos::Program *gProgram;
+extern std::vector<Lumos::Instance> drawingInstances;
 
 #endif // EXTERN_H

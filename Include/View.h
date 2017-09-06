@@ -5,9 +5,12 @@
 #include <QOpenGLFunctions>
 #include <QPoint>
 #include <memory>
-#include "Camera.h"
 
 class WindowManager;
+
+namespace Patronus {
+    class Camera;
+}
 
 class View: public QOpenGLWidget
 {
@@ -23,8 +26,8 @@ public:
     virtual ~View(){}
 
     inline void
-        setCamInUse( const std::shared_ptr<Patronus::Camera> & cam) { _camInUse = cam; }
-    inline std::shared_ptr<Patronus::Camera>
+        setCamInUse( Patronus::Camera * cam) { _camInUse = cam; }
+    inline Patronus::Camera*
         getCamInUse() const { return _camInUse; }
 
 protected:
@@ -42,7 +45,7 @@ protected:
 
 private:
     friend class WindowManager;
-    std::shared_ptr<Patronus::Camera> _camInUse;
+    Patronus::Camera * _camInUse;
     QPoint _prevMousePos;
 
 };

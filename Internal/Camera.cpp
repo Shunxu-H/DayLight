@@ -4,6 +4,8 @@
 
 namespace Patronus {
 
+Camera * Camera::pers = new Camera{};
+
 Camera::Camera(const CameraType & type,
                const float      & fov,
                const float      & near,

@@ -6,6 +6,7 @@
 #include "GLObject.h"
 #include "Mesh.h"
 
+
 namespace Lumos {
 
     enum class Type{
@@ -18,6 +19,7 @@ namespace Lumos {
     public:
         static Type type;
         ArrayBuffer( ):GLObject(), Countable(){}
+        ArrayBuffer& operator = ( const ArrayBuffer & other );
         void setVertexBuffer( const std::vector<Patronus::Mesh> & shapes );
         void setVertexNormalBuffer( const std::vector<Patronus::Mesh> & shapes );
         void setColorBuffer( const std::vector<Patronus::Mesh> & shapes );

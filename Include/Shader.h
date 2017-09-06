@@ -18,6 +18,13 @@ namespace Lumos {
         virtual void bind () const{}
 
         /**
+         * @brief ask openGL to return a list of uniforms and varyings attached of the shaders attached to the program
+         * @param varyings, will be loaded with varyings
+         * @param uniforms, will be loaded with uniforms
+         */
+        static void getCurrentVaryingsAndUniforms( std::vector<std::string> & varyings, std::vector<std::string> & uniforms);
+
+        /**
          * @brief readFromFile, creat a shader from file
          * @param filePath, path to the shader file
          * @param shaderType,
@@ -31,6 +38,14 @@ namespace Lumos {
          */
         static std::vector<Shader> readFromFiles( const std::string & shaderDir );
 
+        /**
+         * @brief wrapper class to provide access to OpenGL
+         */
+        void use() const;
+
+        bool isInUse() const;
+
+        void stopUsing() const;
 
     protected:
 
@@ -47,12 +62,13 @@ namespace Lumos {
          */
         Shader(const std::string & filePath, const GLenum & shaderType );
 
-        void _glCleanUp();
+        std::vector<std::string> _uniforms;
+        std::vector<std::string> _varyings;
 
-        bool loadFile_obj(const std::string &);
 
 
     };
+
 
 }
 

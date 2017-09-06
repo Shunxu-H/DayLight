@@ -1,7 +1,6 @@
 #ifndef ORTHOVIEW_H
 	#define ORTHOVIEW_H
 
-#include <GL/glut.h>
 #include <string>
 #include <utility>
 #include <vector>
@@ -10,6 +9,7 @@
 #include "Vector.h"
 #include "View.h"
 #include "Face.h"
+#include "Camera.h"
 
 class Mouse;
 class Keyboard;

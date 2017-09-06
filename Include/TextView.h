@@ -3,6 +3,7 @@
 
 #include "View.h"
 #include "Vector.h"
+#include "Camera.h"
 
 class WindowManager;
 class TextView: public View{

@@ -11,15 +11,22 @@
 
 namespace Lumos{
 
+Program::Program(){
+    // attach this to openGL
+    _glObjId = glCreateProgram() ;
+    if( getObjId() == 0 )
+        throw std::runtime_error( "glCreateProgram Failed" );
+
+
+    glLinkProgram( _glObjId );
+}
+
+/*
 Program::Program(std::vector<Shader> shaders)
 {
     if( shaders.size() <=0 )
         throw std::runtime_error("No Shaders loaded");
 
-    // attach this to openGL
-    setObjId( glCreateProgram() );
-    if( getObjId() == 0 )
-        throw std::runtime_error( "glCreateProgram Failed" );
 
     // testing on attaching and detaching the program and shader objects
     for ( const Shader & shader : shaders )
@@ -50,10 +57,112 @@ Program::Program(std::vector<Shader> shaders)
     _shaders = shaders;
 
 }
+*/
+
+
+void Program::enableShadingPipe( const std::string & pipe_name ){
+    assert( _shading_pipes.find( pipe_name ) != _shading_pipes.end() );
+
+    _shading_pipes[pipe_name][0].use();
+    _shading_pipes[pipe_name][1].use();
+    glLinkProgram(_glObjId);
+}
+
+void Program::disableShadingPipe( const std::string & pipe_name ){
+    assert( _shading_pipes.find( pipe_name ) != _shading_pipes.end() );
+
+    _shading_pipes[pipe_name][0].stopUsing();
+    _shading_pipes[pipe_name][1].stopUsing();
+}
+
+void Program::loadShaders( const std::string & GLSL_path ){
+
+    {
+        namespace fs = std::experimental::filesystem;
+
+        for (const auto & p : fs::directory_iterator(GLSL_path))
+        {
+            std::string curExtension = fs::path(p).extension();
+            std::string curFileName = fs::path(p).filename();
+            curFileName = curFileName.substr(0, curFileName.size() - curExtension.size());
+
+            if ( _shading_pipes.find(curFileName) == _shading_pipes.end() )
+                _shading_pipes[curFileName] = shading_pipe(2, Shader());
+
+            if ( std::string( fs::path(p).extension() ).compare(".vert") == 0 )
+                _shading_pipes[curFileName][0] = Shader::readFromFile( fs::path( p ), GL_VERTEX_SHADER );
+            else if ( std::string( fs::path(p).extension() ).compare(".frag") == 0 )
+                _shading_pipes[curFileName][1] = Shader::readFromFile( fs::path( p ), GL_FRAGMENT_SHADER );
+        }
+
+    }
+
+    for (auto it:_shading_pipes){
+        it.second[0].use();
+        it.second[1].use();
+
+        glLinkProgram( _glObjId );
+
+        it.second[0].stopUsing();
+        it.second[1].stopUsing();
+
+        GLint status;
+        glGetProgramiv( getObjId(), GL_LINK_STATUS, & status );
+
+        // displaying log error
+        if ( status == GL_FALSE ){
+            std::string msg("Program/Shader linking failure: ");
+
+            GLint infoLogLength;
+            char* strInfoLog = new char[infoLogLength + 1];
+            glGetProgramInfoLog( getObjId(), GL_INFO_LOG_LENGTH, nullptr, strInfoLog );
+            msg += strInfoLog;
+            delete[] strInfoLog;
+
+            glDeleteProgram( getObjId() );  setObjId( 0 );
+            throw std::runtime_error ( msg );
+
+        }
+    }
+
+    // testing on attaching and detaching the program and shader objects
+    /*
+    for ( const Shader & shader : shaders )
+        glAttachShader( getObjId(), shader.getGlObjId() );
+
+    glLinkProgram( getObjId() );
+
+    for ( const Shader & shader: shaders )
+        glDetachShader( getObjId(), shader.getGlObjId() );
+
+    GLint status;
+    glGetProgramiv( getObjId(), GL_LINK_STATUS, & status );
+
+    // displaying log error
+    if ( status == GL_FALSE ){
+        std::string msg("Program/Shader linking failure: ");
+
+        GLint infoLogLength;
+        char* strInfoLog = new char[infoLogLength + 1];
+        glGetProgramInfoLog( getObjId(), GL_INFO_LOG_LENGTH, nullptr, strInfoLog );
+        msg += strInfoLog;
+        delete[] strInfoLog;
+
+        glDeleteProgram( getObjId() );  setObjId( 0 );
+        throw std::runtime_error ( msg );
+
+    }
+    _shaders = shaders;
+    */
+}
 
 void Program::preDrawSetUp() {
+    use();
+    drawingInstances = shaper.getAllInstance();
+    /*
     gProgram->use();
-    gProgram->attachAllShaders();
+    gProgram->enableShadingPipe("shader");
+    glLinkProgram(_glObjId);
 
     GLsizei count;
     GLuint shaderName[3];
@@ -96,6 +205,7 @@ void Program::preDrawSetUp() {
 
     // unbind the VAO
     //glBindVertexArray(0);
+    */
 
 }
 
@@ -123,16 +233,6 @@ void Program::bind() const{
     glLinkProgram( getObjId() );
 }
 
-
-void Program::attachAllShaders() const {
-    for ( const Shader & shader : _shaders )
-        glAttachShader( getObjId(), shader.getGlObjId() );
-}
-
-void Program::detachAllShaders() const {
-    for ( const Shader & shader: _shaders )
-        glDetachShader( getObjId(), shader.getGlObjId() );
-}
 
 GLint Program::getAttrib(const GLchar* attribName) const {
     if(!attribName)

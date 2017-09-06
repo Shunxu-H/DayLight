@@ -2,27 +2,43 @@
 #define PROGRAM_H
 
 #include <GL/gl.h>
+#include <unordered_map>
 #include <vector>
 #include "GL_include.h"
 #include "GLObject.h"
-#include "ArrayBuffer.h"
+
 #include "Shader.h"
 #include "Instance.h"
 
+#include "ArrayBuffer.h"
+
+
 namespace Lumos {
+    using shading_pipe = std::vector<Shader>;
+
     /**
-     * @brief manages a list of shader, interface between openGL and the rest of the program
+     * @brief manages a list of drawing instances, interface between openGL and the rest of the program
      *
      */
     class Program: public GLObject{
     public:
-        Program(){ }
+        Program();
         /**
          * @brief should only called this constructor
          * @param shaders a vector of Shader to be kinked to this program
          */
-        Program(std::vector<Shader> shaders);
+        // Program(std::vector<Shader> shaders);
+
+        /**
+         * @brief loadShaders, load a list of shaders from a directory
+         * @param GLSL_path, the path to a directory containing the shader files
+         */
+        void loadShaders(const std::string & GLSL_path);
+
         ~Program();
+
+        void enableShadingPipe( const std::string & pipe_name );
+        void disableShadingPipe( const std::string & pipe_name );
 
         /**
          * @brief getAttrib: get the OpenGL handler based on the attribName
@@ -50,8 +66,8 @@ namespace Lumos {
 
         void bind() const;
 
-        void attachAllShaders() const;
-        void detachAllShaders() const;
+        //void attachAllShaders() const;
+        //void detachAllShaders() const;
 
         void preDrawSetUp();
 
@@ -103,12 +119,12 @@ namespace Lumos {
         void setUniform(const GLchar* uniformName, const glm::vec4& v);
 
     private:
-        std::vector<Shader> _shaders;
 
-        std::vector<Instance> _drawingInstances;
         ArrayBuffer _curVBO;
         ArrayBuffer _curVBO_normal;
         GLuint _curVAO;
+
+        std::unordered_map<std::string, shading_pipe> _shading_pipes;
 
 
     };

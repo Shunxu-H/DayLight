@@ -8,6 +8,7 @@
 #include <memory>
 #include "Utility.h"
 #include "Shaper.h"
+#include "Instance.h"
 
 #include "Face.h"
 
@@ -15,10 +16,15 @@
 
 
 namespace Patronus {
+Lumos::Material* Shaper::_default_material   = new Lumos::Material();
 
+
+Shaper::Shaper()
+{
+
+}
 
 Shaper::Shaper( const std::string & fileName )
-    :_pers( std::make_shared<Camera, CameraType> ( CameraType::PERSPECTIVE ))
 {
     loadFile( fileName );
     lights.push_back(Light());
@@ -105,7 +111,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
 
 
 void Shaper::_loadDefaultObjects(){
-    _pers = std::make_shared<Camera, CameraType> ( CameraType::PERSPECTIVE );
+    //_pers = std::make_shared<Camera, CameraType> ( CameraType::PERSPECTIVE );
     lights.push_back(Light());
 }
 
@@ -133,5 +139,12 @@ int Shaper::getNumOfVertices() const{
 }
 
 
+std::vector<Lumos::Instance> Shaper::getAllInstance(){
+    std::vector<Lumos::Instance> ret;
+    for (Mesh & mesh: _shapes)
+        ret.push_back(mesh.instantiate());
+
+    return ret;
+}
 
 }
