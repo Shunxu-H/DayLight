@@ -9,14 +9,26 @@
 #include "Shaper.h"
 #include "Config.h"
 #include "Instance.h"
+#include "WindowManager.h"
+#include "btBulletDynamicsCommon.h"
+
+
+
 
 Config progConfig;
-Patronus::Shaper shaper("./data/teapot.obj");
+Patronus::Shaper shaper("./data/low-poly-mill.obj");
 Lumos::Program * gProgram;
 std::vector<Lumos::Instance> drawingInstances;
+WindowManager * winMan;
+
+void experimental(){
+
+}
 
 int main(int argc, char *argv[])
 {
+    experimental();
+
     //QApplication::setStyle("plastique");
     QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuBar);
     QApplication a(argc, argv);
@@ -26,8 +38,8 @@ int main(int argc, char *argv[])
 
 
 
-    Lumos::WindowManager winMan{};
-    winMan.show();
+    winMan = new WindowManager{};
+    winMan->show();
     gProgram = new Lumos::Program( );
     gProgram->loadShaders( "/home/shunxu/QtProj/DayLight/GLSL" );
 

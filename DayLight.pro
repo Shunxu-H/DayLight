@@ -10,8 +10,22 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 unix{
     LIBS += -lstdc++fs
-    LIBS += -lglut -lGL -lGLU
+    # LIBS += -L/usr/local/include/bullet/
+    # LIBS += -lBulletDynamics
+    # LIBS += -lBulletCollision
+    # LIBS += -lLinearMath
+    INCLUDEPATH += /usr/local/include/bullet/
+    LIBS += -lBulletDynamics -lBulletCollision -lBulletSoftBody -lLinearMath -I /usr/local/include/bullet/
+    # LIBS += -lglut -lGL -lGLU
 }
+
+# remove possible other optimization flags
+QMAKE_CXXFLAGS_RELEASE -= -O
+QMAKE_CXXFLAGS_RELEASE -= -O1
+QMAKE_CXXFLAGS_RELEASE -= -O2
+
+# add the desired -O3 if not present
+QMAKE_CXXFLAGS_RELEASE *= -O3
 
 TARGET = DayLight
 TEMPLATE = app
@@ -32,7 +46,6 @@ INCLUDEPATH += Include/
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    oglwidget.cpp \
     Input/Keyboard.cpp \
     Input/Mouse.cpp \
     Internal/Edge.cpp \
@@ -58,10 +71,11 @@ SOURCES += main.cpp\
     Internal/Camera.cpp \
     Internal/Transformable.cpp \
     Internal/Mesh.cpp \
-    Internal/Instance.cpp
+    Internal/Instance.cpp \
+    Output/View_bullet.cpp \
+    Internal/Light.cpp
 
 HEADERS  += mainwindow.h \
-    oglwidget.h \
     Include/AEL.h \
     Include/Cabinet.h \
     Include/Color.h \
@@ -92,7 +106,10 @@ HEADERS  += mainwindow.h \
     Include/Transformable.h \
     Include/Light.h \
     Include/Mesh.h \
-    Include/Instance.h
+    Include/Instance.h \
+    Include/View_bullet.h \
+    Include/ModelAsset.h \
+    Include/obj_loader.h
 
 FORMS    += mainwindow.ui \
     windowmanager.ui
@@ -103,8 +120,12 @@ DISTFILES += \
     Shader/rotate.NONE \
     data/3d.gmt \
     data/cube.obj \
-    GLSL/shader.frag \
-    GLSL/shader.vert \
     data/teapot.obj \
     GLSL/mask.frag \
-    GLSL/mask.vert
+    GLSL/mask.vert \
+    GLSL/mesh_shader.frag \
+    GLSL/mesh_shader.vert \
+    GLSL/bbox_shader.frag \
+    GLSL/bbox_shader.vert \
+    GLSL/multilight_shader.frag \
+    GLSL/multilight_shader.vert

@@ -15,6 +15,10 @@ View::View(QWidget *parent, const std::shared_ptr<Patronus::Camera> & cam)
     if ( cam == nullptr )
         _camInUse = Patronus::Camera::pers;
 
+
+    setMouseTracking(true);
+    setAttribute(Qt::WA_Hover);
+
     QSurfaceFormat fmt;
     fmt.setSamples(8);
     setFormat(fmt);
@@ -25,11 +29,17 @@ View::View(QWidget *parent, const std::shared_ptr<Patronus::Camera> & cam)
 void View::initializeGL(){
     glClearColor(0,0,0,1);
     glEnable(GL_DEPTH_TEST);
+
+    // draw line and polygon together
+    glEnable(GL_POLYGON_OFFSET_FILL);
+    glPolygonOffset(1, 0);
+
+    // antialiasing
     glEnable(GL_MULTISAMPLE);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHTING);
-    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-    glEnable(GL_COLOR_MATERIAL);
+    //glEnable(GL_LIGHT0);
+    //glEnable(GL_LIGHTING);
+    //glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+    //glEnable(GL_COLOR_MATERIAL);
 }
 
 void View::resizeGL(int w, int h){
@@ -45,40 +55,15 @@ void View::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     gProgram->use();
+    gProgram->enableShadingPipe(Lumos::Shader::default_mesh_shader_id);
+
     for(const Lumos::Instance & i : drawingInstances){
-        i.render(*this);
+        i.renderMesh(*this);
     }
 
-/*
-    // bind the program (the shaders)
-    gProgram->use();
-    glBindVertexArray( drawingInstances[0].getAsset().VAO );
 
-    // set input
-    glm::mat4 projection = _camInUse->getProjectionMatrix(static_cast<float>(width())/static_cast<float>(height())) ;
-    gProgram->setUniform("projection", projection);
-    glm::mat4 pers = _camInUse->getPerspectiveMatrix();
-    gProgram->setUniform("camera", pers);
+    gProgram->disableShadingPipe(Lumos::Shader::default_mesh_shader_id);
 
-    gProgram->setUniform("model", glm::mat4());
-    gProgram->setUniform("inverseModel", glm::mat4());
-
-    gProgram->setUniform("light.position", shaper.getDefaultLight().getTranslate());
-    gProgram->setUniform("light.intensities", shaper.getDefaultLight().getIntensity());
-
-    gProgram->setUniform("ambient", color3(0.05f, 0.05f, 0.05f));
-
-
-    // bind the VAO (the triangle)
-    glBindVertexArray(drawingInstances[0].getAsset().VAO);
-    // draw the VAO
-    //GLuint a = gProgram->getCurVBO().getSize();
-    glDrawArrays(GL_TRIANGLES, 0, drawingInstances[0].getAsset().drawCount);
-
-    glBindVertexArray( 0 );
-
-    gProgram->stopUsing();
-*/
 
 }
 
@@ -96,7 +81,7 @@ void View::mousePressEvent(QMouseEvent *event){
         break;
     }
     _prevMousePos = event->pos();
-    update();
+    winMan->updateAllViews();
 }
 
 void View::mouseMoveEvent(QMouseEvent *event){
@@ -110,7 +95,7 @@ void View::mouseMoveEvent(QMouseEvent *event){
         switch(event->buttons()){
         case Qt::LeftButton:
             _camInUse->rotateAroundFocus(static_cast<float>(diff.x())/100.0f,
-                                      -static_cast<float>(diff.y())/100.0f
+                                      static_cast<float>(diff.y())/100.0f
                                       );
             _camInUse->setAtGlobal(point3(0, 0, 0));
             break;
@@ -128,7 +113,8 @@ void View::mouseMoveEvent(QMouseEvent *event){
 
     }
     _prevMousePos = event->pos();
-    update();
+
+    winMan->updateAllViews();
 }
 
 void View::mouseReleaseEvent(QMouseEvent *event){
@@ -139,11 +125,11 @@ void View::wheelEvent ( QWheelEvent * event ){
     //qDebug() << _camInUse->getPos().x << " " << _camInUse->getPos().y << " " << _camInUse->getPos().z << " " ;
     bool isUp = event->angleDelta().y() > 0? true : false;
     if ( isUp )
-        _camInUse->moveForward(0.2);
+        _camInUse->moveForward(0.1f);
     else
-        _camInUse->moveForward(-0.2);
+        _camInUse->moveForward(0.1f);
 
-    update();
+    winMan->updateAllViews();
 }
 
 /*

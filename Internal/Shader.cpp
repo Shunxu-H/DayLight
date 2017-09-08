@@ -15,6 +15,8 @@ namespace Lumos {
 
 
 
+const std::string Shader::default_mesh_shader_id = "multilight_shader";
+const std::string Shader::default_bbox_shader_id = "bbox_shader";
 
 
 Shader::Shader(const std::string & shaderCode, const GLenum & shaderType){
@@ -71,25 +73,25 @@ void Shader::getCurrentVaryingsAndUniforms(
     GLchar name[bufSize]; // variable name in GLSL
     GLsizei length; // name length
     glGetProgramiv(gProgram->getObjId(), GL_ACTIVE_ATTRIBUTES, &count);
-    printf("Active Attributes: %d\n", count);
+    //printf("Active Attributes: %d\n", count);
 
     for (i = 0; i < count; i++)
     {
         glGetActiveAttrib(gProgram->getObjId(), i, bufSize, &length, &size, &type, name);
 
-        qDebug() << "Attribute " << i << "Type:" << type << " Name: " << name;
+        //qDebug() << "Attribute " << i << "Type:" << type << " Name: " << name;
         varyings.push_back( name );
     }
 
     // load uniform
     glGetProgramiv(gProgram->getObjId(), GL_ACTIVE_UNIFORMS, &count);
-    printf("Active Uniforms: %d\n", count);
+    //printf("Active Uniforms: %d\n", count);
 
     for (i = 0; i < count; i++)
     {
         glGetActiveUniform(gProgram->getObjId(), (GLuint)i, bufSize, &length, &size, &type, name);
 
-        qDebug() << "Uniform " << i << "Type:" << type << " Name: " << name;
+        //qDebug() << "Uniform " << i << "Type:" << type << " Name: " << name;
         uniforms.push_back( name );
     }
 

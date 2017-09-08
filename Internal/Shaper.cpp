@@ -1,16 +1,17 @@
 #include <QDebug>
 #include <fstream>
-#include <deque>
 #include <experimental/filesystem>
-#include <GL/gl.h>
 #include <iostream>
+#include <climits>
 
-#include <memory>
+#include "GL_include.h"
 #include "Utility.h"
 #include "Shaper.h"
 #include "Instance.h"
-
 #include "Face.h"
+#include "ModelAsset.h"
+
+#include "obj_loader.h"
 
 #include "Extern.h"
 
@@ -27,7 +28,7 @@ Shaper::Shaper()
 Shaper::Shaper( const std::string & fileName )
 {
     loadFile( fileName );
-    lights.push_back(Light());
+    _lights.push_back(Light::makeDirectionalLight());
 
 }
 
@@ -41,10 +42,27 @@ bool Shaper::loadFile( const std::string & fileName ){
         _loadFile_obj( fileName );
 
 
-    lights.push_back(Light());
 }
 
 bool Shaper::_loadFile_obj(const std::string & f_name){
+    objl::Loader loader;
+    loader.LoadFile(f_name);
+
+    for ( const objl::Mesh & m : loader.LoadedMeshes){
+        Mesh newMesh( m.MeshName );
+        newMesh.setIndices( m.Indices );
+        for ( const objl::Vertex & v : m.Vertices ){
+            newMesh.addVertex( *reinterpret_cast<const Vertex*>(&v) );
+        }
+        _shapes.push_back(newMesh);
+    }
+    //int s = sizeof(objl::Vertex);
+    //int sizeofvec = sizeof(glm::vec3)*2 + sizeof(glm::vec2);
+    //int s8f = sizeof(float)*8;
+
+    //int a = 0;
+
+    /*
     std::ifstream file (f_name.c_str());
     if( !file.is_open() ){
         printf("Faild To Open File\n");
@@ -55,14 +73,38 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
     Mesh newGeo;
     std::deque<std::string> tokens;
     std::string line;
+    glm::vec3 max(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min()),
+              min(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+    auto updateMin = [&min](const point3 & p){
+        min.x = min.x < p.x? min.x : p.x;
+        min.y = min.y < p.y? min.y : p.y;
+        min.z = min.z < p.z? min.z : p.z;
+    };
+    auto updateMax = [&max](const point3 & p){
+        max.x = max.x > p.x? max.x : p.x;
+        max.y = max.y > p.y? max.y : p.y;
+        max.z = max.z > p.z? max.z : p.z;
+    };
 
     while (std::getline( file, line) ){
         tokens = Utils::mystrtok( line, " /" );
 
         // do the parsing here
         // parsing vertex
-        if( tokens[0].compare( "v" ) == 0){
-            newGeo.addVertex(point3 (std::stof(tokens[1]), std::stof(tokens[2]), std::stof(tokens[3]) ));
+        if( tokens[0].compare( "o" ) == 0 ){
+            if ( newGeo.getNumOfVertices() == 0 )
+                newGeo.setId( tokens[1] );
+            else{
+                _shapes.push_back(newGeo);
+                newGeo = Mesh(tokens[1]);
+            }
+            tokens.erase( tokens.begin(), tokens.begin()+2 );
+        }
+        if( tokens[0].compare( "v" ) == 0 ){
+            point3 newP (std::stof(tokens[1]), std::stof(tokens[2]), std::stof(tokens[3]) );
+            updateMax(newP);
+            updateMin(newP);
+            newGeo.addVertex(newP);
             tokens.erase( tokens.begin(), tokens.begin()+4 );
 
         }
@@ -104,15 +146,17 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
         }
 
     }
-
+    newGeo.setMaxPos(max);
+    newGeo.setMinPos(min);
     _shapes.push_back( newGeo );
+    */
 
 }
 
 
 void Shaper::_loadDefaultObjects(){
     //_pers = std::make_shared<Camera, CameraType> ( CameraType::PERSPECTIVE );
-    lights.push_back(Light());
+    _lights.push_back(Light());
 }
 
 Lumos::ArrayBuffer Shaper::getVertexBuffer( )const

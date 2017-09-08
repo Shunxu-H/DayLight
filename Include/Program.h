@@ -4,6 +4,7 @@
 #include <GL/gl.h>
 #include <unordered_map>
 #include <vector>
+#include <sstream>
 #include "GL_include.h"
 #include "GLObject.h"
 
@@ -117,6 +118,16 @@ namespace Lumos {
         void setUniform(const GLchar* uniformName, const glm::mat4& m, GLboolean transpose=GL_FALSE);
         void setUniform(const GLchar* uniformName, const glm::vec3& v);
         void setUniform(const GLchar* uniformName, const glm::vec4& v);
+
+
+        template <typename T>
+        void SetLightUniform(const char* propertyName, size_t lightIndex, const T& value) {
+            std::ostringstream ss;
+            ss << "allLights[" << lightIndex << "]." << propertyName;
+            std::string uniformName = ss.str();
+
+            setUniform(uniformName.c_str(), value);
+        }
 
     private:
 

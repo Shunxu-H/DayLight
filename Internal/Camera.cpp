@@ -21,8 +21,9 @@ Camera::Camera(const CameraType & type,
 
 
 
-void Camera::moveForward( const float & dist ){
-    _translate += glm::normalize(_at)*dist;
+void Camera::moveForward( const float & sensitivity ){
+    _translate += glm::normalize(_at)*sensitivity;
+    _at *= (1.0f - sensitivity);
 }
 
 
@@ -38,10 +39,12 @@ void Camera::panAndPadestal( const float & x_axis, const float & y_axis ){
 void Camera::rotateAroundFocus( const float & x_axis, const float & y_axis){
     glm::vec3 right = glm::normalize(glm::cross(_at, _up));
     glm::vec3 up = glm::normalize(glm::cross(right, _at));
-
-    glm::vec3 b = (glm::normalize( -_at + ( up    * y_axis ) ) * glm::length( _at ) + _at) +
-                  (glm::normalize( -_at + ( right * x_axis ) ) * glm::length( _at ) + _at);
-    _translate += b;
+    glm::mat4 m(1);
+    m = glm::rotate(m, y_axis, right);
+    m = glm::rotate(m, x_axis, up);
+    glm::vec4 newMinusA = m * glm::vec4(-_at, 1.0);
+    setTranslatev4(getTranslatev4()+point4(_at, 1.0)+newMinusA);
+    _at = -point3(newMinusA);
     _up = glm::normalize(glm::cross(right, _at));
 
 }

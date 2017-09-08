@@ -3,13 +3,13 @@
 #include "GL_include.h"
 #include "WindowManager.h"
 #include "View.h"
+#include "View_bullet.h"
 #include "Shader.h"
 
 #include "Extern.h"
 
 
 
-namespace Lumos {
 
 
 int MARGIN = 20;
@@ -18,40 +18,22 @@ WindowManager::WindowManager(QWidget *parent)
     :QMainWindow(parent)
      //ui(new Ui::WindowManager)
 {
-/*
-    // Initialize Ui
-    //ui->setupUi(this);
-    resize( INITIAL_WIN_SIZE[0], INITIAL_WIN_SIZE[1] );
+
+    QDockWidget *canvas_dock_left = new QDockWidget(tr("Canvas"), this);
+    View * leftView = new View(canvas_dock_left);
+    canvas_dock_left->setWidget(leftView);
+    addDockWidget(Qt::LeftDockWidgetArea, canvas_dock_left);
+    _views.push_back(leftView);
 
 
-    QDockWidget *dock = new QDockWidget(tr("Canvas"), this);
-    dock->setWidget(new View(dock));
+    QDockWidget *canvas_dock_right = new QDockWidget(tr("Canvas"), this);
+    View * rightView = new View_bullet( canvas_dock_right);
+    canvas_dock_right->setWidget(rightView);
     //dock->setWidget(new OGLWidget());
-    addDockWidget(Qt::LeftDockWidgetArea, dock);
-*/
-
-    //QWidget *widget = new QWidget;
-    //setCentralWidget(widget);
-
-    //QWidget *topFiller = new QWidget;
-    //topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    QDockWidget *canvas_dock = new QDockWidget(tr("Canvas"), this);
-    canvas_dock->setWidget(new View(canvas_dock));
-    //dock->setWidget(new OGLWidget());
-    addDockWidget(Qt::LeftDockWidgetArea, canvas_dock);
+    addDockWidget(Qt::RightDockWidgetArea, canvas_dock_right);
+    _views.push_back(rightView);
 
 
-
-    //QWidget *bottomFiller = new QWidget;
-    //bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    //QVBoxLayout *layout = new QVBoxLayout;
-    //layout->setMargin(5);
-    //layout->addWidget(topFiller);
-    //layout->addWidget(canvas_dock);
-    //layout->addWidget(bottomFiller);
-    //widget->setLayout(layout);
     _createActions();
     _createMenus();
 
@@ -62,6 +44,12 @@ WindowManager::WindowManager(QWidget *parent)
     setMinimumSize(160, 160);
     resize(1080, 720);
 
+}
+
+
+void WindowManager::updateAllViews(){
+    for(View* & v : _views )
+        v->update();
 }
 
 void WindowManager::_createActions()
@@ -274,6 +262,5 @@ void WindowManager::exit(){
 
 }
 
-}
 
 

@@ -17,6 +17,9 @@ namespace Lumos {
         virtual ~Shader();
         virtual void bind () const{}
 
+        static const std::string default_mesh_shader_id;
+        static const std::string default_bbox_shader_id;
+
         /**
          * @brief ask openGL to return a list of uniforms and varyings attached of the shaders attached to the program
          * @param varyings, will be loaded with varyings

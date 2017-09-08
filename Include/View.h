@@ -16,7 +16,6 @@ class View: public QOpenGLWidget
 {
     Q_OBJECT
 public:
-    View(){}
     View(
             QWidget *parent = nullptr,
             const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr )
@@ -32,14 +31,14 @@ public:
 
 protected:
 
-    virtual void initializeGL();
-    virtual void resizeGL(int w, int h);
-    virtual void paintGL();
+    virtual void initializeGL() override ;
+    virtual void resizeGL(int w, int h) override ;
+    virtual void paintGL() override ;
 
-    void mousePressEvent(QMouseEvent *event) override;
-    void mouseMoveEvent(QMouseEvent *event) override;
-    void mouseReleaseEvent(QMouseEvent *event) override;
-    void wheelEvent ( QWheelEvent * event ) override;
+    virtual void mousePressEvent(QMouseEvent *event) override;
+    virtual void mouseMoveEvent(QMouseEvent *event) override;
+    virtual void mouseReleaseEvent(QMouseEvent *event) override;
+    virtual void wheelEvent ( QWheelEvent * event ) override;
 
 
 

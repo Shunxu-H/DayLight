@@ -1,6 +1,7 @@
 
 #include "GL_include.h"
 #include "Mesh.h"
+#include "ModelAsset.h"
 
 #include "Extern.h"
 
@@ -9,22 +10,29 @@ namespace Patronus {
 
 
 Mesh::~Mesh(){
-}
 
+}
 
 
 void Mesh::copyVertexData( size_t * initPos )const{
-    for( const Face & f: _faces)
-        for( const unsigned int & ind : f.verticesInds())
-            glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
-                            sizeof(point3),  &(_vertices[ind]) );
+    for (const size_t & index : _indices )
+        glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
+                         sizeof(point3),  &(_vertices_combinded[index].position) );
+//    for( const Face & f: _faces)
+//        for( const unsigned int & ind : f.verticesInds())
+//            glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
+//                            sizeof(point3),  &(_vertices[ind]) );
 }
 
 void Mesh::copyVertexNormalData( size_t * initPos )const{
-    for( const Face & f: _faces)
-        for( const unsigned int & ind : f.normalInds())
-            glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
-                            sizeof(point3),  &(_normals[ind]) );
+    for (const size_t & index : _indices )
+        glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
+                         sizeof(point3),  &(_vertices_combinded[index].normal) );
+
+//    for( const Face & f: _faces)
+//        for( const unsigned int & ind : f.normalInds())
+//            glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
+//                            sizeof(point3),  &(_normals[ind]) );
 }
 
 void Mesh::addVertex(const point3 & v){
@@ -44,6 +52,10 @@ void Mesh::addNormal(const glm::vec3& n){
     _normals.push_back(n);
 }
 
+void Mesh::addVertex( const Vertex & v){
+    _boundingBox.update(v.position);
+    _vertices_combinded.push_back( v );
+}
 
 
 Lumos::Instance Mesh::instantiate (){
@@ -52,7 +64,6 @@ Lumos::Instance Mesh::instantiate (){
     //assert( current_vao != 0 );
 
     if ( _VAO == 0 ){
-        _VAO = current_vao;
         glGenVertexArrays(1, &_VAO);
         glBindVertexArray(_VAO);
         _loadVertexToBuffer();
@@ -73,6 +84,7 @@ Lumos::Instance Mesh::instantiate (){
 
     // get model Asset
     Lumos::ModelAsset asset{};
+    asset.shaderId = Lumos::Shader::default_mesh_shader_id;
     asset.VAO = _VAO;
     asset.material = m;
     asset.VBO_VERT = _VBO_VERT;
@@ -80,10 +92,11 @@ Lumos::Instance Mesh::instantiate (){
     asset.VBO_NORMAL = _VBO_NORMAL;
     asset.drawType = GL_TRIANGLES;
     asset.drawStart = 0;
-    asset.drawCount = getNumOfFaces()*3;
+    asset.drawCount = _vertices_combinded.size();
+
 
     // return data
-    return Lumos::Instance( getModelMatrix(), asset );
+    return Lumos::Instance(this, asset);
 }
 
 
@@ -93,7 +106,7 @@ void Mesh::_loadVertexToBuffer( ){
     assert( _VAO == cur_vao );
 
     size_t _bytesPerEntry = sizeof(point3);
-    size_t _numOfEntry = getNumOfFaces()*3;
+    size_t _numOfEntry = _vertices_combinded.size();
 
     glGenBuffers(1, &_VBO_VERT);
     glBindBuffer( GL_ARRAY_BUFFER, _VBO_VERT );
@@ -112,7 +125,7 @@ void Mesh::_loadNormalToBuffer( ){
     assert( _VAO == cur_vao );
 
     size_t _bytesPerEntry = sizeof(point3);
-    size_t _numOfEntry = getNumOfFaces()*3;
+    size_t _numOfEntry = _vertices_combinded.size()*3;
 
     glGenBuffers(1, &_VBO_NORMAL);
     glBindBuffer( GL_ARRAY_BUFFER, _VBO_NORMAL );
@@ -127,6 +140,10 @@ void Mesh::_loadNormalToBuffer( ){
 void Mesh::_loadColorToBuffer( ){
 
 }
+
+//void Mesh::_loadBoundingBoxToBuffer( ){
+
+//}
 
 /*
 struct Material{

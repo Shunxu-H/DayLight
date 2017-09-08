@@ -33,6 +33,8 @@ namespace Patronus {
          */
         inline point3
             getTranslate() const { return _translate; }
+        inline point4
+            getTranslatev4() const { return point4(_translate, 1.0f); }
         inline point3
             getScale() const { return _scale; }
         inline point3
@@ -40,6 +42,8 @@ namespace Patronus {
 
         inline void
             setTranslate( const point3 & arg ) { _translate=arg; }
+        inline void
+            setTranslatev4( const point4 & arg){ _translate = glm::vec3(arg); }
         inline void
             setScale( const point3 & arg ) { _scale=arg; }
         inline void

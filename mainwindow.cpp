@@ -4,10 +4,7 @@
 #include <QGridLayout>
 #include <QProgressBar>
 #include <QPushButton>
-#include <oglwidget.h>
-#include <oglwidget.h>
 
-#include <oglwidget.h>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "CVM.h"
@@ -24,7 +21,6 @@ _MainWindow::_MainWindow(QWidget *parent) :
 
     QDockWidget *dock = new QDockWidget(tr("Canvas"), this);
     //dock->setWidget(new CVM(dock));
-    dock->setWidget(new OGLWidget());
     addDockWidget(Qt::LeftDockWidgetArea, dock);
 
 

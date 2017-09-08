@@ -24,7 +24,7 @@ namespace Patronus {
         //static const std::shared_ptr<Camera> _pers;
         static Lumos::Material * _default_material;
 
-        inline Light getDefaultLight() const { return lights[0]; }
+        inline Light getDefaultLight() const { return _lights[0]; }
         /**
          * @brief load file and call corresponding functions based on file extension
          * @param fileName the file targeted to be loaded
@@ -32,8 +32,6 @@ namespace Patronus {
          */
         bool loadFile( const std::string & fileName );
 
-        inline bool
-            isLoaded() const { return _shapes.size() > 0; }
 
         int getNumOfVertices() const;
 
@@ -42,13 +40,19 @@ namespace Patronus {
 
         std::vector<Lumos::Instance> getAllInstance();
 
+
+        inline bool
+            isLoaded() const { return _shapes.size() > 0; }
+
+        inline std::vector< Light > getLights()
+            const { return _lights; }
     protected:
 
     private:
 
         std::vector<Mesh> _shapes;
         std::vector<Camera> _cameras;
-        std::vector<Light> lights;
+        std::vector<Light> _lights;
 
 
         /**
@@ -56,7 +60,7 @@ namespace Patronus {
          *         construct a point light and perspective camera
          */
         void _loadDefaultObjects();
-        bool _loadFile_obj(const std::string & f_name);
+        bool _loadFile_obj (const std::string & f_name);
 
     };
 
