@@ -39,6 +39,8 @@ public:
 
     void createMenus();
 
+    void positionAllViewsToFitAllInstances();
+
 protected:
 
 #ifndef QT_NO_CONTEXTMENU

@@ -21,9 +21,9 @@
 
 namespace Patronus {
 Lumos::Material* Shaper::_default_material   = new Lumos::Material();
-std::vector< point3 > Shaper::global_vertices;
-std::vector< point3 > Shaper::global_normal_vertices;
-std::vector< point2 > Shaper::global_uv_coords;
+std::vector< point3 > Shaper::global_vertices = std::vector< point3 >();
+std::vector< point3 > Shaper::global_normal_vertices{};
+std::vector< point2 > Shaper::global_uv_coords{};
 
 
 Shaper::Shaper()
@@ -35,6 +35,88 @@ Shaper::Shaper( const std::string & fileName )
 {
     loadFile( fileName );
     _lights.push_back(Light::makeDirectionalLight());
+
+}
+
+
+point3 Shaper::getGlobalMax(){
+    glm::vec3 max(std::numeric_limits<float>::min(),
+                  std::numeric_limits<float>::min(),
+                  std::numeric_limits<float>::min());
+    auto updateMax = [&max](const point3 & p){
+        max.x = max.x > p.x? max.x : p.x;
+        max.y = max.y > p.y? max.y : p.y;
+        max.z = max.z > p.z? max.z : p.z;
+    };
+    for (const point3 & p: Shaper::global_vertices)
+        updateMax(p);
+    return max;
+}
+
+point3 Shaper::getGlobalMin(){
+    glm::vec3 min(std::numeric_limits<float>::max(),
+                  std::numeric_limits<float>::max(),
+                  std::numeric_limits<float>::max());
+    auto updateMin = [&min](const point3 & p){
+        min.x = min.x < p.x? min.x : p.x;
+        min.y = min.y < p.y? min.y : p.y;
+        min.z = min.z < p.z? min.z : p.z;
+    };
+
+    for (const point3 & p: Shaper::global_vertices)
+        updateMin(p);
+    return min;
+
+}
+
+
+void Shaper::getBoundingSphere(const std::vector< point3 > & points, point3 * position, float * radius){
+    if ( points.size() == 0 ){
+        *position = point3 (0.0f, 0.0f, 0.0f);
+        *radius = 0.0f;
+    }
+    else if (points.size() == 1){
+        *position = points[0];
+        *radius = 0.0f;
+    }
+    point3 farthest1 = points[0],
+           farthest2 = points[0],
+           curPoint  = points[0],
+           outside   = points[0];
+    *position = curPoint;
+    *radius = 0.0f;
+
+    auto getFarthest = [&points](const point3 & curP){
+                            float farthestDist = 0;
+                            float curDist = 0;
+                            point3 farthestPoint;
+                            for (const point3 & p : points){
+                                curDist = glm::length(p - curP);
+                                if ( curDist > farthestDist ){
+                                    farthestDist = curDist;
+                                    farthestPoint = p;
+                                }
+                            }
+                            return farthestPoint;
+                        };
+    auto isAllInSphere = [& points, &position, &radius]( point3 & outside ){
+                            for (const point3 & p : points){
+                                if ( glm::length(p - *position) > *radius ){
+                                    outside = p;
+                                    return false;
+                                }
+                            }
+                            return true;
+                        };
+    curPoint = outside;
+    farthest1 = getFarthest(curPoint);
+    farthest2 = getFarthest(farthest1);
+    *position = (farthest1 + farthest2) / 2.0f;
+    *radius = glm::length(farthest1 - farthest2) / 2.0f;
+    while (!isAllInSphere(outside))
+        *radius = glm::length(outside - *position);
+
+
 
 }
 
@@ -51,7 +133,7 @@ bool Shaper::loadFile( const std::string & fileName ){
 }
 
 bool Shaper::_loadFile_obj(const std::string & f_name){
-/*
+
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
     std::vector<tinyobj::material_t> materials;
@@ -76,66 +158,6 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
     for ( size_t i = 0; i < attrib.texcoords.size(); i+=2 )
         global_uv_coords.push_back( point2( attrib.texcoords[i], attrib.texcoords[i+1]));
 
-
-    // Loop over shapes
-    for (size_t s = 0; s < shapes.size(); s++) {
-        // Loop over faces(polygon)
-        Mesh newMesh{};
-
-        size_t index_offset = 0;
-        for (size_t f = 0; f < shapes[s].mesh.num_face_vertices.size(); f++) {
-            Face newFace{};
-
-            int fv = shapes[s].mesh.num_face_vertices[f];
-            // Loop over vertices in the face.
-            for (size_t v = 0; v < fv; v++) {
-                // access to vertex
-                tinyobj::index_t idx = shapes[s].mesh.indices[index_offset + v];
-                newFace.addVertexIndex(idx.vertex_index);
-                newFace.addNormalIndex(idx.normal_index);
-                newFace.addUvIndex(idx.texcoord_index);
-            }
-            newMesh.addFace(newFace);
-
-            index_offset += fv;
-
-            // per-face material
-            shapes[s].mesh.material_ids[f];
-        }
-        _shapes.push_back(newMesh);
-    }
-
-*/
-
-    /** redo this part **/
-    objl::Loader loader;
-    loader.LoadFile(f_name);
-
-    for ( const objl::Mesh & m : loader.LoadedMeshes){
-        Mesh newMesh( m.MeshName );
-        newMesh.setIndices( m.Indices );
-        for ( const objl::Vertex & v : m.Vertices ){
-            newMesh.addVertex( *reinterpret_cast<const Vertex*>(&v) );
-        }
-        _shapes.push_back(newMesh);
-    }
-    //int s = sizeof(objl::Vertex);
-    //int sizeofvec = sizeof(glm::vec3)*2 + sizeof(glm::vec2);
-    //int s8f = sizeof(float)*8;
-
-    //int a = 0;
-
-    /*
-    std::ifstream file (f_name.c_str());
-    if( !file.is_open() ){
-        printf("Faild To Open File\n");
-        return false;
-    }
-
-
-    Mesh newGeo;
-    std::deque<std::string> tokens;
-    std::string line;
     glm::vec3 max(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min()),
               min(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
     auto updateMin = [&min](const point3 & p){
@@ -149,71 +171,47 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
         max.z = max.z > p.z? max.z : p.z;
     };
 
-    while (std::getline( file, line) ){
-        tokens = Utils::mystrtok( line, " /" );
 
-        // do the parsing here
-        // parsing vertex
-        if( tokens[0].compare( "o" ) == 0 ){
-            if ( newGeo.getNumOfVertices() == 0 )
-                newGeo.setId( tokens[1] );
-            else{
-                _shapes.push_back(newGeo);
-                newGeo = Mesh(tokens[1]);
+    // Loop over shapes
+    for (size_t s = 0; s < shapes.size(); s++) {
+        // Loop over faces(polygon)
+        Mesh newMesh{};
+        newMesh.setId(shapes[s].name);
+        max = glm::vec3(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min()),
+        min = glm::vec3(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+
+        size_t index_offset = 0;
+        for (size_t f = 0; f < shapes[s].mesh.num_face_vertices.size(); f++) {
+            Face newFace{};
+
+
+            int fv = shapes[s].mesh.num_face_vertices[f];
+            // Loop over vertices in the face.
+            for (size_t v = 0; v < fv; v++) {
+                // access to vertex
+                tinyobj::index_t idx = shapes[s].mesh.indices[index_offset + v];
+
+                tinyobj::real_t vx = attrib.vertices[3*idx.vertex_index+0];
+                tinyobj::real_t vy = attrib.vertices[3*idx.vertex_index+1];
+                tinyobj::real_t vz = attrib.vertices[3*idx.vertex_index+2];
+                updateMax(point3(vx, vy, vz));
+                updateMin(point3(vx, vy, vz));
+
+                newFace.addVertexIndex(idx.vertex_index);
+                newFace.addNormalIndex(idx.normal_index);
+                newFace.addUvIndex(idx.texcoord_index);
             }
-            tokens.erase( tokens.begin(), tokens.begin()+2 );
+            newMesh.addFace(newFace);
+
+            index_offset += fv;
+
+            // per-face material
+            shapes[s].mesh.material_ids[f];
         }
-        if( tokens[0].compare( "v" ) == 0 ){
-            point3 newP (std::stof(tokens[1]), std::stof(tokens[2]), std::stof(tokens[3]) );
-            updateMax(newP);
-            updateMin(newP);
-            newGeo.addVertex(newP);
-            tokens.erase( tokens.begin(), tokens.begin()+4 );
-
-        }
-        else if ( tokens[0].compare( "vt" ) == 0 ){
-            newGeo.addVu(glm::vec2( std::stof(tokens[1]), std::stof(tokens[2])) );
-            tokens.erase( tokens.begin(), tokens.begin()+3 );
-        }
-        else if ( tokens[0].compare( "vn" ) == 0 ){
-            newGeo.addNormal(glm::vec3 (std::stof(tokens[1]), std::stof(tokens[2]), std::stof(tokens[3]) ));
-            tokens.erase( tokens.begin(), tokens.begin()+4 );
-        }
-        else if ( tokens[0].compare( "f" ) == 0 ){
-            tokens.pop_front();
-            Face newF;
-            std::string vertex1, vertex2, vertex3;
-            if (tokens.size() == 9){
-
-                int vertexIndex[] = {std::stoi( tokens[0] )-1, std::stoi( tokens[3] )-1, std::stoi( tokens[6] )-1},
-                    uvIndex[]     = {std::stoi( tokens[1] )-1, std::stoi( tokens[4] )-1, std::stoi( tokens[7] )-1},
-                    normalIndex[] = {std::stoi( tokens[2] )-1, std::stoi( tokens[5] )-1, std::stoi( tokens[8] )-1};
-
-                tokens.erase( tokens.begin(), tokens.begin()+9 );
-                newF.setVertexIndeces(vertexIndex[0],vertexIndex[1],vertexIndex[2]);
-                newF.setUvIndeces(uvIndex[0],uvIndex[1],uvIndex[2]);
-                newF.setNormalIndeces(normalIndex[0],normalIndex[1],normalIndex[2]);
-                newGeo.addFace( newF );
-            }
-            else if (tokens.size() == 6){
-
-                int vertexIndex[] = {std::stoi( tokens[0] )-1, std::stoi( tokens[2] )-1, std::stoi( tokens[4] )-1},
-                    uvIndex[]     = {0, 0, 0},
-                    normalIndex[] = {std::stoi( tokens[1] )-1, std::stoi( tokens[3] )-1, std::stoi( tokens[5] )-1};
-
-                tokens.erase( tokens.begin(), tokens.begin()+6 );
-                newF.setVertexIndeces(vertexIndex[0],vertexIndex[1],vertexIndex[2]);
-                newF.setNormalIndeces(normalIndex[0],normalIndex[1],normalIndex[2]);
-                newGeo.addFace( newF );
-            }
-        }
-
+        newMesh.setMaxPos(max);
+        newMesh.setMinPos(min);
+        _shapes.push_back(newMesh);
     }
-    newGeo.setMaxPos(max);
-    newGeo.setMinPos(min);
-    _shapes.push_back( newGeo );
-    */
-
 }
 
 

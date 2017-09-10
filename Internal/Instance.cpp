@@ -67,9 +67,9 @@ void Instance::loadAttribsAndUniform( const View & view ) const {
         else if( uniform.compare("inverseModel") == 0)
             gProgram->setUniform(uniform.c_str(), getInverseModelMatrix() );
         else if( uniform.compare("light.position") == 0)
-            gProgram->setUniform(uniform.c_str(), shaper.getDefaultLight().getTranslate() );
+            gProgram->setUniform(uniform.c_str(), shaper->getDefaultLight().getTranslate() );
         else if( uniform.compare("light.intensities") == 0)
-            gProgram->setUniform(uniform.c_str(), shaper.getDefaultLight().getIntensity() );
+            gProgram->setUniform(uniform.c_str(), shaper->getDefaultLight().getIntensity() );
         else if( uniform.compare("ambient") == 0)
             gProgram->setUniform(uniform.c_str(), color3(0.05f, 0.05f, 0.05f) );
         else if( uniform.compare("materialShininess") == 0)
@@ -77,7 +77,7 @@ void Instance::loadAttribsAndUniform( const View & view ) const {
         else if( uniform.compare("materialSpecularColor") == 0)
             gProgram->setUniform(uniform.c_str(), color3 (1.0f, 1.0f, 1.0f));
         else if( uniform.compare("numLights") == 0)
-            gProgram->setUniform(uniform.c_str(), (int)shaper.getLights().size());
+            gProgram->setUniform(uniform.c_str(), (int)shaper->getLights().size());
         else if( uniform.compare("ModelViewProjectionMatrix") == 0)
             gProgram->setUniform(uniform.c_str(),
                                  view.getCamInUse()->getProjectionMatrix(static_cast<float>(view.width())/static_cast<float>(view.height()) )*
@@ -94,7 +94,7 @@ void Instance::loadAttribsAndUniform( const View & view ) const {
     if ( hasAllLight ){
 
         size_t i = 0;
-        for ( const Patronus::Light & l : shaper.getLights() ){
+        for ( const Patronus::Light & l : shaper->getLights() ){
 
             gProgram->SetLightUniform("isDirectional", i, l.getType() == Patronus::LightType::DIRECTIONAL);
             gProgram->SetLightUniform("position", i, l.getTranslatev4());

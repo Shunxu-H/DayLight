@@ -45,7 +45,7 @@ namespace Patronus {
         inline glm::vec3
             getAt() const { return _at; }
         inline float
-            getFov() const { return _fov; }
+            getFovy() const { return _fov; }
         inline float
             getNearClipDist() const { return _near; }
         inline float

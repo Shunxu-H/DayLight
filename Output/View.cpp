@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QMouseEvent>
 #include <QGLWidget>
+#include <cmath>
 #include "GL_include.h"
 #include "View.h"
 #include "Camera.h"
@@ -127,6 +128,16 @@ void View::mousePressEvent(QMouseEvent *event){
     }
     _prevMousePos = event->pos();
     winMan->updateAllViews();
+}
+
+
+void View::fitSphere(const point3 & position, const float & radius){
+    float z_y = radius / atan(_camInUse->getFovy()),
+          z_x = radius / atan( static_cast<float>(width()) /
+                               static_cast<float>(height()) /
+                               _camInUse->getFovy());
+    _camInUse->setTranslate(position + point3(0.0f, 0.0f, z_y > z_x? z_y : z_x));
+
 }
 
 void View::mouseMoveEvent(QMouseEvent *event){

@@ -15,7 +15,7 @@
 
 
 Config progConfig;
-Patronus::Shaper shaper("./data/teapot.obj");
+Patronus::Shaper * shaper;
 Lumos::Program * gProgram;
 WindowManager * winMan;
 Patronus::PhysicalWorld * world;
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     qDebug() << "App path : " << a.applicationDirPath();
     // set up shaper
 
-
+    shaper = new Patronus::Shaper("./data/Enviroment_GroupTrees.obj");
     world = new Patronus::PhysicalWorld();
     winMan = new WindowManager{};
     winMan->show();

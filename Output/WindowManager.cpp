@@ -52,6 +52,18 @@ void WindowManager::updateAllViews(){
         v->update();
 }
 
+
+void WindowManager::positionAllViewsToFitAllInstances(){
+    // compute bounding circle
+    point3 position;
+    float radius;
+    Patronus::Shaper::getBoundingSphere(Patronus::Shaper::global_vertices, &position, &radius);
+
+    for( View * v: _views )
+        v->fitSphere(position, radius);
+
+}
+
 void WindowManager::_createActions()
 {
     newAct = new QAction(tr("&New"), this);

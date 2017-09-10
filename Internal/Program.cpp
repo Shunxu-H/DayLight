@@ -158,8 +158,12 @@ void Program::loadShaders( const std::string & GLSL_path ){
 
 void Program::preDrawSetUp() {
     //use();
-    for ( auto & m : shaper.getMeshes())
+    for ( auto & m : shaper->getMeshes())
         world->loadInstance(m);
+
+    // compute bounding box
+    winMan->positionAllViewsToFitAllInstances();
+
 /*
     gProgram->use();
     gProgram->enableShadingPipe("shader");

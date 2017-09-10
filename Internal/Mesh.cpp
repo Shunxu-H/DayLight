@@ -15,24 +15,24 @@ Mesh::~Mesh(){
 
 
 void Mesh::copyVertexData( size_t * initPos )const{
-    for (const size_t & index : _indices )
-        glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
-                         sizeof(point3),  &(_vertices_combinded[index].position) );
-//    for( const Face & f: _faces)
-//        for( const unsigned int & ind : f.verticesInds())
-//            glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
-//                            sizeof(point3),  &(_vertices[ind]) );
+    //for (const size_t & index : _indices )
+    //    glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
+    //                     sizeof(point3),  &(_vertices_combinded[index].position) );
+    for( const Face & f: _faces)
+        for( const unsigned int & ind : f.getVerticesInds())
+            glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
+                            sizeof(point3),  &(Shaper::global_vertices[ind]) );
 }
 
 void Mesh::copyVertexNormalData( size_t * initPos )const{
-    for (const size_t & index : _indices )
-        glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
-                         sizeof(point3),  &(_vertices_combinded[index].normal) );
+//    for (const size_t & index : _indices )
+//        glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
+//                         sizeof(point3),  &(Shaper::global[index].normal) );
 
-//    for( const Face & f: _faces)
-//        for( const unsigned int & ind : f.normalInds())
-//            glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
-//                            sizeof(point3),  &(_normals[ind]) );
+    for( const Face & f: _faces)
+        for( const unsigned int & ind : f.getNormalInds())
+            glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
+                            sizeof(point3),  &(Shaper::global_normal_vertices[ind]) );
 }
 
 void Mesh::addVertex(const point3 & v){
@@ -79,7 +79,7 @@ Lumos::Instance* Mesh::instantiate (){
 
 
     // get Material
-    Lumos::Material* m = _material == nullptr? shaper._default_material : _material;
+    Lumos::Material* m = _material == nullptr? shaper->_default_material : _material;
 
 
     // get model Asset
@@ -92,7 +92,7 @@ Lumos::Instance* Mesh::instantiate (){
     asset.VBO_NORMAL = _VBO_NORMAL;
     asset.drawType = GL_TRIANGLES;
     asset.drawStart = 0;
-    asset.drawCount = _vertices_combinded.size();
+    asset.drawCount = getNumOfFaces()*3;
 
 
     // return data
@@ -106,7 +106,7 @@ void Mesh::_loadVertexToBuffer( ){
     assert( _VAO == cur_vao );
 
     size_t _bytesPerEntry = sizeof(point3);
-    size_t _numOfEntry = _vertices_combinded.size();
+    size_t _numOfEntry = getNumOfFaces()*3;
 
     glGenBuffers(1, &_VBO_VERT);
     glBindBuffer( GL_ARRAY_BUFFER, _VBO_VERT );
@@ -125,7 +125,7 @@ void Mesh::_loadNormalToBuffer( ){
     assert( _VAO == cur_vao );
 
     size_t _bytesPerEntry = sizeof(point3);
-    size_t _numOfEntry = _vertices_combinded.size()*3;
+    size_t _numOfEntry = getNumOfFaces()*3;
 
     glGenBuffers(1, &_VBO_NORMAL);
     glBindBuffer( GL_ARRAY_BUFFER, _VBO_NORMAL );

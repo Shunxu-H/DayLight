@@ -26,6 +26,9 @@ namespace Patronus {
         static std::vector< point3 > global_vertices;
         static std::vector< point3 > global_normal_vertices;
         static std::vector< point2 > global_uv_coords;
+        static point3 getGlobalMax();
+        static point3 getGlobalMin();
+        static void getBoundingSphere(const std::vector< point3 > & points, point3 * position, float * radius);
 
         inline Light getDefaultLight() const { return _lights[0]; }
         /**

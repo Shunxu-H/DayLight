@@ -31,6 +31,7 @@ public:
         getCamInUse() const { return _camInUse; }
 
 
+    void fitSphere(const point3 & position, const float & radius);
 protected:
 
     virtual void initializeGL() override ;
