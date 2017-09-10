@@ -81,7 +81,7 @@ namespace Patronus {
         void copyVertexNormalData( size_t * initPos )const;
 
 
-        Lumos::Instance instantiate ();
+        Lumos::Instance * instantiate ();
 
         /**
          * @brief setter and getter

@@ -58,7 +58,7 @@ void Mesh::addVertex( const Vertex & v){
 }
 
 
-Lumos::Instance Mesh::instantiate (){
+Lumos::Instance* Mesh::instantiate (){
     GLint current_vao;
     glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &current_vao);
     //assert( current_vao != 0 );
@@ -96,7 +96,7 @@ Lumos::Instance Mesh::instantiate (){
 
 
     // return data
-    return Lumos::Instance(this, asset);
+    return new Lumos::Instance(this, asset);
 }
 
 

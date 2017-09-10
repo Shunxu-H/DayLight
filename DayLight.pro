@@ -10,13 +10,14 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 unix{
     LIBS += -lstdc++fs
-    # LIBS += -L/usr/local/include/bullet/
-    # LIBS += -lBulletDynamics
-    # LIBS += -lBulletCollision
-    # LIBS += -lLinearMath
     INCLUDEPATH += /usr/local/include/bullet/
-    LIBS += -lBulletDynamics -lBulletCollision -lBulletSoftBody -lLinearMath -I /usr/local/include/bullet/
-    # LIBS += -lglut -lGL -lGLU
+    LIBS += -lBulletDynamics
+    LIBS += -lBulletCollision
+    LIBS += -lLinearMath
+    #INCLUDEPATH += /usr/local/include/bullet/
+    #LIBS += -lBulletDynamics -lBulletCollision -lBulletSoftBody -lLinearMath
+    LIBS += -lglut -lGL -lGLU
+    #PKGCONFIG += bullet
 }
 
 # remove possible other optimization flags
@@ -25,7 +26,7 @@ QMAKE_CXXFLAGS_RELEASE -= -O1
 QMAKE_CXXFLAGS_RELEASE -= -O2
 
 # add the desired -O3 if not present
-QMAKE_CXXFLAGS_RELEASE *= -O3
+QMAKE_CXXFLAGS_RELEASE *= -O1
 
 TARGET = DayLight
 TEMPLATE = app
@@ -44,72 +45,37 @@ DEFINES += GL_GLEXT_PROTOTYPES
 
 INCLUDEPATH += Include/
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    Input/Keyboard.cpp \
+SOURCES += main.cpp \
     Input/Mouse.cpp \
+    Internal/ArrayBuffer.cpp \
+    Internal/Camera.cpp \
+    Internal/Countable.cpp \
     Internal/Edge.cpp \
     Internal/Ellipsoid.cpp \
     Internal/Face.cpp \
+    Internal/Instance.cpp \
+    Internal/Light.cpp \
+    Internal/Mesh.cpp \
+    Internal/PhysicalWorld.cpp \
+    Internal/Program.cpp \
     Internal/Shader.cpp \
+    Internal/Shaper.cpp \
+    Internal/Transformable.cpp \
     Internal/Vector.cpp \
     Output/Cabinet.cpp \
     Output/CVM.cpp \
     Output/OrthoView.cpp \
     Output/TextView.cpp \
     Output/View.cpp \
+    Output/View_bullet.cpp \
+    Output/WindowManager.cpp \
     Utility/AEL.cpp \
     Utility/Color.cpp \
     Utility/Config.cpp \
     Utility/Matrix.cpp \
     Utility/Utility.cpp \
-    Output/WindowManager.cpp \
-    Internal/Program.cpp \
-    Internal/Shaper.cpp \
-    Internal/Countable.cpp \
-    Internal/ArrayBuffer.cpp \
-    Internal/Camera.cpp \
-    Internal/Transformable.cpp \
-    Internal/Mesh.cpp \
-    Internal/Instance.cpp \
-    Output/View_bullet.cpp \
-    Internal/Light.cpp
+    Internal/btDebugDrawer.cpp
 
-HEADERS  += mainwindow.h \
-    Include/AEL.h \
-    Include/Cabinet.h \
-    Include/Color.h \
-    Include/Config.h \
-    Include/CVM.h \
-    Include/Edge.h \
-    Include/Ellipsoid.h \
-    Include/Face.h \
-    Include/Index.h \
-    Include/Keyboard.h \
-    Include/Matrix.h \
-    Include/Mouse.h \
-    Include/OrthoView.h \
-    Include/Shader.h \
-    Include/TextView.h \
-    Include/Utility.h \
-    Include/Vector.h \
-    Include/View.h \
-    Include/WindowManager.h \
-    Include/Program.h \
-    Include/GLObject.h \
-    Include/Shaper.h \
-    Include/GL_include.h \
-    Include/Countable.h \
-    Include/ArrayBuffer.h \
-    Include/Extern.h \
-    Include/Camera.h \
-    Include/Transformable.h \
-    Include/Light.h \
-    Include/Mesh.h \
-    Include/Instance.h \
-    Include/View_bullet.h \
-    Include/ModelAsset.h \
-    Include/obj_loader.h
 
 FORMS    += mainwindow.ui \
     windowmanager.ui
@@ -129,3 +95,42 @@ DISTFILES += \
     GLSL/bbox_shader.vert \
     GLSL/multilight_shader.frag \
     GLSL/multilight_shader.vert
+
+HEADERS += \
+    Include/AEL.h \
+    Include/ArrayBuffer.h \
+    Include/Cabinet.h \
+    Include/Camera.h \
+    Include/Color.h \
+    Include/Config.h \
+    Include/Countable.h \
+    Include/CVM.h \
+    Include/Edge.h \
+    Include/Ellipsoid.h \
+    Include/Extern.h \
+    Include/Face.h \
+    Include/GL_include.h \
+    Include/GLObject.h \
+    Include/Index.h \
+    Include/Instance.h \
+    Include/Keyboard.h \
+    Include/Light.h \
+    Include/Matrix.h \
+    Include/Mesh.h \
+    Include/ModelAsset.h \
+    Include/Mouse.h \
+    Include/obj_loader.h \
+    Include/OrthoView.h \
+    Include/PhysicalWorld.h \
+    Include/Program.h \
+    Include/Shader.h \
+    Include/Shaper.h \
+    Include/TextView.h \
+    Include/Transformable.h \
+    Include/Utility.h \
+    Include/Vector.h \
+    Include/View.h \
+    Include/View_bullet.h \
+    Include/WindowManager.h \
+    Include/btDebugDrawer.h \
+    Include/tiny_obj_loader.h

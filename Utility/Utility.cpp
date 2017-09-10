@@ -1,3 +1,4 @@
+#include "Utility.h"
 #include <vector>
 #include <deque>
 #include <iostream>
@@ -5,6 +6,7 @@
 #include <memory>
 #include <ctime>
 #include <cstdlib>
+
 #include "AEL.h"
 
 namespace Utils {
@@ -90,6 +92,20 @@ namespace Utils {
         }
 
 
+    }
+
+
+    std::string genUniqueName(const std::set<std::string> & nameList, const std::string & prefix ){
+        int i = 1;
+        while ( true ){
+            std::string curName = prefix + std::to_string(i);
+            if (nameList.find(curName) != nameList.end()){ // name exist
+                i++;
+                break;
+            }
+            else
+                return curName;
+        }
     }
 
 }

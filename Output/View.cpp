@@ -5,6 +5,7 @@
 #include "GL_include.h"
 #include "View.h"
 #include "Camera.h"
+#include "Utility.h"
 
 #include "Extern.h"
 
@@ -46,6 +47,36 @@ void View::resizeGL(int w, int h){
 
 }
 
+
+void View::getMouseBeam(const int & mouseX, const int & mouseY, point3 * start, point3 * direction )const{
+    // The ray Start and End positions, in Normalized Device Coordinates (Have you read Tutorial 4 ?)
+    glm::vec4 lRayStart_NDC(
+        ((float)mouseX/(float)width()  - 0.5f) * 2.0f, // [0,1024] -> [-1,1]
+        ((float)(height() - mouseY)/(float)height() - 0.5f) * 2.0f, // [0, 768] -> [-1,1]
+        -1.0, // The near plane maps to Z=-1 in Normalized Device Coordinates
+        1.0f
+    );
+    glm::vec4 lRayEnd_NDC(
+        ((float)mouseX/(float)width()  - 0.5f) * 2.0f,
+        ((float)(height() - mouseY)/(float)height() - 0.5f) * 2.0f,
+        0.0,
+        1.0f
+    );
+
+    // Faster way (just one inverse)
+    glm::mat4 M = glm::inverse(_camInUse->getProjectionMatrix( static_cast<float>(width())/static_cast<float>(height()) ) *
+                               _camInUse->getPerspectiveMatrix());
+    glm::vec4 lRayStart_world = M * lRayStart_NDC;
+    lRayStart_world/=lRayStart_world.w;
+    glm::vec4 lRayEnd_world   = M * lRayEnd_NDC  ;
+    lRayEnd_world  /=lRayEnd_world.w;
+
+    glm::vec3 lRayDir_world(lRayEnd_world - lRayStart_world);
+    lRayDir_world = glm::normalize(lRayDir_world);
+    *start = point3(lRayStart_world);
+    *direction = lRayDir_world;
+}
+
 void View::paintGL(){
 
     if( gProgram == nullptr )
@@ -57,8 +88,8 @@ void View::paintGL(){
     gProgram->use();
     gProgram->enableShadingPipe(Lumos::Shader::default_mesh_shader_id);
 
-    for(const Lumos::Instance & i : drawingInstances){
-        i.renderMesh(*this);
+    for(Lumos::Instance const * i : world->getInstances()){
+        i->renderMesh(*this);
     }
 
 
@@ -71,7 +102,21 @@ void View::paintGL(){
 void View::mousePressEvent(QMouseEvent *event){
     switch(event->button()){
     case Qt::LeftButton:
+    {
+        glm::vec3 out_origin, out_direction;
+        getMouseBeam(event->pos().x(), event->pos().y(), &out_origin, &out_direction);
+        glm::vec3 out_end = out_origin + out_direction*_camInUse->getFarClipDist();
+        btVector3 start(out_origin.x, out_origin.y, out_origin.z ), end(out_end.x, out_end.y, out_end.z);
 
+        Lumos::Instance * selected = world->selectWithBean( start, end );
+        if (selected){
+            _camInUse->setAtGlobal(selected->getTranslate());
+            selectedInstance = selected;
+        }
+        else
+            selectedInstance = nullptr;
+
+    }
         break;
     case Qt::MiddleButton:
 
@@ -97,12 +142,13 @@ void View::mouseMoveEvent(QMouseEvent *event){
             _camInUse->rotateAroundFocus(static_cast<float>(diff.x())/100.0f,
                                       static_cast<float>(diff.y())/100.0f
                                       );
-            _camInUse->setAtGlobal(point3(0, 0, 0));
+            //_camInUse->setAtGlobal(point3(0, 0, 0));
             break;
         case Qt::MiddleButton:
             _camInUse->panAndPadestal(static_cast<float>(diff.x())/100.0f,
                                       -static_cast<float>(diff.y())/100.0f
                                       );
+
 
             break;
         case Qt::RightButton:
@@ -127,7 +173,7 @@ void View::wheelEvent ( QWheelEvent * event ){
     if ( isUp )
         _camInUse->moveForward(0.1f);
     else
-        _camInUse->moveForward(0.1f);
+        _camInUse->moveForward(-0.1f);
 
     winMan->updateAllViews();
 }

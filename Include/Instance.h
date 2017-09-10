@@ -8,6 +8,7 @@
 #include "Shader.h"
 #include "View.h"
 #include "ModelAsset.h"
+#include "btBulletDynamicsCommon.h"
 
 namespace Patronus {
     class Mesh;
@@ -18,12 +19,11 @@ namespace Lumos {
 
     class Instance: public Patronus::Transformable{
     public:
-        Instance(){}
-        Instance( Patronus::Mesh * meshPtr,
-                  const ModelAsset & asset
+        Instance( Patronus::Mesh * meshPtr = nullptr,
+                  const ModelAsset & asset = ModelAsset()
                   );
 
-        virtual ~Instance(){}
+        virtual ~Instance();
 
         /**
          * @brief bind data to attributes and uniforms of the shaders currently binded to openGL
@@ -44,11 +44,25 @@ namespace Lumos {
         inline ModelAsset
             getMeshAsset() const { return _asset; }
 
+        inline void
+            setId( const std::string & id ) { _id = id; }
+        inline std::string
+            getId() const { return _id; }
+
+        inline void
+            setRidgidBody(  btRigidBody * const &  arg )
+                { if(_rigidBody) delete _rigidBody; arg->setUserPointer(this); _rigidBody = arg; }
+        inline btRigidBody*
+            getRidgidBody() const { return _rigidBody; }
+
+
     protected:
 
     private:
         ModelAsset _asset;
         Patronus::Mesh * _meshPtr;
+        std::string _id;
+        btRigidBody * _rigidBody;
 
 
 

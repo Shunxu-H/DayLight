@@ -9,9 +9,13 @@ namespace Lumos {
 
 
 Instance::Instance( Patronus::Mesh * meshPtr, const ModelAsset & asset)
-    :_meshPtr(meshPtr), _asset(asset)
+    :_meshPtr(meshPtr), _asset(asset), _rigidBody( nullptr )
 {
 
+}
+
+Instance::~Instance(){
+    //if (_rigidBody) delete _rigidBody;
 }
 
 void Instance::loadAttribsAndUniform( const View & view ) const {
@@ -129,7 +133,6 @@ void Instance::renderBoundngBox( const View & view ) const{
 
 
 
-    loadAttribsAndUniform( view );
     // Cube 1x1x1, centered on origin
     GLfloat vertices[] = {
         -0.5, -0.5, -0.5,

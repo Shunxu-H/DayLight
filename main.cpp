@@ -1,4 +1,3 @@
-#include "mainwindow.h"
 #include <QApplication>
 #include <vector>
 #include "Vector.h"
@@ -11,15 +10,16 @@
 #include "Instance.h"
 #include "WindowManager.h"
 #include "btBulletDynamicsCommon.h"
-
+#include "PhysicalWorld.h"
 
 
 
 Config progConfig;
-Patronus::Shaper shaper("./data/low-poly-mill.obj");
+Patronus::Shaper shaper("./data/teapot.obj");
 Lumos::Program * gProgram;
-std::vector<Lumos::Instance> drawingInstances;
 WindowManager * winMan;
+Patronus::PhysicalWorld * world;
+Lumos::Instance * selectedInstance;
 
 void experimental(){
 
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     // set up shaper
 
 
-
+    world = new Patronus::PhysicalWorld();
     winMan = new WindowManager{};
     winMan->show();
     gProgram = new Lumos::Program( );

@@ -5,6 +5,7 @@
 #include <QOpenGLFunctions>
 #include <QPoint>
 #include <memory>
+#include "GL_include.h"
 
 class WindowManager;
 
@@ -29,12 +30,14 @@ public:
     inline Patronus::Camera*
         getCamInUse() const { return _camInUse; }
 
+
 protected:
 
     virtual void initializeGL() override ;
     virtual void resizeGL(int w, int h) override ;
     virtual void paintGL() override ;
 
+    void getMouseBeam(const int & mouseX, const int & mouseY, point3 * start, point3 * direction )const;
     virtual void mousePressEvent(QMouseEvent *event) override;
     virtual void mouseMoveEvent(QMouseEvent *event) override;
     virtual void mouseReleaseEvent(QMouseEvent *event) override;

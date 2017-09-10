@@ -6,7 +6,9 @@
 #include <memory>
 #include <memory>
 #include <iostream>
+#include <set>
 #include "GL_include.h"
+#include "btBulletDynamicsCommon.h"
 class AEL;
 
 
@@ -68,7 +70,14 @@ namespace Utils {
         return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
     }
 
+    std::string genUniqueName(const std::set<std::string> & nameList, const std::string & prefix );
 
     void logOpenGLError();
+
+    template<typename From, typename To>
+    void convert(const From & from, To & to, const size_t & size){
+        for (size_t i = 0; i < size; i++ )
+            to[i] = from[i];
+    }
 }
 #endif

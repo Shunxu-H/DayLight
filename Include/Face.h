@@ -17,12 +17,19 @@ public:
     void setUvIndeces(const int & n1, const int & n2, const int & n3);
     void setNormalIndeces(const int & n1, const int & n2, const int & n3);
 
+    inline void
+        addVertexIndex( const unsigned int & indx ) { _verticesIndeces.push_back(indx); }
+    inline void
+        addUvIndex( const unsigned int & indx ) { _uvIndeces.push_back(indx); }
+    inline void
+        addNormalIndex( const unsigned int & indx ) { _normalIndeces.push_back(indx); }
+
     inline const std::vector<unsigned int> &
-        verticesInds() const { return _verticesIndeces; }
+        getVerticesInds() const { return _verticesIndeces; }
     inline const std::vector<unsigned int> &
-        uvInds() const { return _uvIndeces; }
+        getUvInds() const { return _uvIndeces; }
     inline const std::vector<unsigned int> &
-        normalInds() const { return _normalIndeces; }
+        getNormalInds() const { return _normalIndeces; }
 
 
 

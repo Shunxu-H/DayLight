@@ -23,6 +23,9 @@ namespace Patronus {
 
         //static const std::shared_ptr<Camera> _pers;
         static Lumos::Material * _default_material;
+        static std::vector< point3 > global_vertices;
+        static std::vector< point3 > global_normal_vertices;
+        static std::vector< point2 > global_uv_coords;
 
         inline Light getDefaultLight() const { return _lights[0]; }
         /**
@@ -38,7 +41,7 @@ namespace Patronus {
         Lumos::ArrayBuffer getVertexBuffer()const;
         Lumos::ArrayBuffer getNormalBuffer()const;
 
-        std::vector<Lumos::Instance> getAllInstance();
+        //std::vector<Lumos::Instance> getAllInstance();
 
 
         inline bool
@@ -46,6 +49,9 @@ namespace Patronus {
 
         inline std::vector< Light > getLights()
             const { return _lights; }
+
+        inline std::vector<Mesh>&
+            getMeshes() { return _shapes; }
     protected:
 
     private:
