@@ -58,24 +58,20 @@ void Mesh::addVertex( const Vertex & v){
 }
 
 
-Lumos::Instance* Mesh::instantiate (){
-    GLint current_vao;
-    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &current_vao);
-    //assert( current_vao != 0 );
+Lumos::Instance* Mesh::instantiate_sequentialDraw ( const GLuint & VAO ){
 
-    if ( _VAO == 0 ){
+
+    if ( VAO == 0 ){
         glGenVertexArrays(1, &_VAO);
-        glBindVertexArray(_VAO);
-        _loadVertexToBuffer();
-        _loadNormalToBuffer();
-        _loadColorToBuffer();
 
     }
     else
-    {
-        //throw std::runtime_error( "Free VBO here, will build later");
-    }
+        _VAO = VAO;
 
+    glBindVertexArray(_VAO);
+    _loadVertexToBuffer();
+    _loadNormalToBuffer();
+    _loadColorToBuffer();
 
 
     // get Material
@@ -138,6 +134,102 @@ void Mesh::_loadNormalToBuffer( ){
 }
 
 void Mesh::_loadColorToBuffer( ){
+
+}
+
+
+
+
+Lumos::Instance* Mesh::instantiate_indexedDraw ( const GLuint & VAO ){
+    if ( VAO == 0 ){
+        glGenVertexArrays(1, &_VAO);
+    }
+    else
+        _VAO = VAO;
+
+
+    glBindVertexArray(_VAO);
+    _loadVertexIndicesToBuffer();
+    _loadNormalIndicesToBuffer();
+    _loadColorIndicesToBuffer();
+
+
+    // get Material
+    Lumos::Material* m = _material == nullptr? shaper->_default_material : _material;
+
+
+    // get model Asset
+    Lumos::ModelAsset asset{};
+    asset.shaderId = Lumos::Shader::default_mesh_shader_id;
+    asset.VAO = _VAO;
+    asset.material = m;
+    asset.VBO_VERT = _VBO_VERT;
+    asset.VBO_COLOR = _VBO_COLOR;
+    asset.VBO_NORMAL = _VBO_NORMAL;
+    asset.drawType = GL_TRIANGLES;
+    asset.drawStart = 0;
+    asset.drawCount = getNumOfFaces()*3;
+
+
+    // return data
+    return new Lumos::Instance(this, asset);
+}
+
+
+void Mesh::_loadVertexIndicesToBuffer( ){
+    GLint cur_vao;
+    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &cur_vao);
+    assert( _VAO == cur_vao );
+
+    size_t _numOfEntry = getNumOfFaces()*3;
+
+    glGenBuffers(1, &_VBO_VERT);
+    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, _VBO_VERT );
+
+    int * data = new int[_numOfEntry];
+    // get data ready
+    size_t curPos = 0;
+    for (const Face & f : _faces){
+        memcpy(data+curPos,
+                &(f.getVerticesInds()[0]),
+                f.getVerticesInds().size()*sizeof(int));
+        curPos += f.getVerticesInds().size();
+    }
+
+    glBufferData( GL_ELEMENT_ARRAY_BUFFER,
+                  sizeof(data),
+                  data, GL_STATIC_DRAW);
+    delete [] data;
+}
+
+void Mesh::_loadNormalIndicesToBuffer( ){
+    GLint cur_vao;
+    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &cur_vao);
+    assert( _VAO == cur_vao );
+
+    size_t _numOfEntry = getNumOfFaces()*3;
+
+    glGenBuffers(1, &_VBO_VERT);
+    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, _VBO_VERT );
+
+    int * data = new int[_numOfEntry];
+    // get data ready
+    size_t curPos = 0;
+    for (const Face & f : _faces){
+        memcpy(data+curPos,
+                &(f.getVerticesInds()[0]),
+                f.getNormalInds().size()*sizeof(int));
+        curPos += f.getNormalInds().size();
+    }
+
+
+    glBufferData( GL_ELEMENT_ARRAY_BUFFER,
+                  sizeof(data),
+                  data, GL_STATIC_DRAW);
+    delete [] data;
+}
+
+void Mesh::_loadColorIndicesToBuffer( ){
 
 }
 

@@ -15,7 +15,18 @@ Instance::Instance( Patronus::Mesh * meshPtr, const ModelAsset & asset)
 }
 
 Instance::~Instance(){
-    //if (_rigidBody) delete _rigidBody;
+    if (_rigidBody) delete _rigidBody;
+}
+
+void Instance::setRidgidBody(  btRigidBody * const &  arg )
+{
+    if(_rigidBody){
+        world->getWorld()->removeRigidBody(_rigidBody);
+        delete _rigidBody->getMotionState();
+        delete _rigidBody;
+    }
+    arg->setUserPointer(this);
+    _rigidBody = arg;
 }
 
 void Instance::loadAttribsAndUniform( const View & view ) const {
@@ -115,8 +126,16 @@ void Instance::renderMesh( const View & view ) const{
 
     glDrawArrays(_asset.drawType, _asset.drawStart, _asset.drawCount);
 
-    //unbind everything
-    //glBindTexture(GL_TEXTURE_2D, 0);
+    glBindVertexArray(0);
+
+}
+
+void Instance::renderMesh_indexed( const View & view ) const{
+
+
+    loadAttribsAndUniform( view );
+
+    glDrawArrays(_asset.drawType, _asset.drawStart, _asset.drawCount);
 
     glBindVertexArray(0);
 

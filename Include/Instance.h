@@ -31,6 +31,7 @@ namespace Lumos {
         void loadAttribsAndUniform( const View & view ) const;
 
         void renderMesh( const View & v ) const;
+        void renderMesh_indexed( const View & view ) const;
 
         void renderBoundngBox( const View & v) const;
 
@@ -49,9 +50,7 @@ namespace Lumos {
         inline std::string
             getId() const { return _id; }
 
-        inline void
-            setRidgidBody(  btRigidBody * const &  arg )
-                { if(_rigidBody) delete _rigidBody; arg->setUserPointer(this); _rigidBody = arg; }
+        void setRidgidBody(  btRigidBody * const &  arg );
         inline btRigidBody*
             getRidgidBody() const { return _rigidBody; }
 

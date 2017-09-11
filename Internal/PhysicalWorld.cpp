@@ -183,7 +183,7 @@ void PhysicalWorld::draw(){
 
 
 bool PhysicalWorld::loadInstance( Patronus::Mesh & mesh ){
-    Lumos::Instance * newI = mesh.instantiate();
+    Lumos::Instance * newI = mesh.instantiate_sequentialDraw();
     std::string name = Utils::genUniqueName(_names, mesh.getId() + "_instance");
 
     newI->setId(name);

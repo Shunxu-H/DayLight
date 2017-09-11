@@ -11,7 +11,6 @@
 #include "Matrix.h"
 //class Mesh;
 //#include "OrthoView.h"
-class Patronus::Mesh;
 
 class Vector: public Matrix
 {

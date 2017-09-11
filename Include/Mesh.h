@@ -8,6 +8,7 @@
 #include "GL_include.h"
 #include "Face.h"
 #include "Instance.h"
+#include "Countable.h"
 
 namespace Lumos {
     class ArrayBuffer;
@@ -51,7 +52,7 @@ namespace Patronus {
             _VBO_COLOR(0),
             _VBO_NORMAL(0),
             _material(nullptr){}
-        ~Mesh();
+        virtual ~Mesh();
 
         void addVertex(const point3 & v);
         void addFace(const Face & f);
@@ -81,7 +82,8 @@ namespace Patronus {
         void copyVertexNormalData( size_t * initPos )const;
 
 
-        Lumos::Instance * instantiate ();
+        Lumos::Instance * instantiate_sequentialDraw ( const GLuint & VAO = 0 );
+        Lumos::Instance * instantiate_indexedDraw ( const GLuint & VAO = 0 );
 
         /**
          * @brief setter and getter
@@ -109,9 +111,14 @@ namespace Patronus {
 
 
     private:
-        void _loadVertexToBuffer( );
-        void _loadNormalToBuffer( );
-        void _loadColorToBuffer( );
+
+
+        std::string _id;
+        BoundingBox _boundingBox;
+        GLuint _VAO;
+        GLuint _VBO_VERT;
+        GLuint _VBO_COLOR;
+        GLuint _VBO_NORMAL;
 
         std::vector< Vertex > _vertices_combinded;
         std::vector< unsigned int > _indices;
@@ -121,18 +128,17 @@ namespace Patronus {
         std::vector< glm::vec3 > _normals;
         std::vector< Face > _faces;
 
-        BoundingBox _boundingBox;
-
-        GLuint _VAO;
-        GLuint _VBO_VERT;
-        GLuint _VBO_COLOR;
-        GLuint _VBO_NORMAL;
-
         Lumos::Material* _material;
         Lumos::ModelAsset * _meshAsset;
         Lumos::ModelAsset * _BoundingAsset;
 
-        std::string _id;
+        void _loadVertexToBuffer( );
+        void _loadNormalToBuffer( );
+        void _loadColorToBuffer( );
+
+        void _loadVertexIndicesToBuffer( );
+        void _loadNormalIndicesToBuffer( );
+        void _loadColorIndicesToBuffer( );
 
     };
 
