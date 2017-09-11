@@ -73,6 +73,10 @@ point3 Shaper::getGlobalMin(){
 
 }
 
+static void loadGlobalGlBuffer(){
+    
+}
+
 
 void Shaper::getBoundingSphere(const std::vector< point3 > & points, point3 * position, float * radius){
     if ( points.size() == 0 ){

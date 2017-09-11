@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     qDebug() << "App path : " << a.applicationDirPath();
     // set up shaper
 
-    shaper = new Patronus::Shaper("./data/indoor/0004dd3cb11e50530676f77b55262d38.obj");
+    shaper = new Patronus::Shaper("./data/teapot.obj");
     world = new Patronus::PhysicalWorld();
     winMan = new WindowManager{};
     winMan->show();
