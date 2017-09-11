@@ -100,6 +100,16 @@ void View::paintGL(){
 }
 
 
+void View::fitSphere(const point3 & position, const float & radius){
+    float z_y = radius / sin(_camInUse->getFovy()/2.0f),
+          z_x = radius / sin( static_cast<float>(width()) /
+                               static_cast<float>(height()) /
+                               _camInUse->getFovy()/2.0f);
+    _camInUse->setTranslate(position + point3(0.0f, 0.0f, std::fmax(z_y, z_x)));
+
+}
+
+
 void View::mousePressEvent(QMouseEvent *event){
     switch(event->button()){
     case Qt::LeftButton:
@@ -111,7 +121,8 @@ void View::mousePressEvent(QMouseEvent *event){
 
         Lumos::Instance * selected = world->selectWithBean( start, end );
         if (selected){
-            _camInUse->setAtGlobal(selected->getTranslate());
+            _camInUse->setAtGlobal( (selected->getMeshPtr()->getMaxPos() +
+                                   selected->getMeshPtr()->getMinPos()) / 2.0f ) ;
             selectedInstance = selected;
         }
         else
@@ -131,14 +142,6 @@ void View::mousePressEvent(QMouseEvent *event){
 }
 
 
-void View::fitSphere(const point3 & position, const float & radius){
-    float z_y = radius / atan(_camInUse->getFovy()),
-          z_x = radius / atan( static_cast<float>(width()) /
-                               static_cast<float>(height()) /
-                               _camInUse->getFovy());
-    _camInUse->setTranslate(position + point3(0.0f, 0.0f, z_y > z_x? z_y : z_x));
-
-}
 
 void View::mouseMoveEvent(QMouseEvent *event){
     //qDebug() << event->pos();

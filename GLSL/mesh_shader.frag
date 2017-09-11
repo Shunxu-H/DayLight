@@ -14,6 +14,8 @@ in vec3 fragVert;
 
 out vec4 finalColor;
 
+
+
 void main() {
     //calculate normal in world coordinates
     mat4 normalMatrix = transpose(inverseModel);

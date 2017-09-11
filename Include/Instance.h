@@ -55,6 +55,10 @@ namespace Lumos {
         inline btRigidBody*
             getRidgidBody() const { return _rigidBody; }
 
+        inline Patronus::Mesh *
+            getMeshPtr() const { return _meshPtr; }
+
+
 
     protected:
 

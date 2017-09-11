@@ -18,17 +18,17 @@ public:
     void setNormalIndeces(const int & n1, const int & n2, const int & n3);
 
     inline void
-        addVertexIndex( const unsigned int & indx ) { _verticesIndeces.push_back(indx); }
+        addVertexIndex( const int & indx ) { _verticesIndeces.push_back(indx); }
     inline void
-        addUvIndex( const unsigned int & indx ) { _uvIndeces.push_back(indx); }
+        addUvIndex( const int & indx ) { _uvIndeces.push_back(indx); }
     inline void
-        addNormalIndex( const unsigned int & indx ) { _normalIndeces.push_back(indx); }
+        addNormalIndex( const int & indx ) { _normalIndeces.push_back(indx); }
 
-    inline const std::vector<unsigned int> &
+    inline const std::vector< int > &
         getVerticesInds() const { return _verticesIndeces; }
-    inline const std::vector<unsigned int> &
+    inline const std::vector< int > &
         getUvInds() const { return _uvIndeces; }
-    inline const std::vector<unsigned int> &
+    inline const std::vector< int > &
         getNormalInds() const { return _normalIndeces; }
 
 
@@ -36,9 +36,9 @@ public:
 protected:
 
 private:
-    std::vector<unsigned int> _verticesIndeces;
-    std::vector<unsigned int> _uvIndeces;
-    std::vector<unsigned int> _normalIndeces;
+    std::vector< int > _verticesIndeces;
+    std::vector< int > _uvIndeces;
+    std::vector< int > _normalIndeces;
 
 
 };

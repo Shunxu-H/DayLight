@@ -22,7 +22,7 @@ Camera::Camera(const CameraType & type,
 
 
 void Camera::moveForward( const float & sensitivity ){
-    _translate += glm::normalize(_at)*sensitivity;
+    _translate += glm::length(_at)*sensitivity;
     _at *= (1.0f - sensitivity);
 }
 

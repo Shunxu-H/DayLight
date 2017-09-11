@@ -19,7 +19,7 @@ void Mesh::copyVertexData( size_t * initPos )const{
     //    glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
     //                     sizeof(point3),  &(_vertices_combinded[index].position) );
     for( const Face & f: _faces)
-        for( const unsigned int & ind : f.getVerticesInds())
+        for( const int & ind : f.getVerticesInds())
             glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
                             sizeof(point3),  &(Shaper::global_vertices[ind]) );
 }
@@ -30,7 +30,7 @@ void Mesh::copyVertexNormalData( size_t * initPos )const{
 //                         sizeof(point3),  &(Shaper::global[index].normal) );
 
     for( const Face & f: _faces)
-        for( const unsigned int & ind : f.getNormalInds())
+        for( const int & ind : f.getNormalInds())
             glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
                             sizeof(point3),  &(Shaper::global_normal_vertices[ind]) );
 }

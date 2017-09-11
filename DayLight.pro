@@ -94,7 +94,9 @@ DISTFILES += \
     GLSL/bbox_shader.frag \
     GLSL/bbox_shader.vert \
     GLSL/multilight_shader.frag \
-    GLSL/multilight_shader.vert
+    GLSL/multilight_shader.vert \
+    GLSL/wired_frame_shader.frag \
+    GLSL/wired_frame_shader.vert
 
 HEADERS += \
     Include/AEL.h \

@@ -252,7 +252,7 @@ Lumos::Instance * PhysicalWorld::selectWithBean( const btVector3 & start, const 
 
     if(RayCallback.hasHit()) {
         std::cout << "Hit instance " + reinterpret_cast<Lumos::Instance*>(RayCallback.m_collisionObject->getUserPointer())->getId() << std::endl;
-        return reinterpret_cast<Lumos::Instance*>(const_cast<btCollisionObject*>(RayCallback.m_collisionObject));
+        return reinterpret_cast<Lumos::Instance*>(RayCallback.m_collisionObject->getUserPointer());
     }else{
         qDebug() << "Hit background";
         return nullptr;

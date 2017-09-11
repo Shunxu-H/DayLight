@@ -139,7 +139,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
     std::vector<tinyobj::material_t> materials;
 
     std::string err;
-    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, f_name.c_str(), nullptr, true);
+    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, f_name.c_str(), "./data/", true);
 
     if (!err.empty()) { // `err` may contain warning message.
       std::cerr << err << std::endl;
@@ -191,12 +191,13 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
                 // access to vertex
                 tinyobj::index_t idx = shapes[s].mesh.indices[index_offset + v];
 
-                tinyobj::real_t vx = attrib.vertices[3*idx.vertex_index+0];
-                tinyobj::real_t vy = attrib.vertices[3*idx.vertex_index+1];
-                tinyobj::real_t vz = attrib.vertices[3*idx.vertex_index+2];
+                float vx = attrib.vertices[3*idx.vertex_index+0];
+                float vy = attrib.vertices[3*idx.vertex_index+1];
+                float vz = attrib.vertices[3*idx.vertex_index+2];
                 updateMax(point3(vx, vy, vz));
                 updateMin(point3(vx, vy, vz));
-
+                if(idx.normal_index < 0 || idx.normal_index > global_normal_vertices.size() )
+                    int a = 1;
                 newFace.addVertexIndex(idx.vertex_index);
                 newFace.addNormalIndex(idx.normal_index);
                 newFace.addUvIndex(idx.texcoord_index);
