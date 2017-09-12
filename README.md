@@ -8,8 +8,12 @@ Will build this late
 
 ## TO DO
 
-- [ ] Fix, Lighting is always a bit too green 
-- [ ] Get rid of unwanted function 
+- [X] Fix, Lighting is always a bit too green 
+- [ ] Get rid of unwanted functions
+- [ ] Shadow mapping 
+- [ ] Exploration Camera Mode
+- [ ] Wire_frame rendering
+- [ ] Highlight on selected object
 
 ## Motivation
 

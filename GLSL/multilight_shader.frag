@@ -1,5 +1,6 @@
 #version 130
 in vec2 fragTexCoord;
+uniform vec3 transmittance;
 uniform bool hasTexture;
 uniform sampler2D tex; //this is the texture
 
@@ -11,7 +12,7 @@ uniform float materialShininess;
 uniform vec3 materialSpecularColor;
 uniform vec4 diffuseColor;
 
-#define MAX_LIGHTS 10
+#define MAX_LIGHTS 1
 uniform int numLights;
 uniform struct Light {
    bool isDirectional;
@@ -85,5 +86,5 @@ void main() {
 
     //final color (after gamma correction)
     vec3 gamma = vec3(1.0/2.2);
-    finalColor = vec4(pow(linearColor, gamma), surfaceColor.a);
+    finalColor = vec4(pow(linearColor, gamma)*(1-transmittance) , surfaceColor.a);
 }

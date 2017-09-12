@@ -178,6 +178,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
         newMaterial->diffuseColor = color4( m.diffuse[0], m.diffuse[1], m.diffuse[2], 1.0f ) ;
         newMaterial->reflexitivity = m.shininess;
         newMaterial->transmittance = color3(m.transmittance[0], m.transmittance[1], m.transmittance[2] );
+
         addMaterial(newMaterial);
     }
 

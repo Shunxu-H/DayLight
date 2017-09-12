@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     winMan = new WindowManager{};
     winMan->show();
     gProgram = new Lumos::Program( );
-    shaper = new Patronus::Shaper("./data/teapot.obj");
+    shaper = new Patronus::Shaper("./data/indoor/0004dd3cb11e50530676f77b55262d38.obj");
     gProgram->loadShaders( "/home/shunxu/QtProj/DayLight/GLSL" );
 
 

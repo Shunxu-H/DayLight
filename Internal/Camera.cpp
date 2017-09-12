@@ -46,7 +46,7 @@ void Camera::rotateAroundFocus( const float & x_axis, const float & y_axis){
     glm::vec4 newMinusA = m * glm::vec4(-_at, 1.0);
     setTranslatev4(getTranslatev4()+point4(_at, 1.0)+newMinusA);
     _at = -point3(newMinusA);
-    _up = glm::normalize(glm::cross(right, _at));
+    //_up = glm::normalize(glm::cross(right, _at));
 
 }
 

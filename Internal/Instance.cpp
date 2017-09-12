@@ -80,9 +80,12 @@ void Instance::loadAttribsAndUniform( const View & view,  Material  *  m ) const
             glBindTexture(GL_TEXTURE_2D, m->glTexId);
             gProgram->setUniform(uniform.c_str(), 0); //set to 0 because the texture is bound to GL_TEXTURE0
         }
+        else if( uniform.compare("transmittance") == 0){
+            gProgram->setUniform(uniform.c_str(), m->transmittance);
+        }
         else if( uniform.compare("hasTexture") == 0){
             // bind the texture and set the "tex" uniform in the fragment shader
-            gProgram->setUniform(uniform.c_str(), !m->texture.isNull()); //set to 0 because the texture is bound to GL_TEXTURE0
+            gProgram->setUniform(uniform.c_str(), !m->texture.isNull());
         }
         else if( uniform.compare("cameraPosition") == 0)
             gProgram->setUniform(uniform.c_str(), view.getCamInUse()->getTranslate());
