@@ -6,6 +6,11 @@ Daylight is a simple 3d modeling/viewing software built with Qt, OpenGL, Bullet 
 
 Will build this late
 
+## TO DO
+
+1. Fix, Lighting is always a bit too green 
+2. Get rid of unwanted function 
+
 ## Motivation
 
 As for right now, I am trying to put together what I have learnt
