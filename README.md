@@ -8,8 +8,8 @@ Will build this late
 
 ## TO DO
 
-1. Fix, Lighting is always a bit too green 
-2. Get rid of unwanted function 
+- [ ] Fix, Lighting is always a bit too green 
+- [ ] Get rid of unwanted function 
 
 ## Motivation
 
