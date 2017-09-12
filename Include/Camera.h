@@ -1,6 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <string>
 #include "GL_include.h"
 
 #include "Transformable.h"
@@ -36,6 +37,13 @@ namespace Patronus {
         static Camera* pers;
 
         /**
+         * @brief loadCamerasFromDir, load camera from a directory which contains files of camera names and stats
+         *          Must be called after the global shaper object is called because the constructed cameras will be stored there
+         * @param dir, the directory containing the necessary file
+         */
+        static void loadCamerasFromDir( const std::string & dir );
+
+        /**
          * @brief setter and getter for private variable
          */
         inline CameraType
@@ -50,6 +58,8 @@ namespace Patronus {
             getNearClipDist() const { return _near; }
         inline float
             getFarClipDist() const { return _far; }
+        inline std::string
+            getId() const { return _camId; }
 
         inline void
             setType(const CameraType & type ) { _type = type; }
@@ -64,19 +74,22 @@ namespace Patronus {
         inline void
             setNearClipDist(const float & dist) { _near = dist; }
         inline void
-            setFarClipDist(const float & dist) { _far = dist; }
+            setFarClipDist(const float & dist) { _far = dist; }   
+        inline void
+            setId( const std::string & id ) { _camId = id; }
 
-
-        //virtual void operator*( const glm::mat4 & m );
 
         void moveForward( const float & dist );
         void panAndPadestal( const float & x_axis, const float & y_axis );
         void rotateAroundFocus( const float & x_axis, const float & y_axis);
         glm::mat4 getPerspectiveMatrix()const;
         glm::mat4 getProjectionMatrix(const float & aspect_ratio )const;
+
+        void render(const unsigned int & width, const unsigned int & height )const;
     protected:
 
     private:
+        std::string _camId;
         CameraType _type;
         glm::vec3 _up;
         glm::vec3 _at;

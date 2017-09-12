@@ -78,12 +78,15 @@ namespace Patronus {
 
         inline std::vector<Mesh>&
             getMeshes() { return _shapes; }
+        inline void addCamera( Camera * c ) { _cameras.push_back(c); }
+        inline Camera*
+        getnCamera( const size_t & index ){ if (index >= _cameras.size()) return nullptr; else return _cameras[index]; }
     protected:
 
     private:
 
         std::vector<Mesh> _shapes;
-        std::vector<Camera> _cameras;
+        std::vector< Camera * > _cameras;
         std::vector<Light> _lights;
 
         std::vector< Lumos::Material * > _materials;

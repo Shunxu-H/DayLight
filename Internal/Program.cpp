@@ -251,6 +251,16 @@ GLint Program::getAttrib(const GLchar* attribName) const {
 }
 
 
+bool Program::hasAttribute( const GLchar * attribName ) const {
+    if(!attribName)
+        return false;
+    GLint uniform = glGetUniformLocation( getObjId(), attribName );
+    if(uniform == -1)
+        return false;
+
+    return true;
+}
+
 GLint Program::getUniform(const GLchar* uniformName) const {
     if(!uniformName)
         throw std::runtime_error("uniformName was NULL");
@@ -261,6 +271,18 @@ GLint Program::getUniform(const GLchar* uniformName) const {
 
     return uniform;
 }
+
+bool Program::hasUniform( const GLchar * uniformName ) const {
+    if(!uniformName)
+        return false;
+    GLint uniform = glGetUniformLocation( getObjId(), uniformName );
+    if(uniform == -1)
+        return false;
+
+    return true;
+}
+
+
 
 
 

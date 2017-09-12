@@ -120,6 +120,9 @@ namespace Lumos {
         void setUniform(const GLchar* uniformName, const glm::vec4& v);
 
 
+        bool hasAttribute( const GLchar * attribName ) const;
+        bool hasUniform( const GLchar * attribName ) const;
+
         template <typename T>
         void SetLightUniform(const char* propertyName, size_t lightIndex, const T& value) {
             std::ostringstream ss;

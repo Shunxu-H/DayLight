@@ -4,6 +4,7 @@
 
 varying vec3 vBC;
 
+
 float edgeFactor(){
     vec3 d = fwidth(vBC);
     vec3 a3 = smoothstep(vec3(0.0), d*0.95, vBC);

@@ -15,11 +15,11 @@
 
 
 Config progConfig;
-Patronus::Shaper * shaper;
-Lumos::Program * gProgram;
-WindowManager * winMan;
-Patronus::PhysicalWorld * world;
-Lumos::Instance * selectedInstance;
+Patronus::Shaper * shaper = nullptr;
+Lumos::Program * gProgram = nullptr;
+WindowManager * winMan = nullptr;
+Patronus::PhysicalWorld * world = nullptr;
+Lumos::Instance * selectedInstance = nullptr;
 
 void experimental(){
 
@@ -41,7 +41,10 @@ int main(int argc, char *argv[])
     winMan->show();
     gProgram = new Lumos::Program( );
     shaper = new Patronus::Shaper("./data/indoor/0004dd3cb11e50530676f77b55262d38.obj");
+    Patronus::Camera::loadCamerasFromDir("./data/indoor/camera/");
     gProgram->loadShaders( "/home/shunxu/QtProj/DayLight/GLSL" );
+    gProgram->preDrawSetUp();
+    shaper->getnCamera(0)->render(1280, 720);
 
 
 //    GLsizei count;
@@ -50,7 +53,6 @@ int main(int argc, char *argv[])
 //        3,
 //        &count,
 //        shaderName);
-    gProgram->preDrawSetUp();
 
 
     return a.exec();

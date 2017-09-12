@@ -70,6 +70,9 @@ private slots:
     void aboutQt();
     void exit();
 
+    // for views
+    void showCameraOuliner();
+
 private:
 
     Ui::WindowManager *_ui;
@@ -83,7 +86,7 @@ private:
     QMenuBar *topMenuBar;
     QMenu *fileMenu;
     QMenu *editMenu;
-    QMenu *formatMenu;
+    QMenu *viewMenu;
     QMenu *helpMenu;
     QActionGroup *alignmentGroup;
     QAction *newAct;
@@ -107,6 +110,8 @@ private:
     QAction *aboutAct;
     QAction *aboutQtAct;
     QLabel *infoLabel;
+
+    QAction *showCameraOulinerAct;
 
 
 

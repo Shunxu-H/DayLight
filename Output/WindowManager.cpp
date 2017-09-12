@@ -127,6 +127,14 @@ void WindowManager::_createActions()
     connect(pasteAct, &QAction::triggered, this, &WindowManager::paste);
 
 
+    // for views
+    showCameraOulinerAct = new QAction(tr("&Ouliner"), this);
+    //pasteAct->setShortcuts(QKeySequence::Paste);
+    showCameraOulinerAct->setStatusTip(tr("Open Camera Ouliner Window"));
+    connect(showCameraOulinerAct, &QAction::triggered, this, &WindowManager::showCameraOuliner);
+
+
+
     aboutAct = new QAction(tr("&About"), this);
     //aboutAct->setShortcuts(QKeySequence::Copy);
     aboutAct->setStatusTip(tr("About this software"));
@@ -154,6 +162,9 @@ void WindowManager::_createMenus()
     editMenu->addAction(copyAct);
     editMenu->addAction(pasteAct);
     editMenu->addSeparator();
+
+    viewMenu = menuBar()->addMenu(tr("&View"));
+    viewMenu->addAction(showCameraOulinerAct);
 
     helpMenu = menuBar()->addMenu(tr("&Help"));
     helpMenu->addAction(aboutAct);
@@ -271,6 +282,10 @@ void WindowManager::aboutQt(){
 }
 
 void WindowManager::exit(){
+    std::exit(EXIT_SUCCESS);
+}
+
+void WindowManager::showCameraOuliner(){
 
 }
 

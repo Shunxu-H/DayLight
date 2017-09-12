@@ -1,6 +1,7 @@
 ## Synopsis
 
 Daylight is a simple 3d modeling/viewing software built with Qt, OpenGL, Bullet Physics
+This branch is made to automate data generation process for a paper
 
 ## Code Example
 
@@ -8,12 +9,8 @@ Will build this late
 
 ## TO DO
 
-- [X] Fix, Lighting is always a bit too green 
-- [ ] Get rid of unwanted functions
-- [ ] Shadow mapping 
-- [ ] Exploration Camera Mode
-- [ ] Wire_frame rendering
-- [ ] Highlight on selected object
+- [ ] Load Cameras from file 
+- [ ] Save pictures
 
 ## Motivation
 

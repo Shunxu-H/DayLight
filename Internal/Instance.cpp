@@ -38,16 +38,12 @@ void Instance::loadAttribsAndUniform( const View & view,  Material  *  m ) const
     Shader::getCurrentVaryingsAndUniforms(attribs, uniforms);
 
 
-    point3 data[6];
     // load attributes
     for (const std::string & attrib: attribs){
         switch (Utils::str2int(attrib.c_str())){
         case Utils::str2int("vert"):
             attribId = gProgram->getAttrib(attrib.c_str());
             glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_VERT);
-
-            glGetBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(point3)*6, data);
-
             glEnableVertexAttribArray(attribId);
             glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
             break;
@@ -138,6 +134,46 @@ void Instance::loadAttribsAndUniform( const View & view,  Material  *  m ) const
             i++;
         }
     }
+}
+
+void Instance::loadAttribsAndUniform() const {
+
+    GLuint attribId;
+    if (gProgram->hasAttribute("vert")){
+        attribId = gProgram->getAttrib("vert");
+        glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_VERT);
+        glEnableVertexAttribArray(attribId);
+        glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    }
+    if (gProgram->hasAttribute("vert")){
+
+    }
+    /*
+    // load attributes
+    for (const std::string & attrib: attribs){
+        switch (Utils::str2int(attrib.c_str())){
+        case Utils::str2int("vert"):
+
+            break;
+        case Utils::str2int("vertNormal"):
+
+            attribId = gProgram->getAttrib(attrib.c_str());
+            glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_NORMAL);
+            glEnableVertexAttribArray(attribId);
+            glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
+            break;
+        case Utils::str2int("vertTexCoord"):
+            attribId = gProgram->getAttrib(attrib.c_str());
+            glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_TEXCOORD);
+            glEnableVertexAttribArray(attribId);
+            glVertexAttribPointer(attribId, 2, GL_FLOAT, GL_FALSE, 0, 0);
+            break;
+        default:
+            throw std::runtime_error("##in Instance::render()## Undefined Attribute: " + attrib);
+        }
+    }
+    */
+
 }
 
 void Instance::renderMesh( const View & view ) const{

@@ -28,6 +28,7 @@ uniform struct Light {
 in vec3 fragNormal;
 in vec3 fragVert;
 
+out vec3 color;
 out vec4 finalColor;
 
 vec3 ApplyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, vec3 surfaceToCamera) {
