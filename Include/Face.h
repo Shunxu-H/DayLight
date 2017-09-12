@@ -3,7 +3,8 @@
 
 #include <vector>
 #include <memory>
-#include "Index.h"
+#include "Instance.h"
+
 class Edge;
 class AEL;
 
@@ -32,6 +33,12 @@ public:
         getNormalInds() const { return _normalIndeces; }
 
 
+    inline void
+        setMaterial( Lumos::Material * m_ptr ) { _material = m_ptr; }
+    inline Lumos::Material *
+        getMaterial( ) const { return _material; }
+
+
 
 protected:
 
@@ -39,6 +46,9 @@ private:
     std::vector< int > _verticesIndeces;
     std::vector< int > _uvIndeces;
     std::vector< int > _normalIndeces;
+
+    Lumos::Material *  _material;
+
 
 
 };

@@ -1,4 +1,7 @@
 #version 130
+in vec2 fragTexCoord;
+uniform bool hasTexture;
+uniform sampler2D tex; //this is the texture
 
 uniform mat4 model;
 uniform mat4 inverseModel;
@@ -6,6 +9,7 @@ uniform vec3 cameraPosition;
 
 uniform float materialShininess;
 uniform vec3 materialSpecularColor;
+uniform vec4 diffuseColor;
 
 #define MAX_LIGHTS 10
 uniform int numLights;
@@ -65,7 +69,12 @@ vec3 ApplyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, ve
 void main() {
     vec3 normal = normalize(transpose(mat3(inverseModel)) * fragNormal);
     vec3 surfacePos = vec3(model * vec4(fragVert, 1));
-    vec4 surfaceColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    vec4 surfaceColor;
+    if (hasTexture){
+        surfaceColor = texture(tex, fragTexCoord);
+    }
+    else
+        surfaceColor = diffuseColor;
     vec3 surfaceToCamera = normalize(cameraPosition - surfacePos);
 
     //combine color from all the lights

@@ -35,6 +35,17 @@ void Mesh::copyVertexNormalData( size_t * initPos )const{
                             sizeof(point3),  &(Shaper::global_normal_vertices[ind]) );
 }
 
+void Mesh::copyVertexTexCoordData( size_t * initPos )const{
+    for( const Face & f: _faces)
+        for( const int & ind : f.getUvInds()){
+            if (ind == -1) return;
+            glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point2),
+                            sizeof(point2),  &(Shaper::global_uv_coords[ind]) );
+        }
+
+}
+
+
 void Mesh::addVertex(const point3 & v){
     _vertices.push_back(v);
 }
@@ -71,25 +82,41 @@ Lumos::Instance* Mesh::instantiate_sequentialDraw ( const GLuint & VAO ){
     glBindVertexArray(_VAO);
     _loadVertexToBuffer();
     _loadNormalToBuffer();
-    _loadColorToBuffer();
+    _loadTexCoordToBuffer();
 
 
     // get Material
-    Lumos::Material* m = _material == nullptr? shaper->_default_material : _material;
+    Lumos::Material* m = _material == nullptr? shaper->default_material : _material;
 
 
     // get model Asset
     Lumos::ModelAsset asset{};
     asset.shaderId = Lumos::Shader::default_mesh_shader_id;
     asset.VAO = _VAO;
-    asset.material = m;
     asset.VBO_VERT = _VBO_VERT;
     asset.VBO_COLOR = _VBO_COLOR;
     asset.VBO_NORMAL = _VBO_NORMAL;
+    asset.VBO_TEXCOORD = _VBO_TEXCOORD;
     asset.drawType = GL_TRIANGLES;
     asset.drawStart = 0;
     asset.drawCount = getNumOfFaces()*3;
-
+    Lumos::Material * curM = nullptr;
+    size_t entryCnt = 0, startPos = 0;
+    for ( const Face & f: _faces ){
+        if ( curM == nullptr ){ // first into the loop, skip making new materialPack
+            curM = f.getMaterial();
+        }
+        else if ( curM != f.getMaterial() ) { // seeing a new material
+            asset.materials.push_back( Lumos::MaterialPack(curM, startPos, entryCnt) );
+            curM = f.getMaterial();
+            startPos += entryCnt;
+            entryCnt = 0;
+        }
+        //startPos += f.getVerticesInds().size();
+        entryCnt += f.getVerticesInds().size();
+    }
+    if ( curM != nullptr )
+        asset.materials.push_back( Lumos::MaterialPack(curM, startPos, entryCnt) );
 
     // return data
     return new Lumos::Instance(this, asset);
@@ -133,6 +160,24 @@ void Mesh::_loadNormalToBuffer( ){
     copyVertexNormalData( &startPos );
 }
 
+void Mesh::_loadTexCoordToBuffer( ){
+    GLint cur_vao;
+    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &cur_vao);
+    assert( _VAO == cur_vao );
+
+    size_t _bytesPerEntry = sizeof(point2);
+    size_t _numOfEntry = getNumOfFaces()*3;
+
+    glGenBuffers(1, &_VBO_TEXCOORD);
+    glBindBuffer( GL_ARRAY_BUFFER, _VBO_TEXCOORD );
+    glBufferData( GL_ARRAY_BUFFER,
+                  _numOfEntry*_bytesPerEntry,
+                  nullptr, GL_STATIC_DRAW);
+
+    size_t startPos = 0;
+    copyVertexTexCoordData( &startPos );
+}
+
 void Mesh::_loadColorToBuffer( ){
 
 }
@@ -141,38 +186,7 @@ void Mesh::_loadColorToBuffer( ){
 
 
 Lumos::Instance* Mesh::instantiate_indexedDraw ( const GLuint & VAO ){
-    if ( VAO == 0 ){
-        glGenVertexArrays(1, &_VAO);
-    }
-    else
-        _VAO = VAO;
-
-
-    glBindVertexArray(_VAO);
-    _loadVertexIndicesToBuffer();
-    _loadNormalIndicesToBuffer();
-    _loadColorIndicesToBuffer();
-
-
-    // get Material
-    Lumos::Material* m = _material == nullptr? shaper->_default_material : _material;
-
-
-    // get model Asset
-    Lumos::ModelAsset asset{};
-    asset.shaderId = Lumos::Shader::default_mesh_shader_id;
-    asset.VAO = _VAO;
-    asset.material = m;
-    asset.VBO_VERT = _VBO_VERT;
-    asset.VBO_COLOR = _VBO_COLOR;
-    asset.VBO_NORMAL = _VBO_NORMAL;
-    asset.drawType = GL_TRIANGLES;
-    asset.drawStart = 0;
-    asset.drawCount = getNumOfFaces()*3;
-
-
-    // return data
-    return new Lumos::Instance(this, asset);
+    throw std::runtime_error("aborting such design for now");
 }
 
 
@@ -228,6 +242,9 @@ void Mesh::_loadNormalIndicesToBuffer( ){
                   data, GL_STATIC_DRAW);
     delete [] data;
 }
+
+
+
 
 void Mesh::_loadColorIndicesToBuffer( ){
 

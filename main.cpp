@@ -36,11 +36,11 @@ int main(int argc, char *argv[])
     qDebug() << "App path : " << a.applicationDirPath();
     // set up shaper
 
-    shaper = new Patronus::Shaper("./data/teapot.obj");
     world = new Patronus::PhysicalWorld();
     winMan = new WindowManager{};
     winMan->show();
     gProgram = new Lumos::Program( );
+    shaper = new Patronus::Shaper("./data/teapot.obj");
     gProgram->loadShaders( "/home/shunxu/QtProj/DayLight/GLSL" );
 
 

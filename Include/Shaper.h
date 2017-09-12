@@ -22,7 +22,7 @@ namespace Patronus {
         Shaper( const std::string & fileName );
 
         //static const std::shared_ptr<Camera> _pers;
-        static Lumos::Material * _default_material;
+        static Lumos::Material * default_material;
         static std::vector< point3 > global_vertices;
         static std::vector< point3 > global_normal_vertices;
         static std::vector< point2 > global_uv_coords;
@@ -30,8 +30,23 @@ namespace Patronus {
         static GLuint global_Vertex_VBO;
         static GLuint global_Normal_VBO;
         static GLuint global_TexCoord_VBO;
+
+        /**
+         * @return global maxinmum of all vertices in the scene
+         */
         static point3 getGlobalMax();
+        /**
+         * @return global minimum of all vertices in the scene
+         */
         static point3 getGlobalMin();
+
+
+        /**
+         * @brief getBoundingSphere, compute the bounding sphere given points loaded in @points
+         * @param points, the points which will be bounded by the computed sphere
+         * @param position, a pointer to a location where the center of the sphere will be stored
+         * @param radius, a pointer to a location where the radius of the sphere will be stored
+         */
         static void getBoundingSphere(const std::vector< point3 > & points, point3 * position, float * radius);
         static void loadGlobalGlBuffer();
 
@@ -49,7 +64,10 @@ namespace Patronus {
         Lumos::ArrayBuffer getVertexBuffer()const;
         Lumos::ArrayBuffer getNormalBuffer()const;
 
-        //std::vector<Lumos::Instance> getAllInstance();
+        void addMaterial( Lumos::Material * m,
+                          const GLint & minMagFiler = GL_LINEAR,
+                          const GLint & wrapMode = GL_REPEAT );
+
 
 
         inline bool
@@ -67,6 +85,8 @@ namespace Patronus {
         std::vector<Mesh> _shapes;
         std::vector<Camera> _cameras;
         std::vector<Light> _lights;
+
+        std::vector< Lumos::Material * > _materials;
 
 
         /**

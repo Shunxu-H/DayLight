@@ -3,6 +3,7 @@
 #include <experimental/filesystem>
 #include <iostream>
 #include <climits>
+#include <QGLWidget>
 
 #include "GL_include.h"
 #include "Utility.h"
@@ -20,7 +21,7 @@
 
 
 namespace Patronus {
-Lumos::Material* Shaper::_default_material   = new Lumos::Material();
+Lumos::Material* Shaper::default_material   = new Lumos::Material();
 std::vector< point3 > Shaper::global_vertices = std::vector< point3 >();
 std::vector< point3 > Shaper::global_normal_vertices{};
 std::vector< point2 > Shaper::global_uv_coords{};
@@ -146,8 +147,12 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
     std::vector<tinyobj::shape_t> shapes;
     std::vector<tinyobj::material_t> materials;
 
+    using namespace std::experimental::filesystem;
+    path p(f_name);
+    std::string curDir = std::string(p.parent_path()) + "/";
+
     std::string err;
-    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, f_name.c_str(), "./data/", true);
+    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, f_name.c_str(), curDir.c_str(), true);
 
     if (!err.empty()) { // `err` may contain warning message.
       std::cerr << err << std::endl;
@@ -165,6 +170,16 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
         global_normal_vertices.push_back( point3( attrib.normals[i], attrib.normals[i+1], attrib.normals[i+2] ));
     for ( size_t i = 0; i < attrib.texcoords.size(); i+=2 )
         global_uv_coords.push_back( point2( attrib.texcoords[i], attrib.texcoords[i+1]));
+
+    for ( const tinyobj::material_t & m : materials ){
+        Lumos::Material * newMaterial = new Lumos::Material;
+        newMaterial->texture =  QGLWidget::convertToGLFormat( QImage((curDir + "/" + m.diffuse_texname).c_str() ) );
+        newMaterial->id = m.name;
+        newMaterial->diffuseColor = color4( m.diffuse[0], m.diffuse[1], m.diffuse[2], 1.0f ) ;
+        newMaterial->reflexitivity = m.shininess;
+        newMaterial->transmittance = color3(m.transmittance[0], m.transmittance[1], m.transmittance[2] );
+        addMaterial(newMaterial);
+    }
 
     glm::vec3 max(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min()),
               min(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
@@ -210,6 +225,10 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
                 newFace.addNormalIndex(idx.normal_index);
                 newFace.addUvIndex(idx.texcoord_index);
             }
+            if ( shapes[s].mesh.material_ids[f] == -1)
+                newFace.setMaterial( Shaper::default_material );
+            else
+                newFace.setMaterial( _materials[shapes[s].mesh.material_ids[f]] );
             newMesh.addFace(newFace);
 
             index_offset += fv;
@@ -223,6 +242,35 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
     }
 }
 
+
+void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const GLint & wrapMode ){
+
+    if (m->texture.isNull())
+    {
+        _materials.push_back(m);
+        return;
+    }
+
+    // get texture if image is avaible
+    glGenTextures(1, &(m->glTexId));
+    glBindTexture(GL_TEXTURE_2D,  m->glTexId);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minMagFiler);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, minMagFiler);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
+    glTexImage2D(GL_TEXTURE_2D,
+                 0,
+                 m->getBitmapFormat(),
+                 (GLsizei)m->texture.width(),
+                 (GLsizei)m->texture.height(),
+                 0,
+                 m->getBitmapFormat(),
+                 GL_UNSIGNED_BYTE,
+                 m->texture.bits());
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    _materials.push_back(m);
+}
 
 void Shaper::_loadDefaultObjects(){
     //_pers = std::make_shared<Camera, CameraType> ( CameraType::PERSPECTIVE );

@@ -66,7 +66,7 @@ namespace Patronus {
             getNumOfFaces() const { return _faces.size(); }
 
         /**
-         * @brief copyVertices all the faces ( triangles ) and copy the appropriate vertices to buffer
+         * @brief iterate all the faces ( triangles ) and copy the appropriate vertices to buffer
          *        should have called glBindBuffer before calling this function
          * @param initPos the starting position where the data will be copied to, initPos will be incremented
          *        each time a vertex is copied to the bufer
@@ -74,12 +74,20 @@ namespace Patronus {
         void copyVertexData( size_t * initPos )const;
 
         /**
-         * @brief copyVertices all the faces ( triangles ) and copy the appropriate normals to buffer
+         * @brief iterate all the faces ( triangles ) and copy the appropriate normals to buffer
          *        should have called glBindBuffer before calling this function
          * @param initPos the starting position where the data will be copied to, initPos will be incremented
          *        each time a vertex is copied to the bufer
          */
         void copyVertexNormalData( size_t * initPos )const;
+
+        /**
+         * @brief iterate all the faces ( triangles ) and copy the appropriate texture coordinate to buffer
+         *        should have called glBindBuffer before calling this function
+         * @param initPos the starting position where the data will be copied to, initPos will be incremented
+         *        each time a vertex is copied to the bufer
+         */
+        void copyVertexTexCoordData( size_t * initPos )const;
 
 
         Lumos::Instance * instantiate_sequentialDraw ( const GLuint & VAO = 0 );
@@ -108,6 +116,10 @@ namespace Patronus {
         inline std::vector< unsigned int >
             getIndices() const { return _indices; }
 
+        inline void
+            setMaterial( Lumos::Material * m_ptr ) { _material = m_ptr; }
+        inline Lumos::Material *
+            getMaterial( ) const { return _material; }
 
 
     private:
@@ -117,8 +129,9 @@ namespace Patronus {
         BoundingBox _boundingBox;
         GLuint _VAO;
         GLuint _VBO_VERT;
-        GLuint _VBO_COLOR;
         GLuint _VBO_NORMAL;
+        GLuint _VBO_TEXCOORD;
+        GLuint _VBO_COLOR;
 
         std::vector< Vertex > _vertices_combinded;
         std::vector< unsigned int > _indices;
@@ -135,10 +148,12 @@ namespace Patronus {
         void _loadVertexToBuffer( );
         void _loadNormalToBuffer( );
         void _loadColorToBuffer( );
+        void _loadTexCoordToBuffer( );
 
         void _loadVertexIndicesToBuffer( );
         void _loadNormalIndicesToBuffer( );
         void _loadColorIndicesToBuffer( );
+        void _loadTextCoordIndicesToBuffer( );
 
     };
 

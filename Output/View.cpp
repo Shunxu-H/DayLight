@@ -124,6 +124,9 @@ void View::mousePressEvent(QMouseEvent *event){
             _camInUse->setAtGlobal( (selected->getMeshPtr()->getMaxPos() +
                                    selected->getMeshPtr()->getMinPos()) / 2.0f ) ;
             selectedInstance = selected;
+            //qDebug() << selected->getMeshPtr()->getMaxPos().x << selected->getMeshPtr()->getMaxPos().y << selected->getMeshPtr()->getMaxPos().z << "\n"
+            //         << selected->getMeshPtr()->getMinPos().x << selected->getMeshPtr()->getMinPos().y << selected->getMeshPtr()->getMinPos().z << "\n"
+            //         ;
         }
         else
             selectedInstance = nullptr;

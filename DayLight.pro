@@ -26,7 +26,7 @@ QMAKE_CXXFLAGS_RELEASE -= -O1
 QMAKE_CXXFLAGS_RELEASE -= -O2
 
 # add the desired -O3 if not present
-QMAKE_CXXFLAGS_RELEASE *= -O1
+QMAKE_CXXFLAGS_RELEASE *= -O0
 
 TARGET = DayLight
 TEMPLATE = app
@@ -74,7 +74,8 @@ SOURCES += main.cpp \
     Utility/Config.cpp \
     Utility/Matrix.cpp \
     Utility/Utility.cpp \
-    Internal/btDebugDrawer.cpp
+    Internal/btDebugDrawer.cpp \
+    Internal/ModelAsset.cpp
 
 
 FORMS    += mainwindow.ui \
@@ -135,4 +136,5 @@ HEADERS += \
     Include/View_bullet.h \
     Include/WindowManager.h \
     Include/btDebugDrawer.h \
-    Include/tiny_obj_loader.h
+    Include/tiny_obj_loader.h \
+    Include/CImg.h

@@ -29,7 +29,7 @@ void Instance::setRidgidBody(  btRigidBody * const &  arg )
     _rigidBody = arg;
 }
 
-void Instance::loadAttribsAndUniform( const View & view ) const {
+void Instance::loadAttribsAndUniform( const View & view,  Material  *  m ) const {
     // bind VAO
     glBindVertexArray(_asset.VAO);
     std::vector<std::string> attribs;
@@ -58,6 +58,12 @@ void Instance::loadAttribsAndUniform( const View & view ) const {
             glEnableVertexAttribArray(attribId);
             glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
             break;
+        case Utils::str2int("vertTexCoord"):
+            attribId = gProgram->getAttrib(attrib.c_str());
+            glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_TEXCOORD);
+            glEnableVertexAttribArray(attribId);
+            glVertexAttribPointer(attribId, 2, GL_FLOAT, GL_FALSE, 0, 0);
+            break;
         default:
             throw std::runtime_error("##in Instance::render()## Undefined Attribute: " + attrib);
         }
@@ -68,6 +74,16 @@ void Instance::loadAttribsAndUniform( const View & view ) const {
     for (const std::string & uniform: uniforms){
         if( uniform.compare("camera") == 0)
             gProgram->setUniform(uniform.c_str(), view.getCamInUse()->getPerspectiveMatrix());
+        else if( uniform.compare("tex") == 0){
+            // bind the texture and set the "tex" uniform in the fragment shader
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, m->glTexId);
+            gProgram->setUniform(uniform.c_str(), 0); //set to 0 because the texture is bound to GL_TEXTURE0
+        }
+        else if( uniform.compare("hasTexture") == 0){
+            // bind the texture and set the "tex" uniform in the fragment shader
+            gProgram->setUniform(uniform.c_str(), !m->texture.isNull()); //set to 0 because the texture is bound to GL_TEXTURE0
+        }
         else if( uniform.compare("cameraPosition") == 0)
             gProgram->setUniform(uniform.c_str(), view.getCamInUse()->getTranslate());
         else if( uniform.compare("projection") == 0)
@@ -75,6 +91,8 @@ void Instance::loadAttribsAndUniform( const View & view ) const {
                       view.getCamInUse()->getProjectionMatrix(static_cast<float>(view.width())/static_cast<float>(view.height()) ));
         else if( uniform.compare("model") == 0)
             gProgram->setUniform(uniform.c_str(), getModelMatrix() );
+        else if( uniform.compare("diffuseColor") == 0)
+            gProgram->setUniform(uniform.c_str(), m->diffuseColor );
         else if( uniform.compare("inverseModel") == 0)
             gProgram->setUniform(uniform.c_str(), getInverseModelMatrix() );
         else if( uniform.compare("light.position") == 0)
@@ -84,7 +102,7 @@ void Instance::loadAttribsAndUniform( const View & view ) const {
         else if( uniform.compare("ambient") == 0)
             gProgram->setUniform(uniform.c_str(), color3(0.05f, 0.05f, 0.05f) );
         else if( uniform.compare("materialShininess") == 0)
-            gProgram->setUniform(uniform.c_str(), _asset.material->reflexitivity );
+            gProgram->setUniform(uniform.c_str(), _asset.materials[0].material->reflexitivity );
         else if( uniform.compare("materialSpecularColor") == 0)
             gProgram->setUniform(uniform.c_str(), color3 (1.0f, 1.0f, 1.0f));
         else if( uniform.compare("numLights") == 0)
@@ -122,9 +140,11 @@ void Instance::loadAttribsAndUniform( const View & view ) const {
 void Instance::renderMesh( const View & view ) const{
 
 
-    loadAttribsAndUniform( view );
+    for (const MaterialPack & mp: _asset.materials ){
 
-    glDrawArrays(_asset.drawType, _asset.drawStart, _asset.drawCount);
+        loadAttribsAndUniform( view, mp.material );
+        glDrawArrays(_asset.drawType, mp.drawStart, mp.drawCnt);
+    }
 
     glBindVertexArray(0);
 
@@ -133,9 +153,9 @@ void Instance::renderMesh( const View & view ) const{
 void Instance::renderMesh_indexed( const View & view ) const{
 
 
-    loadAttribsAndUniform( view );
+    // loadAttribsAndUniform( view );
 
-    glDrawArrays(_asset.drawType, _asset.drawStart, _asset.drawCount);
+    // glDrawArrays(_asset.drawType, _asset.drawStart, _asset.drawCount);
 
     glBindVertexArray(0);
 
@@ -145,7 +165,7 @@ void Instance::renderMesh_indexed( const View & view ) const{
 void Instance::renderBoundngBox( const View & view ) const{
     //gProgram->use();
 
-    loadAttribsAndUniform( view );
+    loadAttribsAndUniform( view, Patronus::Shaper::default_material );
 
     //glDrawArrays(_asset.drawType, _asset.drawStart, _asset.drawCount);
 
