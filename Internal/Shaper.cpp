@@ -178,7 +178,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
         newMaterial->diffuseColor = color4( m.diffuse[0], m.diffuse[1], m.diffuse[2], 1.0f ) ;
         newMaterial->reflexitivity = m.shininess;
         newMaterial->transmittance = color3(m.transmittance[0], m.transmittance[1], m.transmittance[2] );
-
+        newMaterial->specular = color3(m.specular[0], m.specular[1], m.specular[2] );
         addMaterial(newMaterial);
     }
 
@@ -271,6 +271,33 @@ void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const 
     glBindTexture(GL_TEXTURE_2D, 0);
 
     _materials.push_back(m);
+}
+
+void Shaper::loadAttribsAndUniform() const {
+
+    GLuint uniformId;
+    if (gProgram->hasUniform("light.position"))
+        gProgram->setUniform("light.position", getDefaultLight().getTranslate() );
+    if (gProgram->hasUniform("light.intensities"))
+        gProgram->setUniform( "light.intensities", getDefaultLight().getIntensity());
+    if (gProgram->hasUniform("numLights"))
+        gProgram->setUniform( "numLights", static_cast<int> (getLights().size()) );
+    if (gProgram->hasUniform("allLights[0].isDirectional")){
+        size_t i = 0;
+        for ( const Patronus::Light & l : _lights ){
+
+            gProgram->SetLightUniform("isDirectional", i, l.getType() == Patronus::LightType::DIRECTIONAL);
+            gProgram->SetLightUniform("position", i, l.getTranslatev4());
+            gProgram->SetLightUniform("intensities", i, l.getIntensity());
+            gProgram->SetLightUniform("attenuation", i, l.getAttenuation());
+            gProgram->SetLightUniform("ambientCoefficient", i, l.getAmbientCoefficient());
+            gProgram->SetLightUniform("coneAngle", i, l.getConeAngle());
+            gProgram->SetLightUniform("coneDirection", i, l.getConeDirection());
+            i++;
+        }
+    }
+
+
 }
 
 void Shaper::_loadDefaultObjects(){

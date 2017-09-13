@@ -78,7 +78,9 @@ void View_bullet::hoverMove(QHoverEvent *event){
 
 void  View_bullet::drawLine(const btVector3& from,const btVector3& to,const btVector3& color)
 {
-   //      if (m_debugMode > 0)
+
+
+
     float vertices[6] = {
                     from[0], from[1], from[2],
                     to[0], to[1], to[2]

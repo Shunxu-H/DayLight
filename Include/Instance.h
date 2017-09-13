@@ -28,10 +28,10 @@ namespace Lumos {
         /**
          * @brief bind data to attributes and uniforms of the shaders currently binded to openGL
          */
-        void loadAttribsAndUniform( const View & view, Material  *  m  ) const;
         void loadAttribsAndUniform() const;
 
-        void renderMesh( const View & v ) const;
+        void renderMesh( Material * materialInUse ) const;
+        void renderMeshToTexture( Material * materialInUse ) const;
         void renderMesh_indexed( const View & view ) const;
 
         void renderBoundngBox( const View & v) const;

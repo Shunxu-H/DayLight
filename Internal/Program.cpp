@@ -254,7 +254,7 @@ GLint Program::getAttrib(const GLchar* attribName) const {
 bool Program::hasAttribute( const GLchar * attribName ) const {
     if(!attribName)
         return false;
-    GLint uniform = glGetUniformLocation( getObjId(), attribName );
+    GLint uniform = glGetAttribLocation( getObjId(), attribName );
     if(uniform == -1)
         return false;
 

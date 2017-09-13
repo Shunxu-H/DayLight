@@ -88,7 +88,7 @@ namespace Utils {
         // check OpenGL error
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR) {
-            std::cerr << "OpenGL error: " << err << std::endl;
+            std::cerr << "OpenGL error: " << std::hex << err << std::endl;
         }
 
 

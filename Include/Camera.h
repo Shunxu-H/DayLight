@@ -85,6 +85,9 @@ namespace Patronus {
         glm::mat4 getPerspectiveMatrix()const;
         glm::mat4 getProjectionMatrix(const float & aspect_ratio )const;
 
+
+        void loadUniforms( const unsigned int & width, const unsigned int & height ) const;
+
         void render(const unsigned int & width, const unsigned int & height )const;
     protected:
 

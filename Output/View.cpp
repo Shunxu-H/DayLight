@@ -88,12 +88,16 @@ void View::paintGL(){
 
     gProgram->use();
     gProgram->enableShadingPipe(Lumos::Shader::default_mesh_shader_id);
-
+    glBindVertexArray(world->getInstances()[0]->getMeshAsset().VAO);
+    _camInUse->loadUniforms(width(), height());
+    shaper->loadAttribsAndUniform();
+    Lumos::Material * materialInUse;
     for(Lumos::Instance const * i : world->getInstances()){
-        i->renderMesh(*this);
+        i->renderMesh(materialInUse);
     }
 
 
+    glBindVertexArray(0);
     gProgram->disableShadingPipe(Lumos::Shader::default_mesh_shader_id);
 
 

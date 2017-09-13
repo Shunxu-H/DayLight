@@ -44,7 +44,13 @@ int main(int argc, char *argv[])
     Patronus::Camera::loadCamerasFromDir("./data/indoor/camera/");
     gProgram->loadShaders( "/home/shunxu/QtProj/DayLight/GLSL" );
     gProgram->preDrawSetUp();
-    shaper->getnCamera(0)->render(1280, 720);
+
+
+    gProgram->use();
+    gProgram->enableShadingPipe(Lumos::Shader::default_mesh_shader_id);
+    glBindVertexArray(world->getInstances()[0]->getMeshAsset().VAO);
+    shaper->loadAttribsAndUniform();
+    shaper->getnCamera(0)->render(1080, 720);
 
 
 //    GLsizei count;

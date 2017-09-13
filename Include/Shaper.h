@@ -50,6 +50,8 @@ namespace Patronus {
         static void getBoundingSphere(const std::vector< point3 > & points, point3 * position, float * radius);
         static void loadGlobalGlBuffer();
 
+        void loadAttribsAndUniform() const;
+
         inline Light getDefaultLight() const { return _lights[0]; }
         /**
          * @brief load file and call corresponding functions based on file extension

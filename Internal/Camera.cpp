@@ -1,3 +1,4 @@
+#include <QPoint>
 #include <experimental/filesystem>
 #include <fstream>
 #include <sstream>
@@ -67,11 +68,31 @@ Camera::Camera(const CameraType & type,
 }
 
 
+void Camera::loadUniforms( const unsigned int & width, const unsigned int & height ) const{
+
+    GLuint uniformId;
+    if (gProgram->hasUniform("camera"))
+        gProgram->setUniform("camera", getPerspectiveMatrix());
+    if (gProgram->hasUniform("cameraPosition"))
+        gProgram->setUniform("cameraPosition", getTranslate() );
+    if (gProgram->hasUniform("projection"))
+        gProgram->setUniform("projection", getProjectionMatrix(static_cast<float>(width)/static_cast<float>(height)));
+    if (gProgram->hasUniform("ModelViewProjectionMatrix"))
+        gProgram->setUniform("ModelViewProjectionMatrix",
+                             getProjectionMatrix( static_cast<float>(width)/static_cast<float>(height) )*
+                             getPerspectiveMatrix()*
+                             getModelMatrix());
+
+
+}
+
 void Camera::render(const unsigned int & width, const unsigned int & height )const{
     // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
     GLuint FramebufferName = 0;
     glGenFramebuffers(1, &FramebufferName);
     glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
+
+
 
     // The texture we're going to render to
     GLuint renderedTexture;
@@ -81,40 +102,76 @@ void Camera::render(const unsigned int & width, const unsigned int & height )con
     glBindTexture(GL_TEXTURE_2D, renderedTexture);
 
     // Give an empty image to OpenGL ( the last "0" )
-    glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 1024, 768, 0,GL_RGB, GL_UNSIGNED_BYTE, 0);
+    glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, width, height, 0,GL_RGB, GL_UNSIGNED_BYTE, 0);
 
     // Poor filtering. Needed !
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-
     // The depth buffer
     GLuint depthrenderbuffer;
     glGenRenderbuffers(1, &depthrenderbuffer);
     glBindRenderbuffer(GL_RENDERBUFFER, depthrenderbuffer);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 768);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer);
 
+    Utils::logOpenGLError();
     // Set "renderedTexture" as our colour attachement #0
     glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, renderedTexture, 0);
+    Utils::logOpenGLError();
 
     // Set the list of draw buffers.
-    GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT1};
+    GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
     glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
 
     // Always check that our framebuffer is ok
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        throw std::runtime_error("FrameBuffer setup failed!");
+        throw std::runtime_error(" Buffer creation failed ");
 
-    // Render to our framebuffer
+
+
     glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
-    glViewport(0,0,width,height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
+    Utils::logOpenGLError();
 
-    unsigned char * pixels = new unsigned char [height*width*4];
+
+    loadUniforms(width, height);
+    Lumos::Material * materialInUse = nullptr;
+    for(Lumos::Instance const * i : world->getInstances()){
+        i->renderMesh(materialInUse);
+    }
+
+    glViewport(0,0,width,height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
+    GLubyte * pixels = new GLubyte [height*width*4];
+    size_t size = sizeof(GLubyte);
     glGetTexImage (GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
     Utils::logOpenGLError();
 
+    // save the image
+    QImage image (width, height, QImage::Format_RGB32);
+
+    for ( size_t rowPtr = 0; rowPtr < height; rowPtr++ ){
+        for ( size_t colPtr = 0; colPtr < width; colPtr++ ){
+            int pos = (rowPtr*width + colPtr)*4;
+            int r = pixels[pos];
+            int g = pixels[pos + 1];
+            int b = pixels[pos + 2];
+            int a = pixels[pos + 3];
+
+            image.setPixelColor(QPoint(colPtr, rowPtr),
+                                QColor( r, g, b));
+        }
+
+    }
+    /*
+    for (int y = 0; y < image.height(); y++)
+    {
+        memcpy(image.scanLine(y), &(pixels[y*width]), image.bytesPerLine());
+    }
+    */
+    image.save("temp.jpg");
+
     delete[] pixels;
+    glDeleteRenderbuffers(1, &depthrenderbuffer);
     glDeleteTextures(1, &renderedTexture);
     glDeleteFramebuffers(1, &FramebufferName);
 }

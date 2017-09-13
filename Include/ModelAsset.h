@@ -8,13 +8,16 @@ namespace Lumos {
     struct Material{
         float reflexitivity;
         std::string id;
-        color4 diffuseColor;
         color3 transmittance;
+        color3 specular;
+        color4 diffuseColor;
         GLuint glTexId;
         QImage texture;
         Material( const color4 & c = color4(1.0f, 1.0f, 1.0f, 1.0f),
                   const float & reflexitivity_ = 0.3
                 ): reflexitivity(reflexitivity_), diffuseColor(c), glTexId(0){}
+
+        void loadUniforms() const;
 
         GLenum getBitmapFormat();
     };

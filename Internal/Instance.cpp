@@ -29,112 +29,6 @@ void Instance::setRidgidBody(  btRigidBody * const &  arg )
     _rigidBody = arg;
 }
 
-void Instance::loadAttribsAndUniform( const View & view,  Material  *  m ) const {
-    // bind VAO
-    glBindVertexArray(_asset.VAO);
-    std::vector<std::string> attribs;
-    std::vector<std::string> uniforms;
-    GLuint attribId;
-    Shader::getCurrentVaryingsAndUniforms(attribs, uniforms);
-
-
-    // load attributes
-    for (const std::string & attrib: attribs){
-        switch (Utils::str2int(attrib.c_str())){
-        case Utils::str2int("vert"):
-            attribId = gProgram->getAttrib(attrib.c_str());
-            glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_VERT);
-            glEnableVertexAttribArray(attribId);
-            glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
-            break;
-        case Utils::str2int("vertNormal"):
-
-            attribId = gProgram->getAttrib(attrib.c_str());
-            glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_NORMAL);
-            glEnableVertexAttribArray(attribId);
-            glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
-            break;
-        case Utils::str2int("vertTexCoord"):
-            attribId = gProgram->getAttrib(attrib.c_str());
-            glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_TEXCOORD);
-            glEnableVertexAttribArray(attribId);
-            glVertexAttribPointer(attribId, 2, GL_FLOAT, GL_FALSE, 0, 0);
-            break;
-        default:
-            throw std::runtime_error("##in Instance::render()## Undefined Attribute: " + attrib);
-        }
-    }
-
-    bool hasAllLight = false;
-    // set unifroms
-    for (const std::string & uniform: uniforms){
-        if( uniform.compare("camera") == 0)
-            gProgram->setUniform(uniform.c_str(), view.getCamInUse()->getPerspectiveMatrix());
-        else if( uniform.compare("tex") == 0){
-            // bind the texture and set the "tex" uniform in the fragment shader
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, m->glTexId);
-            gProgram->setUniform(uniform.c_str(), 0); //set to 0 because the texture is bound to GL_TEXTURE0
-        }
-        else if( uniform.compare("transmittance") == 0){
-            gProgram->setUniform(uniform.c_str(), m->transmittance);
-        }
-        else if( uniform.compare("hasTexture") == 0){
-            // bind the texture and set the "tex" uniform in the fragment shader
-            gProgram->setUniform(uniform.c_str(), !m->texture.isNull());
-        }
-        else if( uniform.compare("cameraPosition") == 0)
-            gProgram->setUniform(uniform.c_str(), view.getCamInUse()->getTranslate());
-        else if( uniform.compare("projection") == 0)
-            gProgram->setUniform(uniform.c_str(),
-                      view.getCamInUse()->getProjectionMatrix(static_cast<float>(view.width())/static_cast<float>(view.height()) ));
-        else if( uniform.compare("model") == 0)
-            gProgram->setUniform(uniform.c_str(), getModelMatrix() );
-        else if( uniform.compare("diffuseColor") == 0)
-            gProgram->setUniform(uniform.c_str(), m->diffuseColor );
-        else if( uniform.compare("inverseModel") == 0)
-            gProgram->setUniform(uniform.c_str(), getInverseModelMatrix() );
-        else if( uniform.compare("light.position") == 0)
-            gProgram->setUniform(uniform.c_str(), shaper->getDefaultLight().getTranslate() );
-        else if( uniform.compare("light.intensities") == 0)
-            gProgram->setUniform(uniform.c_str(), shaper->getDefaultLight().getIntensity() );
-        else if( uniform.compare("ambient") == 0)
-            gProgram->setUniform(uniform.c_str(), color3(0.05f, 0.05f, 0.05f) );
-        else if( uniform.compare("materialShininess") == 0)
-            gProgram->setUniform(uniform.c_str(), _asset.materials[0].material->reflexitivity );
-        else if( uniform.compare("materialSpecularColor") == 0)
-            gProgram->setUniform(uniform.c_str(), color3 (1.0f, 1.0f, 1.0f));
-        else if( uniform.compare("numLights") == 0)
-            gProgram->setUniform(uniform.c_str(), (int)shaper->getLights().size());
-        else if( uniform.compare("ModelViewProjectionMatrix") == 0)
-            gProgram->setUniform(uniform.c_str(),
-                                 view.getCamInUse()->getProjectionMatrix(static_cast<float>(view.width())/static_cast<float>(view.height()) )*
-                                 view.getCamInUse()->getPerspectiveMatrix()*
-                                 getModelMatrix());
-        else if( uniform.substr(0, 9).compare("allLights") == 0 )
-            //gProgram->setUniform(uniform.c_str(), glm::vec3(1.0f, 1.0f, 1.0f));
-            hasAllLight = true;
-            //qDebug() << (uniform.compare("allLights[0].position") == 0);
-        else
-            throw std::runtime_error( "##in Instance::render()## Undefined Uniform: " + uniform);
-    }
-
-    if ( hasAllLight ){
-
-        size_t i = 0;
-        for ( const Patronus::Light & l : shaper->getLights() ){
-
-            gProgram->SetLightUniform("isDirectional", i, l.getType() == Patronus::LightType::DIRECTIONAL);
-            gProgram->SetLightUniform("position", i, l.getTranslatev4());
-            gProgram->SetLightUniform("intensities", i, l.getIntensity());
-            gProgram->SetLightUniform("attenuation", i, l.getAttenuation());
-            gProgram->SetLightUniform("ambientCoefficient", i, l.getAmbientCoefficient());
-            gProgram->SetLightUniform("coneAngle", i, l.getConeAngle());
-            gProgram->SetLightUniform("coneDirection", i, l.getConeDirection());
-            i++;
-        }
-    }
-}
 
 void Instance::loadAttribsAndUniform() const {
 
@@ -145,48 +39,55 @@ void Instance::loadAttribsAndUniform() const {
         glEnableVertexAttribArray(attribId);
         glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
     }
-    if (gProgram->hasAttribute("vert")){
-
+    if (gProgram->hasAttribute("vertNormal")){
+        attribId = gProgram->getAttrib("vertNormal");
+        glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_NORMAL);
+        glEnableVertexAttribArray(attribId);
+        glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
     }
-    /*
-    // load attributes
-    for (const std::string & attrib: attribs){
-        switch (Utils::str2int(attrib.c_str())){
-        case Utils::str2int("vert"):
-
-            break;
-        case Utils::str2int("vertNormal"):
-
-            attribId = gProgram->getAttrib(attrib.c_str());
-            glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_NORMAL);
-            glEnableVertexAttribArray(attribId);
-            glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
-            break;
-        case Utils::str2int("vertTexCoord"):
-            attribId = gProgram->getAttrib(attrib.c_str());
-            glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_TEXCOORD);
-            glEnableVertexAttribArray(attribId);
-            glVertexAttribPointer(attribId, 2, GL_FLOAT, GL_FALSE, 0, 0);
-            break;
-        default:
-            throw std::runtime_error("##in Instance::render()## Undefined Attribute: " + attrib);
-        }
+    if (gProgram->hasAttribute("vertTexCoord")){
+        attribId = gProgram->getAttrib("vertTexCoord");
+        glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_TEXCOORD);
+        glEnableVertexAttribArray(attribId);
+        glVertexAttribPointer(attribId, 2, GL_FLOAT, GL_FALSE, 0, 0);
     }
-    */
+
+    // load uniform
+    GLuint uniformId;
+    if( gProgram->hasUniform("inverseModel") )
+        gProgram->setUniform( "inverseModel" , getInverseModelMatrix() );
+
+    if( gProgram->hasUniform("model") )
+        gProgram->setUniform("model", getModelMatrix() );
+
 
 }
 
-void Instance::renderMesh( const View & view ) const{
+void Instance::renderMesh( Material * materialInUse ) const{
 
 
     for (const MaterialPack & mp: _asset.materials ){
-
-        loadAttribsAndUniform( view, mp.material );
+        if (materialInUse != mp.material ){
+            mp.material->loadUniforms();
+            materialInUse = mp.material;
+        }
+        loadAttribsAndUniform( );
         glDrawArrays(_asset.drawType, mp.drawStart, mp.drawCnt);
     }
 
-    glBindVertexArray(0);
 
+}
+
+
+void Instance::renderMeshToTexture( Material * materialInUse ) const{
+    for (const MaterialPack & mp: _asset.materials ){
+        if (materialInUse != mp.material ){
+            mp.material->loadUniforms();
+            materialInUse = mp.material;
+        }
+        loadAttribsAndUniform( );
+        glDrawArrays(_asset.drawType, mp.drawStart, mp.drawCnt);
+    }
 }
 
 void Instance::renderMesh_indexed( const View & view ) const{
@@ -204,7 +105,7 @@ void Instance::renderMesh_indexed( const View & view ) const{
 void Instance::renderBoundngBox( const View & view ) const{
     //gProgram->use();
 
-    loadAttribsAndUniform( view, Patronus::Shaper::default_material );
+    //loadAttribsAndUniform( Patronus::Shaper::default_material );
 
     //glDrawArrays(_asset.drawType, _asset.drawStart, _asset.drawCount);
 
