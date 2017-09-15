@@ -34,7 +34,6 @@ namespace Lumos {
     struct ModelAsset {
         std::string shaderId;
         std::vector<MaterialPack> materials;
-        GLuint VAO;
         GLuint VBO_VERT;
         GLuint VBO_NORMAL;
         GLuint VBO_TEXCOORD;

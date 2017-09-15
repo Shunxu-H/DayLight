@@ -265,21 +265,11 @@ void Camera::render(const unsigned int & width, const unsigned int & height )con
 
 
     Utils::logOpenGLError();
-    /*
     glGetTexImage ( GL_TEXTURE_2D,
                     0,
                     GL_RGBA, // GL will convert to this format
                     GL_UNSIGNED_BYTE,   // Using this data type per-pixel
                     pixels );
-                    */
-    glCopyTexSubImage2D(    GL_TEXTURE_2D ,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            width,
-                            height);
     //glGetTextureImage ( _ColorBufferObject, 0, GL_RGBA, GL_UNSIGNED_BYTE, height*width*4*sizeof(GLubyte), pixels);
     Utils::logOpenGLError();
     // save the image

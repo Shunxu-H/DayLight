@@ -2,7 +2,7 @@
 	#define WINDOWMANAGER_H
 
 #include <QMainWindow>
-
+#include "Renderer.h"
 class QAction;
 class QActionGroup;
 class QLabel;
@@ -17,9 +17,11 @@ namespace Ui {
 QT_END_NAMESPACE
 
 class View;
+namespace Lumos {
+    class Shader;
+}
 
 class Keyboard;
-class Shader;
 class WindowManager: public QMainWindow
 {
     Q_OBJECT
@@ -35,7 +37,7 @@ public:
     void updateAllViews();
 
     void setUpProgram( const std::string & shaderDir );
-    void setUpProgram( const std::vector<Shader> & shader );
+    void setUpProgram( const std::vector<Lumos::Shader> & shader );
 
     void createMenus();
 
@@ -47,6 +49,8 @@ protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 #endif // QT_NO_CONTEXTMENU
 
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
 
 private slots:
     void newFile();
@@ -78,7 +82,8 @@ private:
     Ui::WindowManager *_ui;
 
     std::vector< View* > _views;
-
+    Renderer * _renderer;
+    View * _render_hidden_view;
 
     void _createActions();
     void _createMenus();

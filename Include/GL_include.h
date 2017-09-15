@@ -9,6 +9,7 @@
 #ifdef _WIN32
   #include <windows.h>
 #endif
+#include <QOpenGLFunctions_4_5_Core>
 #include <GL/gl.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

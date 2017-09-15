@@ -47,7 +47,6 @@ namespace Patronus {
         //Mesh(std::vector<Vector*> v=std::vector<Vector*>(),std::vector<Edge*> e=std::vector<Edge*>(), GeoType gt=AUTO,UnitType ut=COORDS);
         Mesh(const std::string & id = "" ):
             _id( id ),
-            _VAO(0),
             _VBO_VERT(0),
             _VBO_COLOR(0),
             _VBO_NORMAL(0),
@@ -90,7 +89,7 @@ namespace Patronus {
         void copyVertexTexCoordData( size_t * initPos )const;
 
 
-        Lumos::Instance * instantiate_sequentialDraw ( const GLuint & VAO = 0 );
+        Lumos::Instance * instantiate_sequentialDraw ( );
         Lumos::Instance * instantiate_indexedDraw ( const GLuint & VAO = 0 );
 
         /**
@@ -127,7 +126,6 @@ namespace Patronus {
 
         std::string _id;
         BoundingBox _boundingBox;
-        GLuint _VAO;
         GLuint _VBO_VERT;
         GLuint _VBO_NORMAL;
         GLuint _VBO_TEXCOORD;

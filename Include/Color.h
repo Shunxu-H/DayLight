@@ -2,7 +2,6 @@
 	#define COLOR_H
 
 #include "GL_include.h"
-#include "Index.h"
 
 class Color
 {

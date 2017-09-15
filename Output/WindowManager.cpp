@@ -1,18 +1,19 @@
 #include <QtWidgets>
 #include <experimental/filesystem>
+#include <iostream>
 #include "GL_include.h"
 #include "WindowManager.h"
 #include "View.h"
 #include "View_bullet.h"
 #include "Shader.h"
-
+#include "Renderer.h"
+#include "View_renderer.h"
 #include "Extern.h"
 
 
 
 
 
-int MARGIN = 20;
 
 WindowManager::WindowManager(QWidget *parent)
     :QMainWindow(parent)
@@ -26,12 +27,14 @@ WindowManager::WindowManager(QWidget *parent)
     _views.push_back(leftView);
 
 
+
     QDockWidget *canvas_dock_right = new QDockWidget(tr("Canvas"), this);
-    View * rightView = new View_bullet( canvas_dock_right);
-    canvas_dock_right->setWidget(rightView);
+    //View * rightView = new View_bullet( canvas_dock_right);
+    _render_hidden_view = new View_renderer(this);
+    canvas_dock_right->setWidget(_render_hidden_view);
     //dock->setWidget(new OGLWidget());
     addDockWidget(Qt::RightDockWidgetArea, canvas_dock_right);
-    _views.push_back(rightView);
+    //_views.push_back(rightView);
 
 
     _createActions();
@@ -43,7 +46,46 @@ WindowManager::WindowManager(QWidget *parent)
     setWindowTitle(tr("DayLight"));
     setMinimumSize(160, 160);
     resize(1080, 720);
+    _renderer = nullptr;
+    //_render_hidden_view = new View(this);
 
+
+
+}
+
+void WindowManager::keyPressEvent(QKeyEvent *event)
+{
+    std::cout << "You Pressed Key " <<(char) event->key() << std::endl;
+    switch(event->key()){
+        case 'R':
+            if( !_renderer ){
+
+                _renderer = new Renderer( nullptr, QSize(1, 1), nullptr);
+
+                _renderer->setFormat(_views[0]->format());
+                //_renderer->setScreen(_views[0]->acceptDrops());
+                _renderer->create();
+            }
+            _renderer->resize(1080, 720);
+            _renderer->render();
+
+            QImage image = _renderer->grabFramebuffer();
+            image.save(QString("image.png"));
+            // draw hidden view
+            _render_hidden_view->resize(1080, 720);
+            _render_hidden_view->update();
+            QImage image2 = _render_hidden_view->grabFramebuffer();
+            image2.save(QString("image2.png"));
+
+        break;
+    }
+}
+
+
+
+void WindowManager::keyReleaseEvent(QKeyEvent *event)
+{
+    //std::cout << "You Release Key " << event->key() << std::endl;
 }
 
 

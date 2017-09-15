@@ -14,5 +14,7 @@ extern Lumos::Program *gProgram;
 extern WindowManager * winMan;
 extern Patronus::PhysicalWorld * world;
 extern Lumos::Instance * selectedInstance;
+extern QOpenGLContext * global_glContext;
+extern QSurfaceFormat * global_format;
 
 #endif // EXTERN_H

@@ -46,12 +46,9 @@ DEFINES += GL_GLEXT_PROTOTYPES
 INCLUDEPATH += Include/
 
 SOURCES += main.cpp \
-    Input/Mouse.cpp \
     Internal/ArrayBuffer.cpp \
     Internal/Camera.cpp \
     Internal/Countable.cpp \
-    Internal/Edge.cpp \
-    Internal/Ellipsoid.cpp \
     Internal/Face.cpp \
     Internal/Instance.cpp \
     Internal/Light.cpp \
@@ -61,21 +58,17 @@ SOURCES += main.cpp \
     Internal/Shader.cpp \
     Internal/Shaper.cpp \
     Internal/Transformable.cpp \
-    Internal/Vector.cpp \
-    Output/Cabinet.cpp \
-    Output/CVM.cpp \
-    Output/OrthoView.cpp \
-    Output/TextView.cpp \
     Output/View.cpp \
     Output/View_bullet.cpp \
     Output/WindowManager.cpp \
-    Utility/AEL.cpp \
     Utility/Color.cpp \
     Utility/Config.cpp \
-    Utility/Matrix.cpp \
     Utility/Utility.cpp \
     Internal/btDebugDrawer.cpp \
-    Internal/ModelAsset.cpp
+    Internal/ModelAsset.cpp \
+    Internal/OpenGlOffscreenSurface.cpp \
+    Output/Renderer.cpp \
+    Output/View_renderer.cpp
 
 
 FORMS    += mainwindow.ui \
@@ -97,33 +90,27 @@ DISTFILES += \
     GLSL/multilight_shader.frag \
     GLSL/multilight_shader.vert \
     GLSL/wired_frame_shader.frag \
-    GLSL/wired_frame_shader.vert
+    GLSL/wired_frame_shader.vert \
+    GLSL/depth.frag \
+    GLSL/depth.vert
 
 HEADERS += \
-    Include/AEL.h \
     Include/ArrayBuffer.h \
     Include/Cabinet.h \
     Include/Camera.h \
     Include/Color.h \
     Include/Config.h \
     Include/Countable.h \
-    Include/CVM.h \
-    Include/Edge.h \
-    Include/Ellipsoid.h \
     Include/Extern.h \
     Include/Face.h \
     Include/GL_include.h \
     Include/GLObject.h \
-    Include/Index.h \
     Include/Instance.h \
     Include/Keyboard.h \
     Include/Light.h \
-    Include/Matrix.h \
     Include/Mesh.h \
     Include/ModelAsset.h \
-    Include/Mouse.h \
     Include/obj_loader.h \
-    Include/OrthoView.h \
     Include/PhysicalWorld.h \
     Include/Program.h \
     Include/Shader.h \
@@ -131,10 +118,12 @@ HEADERS += \
     Include/TextView.h \
     Include/Transformable.h \
     Include/Utility.h \
-    Include/Vector.h \
     Include/View.h \
     Include/View_bullet.h \
     Include/WindowManager.h \
     Include/btDebugDrawer.h \
     Include/tiny_obj_loader.h \
-    Include/CImg.h
+    Include/CImg.h \
+    Include/OpenGlOffscreenSurface.h \
+    Include/Renderer.h \
+    Include/View_renderer.h

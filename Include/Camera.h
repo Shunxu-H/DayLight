@@ -32,7 +32,7 @@ namespace Patronus {
 
                );
 
-        virtual ~Camera(){}
+        virtual ~Camera();
 
         static Camera* pers;
 
@@ -89,6 +89,7 @@ namespace Patronus {
         void loadUniforms( const unsigned int & width, const unsigned int & height ) const;
 
         void render(const unsigned int & width, const unsigned int & height )const;
+        void genFrameBuffer( const unsigned int & width, const unsigned int & height );
     protected:
 
     private:
@@ -99,6 +100,11 @@ namespace Patronus {
         float _fov;
         float _near;
         float _far;
+        GLuint _FBO;
+        GLuint _DepthBufferObject;
+        GLuint _ColorBufferObject;
+        size_t _bufferWidth;
+        size_t _bufferHeight;
 
     };
 

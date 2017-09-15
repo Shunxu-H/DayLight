@@ -72,7 +72,7 @@ namespace Utils {
 
     std::string genUniqueName(const std::set<std::string> & nameList, const std::string & prefix );
 
-    void logOpenGLError();
+    void logOpenGLError( const std::string & sourceFile = "unknown( check stack please ) ");
 
     template<typename From, typename To>
     void convert(const From & from, To & to, const size_t & size){

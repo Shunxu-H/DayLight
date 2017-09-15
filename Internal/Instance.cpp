@@ -36,31 +36,38 @@ void Instance::loadAttribsAndUniform() const {
     if (gProgram->hasAttribute("vert")){
         attribId = gProgram->getAttrib("vert");
         glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_VERT);
+
+        Utils::logOpenGLError();
         glEnableVertexAttribArray(attribId);
+        Utils::logOpenGLError();
         glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
+        Utils::logOpenGLError();
     }
     if (gProgram->hasAttribute("vertNormal")){
         attribId = gProgram->getAttrib("vertNormal");
         glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_NORMAL);
         glEnableVertexAttribArray(attribId);
         glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
+        Utils::logOpenGLError();
     }
     if (gProgram->hasAttribute("vertTexCoord")){
         attribId = gProgram->getAttrib("vertTexCoord");
         glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_TEXCOORD);
         glEnableVertexAttribArray(attribId);
         glVertexAttribPointer(attribId, 2, GL_FLOAT, GL_FALSE, 0, 0);
+        Utils::logOpenGLError();
     }
 
     // load uniform
     GLuint uniformId;
     if( gProgram->hasUniform("inverseModel") )
         gProgram->setUniform( "inverseModel" , getInverseModelMatrix() );
+    Utils::logOpenGLError();
 
     if( gProgram->hasUniform("model") )
         gProgram->setUniform("model", getModelMatrix() );
 
-
+    Utils::logOpenGLError();
 }
 
 void Instance::renderMesh( Material * materialInUse ) const{
@@ -69,10 +76,13 @@ void Instance::renderMesh( Material * materialInUse ) const{
     for (const MaterialPack & mp: _asset.materials ){
         if (materialInUse != mp.material ){
             mp.material->loadUniforms();
+            Utils::logOpenGLError();
             materialInUse = mp.material;
         }
         loadAttribsAndUniform( );
+        Utils::logOpenGLError();
         glDrawArrays(_asset.drawType, mp.drawStart, mp.drawCnt);
+        Utils::logOpenGLError();
     }
 
 

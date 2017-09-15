@@ -1,4 +1,4 @@
-#version 130
+#version 330
 
 uniform mat4 camera;
 uniform mat4 model;
@@ -21,4 +21,5 @@ void main() {
 
     // Apply all matrix transformations to vert
     gl_Position = projection * camera * model * vec4(vert, 1);
+
 }

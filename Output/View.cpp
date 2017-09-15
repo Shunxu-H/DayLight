@@ -12,10 +12,17 @@
 
 
 View::View(QWidget *parent, const std::shared_ptr<Patronus::Camera> & cam)
-    : QOpenGLWidget(parent)
+    : QOpenGLWidget(parent), _VAO( 0 )
 {
     if ( cam == nullptr )
         _camInUse = Patronus::Camera::pers;
+
+    QSurfaceFormat format;
+    format.setMajorVersion(3);
+    format.setMinorVersion(0);
+    format.setDepthBufferSize(24);
+    format.setSamples(4);
+    setFormat(format);
 
 
     setMouseTracking(true);
@@ -24,12 +31,18 @@ View::View(QWidget *parent, const std::shared_ptr<Patronus::Camera> & cam)
     QSurfaceFormat fmt;
     fmt.setSamples(8);
     setFormat(fmt);
+
+    //initializeGL();
     //QOpenGLWidget::setRenderHint(QPainter::Antialiasing);
 }
 
 
 void View::initializeGL(){
-    glClearColor(0,0,0,1);
+    //qDebug() << context() << " " << global_glContext;
+    //context()->setShareContext(global_glContext);
+
+
+    global_glContext = context();
     glEnable(GL_DEPTH_TEST);
 
     // draw line and polygon together
@@ -38,10 +51,9 @@ void View::initializeGL(){
 
     // antialiasing
     glEnable(GL_MULTISAMPLE);
-    //glEnable(GL_LIGHT0);
-    //glEnable(GL_LIGHTING);
-    //glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-    //glEnable(GL_COLOR_MATERIAL);
+
+
+    glGenVertexArrays(1, &_VAO);
 }
 
 void View::resizeGL(int w, int h){
@@ -82,25 +94,22 @@ void View::paintGL(){
 
     if( gProgram == nullptr )
         return;
-
     glClearColor(0, 0, 0, 1); // black
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+    //shaper->getnCamera(0)->genFrameBuffer(1080, 720);
     gProgram->use();
     gProgram->enableShadingPipe(Lumos::Shader::default_mesh_shader_id);
-    glBindVertexArray(world->getInstances()[0]->getMeshAsset().VAO);
+    glBindVertexArray(_VAO);
     _camInUse->loadUniforms(width(), height());
     shaper->loadAttribsAndUniform();
-    Lumos::Material * materialInUse;
+    Lumos::Material * materialInUse = nullptr;
     for(Lumos::Instance const * i : world->getInstances()){
         i->renderMesh(materialInUse);
     }
 
-
-    glBindVertexArray(0);
     gProgram->disableShadingPipe(Lumos::Shader::default_mesh_shader_id);
-
-
 }
 
 

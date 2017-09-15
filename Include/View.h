@@ -45,11 +45,12 @@ protected:
     virtual void wheelEvent ( QWheelEvent * event ) override;
 
 
+    Patronus::Camera * _camInUse;
+    QPoint _prevMousePos;
+    GLuint _VAO;
 
 private:
     friend class WindowManager;
-    Patronus::Camera * _camInUse;
-    QPoint _prevMousePos;
 
 };
 

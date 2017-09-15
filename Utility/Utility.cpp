@@ -6,8 +6,7 @@
 #include <memory>
 #include <ctime>
 #include <cstdlib>
-
-#include "AEL.h"
+#include <sstream>
 
 namespace Utils {
 
@@ -36,11 +35,6 @@ namespace Utils {
             token = strtok(NULL, delim);
         }
         return ret;
-    }
-
-
-    bool compare(AEL* a1, AEL* a2){
-        return a1->getY() > a2->getY();
     }
 
 
@@ -83,16 +77,61 @@ namespace Utils {
 
 
 
-    void logOpenGLError(){
+    void logOpenGLError(const std::string & sourceFile ){
 
         // check OpenGL error
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR) {
-            std::cerr << "OpenGL error: " << std::hex << err << std::endl;
+            std::stringstream o;
+            switch(err) {
+                case GL_NO_ERROR:
+                    return;
+                    break;
+                case GL_INVALID_ENUM:
+                    o <<"OpenGL Error in "<<sourceFile<<" at line "<<": Invalid enum!"<< std::endl;
+                    throw std::runtime_error(o.str());
+                    break;
+
+                case GL_INVALID_VALUE:
+                    o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Invalid value!"<< std::endl;
+                    throw std::runtime_error(o.str());
+                    break;
+
+                case GL_INVALID_OPERATION:
+                    o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Invalid operation!"<< std::endl;
+                     throw std::runtime_error(o.str());
+                    break;
+
+                case GL_STACK_OVERFLOW:
+                    o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Stack overflow!"<< std::endl;
+                    throw std::runtime_error(o.str());
+                    break;
+
+                case GL_STACK_UNDERFLOW:
+                    o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Stack underflow!"<< std::endl;
+                    throw std::runtime_error(o.str());
+                    break;
+
+                case GL_OUT_OF_MEMORY:
+                    o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Out Of memory!"<< std::endl;
+                    throw std::runtime_error(o.str());
+                    break;
+
+                case GL_TABLE_TOO_LARGE:
+                    o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Table too large!"<< std::endl;
+                    throw std::runtime_error(o.str());
+                    break;
+
+                default:
+                    o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Unknown error!"<< std::endl;
+                    throw std::runtime_error(o.str());
+                    break;
+            }
         }
-
-
     }
+
+
+
 
 
     std::string genUniqueName(const std::set<std::string> & nameList, const std::string & prefix ){

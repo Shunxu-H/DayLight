@@ -1,4 +1,4 @@
-#version 330 core
+#version 450
 in vec2 fragTexCoord;
 uniform vec3 transmittance;
 uniform bool hasTexture;
@@ -28,9 +28,10 @@ uniform struct Light {
 in vec3 fragNormal;
 in vec3 fragVert;
 
+layout (location = 0) out vec4 outColor;
+//layout (location = 1) out vec4 outTexture;
 
-out vec4 finalColor;
-//layout(location = 0) out vec3 colorToTexture;
+//layout(location = 0)out vec4 glFragData;
 
 vec3 ApplyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, vec3 surfaceToCamera) {
     vec3 surfaceToLight;
@@ -88,6 +89,8 @@ void main() {
 
     //final color (after gamma correction)
     vec3 gamma = vec3(1.0/2.2);
-    finalColor = vec4(pow(linearColor, gamma)*(1-transmittance) , surfaceColor.a);
+    outColor = vec4(pow(linearColor, gamma)*(1-transmittance) , surfaceColor.a);
+    //outColor = outTexture;
+    //glFragData = gl_FragColor;
     //colorToTexture = finalColor.xyz;
 }

@@ -69,17 +69,10 @@ void Mesh::addVertex( const Vertex & v){
 }
 
 
-Lumos::Instance* Mesh::instantiate_sequentialDraw ( const GLuint & VAO ){
+Lumos::Instance* Mesh::instantiate_sequentialDraw ( ){
 
 
-    if ( VAO == 0 ){
-        glGenVertexArrays(1, &_VAO);
 
-    }
-    else
-        _VAO = VAO;
-
-    glBindVertexArray(_VAO);
     _loadVertexToBuffer();
     _loadNormalToBuffer();
     _loadTexCoordToBuffer();
@@ -92,7 +85,6 @@ Lumos::Instance* Mesh::instantiate_sequentialDraw ( const GLuint & VAO ){
     // get model Asset
     Lumos::ModelAsset asset{};
     asset.shaderId = Lumos::Shader::default_mesh_shader_id;
-    asset.VAO = _VAO;
     asset.VBO_VERT = _VBO_VERT;
     asset.VBO_COLOR = _VBO_COLOR;
     asset.VBO_NORMAL = _VBO_NORMAL;
@@ -124,9 +116,6 @@ Lumos::Instance* Mesh::instantiate_sequentialDraw ( const GLuint & VAO ){
 
 
 void Mesh::_loadVertexToBuffer( ){
-    GLint cur_vao;
-    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &cur_vao);
-    assert( _VAO == cur_vao );
 
     size_t _bytesPerEntry = sizeof(point3);
     size_t _numOfEntry = getNumOfFaces()*3;
@@ -143,9 +132,6 @@ void Mesh::_loadVertexToBuffer( ){
 }
 
 void Mesh::_loadNormalToBuffer( ){
-    GLint cur_vao;
-    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &cur_vao);
-    assert( _VAO == cur_vao );
 
     size_t _bytesPerEntry = sizeof(point3);
     size_t _numOfEntry = getNumOfFaces()*3;
@@ -161,9 +147,6 @@ void Mesh::_loadNormalToBuffer( ){
 }
 
 void Mesh::_loadTexCoordToBuffer( ){
-    GLint cur_vao;
-    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &cur_vao);
-    assert( _VAO == cur_vao );
 
     size_t _bytesPerEntry = sizeof(point2);
     size_t _numOfEntry = getNumOfFaces()*3;
@@ -191,9 +174,6 @@ Lumos::Instance* Mesh::instantiate_indexedDraw ( const GLuint & VAO ){
 
 
 void Mesh::_loadVertexIndicesToBuffer( ){
-    GLint cur_vao;
-    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &cur_vao);
-    assert( _VAO == cur_vao );
 
     size_t _numOfEntry = getNumOfFaces()*3;
 
@@ -217,9 +197,6 @@ void Mesh::_loadVertexIndicesToBuffer( ){
 }
 
 void Mesh::_loadNormalIndicesToBuffer( ){
-    GLint cur_vao;
-    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &cur_vao);
-    assert( _VAO == cur_vao );
 
     size_t _numOfEntry = getNumOfFaces()*3;
 
