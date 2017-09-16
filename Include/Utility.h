@@ -79,5 +79,7 @@ namespace Utils {
         for (size_t i = 0; i < size; i++ )
             to[i] = from[i];
     }
+
+    void printFramebufferInfo(GLenum target, GLuint fbo);
 }
 #endif

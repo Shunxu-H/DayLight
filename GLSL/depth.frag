@@ -1,8 +1,9 @@
 #version 130
 
+out vec4 depth;
 
 void main(void)
 {
-    float z = clamp(gl_FragColor.z, -1.0, 1000);
-    gl_FragColor =   vec4( z, z, z, 1);
+    float z = gl_FragCoord.z / gl_FragCoord.w;
+    depth = vec4( z, z, z, 1);
 }

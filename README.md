@@ -9,8 +9,9 @@ Will build this late
 
 ## TO DO
 
-- [ ] Load Cameras from file 
-- [ ] Save pictures
+- [X] Load Cameras from file 
+- [X] Save pictures
+- [ ] Redirect output to a FBO and copy it to a texture / save a file, 
 
 ## Motivation
 

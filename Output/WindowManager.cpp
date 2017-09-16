@@ -58,6 +58,11 @@ void WindowManager::keyPressEvent(QKeyEvent *event)
     std::cout << "You Pressed Key " <<(char) event->key() << std::endl;
     switch(event->key()){
         case 'R':
+        _render_hidden_view->resize(1080, 720);
+        _render_hidden_view->toImageFile_color("color2.png");
+        _render_hidden_view->toImageFile_depth("depth2.png");
+
+        /*
             if( !_renderer ){
 
                 _renderer = new Renderer( nullptr, QSize(1, 1), nullptr);
@@ -76,7 +81,7 @@ void WindowManager::keyPressEvent(QKeyEvent *event)
             _render_hidden_view->update();
             QImage image2 = _render_hidden_view->grabFramebuffer();
             image2.save(QString("image2.png"));
-
+*/
         break;
     }
 }

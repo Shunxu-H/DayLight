@@ -103,6 +103,8 @@ namespace Patronus {
         GLuint _FBO;
         GLuint _DepthBufferObject;
         GLuint _ColorBufferObject;
+        GLuint _ColorTexObj;
+        GLuint _DepthTexObj;
         size_t _bufferWidth;
         size_t _bufferHeight;
 

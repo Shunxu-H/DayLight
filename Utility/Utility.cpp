@@ -147,4 +147,34 @@ namespace Utils {
         }
     }
 
+
+    void printFramebufferInfo(GLenum target, GLuint fbo) {
+
+        int res, i = 0;
+        GLint buffer;
+
+        glBindFramebuffer(target,fbo);
+
+        do {
+            glGetIntegerv(GL_DRAW_BUFFER0+i, &buffer);
+
+            if (buffer != GL_NONE) {
+
+                printf("Shader Output Location %d - color attachment %d\n",
+                            i, buffer - GL_COLOR_ATTACHMENT0);
+
+                glGetFramebufferAttachmentParameteriv(target, buffer,
+                            GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE, &res);
+                printf("\tAttachment Type: %s\n",
+                            res==GL_TEXTURE?"Texture":"Render Buffer");
+                glGetFramebufferAttachmentParameteriv(target, buffer,
+                            GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME, &res);
+                printf("\tAttachment object name: %d\n",res);
+            }
+            ++i;
+
+        } while (buffer != GL_NONE);
+        std::cout << std::endl;
+    }
+
 }

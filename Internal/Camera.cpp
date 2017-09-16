@@ -12,34 +12,7 @@ using namespace Patronus ;
 using namespace std::experimental;
 Camera * Camera::pers = new Camera{};
 
-void printFramebufferInfo(GLenum target, GLuint fbo) {
 
-    int res, i = 0;
-    GLint buffer;
-
-    glBindFramebuffer(target,fbo);
-
-    do {
-        glGetIntegerv(GL_DRAW_BUFFER0+i, &buffer);
-
-        if (buffer != GL_NONE) {
-
-            printf("Shader Output Location %d - color attachment %d\n",
-                        i, buffer - GL_COLOR_ATTACHMENT0);
-
-            glGetFramebufferAttachmentParameteriv(target, buffer,
-                        GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE, &res);
-            printf("\tAttachment Type: %s\n",
-                        res==GL_TEXTURE?"Texture":"Render Buffer");
-            glGetFramebufferAttachmentParameteriv(target, buffer,
-                        GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME, &res);
-            printf("\tAttachment object name: %d\n",res);
-        }
-        ++i;
-
-    } while (buffer != GL_NONE);
-    std::cout << std::endl;
-}
 
 void Camera::loadCamerasFromDir( const std::string & dir ){
     if ( shaper == nullptr )
@@ -99,8 +72,10 @@ Camera::Camera(const CameraType & type,
     ,_up( up )
     ,_at( at )
     ,_FBO( 0 )
-    ,_DepthBufferObject( 0 )
     ,_ColorBufferObject( 0 )
+    ,_DepthBufferObject( 0 )
+    ,_ColorTexObj( 0 )
+    ,_DepthTexObj( 0 )
     ,_bufferHeight( 0 )
     ,_bufferWidth( 0 )
 {
@@ -222,8 +197,8 @@ void Camera::render(const unsigned int & width, const unsigned int & height )con
     Utils::logOpenGLError();
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _FBO);
 
-    printFramebufferInfo(GL_DRAW_FRAMEBUFFER, _FBO);
-    printFramebufferInfo(GL_READ_FRAMEBUFFER, _FBO);
+    Utils::printFramebufferInfo(GL_DRAW_FRAMEBUFFER, _FBO);
+    Utils::printFramebufferInfo(GL_READ_FRAMEBUFFER, _FBO);
 
     GLint drawId = 0, readId = 0;
     glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
@@ -265,21 +240,11 @@ void Camera::render(const unsigned int & width, const unsigned int & height )con
 
 
     Utils::logOpenGLError();
-    /*
     glGetTexImage ( GL_TEXTURE_2D,
                     0,
                     GL_RGBA, // GL will convert to this format
                     GL_UNSIGNED_BYTE,   // Using this data type per-pixel
                     pixels );
-                    */
-    glCopyTexSubImage2D(    GL_TEXTURE_2D ,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            width,
-                            height);
     //glGetTextureImage ( _ColorBufferObject, 0, GL_RGBA, GL_UNSIGNED_BYTE, height*width*4*sizeof(GLubyte), pixels);
     Utils::logOpenGLError();
     // save the image

@@ -6,6 +6,7 @@
 #include <QPoint>
 #include <memory>
 #include "GL_include.h"
+#include "Shader.h"
 
 class WindowManager;
 
@@ -18,8 +19,9 @@ class View: public QOpenGLWidget
     Q_OBJECT
 public:
     View(
-            QWidget *parent = nullptr,
-            const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr )
+        QWidget *parent = nullptr,
+        const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
+        const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
          );
 
     //View(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
@@ -30,8 +32,16 @@ public:
     inline Patronus::Camera*
         getCamInUse() const { return _camInUse; }
 
+    inline void
+        setShaderId( const std::string & id) { _shaderId = id; }
+    inline std::string
+        getShaderId() const { return _shaderId; }
+
 
     void fitSphere(const point3 & position, const float & radius);
+
+    void toImageFile_color( const std::string & fileName );
+    void toImageFile_depth( const std::string & fileName );
 protected:
 
     virtual void initializeGL() override ;
@@ -48,6 +58,7 @@ protected:
     Patronus::Camera * _camInUse;
     QPoint _prevMousePos;
     GLuint _VAO;
+    std::string _shaderId;
 
 private:
     friend class WindowManager;
