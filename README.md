@@ -11,7 +11,11 @@ Will build this late
 
 - [X] Load Cameras from file 
 - [X] Save pictures
-- [ ] Redirect output to a FBO and copy it to a texture / save a file, 
+- [X] Redirect output to a FBO and copy it to a texture / save a file, 
+- [X] Rendering for color and depth images
+- [ ] Identify objects which can be seem from a particular camera
+- [ ] Tansformable--'isVisible', filter out invisible objects while rendering
+- [ ] Standardizing rendering procedures ( render all images given a directory )
 
 ## Motivation
 
