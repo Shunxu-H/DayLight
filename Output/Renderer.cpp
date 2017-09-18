@@ -25,16 +25,8 @@ Renderer::~Renderer() {
 
 
 void Renderer::initializeGL() {
-    glEnable(GL_DEPTH_TEST);
-    gProgram->use();
-    glGenVertexArrays(1, &_VAO);
-
-    Utils::logOpenGLError();
-}
-
-
-void Renderer::resizeGL(int width, int height) {
-    glViewport(0, 0, width, height);
+    makeCurrent();
+    global_glContext = context();
     glEnable(GL_DEPTH_TEST);
 
     // draw line and polygon together
@@ -43,6 +35,15 @@ void Renderer::resizeGL(int width, int height) {
 
     // antialiasing
     glEnable(GL_MULTISAMPLE);
+
+
+    glGenVertexArrays(1, &_VAO);
+}
+
+
+void Renderer::resizeGL(int width, int height) {
+    glViewport(0, 0, width, height);
+
 }
 
 

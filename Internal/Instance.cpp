@@ -67,6 +67,10 @@ void Instance::loadAttribsAndUniform() const {
     if( gProgram->hasUniform("model") )
         gProgram->setUniform("model", getModelMatrix() );
 
+    if( gProgram->hasUniform("pickingColor") )
+        gProgram->setUniform("pickingColor", getPickingColor() );
+
+
     Utils::logOpenGLError();
 }
 
@@ -75,6 +79,7 @@ void Instance::renderMesh( Material * materialInUse ) const{
 
     for (const MaterialPack & mp: _asset.materials ){
         if (materialInUse != mp.material ){
+
             mp.material->loadUniforms();
             Utils::logOpenGLError();
             materialInUse = mp.material;

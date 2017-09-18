@@ -58,7 +58,10 @@ namespace Lumos {
         inline Patronus::Mesh *
             getMeshPtr() const { return _meshPtr; }
 
-
+        inline color3
+            getPickingColor() const { return _pickingColor; }
+        inline void
+            setPickingColor( const color3 & c ) { _pickingColor = c; }
 
     protected:
 
@@ -67,7 +70,9 @@ namespace Lumos {
         Patronus::Mesh * _meshPtr;
         std::string _id;
         btRigidBody * _rigidBody;
+        color3 _pickingColor;
 
+        friend void View::getVisibleObjects();
 
 
     };

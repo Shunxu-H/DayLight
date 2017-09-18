@@ -20,12 +20,23 @@ namespace Patronus {
 
     class Camera: public Transformable{
     public:
-        Camera(
+        /**** STATIC FUNCTION OR MEMBER ***/
+        static Camera* pers;
+        /**
+         * @brief loadCamerasFromDir, load camera from a directory which contains files of camera names and stats
+         *          Must be called after the global shaper object is called because the constructed cameras will be stored there
+         * @param dir, the directory containing the necessary file
+         */
+        static void loadCamerasFromDir( const std::string & dir );
 
+        /**** STATIC FUNCTION OR MEMBER ***/
+
+        Camera(
+                const std::string& camId = "",
                 const CameraType & type  = CameraType::PERSPECTIVE,
                 const float      & fov   = glm::radians(60.0f),
-                const float      & near  = 0.5f,
-                const float      & far   = 100000.0f,
+                const float      & near  = 0.3f,
+                const float      & far   = 1000.0f,
                 const point3     & pos   = glm::vec3(  0,  2,  5 ),
                 const glm::vec3  & up    = glm::vec3(  0,  1,  0 ),
                 const glm::vec3  & at    = glm::vec3(  0,  0, -1 )
@@ -34,14 +45,7 @@ namespace Patronus {
 
         virtual ~Camera();
 
-        static Camera* pers;
 
-        /**
-         * @brief loadCamerasFromDir, load camera from a directory which contains files of camera names and stats
-         *          Must be called after the global shaper object is called because the constructed cameras will be stored there
-         * @param dir, the directory containing the necessary file
-         */
-        static void loadCamerasFromDir( const std::string & dir );
 
         /**
          * @brief setter and getter for private variable
@@ -87,8 +91,11 @@ namespace Patronus {
 
 
         void loadUniforms( const unsigned int & width, const unsigned int & height ) const;
+        void getColorAndDepthTexture(const unsigned int & width,
+                                     const unsigned int & height,
+                                     GLuint * colorTexture,
+                                     GLuint * depthTexture )const;
 
-        void render(const unsigned int & width, const unsigned int & height )const;
         void genFrameBuffer( const unsigned int & width, const unsigned int & height );
     protected:
 
@@ -100,13 +107,6 @@ namespace Patronus {
         float _fov;
         float _near;
         float _far;
-        GLuint _FBO;
-        GLuint _DepthBufferObject;
-        GLuint _ColorBufferObject;
-        GLuint _ColorTexObj;
-        GLuint _DepthTexObj;
-        size_t _bufferWidth;
-        size_t _bufferHeight;
 
     };
 

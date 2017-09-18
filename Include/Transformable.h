@@ -10,7 +10,8 @@ namespace Patronus {
         Transformable(const point3 & pos = point3 (0.0f, 0.0f, 0.0f)):
             _translate      ( pos ),
             _scale          ( point3 (1.0f, 1.0f, 1.0f)),
-            _orientation    ( point3 (0.0f, 0.0f, 0.0f)){}
+            _orientation    ( point3 (0.0f, 0.0f, 0.0f)),
+            _isOn           (true){}
         virtual ~Transformable(){}
 
 
@@ -49,10 +50,18 @@ namespace Patronus {
         inline void
             setOrientation( const point3 & arg ) { _orientation=arg; }
 
+        bool isOn() const { return _isOn; }
+        inline void
+            turnOn() { _isOn = true; }
+        inline void
+            turnOff() { _isOn = false; }
+
+
     protected:
         point3 _translate;
         point3 _scale;
         point3 _orientation;
+        bool _isOn;
 
 
     private:

@@ -18,6 +18,8 @@ namespace Lumos {
 const std::string Shader::default_mesh_shader_id = "multilight_shader";
 const std::string Shader::depth_shader_id = "depth";
 const std::string Shader::default_bbox_shader_id = "bbox_shader";
+const std::string Shader::mask_shader_id = "mask";
+const float Shaper::multiplier = 10;
 
 
 Shader::Shader(const std::string & shaderCode, const GLenum & shaderType){

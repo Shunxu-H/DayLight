@@ -99,7 +99,7 @@ namespace Utils {
 
                 case GL_INVALID_OPERATION:
                     o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Invalid operation!"<< std::endl;
-                     throw std::runtime_error(o.str());
+                    throw std::runtime_error(o.str());
                     break;
 
                 case GL_STACK_OVERFLOW:

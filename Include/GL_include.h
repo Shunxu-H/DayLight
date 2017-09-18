@@ -9,6 +9,7 @@
 #ifdef _WIN32
   #include <windows.h>
 #endif
+#define GLM_FORCE_RADIANS
 #include <QOpenGLFunctions_4_5_Core>
 #include <GL/gl.h>
 #include <glm/glm.hpp>
@@ -21,6 +22,5 @@ typedef glm::vec2 point2;
 typedef glm::vec3 color3;
 typedef glm::vec4 color4;
 
-#define GLM_FORCE_RADIANS
 
 #endif // GL_INCLUDE_H

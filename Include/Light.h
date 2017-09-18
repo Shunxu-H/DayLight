@@ -15,19 +15,6 @@ namespace Patronus {
     class Light: public Transformable
     {
     public:
-
-        Light   (
-                const point3 & position = point3 ( 0.0f, 5.0f, 0.0f ),
-                const color3 & intensity = color3 ( 1.0f, 1.0f, 1.0f)
-                )
-                : Transformable( position ),
-                _intensity( intensity ){}
-
-
-        virtual ~Light() override{ }
-
-        bool isOn() const { return _isOn; }
-
         static Light makeDirectionalLight(
                 const point3 & position = glm::vec3(1, 0.8, 0.6), //w == 0 indications a directional light
                 const point3 & intensity = glm::vec3(1.0,1.0,1.0), //weak yellowish light
@@ -43,9 +30,20 @@ namespace Patronus {
                 const glm::vec3 & coneDirection = glm::vec3(0,0,-1)
                 );
 
+        Light   (
+                const point3 & position = point3 ( 0.0f, 5.0f, 0.0f ),
+                const color3 & intensity = color3 ( 1.0f, 1.0f, 1.0f)
+                )
+                : Transformable( position ),
+                _intensity( intensity ){}
 
 
-        static Light makePointLight();
+        virtual ~Light() override{ }
+
+
+
+
+
 
 
 
@@ -57,6 +55,7 @@ namespace Patronus {
         inline void
             setIntensity( const color3 & _i ) { _intensity = _i; }
 
+        bool isOn() const { return _isOn; }
         inline void
             turnOn() { _isOn = true; }
         inline void

@@ -144,7 +144,7 @@ void View::toImageFile_color( const std::string & fileName ){
 
 }
 
-void View::toImageFile_depth( const std::string & fileName ) {
+void View:: epth( const std::string & fileName ) {
     assert(_DepthTextureObject != 0);
 
 

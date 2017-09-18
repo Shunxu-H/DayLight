@@ -8,6 +8,8 @@ class Color
 public:
 	Color();
 
+    static int toUniqueInt( const int & r, const int & g, const int & b );
+    static color3 toUniqueColor ( const size_t & i);
 
 
     const static color4 BLACK ;

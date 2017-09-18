@@ -51,6 +51,8 @@ WindowManager::WindowManager(QWidget *parent)
 
 
 
+
+
 }
 
 void WindowManager::keyPressEvent(QKeyEvent *event)
@@ -58,9 +60,11 @@ void WindowManager::keyPressEvent(QKeyEvent *event)
     std::cout << "You Pressed Key " <<(char) event->key() << std::endl;
     switch(event->key()){
         case 'R':
-        _render_hidden_view->resize(1080, 720);
-        _render_hidden_view->toImageFile_color("color2.png");
-        _render_hidden_view->toImageFile_depth("depth2.png");
+        for( size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
+            _render_hidden_view->setCamInUse(shaper->getnCamera(camPtr));
+            _render_hidden_view->resize(1080, 720);
+            _render_hidden_view->generateData();
+        }
 
         /*
             if( !_renderer ){

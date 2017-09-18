@@ -14,6 +14,10 @@ namespace Patronus {
     class Camera;
 }
 
+namespace Lumos{
+    class Instance;
+}
+
 class View: public QOpenGLWidget
 {
     Q_OBJECT
@@ -42,6 +46,11 @@ public:
 
     void toImageFile_color( const std::string & fileName );
     void toImageFile_depth( const std::string & fileName );
+    void getVisibleObjects();
+    void generateMasks();
+    void generateData();
+    void sendTextureRequest();
+    void loadAttribsAndUniform() const;
 protected:
 
     virtual void initializeGL() override ;
@@ -59,7 +68,11 @@ protected:
     QPoint _prevMousePos;
     GLuint _VAO;
     std::string _shaderId;
-
+    GLuint _ColorTextureObject;
+    GLuint _DepthTextureObject;
+    std::vector< Lumos::Instance * > _visibles;
+    float _maxDepth;
+    bool _isRequestingTexture;
 private:
     friend class WindowManager;
 

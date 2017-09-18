@@ -10,7 +10,7 @@
 #include "Extern.h"
 using namespace Patronus ;
 using namespace std::experimental;
-Camera * Camera::pers = new Camera{};
+Camera * Camera::pers = new Camera{"pers"};
 
 
 
@@ -43,11 +43,10 @@ void Camera::loadCamerasFromDir( const std::string & dir ){
         throw std::runtime_error( "Camera stat file does not exist! ");
     while(std::getline(f, line)){
         std::deque< std::string > tokens = Utils::mystrtok(line, " ");
-        Camera * newCamera = new Camera();
+        Camera * newCamera = new Camera(camNames[0]);
         newCamera->setTranslate (point3(std::stof(tokens[0]), std::stof(tokens[1]), std::stof(tokens[2])));
-        newCamera->setAt        (point3(std::stof(tokens[4]), std::stof(tokens[5]), std::stof(tokens[6])));
-        newCamera->setUp        (point3(std::stof(tokens[8]), std::stof(tokens[9]), std::stof(tokens[10])));
-        newCamera->setId(camNames[0]);
+        newCamera->setAt        (point3(std::stof(tokens[3]), std::stof(tokens[4]), std::stof(tokens[5])));
+        newCamera->setUp        (point3(std::stof(tokens[6]), std::stof(tokens[7]), std::stof(tokens[8])));
         camNames.pop_front();
         shaper->addCamera( newCamera );
     }
@@ -57,40 +56,30 @@ void Camera::loadCamerasFromDir( const std::string & dir ){
 
 
 
-Camera::Camera(const CameraType & type,
+Camera::Camera(const std::string& camId,
+               const CameraType & type,
                const float      & fov,
                const float      & near,
                const float      & far,
                const point3     & pos,
                const glm::vec3  & up,
                const glm::vec3  & at)
-    :Transformable( pos )
+    :_camId( camId )
+    ,Transformable( pos )
     ,_type( type )
     ,_fov( fov )
     ,_near( near )
     ,_far( far )
     ,_up( up )
     ,_at( at )
-    ,_FBO( 0 )
-    ,_ColorBufferObject( 0 )
-    ,_DepthBufferObject( 0 )
-    ,_ColorTexObj( 0 )
-    ,_DepthTexObj( 0 )
-    ,_bufferHeight( 0 )
-    ,_bufferWidth( 0 )
 {
-
+   if (camId.size() == 0)
+       throw std::runtime_error("Camera must be assigned an Id");
 }
 
 Camera::~Camera(){
 
-    if (_FBO != 0){
-        glDeleteTextures(1, &_ColorBufferObject);
-        glDeleteTextures(1, &_DepthBufferObject);
-        _DepthBufferObject = 0;
-        glDeleteFramebuffers(1, &_FBO);
-        _FBO = 0;
-    }
+
 }
 
 
@@ -113,13 +102,12 @@ void Camera::loadUniforms( const unsigned int & width, const unsigned int & heig
 
 }
 
-void Camera::genFrameBuffer( const unsigned int & width, const unsigned int & height ){
-    // check if we already have a frame buffer
-    if (_FBO != 0)
-        return;
+void Camera::getColorAndDepthTexture(const unsigned int & width, const unsigned int & height, GLuint * colorTexture, GLuint * depthTexture )const{
 
-    _bufferHeight = height;
-    _bufferWidth = width;
+    GLuint FBO;
+    GLuint DepthTextureObject;
+    GLuint ColorTextureObject;
+
 
     // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
     GLint drawFboId = 0, readFboId = 0;
@@ -127,8 +115,8 @@ void Camera::genFrameBuffer( const unsigned int & width, const unsigned int & he
     glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readFboId);
 
     Utils::logOpenGLError();
-    glGenFramebuffers(1, &_FBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, _FBO);
+    glGenFramebuffers(1, &FBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
     Utils::logOpenGLError();
 
     glEnable(GL_DEPTH_TEST);
@@ -137,13 +125,11 @@ void Camera::genFrameBuffer( const unsigned int & width, const unsigned int & he
     glEnable(GL_POLYGON_OFFSET_FILL);
     glPolygonOffset(1, 0);
 
-    // antialiasing
-    glEnable(GL_MULTISAMPLE);
 
     // create a RGBA color texture
 
-    glGenTextures(1, &_ColorBufferObject);
-    glBindTexture(GL_TEXTURE_2D, _ColorBufferObject);
+    glGenTextures(1, &ColorTextureObject);
+    glBindTexture(GL_TEXTURE_2D, ColorTextureObject);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
@@ -152,8 +138,8 @@ void Camera::genFrameBuffer( const unsigned int & width, const unsigned int & he
                         NULL);
 
     // create a depth texture
-    glGenTextures(1, &_DepthBufferObject);
-    glBindTexture(GL_TEXTURE_2D, _DepthBufferObject);
+    glGenTextures(1, &DepthTextureObject);
+    glBindTexture(GL_TEXTURE_2D, DepthTextureObject);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
                         width, height,
                         0, GL_DEPTH_COMPONENT, GL_FLOAT,
@@ -163,10 +149,8 @@ void Camera::genFrameBuffer( const unsigned int & width, const unsigned int & he
 
     Utils::logOpenGLError();
     // attach color
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _ColorBufferObject, 0);
-
-    Utils::logOpenGLError();
-    glFramebufferTexture2D(GL_FRAMEBUFFER,  GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _DepthBufferObject, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ColorTextureObject, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,  GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, DepthTextureObject, 0);
 
 
     // Set the list of draw buffers.
@@ -177,37 +161,16 @@ void Camera::genFrameBuffer( const unsigned int & width, const unsigned int & he
         throw std::runtime_error ( "Error! FrameBuffer is not complete" );
 
 
-    Utils::logOpenGLError();
-    glBindFramebuffer(GL_READ_FRAMEBUFFER, readFboId);
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, drawFboId);
 
     Utils::logOpenGLError();
-}
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, FBO);
 
-
-void Camera::render(const unsigned int & width, const unsigned int & height )const{
-
-    // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-
-    GLint drawFboId = 0, readFboId = 0;
-    Utils::logOpenGLError();
-    glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawFboId);
-    glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readFboId);
-
-    Utils::logOpenGLError();
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _FBO);
-
-    Utils::printFramebufferInfo(GL_DRAW_FRAMEBUFFER, _FBO);
-    Utils::printFramebufferInfo(GL_READ_FRAMEBUFFER, _FBO);
 
     GLint drawId = 0, readId = 0;
     glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
     glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readId);
 
-
-
     Utils::logOpenGLError();
-
 
     GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
     glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
@@ -228,14 +191,13 @@ void Camera::render(const unsigned int & width, const unsigned int & height )con
     //glViewport(0,0,width,height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
     Utils::logOpenGLError();
 
-    glBindFramebuffer(GL_READ_FRAMEBUFFER, _FBO);
-    glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
-    glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readId);
+    /*
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, FBO);
 
     GLubyte * pixels = new GLubyte [height*width*4*sizeof(GLubyte)];
     size_t size = sizeof(GLubyte);
 
-    glBindTexture(GL_TEXTURE_2D, _ColorBufferObject);
+    glBindTexture(GL_TEXTURE_2D, ColorTextureObject);
     //glReadBuffer(GL_COLOR_ATTACHMENT0);
 
 
@@ -245,36 +207,19 @@ void Camera::render(const unsigned int & width, const unsigned int & height )con
                     GL_RGBA, // GL will convert to this format
                     GL_UNSIGNED_BYTE,   // Using this data type per-pixel
                     pixels );
-    //glGetTextureImage ( _ColorBufferObject, 0, GL_RGBA, GL_UNSIGNED_BYTE, height*width*4*sizeof(GLubyte), pixels);
-    Utils::logOpenGLError();
-    // save the image
-    QImage image (width, height, QImage::Format_RGB32);
-
-    for ( size_t rowPtr = 0; rowPtr < height; rowPtr++ ){
-        for ( size_t colPtr = 0; colPtr < width; colPtr++ ){
-            int pos = (rowPtr*width + colPtr)*4;
-            int r = pixels[pos];
-            int g = pixels[pos + 1];
-            int b = pixels[pos + 2];
-
-            image.setPixelColor(QPoint(colPtr, rowPtr),
-                                QColor( r, g, b));
-        }
-
-    }
-    /*
-    for (int y = 0; y < image.height(); y++)
-    {
-        memcpy(image.scanLine(y), &(pixels[y*width]), image.bytesPerLine());
-    }
-    */
-    image.save("temp.jpg");
-
-    Utils::logOpenGLError();
+    glBindTexture(GL_TEXTURE_2D, 0);
     delete[] pixels;
+
+    */
 
     glBindFramebuffer(GL_READ_FRAMEBUFFER, readFboId);
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, drawFboId);
+    //glDeleteTextures(1, &DepthTextureObject);
+    glDeleteFramebuffers(1, &FBO);
+
+    Utils::logOpenGLError();
+    *colorTexture = ColorTextureObject;
+    *depthTexture = DepthTextureObject;
 }
 
 

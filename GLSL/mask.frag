@@ -1,10 +1,11 @@
-#version 130
+#version 330
 
-out vec4 finalColor;
 
-uniform vec4 diffuseColor;
+uniform vec3 pickingColor;
+
+layout (location = 0) out vec4 finalColor;
 
 void main() {
     //set every drawn pixel to white
-    finalColor = diffuseColor;
+    finalColor = vec4(pickingColor, 1);
 }

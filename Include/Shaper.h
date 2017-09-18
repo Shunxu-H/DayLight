@@ -82,7 +82,9 @@ namespace Patronus {
             getMeshes() { return _shapes; }
         inline void addCamera( Camera * c ) { _cameras.push_back(c); }
         inline Camera*
-        getnCamera( const size_t & index ){ if (index >= _cameras.size()) return nullptr; else return _cameras[index]; }
+            getnCamera( const size_t & index ){ if (index >= _cameras.size()) return nullptr; else return _cameras[index]; }
+        inline size_t
+            getNumOfCameras() const { return _cameras.size(); }
     protected:
 
     private:

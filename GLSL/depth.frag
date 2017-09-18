@@ -1,6 +1,8 @@
 #version 130
 
+uniform float maxDepth;
 out vec4 depth;
+
 
 void main(void)
 {
