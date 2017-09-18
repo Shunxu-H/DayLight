@@ -6,6 +6,14 @@ Daylight is a simple 3d modeling/viewing software built with Qt, OpenGL, Bullet 
 
 Will build this late
 
+## Functionalities
+
+__RENDERING__
+Rendering sample: 
+![alt text](https://github.com/Shunxu-H/DayLight/blob/master/sampleImages/color.png?raw=true)
+Depth Mask
+![alt text](https://github.com/Shunxu-H/DayLight/blob/master/sampleImages/depth.png?raw=true)
+
 ## TO DO
 
 - [X] Fix, Lighting is always a bit too green 
