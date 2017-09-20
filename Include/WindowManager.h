@@ -82,7 +82,6 @@ private:
     Ui::WindowManager *_ui;
 
     std::vector< View* > _views;
-    Renderer * _renderer;
     View * _render_hidden_view;
 
     void _createActions();

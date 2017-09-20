@@ -29,6 +29,7 @@ GLuint Shaper::global_VAO          = 0;
 GLuint Shaper::global_Vertex_VBO   = 0;
 GLuint Shaper::global_Normal_VBO   = 0;
 GLuint Shaper::global_TexCoord_VBO = 0;
+const float Shaper::multiplier = 1;
 
 
 Shaper::Shaper()
@@ -165,7 +166,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
     assert(attrib.vertices.size() % 3 == 0 && attrib.normals.size() % 3 == 0 && attrib.texcoords.size() % 2 == 0 );
 
     for ( size_t i = 0; i < attrib.vertices.size(); i+=3 )
-        global_vertices.push_back( point3( attrib.vertices[i], attrib.vertices[i+1], attrib.vertices[i+2] ));
+        global_vertices.push_back( point3( attrib.vertices[i], attrib.vertices[i+1], attrib.vertices[i+2] ) * multiplier );
     for ( size_t i = 0; i < attrib.normals.size(); i+=3 )
         global_normal_vertices.push_back( point3( attrib.normals[i], attrib.normals[i+1], attrib.normals[i+2] ));
     for ( size_t i = 0; i < attrib.texcoords.size(); i+=2 )

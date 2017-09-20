@@ -1,9 +1,9 @@
-#version 330
+#version 130
 
 
 uniform vec3 pickingColor;
 
-layout (location = 0) out vec4 finalColor;
+out vec4 finalColor;
 
 void main() {
     //set every drawn pixel to white

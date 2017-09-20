@@ -7,16 +7,17 @@
 
 OpenGlOffscreenSurface::OpenGlOffscreenSurface(
         QScreen*     targetScreen,
-        const QSize& size, QOpenGLContext * context )
+        const QSize& size,
+        View * view )
     : QOffscreenSurface(targetScreen)
     , m_size(size)
-    , m_context( context )
+    , m_context( nullptr )
 {
     setFormat(QSurfaceFormat::defaultFormat());
     m_initialized = false;
     m_updatePending = false;
     create();  // Some platforms require this function to be called on the main (GUI) thread
-    initializeInternal();
+    initializeInternal(view);
 }
 
 
@@ -287,14 +288,15 @@ void OpenGlOffscreenSurface::recreateFBOAndPaintDevice()
 }  // OpenGlOffscreenSurface::recreateFBOAndPaintDevice
 
 
-void OpenGlOffscreenSurface::initializeInternal()
+void OpenGlOffscreenSurface::initializeInternal(View * view)
 {
     if (!m_initialized.exchange(true)) {
 
         // create OpenGL context. we set the format requested by the user (default:
         // QWindow::requestedFormat())
         m_context = new QOpenGLContext(this);
-        m_context->setShareContext(global_glContext);
+        m_context->setFormat(view->context()->format());
+        m_context->setShareContext(view->context());
         //m_context->setFormat(format());
         if (m_context->create()) {
 
@@ -342,7 +344,7 @@ void OpenGlOffscreenSurface::render()
 {
     std::lock_guard <std::mutex> locker(m_mutex);
     // check if we need to initialize stuff
-    initializeInternal();
+    initializeInternal(nullptr);
     // check if we need to call the user initialization
 //    makeCurrent(); // TODO: may be makeCurrent() must be here, as noted for QOpenGLWidget.initializeGL()
     if (!m_initializedGL) {

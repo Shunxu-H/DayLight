@@ -4,10 +4,11 @@
 #include <QGLWidget>
 #include <cmath>
 #include <experimental/filesystem>
-#include "GL_include.h"
+//#include "GL_include.h"
 #include "View.h"
 #include "Utility.h"
 #include "Camera.h"
+#include "Renderer.h"
 
 #include "Extern.h"
 
@@ -19,7 +20,6 @@ View::View(QWidget *parent, const std::shared_ptr<Patronus::Camera> & cam, const
     , _ColorTextureObject( 0 )
     , _DepthTextureObject( 0 )
     , _isRequestingTexture( 0 )
-    , _maxDepth( 0 )
 {
     if ( cam == nullptr )
         _camInUse = Patronus::Camera::pers;
@@ -39,8 +39,106 @@ View::View(QWidget *parent, const std::shared_ptr<Patronus::Camera> & cam, const
     fmt.setSamples(8);
     setFormat(fmt);
 
+    //_renderer = new Renderer(this, nullptr, QSize(width(), height()));
+
     //initializeGL();
     //QOpenGLWidget::setRenderHint(QPainter::Antialiasing);
+}
+
+
+void View::getColorAndDepthTexture(){
+
+    GLuint FBO;
+
+    // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
+    GLint drawFboId = 0, readFboId = 0;
+    glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawFboId);
+    glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readFboId);
+
+    Utils::logOpenGLError();
+    glGenFramebuffers(1, &FBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+    Utils::logOpenGLError();
+
+    glEnable(GL_DEPTH_TEST);
+
+    // draw line and polygon together
+    glEnable(GL_POLYGON_OFFSET_FILL);
+    glPolygonOffset(1, 0);
+
+
+    // create a RGBA color texture
+
+    glGenTextures(1, &_ColorTextureObject);
+    glBindTexture(GL_TEXTURE_2D, _ColorTextureObject);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+                        width(), height(),
+                        0, GL_RGBA, GL_UNSIGNED_BYTE,
+                        NULL);
+
+    // create a depth texture
+    glGenTextures(1, &_DepthTextureObject);
+    glBindTexture(GL_TEXTURE_2D, _DepthTextureObject);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
+                        width(), height(),
+                        0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                        NULL);
+
+
+
+    Utils::logOpenGLError();
+    // attach color
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _ColorTextureObject, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,  GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _DepthTextureObject, 0);
+
+
+    // Set the list of draw buffers.
+    Utils::logOpenGLError();
+
+    // check buffer status
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+        throw std::runtime_error ( "Error! FrameBuffer is not complete" );
+
+
+
+    Utils::logOpenGLError();
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, FBO);
+
+
+    GLint drawId = 0, readId = 0;
+    glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
+    glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readId);
+
+    Utils::logOpenGLError();
+
+    GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
+    glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT  );
+    glClearColor(0,0,0,1);
+
+    Utils::logOpenGLError();
+    _camInUse->loadUniforms(width(), height());
+    Utils::logOpenGLError();
+    shaper->loadAttribsAndUniform();
+    Lumos::Material * materialInUse = nullptr;
+    for(Lumos::Instance const * i : world->getInstances()){
+        i->renderMesh(materialInUse);
+    }
+    Utils::logOpenGLError();
+    //glViewport(0,0,width,height);
+    glFlush();
+    //glViewport(0,0,width,height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
+    Utils::logOpenGLError();
+
+
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, readFboId);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, drawFboId);
+    //glDeleteTextures(1, &DepthTextureObject);
+    glDeleteFramebuffers(1, &FBO);
+
+    Utils::logOpenGLError();
 }
 
 void View::sendTextureRequest(){
@@ -128,6 +226,9 @@ void View::generateData(){
 
     std::experimental::filesystem::create_directory("./" + _camInUse->getId());
 
+    _renderer->resize(width(), height());
+    _renderer->toImageFile_color("text.png");
+
     generateMasks();
     toImageFile_color( "./" + _camInUse->getId() + "/color.png" );
     toImageFile_depth( "./" + _camInUse->getId() + "/depth.png");
@@ -160,9 +261,9 @@ void View::toImageFile_depth( const std::string & fileName ) {
     glGetTexImage ( GL_TEXTURE_2D,
                     0,
                     GL_DEPTH_COMPONENT, // GL will convert to this format
-                    GL_FLOAT,   // Using this data type per-pixel
-                    pixels );
-
+                    GL_UNSIGNED_BYTE,   // Using this data type per-pixel
+                    image.bits() );
+/*
     float max = 0, min = std::numeric_limits<float>::max();
     for (size_t i = 0; i < w*h ; i++){
         min = std::min(pixels[i], min);
@@ -173,7 +274,7 @@ void View::toImageFile_depth( const std::string & fileName ) {
         pixels[i] = (pixels[i] - min) / (max - min);
 
     memccpy(image.bits(), pixels, w*h*sizeof(GLfloat), w*h*sizeof(GLfloat));
-
+*/
 
     if (!image.mirrored().save(fileName.c_str()))
         throw std::runtime_error("Save depth image failed.");
@@ -185,21 +286,21 @@ void View::toImageFile_depth( const std::string & fileName ) {
 
 
 void View::loadAttribsAndUniform() const{
-    if(gProgram->hasUniform("maxDepth")){
 
-        assert(_maxDepth != 0);
-
-        gProgram->setUniform("maxDepth", _maxDepth);
-
-    }
 }
 
 void View::initializeGL(){
     //qDebug() << context() << " " << global_glContext;
     //context()->setShareContext(global_glContext);
 
+    initializeOpenGLFunctions();
+    //renderer->initializeGL();
+    _renderer = new Renderer(this, nullptr, QSize(width(), height()) );
     makeCurrent();
-    global_glContext = context();
+
+    //assert(QOpenGLContext::areSharing(context(), _renderer->context()) );
+
+
     glEnable(GL_DEPTH_TEST);
 
     // draw line and polygon together
@@ -211,6 +312,8 @@ void View::initializeGL(){
 
 
     glGenVertexArrays(1, &_VAO);
+
+
 
 
 }
@@ -265,8 +368,8 @@ void View::paintGL(){
 
     glBindVertexArray(_VAO);
     if(_isRequestingTexture){
-        _camInUse->getColorAndDepthTexture(width(), height(), &_ColorTextureObject, &_DepthTextureObject );
         _isRequestingTexture = false;
+        getColorAndDepthTexture( );
     }
 
     _camInUse->loadUniforms(width(), height());

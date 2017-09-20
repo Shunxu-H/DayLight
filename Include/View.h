@@ -5,7 +5,6 @@
 #include <QOpenGLFunctions>
 #include <QPoint>
 #include <memory>
-#include "GL_include.h"
 #include "Shader.h"
 
 class WindowManager;
@@ -18,7 +17,9 @@ namespace Lumos{
     class Instance;
 }
 
-class View: public QOpenGLWidget
+class Renderer;
+
+class View: public QOpenGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
 public:
@@ -51,6 +52,7 @@ public:
     void generateData();
     void sendTextureRequest();
     void loadAttribsAndUniform() const;
+    void getColorAndDepthTexture();
 protected:
 
     virtual void initializeGL() override ;
@@ -71,8 +73,8 @@ protected:
     GLuint _ColorTextureObject;
     GLuint _DepthTextureObject;
     std::vector< Lumos::Instance * > _visibles;
-    float _maxDepth;
     bool _isRequestingTexture;
+    Renderer * _renderer;
 private:
     friend class WindowManager;
 

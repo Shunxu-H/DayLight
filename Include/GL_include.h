@@ -10,8 +10,9 @@
   #include <windows.h>
 #endif
 #define GLM_FORCE_RADIANS
-#include <QOpenGLFunctions_4_5_Core>
-#include <GL/gl.h>
+//#include <QOpenGLFunctions_4_5_Core>
+//#include <GL/gl.h>
+#include <QOpenGLFunctions>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #endif

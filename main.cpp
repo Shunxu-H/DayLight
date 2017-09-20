@@ -23,7 +23,6 @@ Lumos::Program * gProgram = nullptr;
 WindowManager * winMan = nullptr;
 Patronus::PhysicalWorld * world = nullptr;
 Lumos::Instance * selectedInstance = nullptr;
-QOpenGLContext * global_glContext = nullptr;
 QSurfaceFormat * global_format = nullptr;
 
 void experimental(){

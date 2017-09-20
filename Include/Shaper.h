@@ -31,6 +31,8 @@ namespace Patronus {
         static GLuint global_Normal_VBO;
         static GLuint global_TexCoord_VBO;
 
+        static const float multiplier;
+
         /**
          * @return global maxinmum of all vertices in the scene
          */

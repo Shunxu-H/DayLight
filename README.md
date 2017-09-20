@@ -17,6 +17,7 @@ Will build this late
 - [X] Tansformable--'isVisible', filter out invisible objects while rendering
 - [X] Standardizing rendering procedures ( render all images given a directory )
 - [ ] Enlarge .obj data for the depth buffer situation 
+- [ ] Offscreen rendering ( QOffscreenSurface )
 
 ## Motivation
 

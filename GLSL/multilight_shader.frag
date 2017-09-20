@@ -1,4 +1,4 @@
-#version 450
+#version 130
 in vec2 fragTexCoord;
 uniform vec3 transmittance;
 uniform bool hasTexture;
@@ -28,7 +28,7 @@ uniform struct Light {
 in vec3 fragNormal;
 in vec3 fragVert;
 
-layout (location = 0) out vec4 outColor;
+out vec4 outColor;
 //layout (location = 1) out vec4 outTexture;
 
 //layout(location = 0)out vec4 glFragData;

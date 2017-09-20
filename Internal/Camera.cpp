@@ -44,7 +44,7 @@ void Camera::loadCamerasFromDir( const std::string & dir ){
     while(std::getline(f, line)){
         std::deque< std::string > tokens = Utils::mystrtok(line, " ");
         Camera * newCamera = new Camera(camNames[0]);
-        newCamera->setTranslate (point3(std::stof(tokens[0]), std::stof(tokens[1]), std::stof(tokens[2])));
+        newCamera->setTranslate (point3(std::stof(tokens[0]), std::stof(tokens[1]), std::stof(tokens[2])) * Patronus::Shaper::multiplier );
         newCamera->setAt        (point3(std::stof(tokens[3]), std::stof(tokens[4]), std::stof(tokens[5])));
         newCamera->setUp        (point3(std::stof(tokens[6]), std::stof(tokens[7]), std::stof(tokens[8])));
         camNames.pop_front();

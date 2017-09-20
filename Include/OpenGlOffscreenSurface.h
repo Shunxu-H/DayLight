@@ -19,6 +19,8 @@
 #include <atomic>
 #include <mutex>
 
+class View;
+
 class OpenGlOffscreenSurface
     : public QOffscreenSurface
 {
@@ -34,7 +36,7 @@ public:
     explicit OpenGlOffscreenSurface(
             QScreen* targetScreen = nullptr,
             const QSize& size = QSize (1, 1),
-            QOpenGLContext * context = nullptr);
+            View * view = nullptr);
 
     /// @brief Destructor.
     virtual ~OpenGlOffscreenSurface();
@@ -146,7 +148,7 @@ protected:
 private:
     Q_DISABLE_COPY(OpenGlOffscreenSurface)
     /// @brief Initialize the window.
-    void initializeInternal();
+    void initializeInternal(View * context);
 
     /// @brief Internal method that does the actual swap work, NOT using a mutex.
     void swapBuffersInternal();

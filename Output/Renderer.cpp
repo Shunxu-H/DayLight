@@ -3,18 +3,21 @@
 #include "GL_include.h"
 #include "Camera.h"
 #include "Utility.h"
+#include "View.h"
 
 #include "Extern.h"
 
 Renderer::Renderer(
+        View *  connectedScreen,
         QScreen*     targetScreen,
-        const QSize& size,
-        QOpenGLContext * context)
-    : OpenGlOffscreenSurface(targetScreen, size, context)
+        const QSize& size)
+    : OpenGlOffscreenSurface(targetScreen, size, connectedScreen)
     , _camInUse( Patronus::Camera::pers )
     , _VAO( 0 )
+    , _connectedScreen( connectedScreen )
 {
 
+    //initializeOpenGLFunctions();
 
 
 }
@@ -24,9 +27,51 @@ Renderer::~Renderer() {
 }
 
 
+void Renderer::toImageFile_color( const std::string & fileName ){
+
+    render();
+    if (!grabFramebuffer().save(QString(fileName.c_str())))
+        throw std::runtime_error("Can't save image");
+
+}
+
+void Renderer::toImageFile_depth( const std::string & fileName ) {
+    assert(_DepthTextureObject != 0);
+
+
+
+    glBindTexture(GL_TEXTURE_2D, _DepthTextureObject);
+    int w = 0, h = 0;
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &w);
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &h);
+
+    GLfloat * pixels = new GLfloat [w*h*sizeof(GLfloat)];
+    QImage image(w, h, QImage::Format_Grayscale8);
+    Utils::logOpenGLError();
+    glGetTexImage ( GL_TEXTURE_2D,
+                    0,
+                    GL_DEPTH_COMPONENT, // GL will convert to this format
+                    GL_UNSIGNED_BYTE,   // Using this data type per-pixel
+                    image.bits() );
+
+
+    if (!image.mirrored().save(fileName.c_str()))
+        throw std::runtime_error("Save depth image failed.");
+
+    glDeleteTextures(1, &_DepthTextureObject);
+    _DepthTextureObject = 0;
+
+}
+
+
+
 void Renderer::initializeGL() {
+    /*
     makeCurrent();
-    global_glContext = context();
+    context()->setShareContext(_connectedScreen->context());
+    context()->create();
+     *///resize(curSize);]
+    makeCurrent();
     glEnable(GL_DEPTH_TEST);
 
     // draw line and polygon together
@@ -38,6 +83,10 @@ void Renderer::initializeGL() {
 
 
     glGenVertexArrays(1, &_VAO);
+
+
+    GLboolean hasDepth = false;
+    glGetBooleanv(GL_DEPTH_TEST, &hasDepth );
 }
 
 
@@ -53,7 +102,11 @@ void Renderer::paintGL()
     glClearColor(0, 0, 0, 1); // black
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    qDebug() << context()->areSharing(context(), global_glContext);
+
+    glViewport(0, 0, size().width(), size().height());
+    GLboolean hasDepth = false;
+    glGetBooleanv(GL_DEPTH_TEST, &hasDepth );
+
     gProgram->use();
 
     Utils::logOpenGLError();
@@ -75,7 +128,6 @@ void Renderer::paintGL()
         i->renderMesh(materialInUse);
     }
     Utils::logOpenGLError();
-    glViewport(0, 0, size().width(), size().height());
 
     gProgram->disableShadingPipe(Lumos::Shader::default_mesh_shader_id);
 }

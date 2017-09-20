@@ -1,6 +1,7 @@
 #include <QtWidgets>
 #include <experimental/filesystem>
 #include <iostream>
+#include <ctime>
 #include "GL_include.h"
 #include "WindowManager.h"
 #include "View.h"
@@ -27,13 +28,20 @@ WindowManager::WindowManager(QWidget *parent)
     _views.push_back(leftView);
 
 
-
-    QDockWidget *canvas_dock_right = new QDockWidget(tr("Canvas"), this);
-    //View * rightView = new View_bullet( canvas_dock_right);
+/*
+    QDockWidget *canvas_dock_right_up = new QDockWidget(tr("Canvas"), this);
+    View * rightView_up = new View_bullet( canvas_dock_right_up);
+    //_render_hidden_view = new View_renderer(this);
+    canvas_dock_right_up->setWidget(rightView_up);
+    addDockWidget( Qt::TopDockWidgetArea, canvas_dock_right_up);
+    //_views.push_back(rightView);
+*/
+    QDockWidget *canvas_dock_right_down = new QDockWidget(tr("Canvas"), this);
+    //View * rightView_down = new View_bullet( canvas_dock_right_down );
     _render_hidden_view = new View_renderer(this);
-    canvas_dock_right->setWidget(_render_hidden_view);
+    canvas_dock_right_down->setWidget(_render_hidden_view);
     //dock->setWidget(new OGLWidget());
-    addDockWidget(Qt::RightDockWidgetArea, canvas_dock_right);
+    addDockWidget( Qt::RightDockWidgetArea, canvas_dock_right_down);
     //_views.push_back(rightView);
 
 
@@ -46,7 +54,6 @@ WindowManager::WindowManager(QWidget *parent)
     setWindowTitle(tr("DayLight"));
     setMinimumSize(160, 160);
     resize(1080, 720);
-    _renderer = nullptr;
     //_render_hidden_view = new View(this);
 
 
@@ -60,11 +67,16 @@ void WindowManager::keyPressEvent(QKeyEvent *event)
     std::cout << "You Pressed Key " <<(char) event->key() << std::endl;
     switch(event->key()){
         case 'R':
+        double duration;
+        clock_t start = std::clock();
         for( size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
             _render_hidden_view->setCamInUse(shaper->getnCamera(camPtr));
             _render_hidden_view->resize(1080, 720);
             _render_hidden_view->generateData();
         }
+        duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
+
+        qDebug() << "Time passed: " << duration;
 
         /*
             if( !_renderer ){
