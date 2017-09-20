@@ -7,6 +7,21 @@ This branch is made to automate data generation process for a paper
 
 Will build this late
 
+## Functionalities
+
+__NAVIGATION__
+1. Click to select object in the scene and focus on the object
+2. Left mouse button drag to rotate the camera around the focus point
+3. Middle mouse button drag to pan the camera 
+
+
+__RENDERING__
+Rendering sample: 
+![alt text](https://github.com/Shunxu-H/DayLight/blob/master/sampleImages/color.png?raw=true)
+Depth Mask:
+![alt text](https://github.com/Shunxu-H/DayLight/blob/master/sampleImages/depth.png?raw=true)
+
+
 ## TO DO
 
 - [X] Load Cameras from file 
