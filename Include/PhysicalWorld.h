@@ -44,6 +44,8 @@ namespace Patronus {
         inline btDiscreteDynamicsWorld*
             getWorld() const { return _dynamicsWorld; }
 
+        void clearAll();
+
     protected:
 
     private:

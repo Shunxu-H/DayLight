@@ -35,6 +35,7 @@ const float Shaper::multiplier = 1;
 Shaper::Shaper()
 {
 
+    _lights.push_back(Light::makeDirectionalLight());
 }
 
 Shaper::Shaper( const std::string & fileName )
@@ -75,8 +76,17 @@ point3 Shaper::getGlobalMin(){
 
 }
 
-static void loadGlobalGlBuffer(){
 
+void Shaper::clearAll(){
+
+    _shapes.clear();
+    _cameras.clear();
+    _lights.clear();
+
+    for (Lumos::Material * m : _materials )
+        if(m->glTexId != 0)
+            glDeleteTextures(1, &(m->glTexId));
+    _materials.clear();
 }
 
 
@@ -84,10 +94,12 @@ void Shaper::getBoundingSphere(const std::vector< point3 > & points, point3 * po
     if ( points.size() == 0 ){
         *position = point3 (0.0f, 0.0f, 0.0f);
         *radius = 0.0f;
+        return;
     }
     else if (points.size() == 1){
         *position = points[0];
         *radius = 0.0f;
+        return;
     }
     point3 farthest1 = points[0],
            farthest2 = points[0],
@@ -150,6 +162,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
 
     using namespace std::experimental::filesystem;
     path p(f_name);
+    _curFileName = p.stem();
     std::string curDir = std::string(p.parent_path()) + "/";
 
     std::string err;

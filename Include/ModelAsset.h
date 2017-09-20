@@ -3,6 +3,7 @@
 
 #include "GL_include.h"
 #include <QImage>
+#include "GL_include.h"
 
 namespace Lumos {
     struct Material{
@@ -17,6 +18,9 @@ namespace Lumos {
                   const float & reflexitivity_ = 0.3
                 ): reflexitivity(reflexitivity_), diffuseColor(c), glTexId(0){}
 
+        ~Material(){
+
+        }
         void loadUniforms() const;
 
         GLenum getBitmapFormat();

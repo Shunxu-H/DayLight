@@ -1,5 +1,6 @@
 #include "Utility.h"
 #include <vector>
+#include <experimental/filesystem>
 #include <deque>
 #include <iostream>
 #include <cstring>
@@ -177,4 +178,11 @@ namespace Utils {
         std::cout << std::endl;
     }
 
+
+    void cleanAndMkdir(const std::string & path){
+        if( std::experimental::filesystem::exists(path) )
+            std::experimental::filesystem::remove_all(path);
+
+        std::experimental::filesystem::create_directory(path);
+    }
 }

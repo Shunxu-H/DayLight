@@ -150,11 +150,22 @@ void PhysicalWorld::test(){
 
 }
 
+
+void PhysicalWorld::clearAll(){
+    for (Lumos::Instance* i : _instances){
+        _dynamicsWorld->removeRigidBody(i->getRidgidBody());
+        delete i->getRidgidBody()->getMotionState();
+        delete i;
+    }
+    _instances.clear();
+    _names.clear();
+}
+
+
 PhysicalWorld::~PhysicalWorld(){
     for (Lumos::Instance* i : _instances){
         _dynamicsWorld->removeRigidBody(i->getRidgidBody());
         delete i->getRidgidBody()->getMotionState();
-        delete i->getRidgidBody();
         delete i;
     }
     delete _broadphase;
@@ -189,22 +200,6 @@ bool PhysicalWorld::loadInstance( Patronus::Mesh & mesh ){
     newI->setId(name);
     _names.insert(name);
 
-/*
-    btTransform t;	//position and rotation
-    t.setIdentity();
-    point3 center = (mesh.getMinPos() + mesh.getMaxPos() ) / 2.0f;
-    t.setOrigin(btVector3(center.x, center.y, center.z));	//put it to x,y,z coordinates
-    btSphereShape* sphere=new btSphereShape(10.0f);	//it's a sphere, so use sphereshape
-    btVector3 inertia(0,0,0);	//inertia is 0,0,0 for static object, else
-
-    btMotionState* motion=new btDefaultMotionState(t);	//set the position (and motion)
-    btRigidBody::btRigidBodyConstructionInfo info(0.0f,motion,sphere,inertia);	//create the constructioninfo, you can create multiple bodies with the same info
-    btRigidBody* body=new btRigidBody(info);	//let's create the body itself
-    _dynamicsWorld->addRigidBody(body);	//and let the world know about it
-    //bodies.push_back(body);	//to be easier to clean, I store them a vector
-    newI->setRidgidBody( body );
-    _dynamicsWorld->addCollisionObject(body);
-*/
 
     // generate collidable body for the instance
     point3 center = (mesh.getMinPos() + mesh.getMaxPos() ) / 2.0f;

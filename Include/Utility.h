@@ -81,5 +81,7 @@ namespace Utils {
     }
 
     void printFramebufferInfo(GLenum target, GLuint fbo);
+
+    void cleanAndMkdir(const std::string & path);
 }
 #endif

@@ -210,7 +210,7 @@ void View::generateMasks(){
         curOn = ins;
         repaint();
         QImage image = grabFramebuffer();
-        image.save( std::string( "./" + _camInUse->getId() + "/mask_" + ins->getId() + ".png" ).c_str() );
+        image.save( std::string( "./" + shaper->getCurFileName() + "/" + _camInUse->getId() + "/mask_" + ins->getId() + ".png" ).c_str() );
     }
     for (Lumos::Instance * ins : world->getInstances())
     {
@@ -221,17 +221,13 @@ void View::generateMasks(){
 }
 
 void View::generateData(){
-    if( std::experimental::filesystem::exists("./" + _camInUse->getId()))
-        std::experimental::filesystem::remove_all("./" + _camInUse->getId() );
+    std::string parentDir = "./" + shaper->getCurFileName() + "/";
+    Utils::cleanAndMkdir(parentDir + _camInUse->getId());
 
-    std::experimental::filesystem::create_directory("./" + _camInUse->getId());
-
-    _renderer->resize(width(), height());
-    _renderer->toImageFile_color("text.png");
 
     generateMasks();
-    toImageFile_color( "./" + _camInUse->getId() + "/color.png" );
-    toImageFile_depth( "./" + _camInUse->getId() + "/depth.png");
+    toImageFile_color( parentDir + _camInUse->getId() + "/color.png" );
+    toImageFile_depth( parentDir + _camInUse->getId() + "/depth.png");
 }
 
 

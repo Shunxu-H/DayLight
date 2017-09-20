@@ -9,6 +9,7 @@
 #include "Shader.h"
 #include "Renderer.h"
 #include "View_renderer.h"
+#include "Utility.h"
 #include "Extern.h"
 
 
@@ -68,12 +69,26 @@ void WindowManager::keyPressEvent(QKeyEvent *event)
     switch(event->key()){
         case 'R':
         double duration;
+        int w = 1080, h = 720;
         clock_t start = std::clock();
+
+        /** iterate from here */
+        shaper->loadFile("./data/indoor/0004dd3cb11e50530676f77b55262d38.obj");
+        Patronus::Camera::loadCamerasFromDir("./data/indoor/camera/");
+        gProgram->preDrawSetUp();
+
+        Utils::cleanAndMkdir("./" + shaper->getCurFileName());
+
         for( size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
             _render_hidden_view->setCamInUse(shaper->getnCamera(camPtr));
-            _render_hidden_view->resize(1080, 720);
+            _render_hidden_view->resize(w, h);
             _render_hidden_view->generateData();
         }
+
+        world->clearAll();
+        shaper->clearAll();
+        /** iterate to here */
+
         duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
 
         qDebug() << "Time passed: " << duration;

@@ -10,6 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 unix{
     LIBS += -lstdc++fs
+    CONFIG += std=c++1z
     INCLUDEPATH += /usr/local/include/bullet/
     LIBS += -lBulletDynamics
     LIBS += -lBulletCollision

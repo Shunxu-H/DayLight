@@ -62,6 +62,7 @@ namespace Patronus {
          */
         bool loadFile( const std::string & fileName );
 
+        void clearAll();
 
         int getNumOfVertices() const;
 
@@ -87,6 +88,13 @@ namespace Patronus {
             getnCamera( const size_t & index ){ if (index >= _cameras.size()) return nullptr; else return _cameras[index]; }
         inline size_t
             getNumOfCameras() const { return _cameras.size(); }
+
+        inline void
+            setCurFileName( const std::string & fn ) { _curFileName = fn; }
+        inline std::string
+            getCurFileName() const { return _curFileName; }
+
+
     protected:
 
     private:
@@ -96,6 +104,7 @@ namespace Patronus {
         std::vector<Light> _lights;
 
         std::vector< Lumos::Material * > _materials;
+        std::string _curFileName;
 
 
         /**
@@ -104,6 +113,7 @@ namespace Patronus {
          */
         void _loadDefaultObjects();
         bool _loadFile_obj (const std::string & f_name);
+
 
     };
 
