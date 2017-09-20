@@ -12,7 +12,7 @@ uniform float materialShininess;
 uniform vec3 materialSpecularColor;
 uniform vec4 diffuseColor;
 
-#define MAX_LIGHTS 1
+#define MAX_LIGHTS 10
 uniform int numLights;
 uniform struct Light {
    bool isDirectional;

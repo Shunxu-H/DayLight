@@ -29,19 +29,29 @@ GLuint Shaper::global_VAO          = 0;
 GLuint Shaper::global_Vertex_VBO   = 0;
 GLuint Shaper::global_Normal_VBO   = 0;
 GLuint Shaper::global_TexCoord_VBO = 0;
-const float Shaper::multiplier = 5;
+const float Shaper::multiplier = 10;
 
 
 Shaper::Shaper()
 {
 
     _lights.push_back(Light::makeDirectionalLight());
+    /*
+    _lights.push_back(Light::makeDirectionalLight());
+    point3 pos = _lights[1].getTranslate();
+    pos.x = -pos.x;
+    pos.z = -pos.z;
+    _lights[1].setTranslate(pos);
+    */
 }
 
 Shaper::Shaper( const std::string & fileName )
 {
     loadFile( fileName );
     _lights.push_back(Light::makeDirectionalLight());
+    /*
+    _lights.push_back(Light::makeDirectionalLight());
+    */
 
 }
 
@@ -81,7 +91,9 @@ void Shaper::clearAll(){
 
     _shapes.clear();
     _cameras.clear();
-    _lights.clear();
+    global_vertices.clear();
+    global_normal_vertices.clear();
+    global_uv_coords.clear();
 
     for (Lumos::Material * m : _materials )
         if(m->glTexId != 0)
