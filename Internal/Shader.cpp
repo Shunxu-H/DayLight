@@ -19,6 +19,7 @@ const std::string Shader::default_mesh_shader_id = "multilight_shader";
 const std::string Shader::depth_shader_id = "depth";
 const std::string Shader::default_bbox_shader_id = "bbox_shader";
 const std::string Shader::mask_shader_id = "mask";
+const std::string Shader::selected_instances_shader_id = "wired_frame_shader";
 
 
 Shader::Shader(const std::string & shaderCode, const GLenum & shaderType){

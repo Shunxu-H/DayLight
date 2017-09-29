@@ -21,6 +21,7 @@ namespace Lumos {
         static const std::string default_bbox_shader_id;
         static const std::string depth_shader_id;
         static const std::string mask_shader_id;
+        static const std::string selected_instances_shader_id;
 
         /**
          * @brief ask openGL to return a list of uniforms and varyings attached of the shaders attached to the program

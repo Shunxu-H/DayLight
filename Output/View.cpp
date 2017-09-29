@@ -352,12 +352,27 @@ void View::paintGL(){
 
     if( gProgram == nullptr )
         return;
-    glClearColor(0, 0, 0, 1); // black
+    glClearColor(1, 1, 1, 1); // black
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
     //shaper->getnCamera(0)->genFrameBuffer(1080, 720);
     gProgram->use();
+
+    if(selectedInstance != nullptr){
+        gProgram->enableShadingPipe(Lumos::Shader::selected_instances_shader_id);
+
+        loadAttribsAndUniform();
+
+        glBindVertexArray(_VAO);
+
+        _camInUse->loadUniforms(width(), height());
+        shaper->loadAttribsAndUniform();
+        selectedInstance->renderMesh(nullptr);
+
+        gProgram->disableShadingPipe(Lumos::Shader::selected_instances_shader_id);
+    }
+
     gProgram->enableShadingPipe(_shaderId);
 
     loadAttribsAndUniform();
@@ -377,6 +392,10 @@ void View::paintGL(){
     }
 
     gProgram->disableShadingPipe(_shaderId);
+
+
+
+
 }
 
 

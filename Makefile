@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DGL_GLEXT_PROTOTYPES -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -IInclude -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
+INCPATH       = -I. -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = DayLight1.0.0
 DISTDIR = /home/shunxu/QtProj/DayLight/.tmp/DayLight1.0.0
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lstdc++fs -lglut -lGLU -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -49,77 +49,59 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = main.cpp \
-		mainwindow.cpp \
-		oglwidget.cpp \
-		Input/Keyboard.cpp \
-		Input/Mouse.cpp \
-		Internal/Curve.cpp \
-		Internal/Edge.cpp \
-		Internal/Ellipsoid.cpp \
+		Internal/ArrayBuffer.cpp \
+		Internal/btDebugDrawer.cpp \
+		Internal/Camera.cpp \
+		Internal/Countable.cpp \
 		Internal/Face.cpp \
-		Internal/Geometry.cpp \
-		Internal/Line.cpp \
-		Internal/Object.cpp \
+		Internal/Instance.cpp \
+		Internal/Light.cpp \
+		Internal/Mesh.cpp \
+		Internal/ModelAsset.cpp \
+		Internal/OpenGlOffscreenSurface.cpp \
+		Internal/PhysicalWorld.cpp \
+		Internal/Program.cpp \
 		Internal/Shader.cpp \
-		Internal/Vector.cpp \
-		Output/Cabinet.cpp \
-		Output/CVM.cpp \
-		Output/OrthoView.cpp \
-		Output/TextView.cpp \
+		Internal/Shaper.cpp \
+		Internal/Transformable.cpp \
+		Output/Renderer.cpp \
 		Output/View.cpp \
-		Utility/AEL.cpp \
+		Output/View_bullet.cpp \
+		Output/View_renderer.cpp \
+		Output/WindowManager.cpp \
 		Utility/Color.cpp \
 		Utility/Config.cpp \
-		Utility/Matrix.cpp \
-		Utility/Utility.cpp \
-		Output/WindowManager.cpp \
-		Internal/Program.cpp \
-		Internal/Shaper.cpp \
-		Internal/Countable.cpp \
-		Internal/ArrayBuffer.cpp moc_mainwindow.cpp \
+		Utility/Utility.cpp moc_OpenGlOffscreenSurface.cpp \
 		moc_View.cpp \
 		moc_WindowManager.cpp
 OBJECTS       = main.o \
-		mainwindow.o \
-		oglwidget.o \
-		Keyboard.o \
-		Mouse.o \
-		Curve.o \
-		Edge.o \
-		Ellipsoid.o \
+		ArrayBuffer.o \
+		btDebugDrawer.o \
+		Camera.o \
+		Countable.o \
 		Face.o \
-		Geometry.o \
-		Line.o \
-		Object.o \
+		Instance.o \
+		Light.o \
+		Mesh.o \
+		ModelAsset.o \
+		OpenGlOffscreenSurface.o \
+		PhysicalWorld.o \
+		Program.o \
 		Shader.o \
-		Vector.o \
-		Cabinet.o \
-		CVM.o \
-		OrthoView.o \
-		TextView.o \
+		Shaper.o \
+		Transformable.o \
+		Renderer.o \
 		View.o \
-		AEL.o \
+		View_bullet.o \
+		View_renderer.o \
+		WindowManager.o \
 		Color.o \
 		Config.o \
-		Matrix.o \
 		Utility.o \
-		WindowManager.o \
-		Program.o \
-		Shaper.o \
-		Countable.o \
-		ArrayBuffer.o \
-		moc_mainwindow.o \
+		moc_OpenGlOffscreenSurface.o \
 		moc_View.o \
 		moc_WindowManager.o
-DIST          = Shader/shader.frag \
-		Shader/shader.vert \
-		Shader/rotate.NONE \
-		GLSL/rotate.NONE \
-		GLSL/shader.frag \
-		GLSL/shader.vert \
-		data/3d.gmt \
-		data/cube.obj \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
+DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/sanitize.conf \
@@ -160,6 +142,7 @@ DIST          = Shader/shader.frag \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
@@ -169,72 +152,66 @@ DIST          = Shader/shader.frag \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resources.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/moc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/opengl.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/uic.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/thread.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/testcase_targets.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		DayLight.pro mainwindow.h \
-		oglwidget.h \
-		Include/AEL.h \
+		DayLight.pro Include/ArrayBuffer.h \
+		Include/btDebugDrawer.h \
 		Include/Cabinet.h \
+		Include/Camera.h \
+		Include/CImg.h \
 		Include/Color.h \
 		Include/Config.h \
-		Include/Curve.h \
-		Include/CVM.h \
-		Include/Edge.h \
-		Include/Ellipsoid.h \
-		Include/Face.h \
-		Include/Geometry.h \
-		Include/Index.h \
-		Include/Keyboard.h \
-		Include/Line.h \
-		Include/Matrix.h \
-		Include/Mouse.h \
-		Include/Object.h \
-		Include/OrthoView.h \
-		Include/Shader.h \
-		Include/TextView.h \
-		Include/Utility.h \
-		Include/Vector.h \
-		Include/View.h \
-		Include/WindowManager.h \
-		Include/Program.h \
-		Include/GLObject.h \
-		Include/Shaper.h \
-		Include/GL_include.h \
 		Include/Countable.h \
-		Include/ArrayBuffer.h \
-		Include/Extern.h main.cpp \
-		mainwindow.cpp \
-		oglwidget.cpp \
-		Input/Keyboard.cpp \
-		Input/Mouse.cpp \
-		Internal/Curve.cpp \
-		Internal/Edge.cpp \
-		Internal/Ellipsoid.cpp \
+		Include/Extern.h \
+		Include/Face.h \
+		Include/GL_include.h \
+		Include/GLObject.h \
+		Include/Instance.h \
+		Include/Keyboard.h \
+		Include/Light.h \
+		Include/Mesh.h \
+		Include/ModelAsset.h \
+		Include/obj_loader.h \
+		Include/OpenGlOffscreenSurface.h \
+		Include/PhysicalWorld.h \
+		Include/Program.h \
+		Include/Renderer.h \
+		Include/Shader.h \
+		Include/Shaper.h \
+		Include/TextView.h \
+		Include/tiny_obj_loader.h \
+		Include/Transformable.h \
+		Include/Utility.h \
+		Include/View.h \
+		Include/View_bullet.h \
+		Include/View_renderer.h \
+		Include/WindowManager.h main.cpp \
+		Internal/ArrayBuffer.cpp \
+		Internal/btDebugDrawer.cpp \
+		Internal/Camera.cpp \
+		Internal/Countable.cpp \
 		Internal/Face.cpp \
-		Internal/Geometry.cpp \
-		Internal/Line.cpp \
-		Internal/Object.cpp \
+		Internal/Instance.cpp \
+		Internal/Light.cpp \
+		Internal/Mesh.cpp \
+		Internal/ModelAsset.cpp \
+		Internal/OpenGlOffscreenSurface.cpp \
+		Internal/PhysicalWorld.cpp \
+		Internal/Program.cpp \
 		Internal/Shader.cpp \
-		Internal/Vector.cpp \
-		Output/Cabinet.cpp \
-		Output/CVM.cpp \
-		Output/OrthoView.cpp \
-		Output/TextView.cpp \
+		Internal/Shaper.cpp \
+		Internal/Transformable.cpp \
+		Output/Renderer.cpp \
 		Output/View.cpp \
-		Utility/AEL.cpp \
+		Output/View_bullet.cpp \
+		Output/View_renderer.cpp \
+		Output/WindowManager.cpp \
 		Utility/Color.cpp \
 		Utility/Config.cpp \
-		Utility/Matrix.cpp \
-		Utility/Utility.cpp \
-		Output/WindowManager.cpp \
-		Internal/Program.cpp \
-		Internal/Shaper.cpp \
-		Internal/Countable.cpp \
-		Internal/ArrayBuffer.cpp
+		Utility/Utility.cpp
 QMAKE_TARGET  = DayLight
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = DayLight
@@ -262,7 +239,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_windowmanager.h $(OBJECTS)  
+$(TARGET):  $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: DayLight.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -306,6 +283,7 @@ Makefile: DayLight.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
@@ -315,15 +293,12 @@ Makefile: DayLight.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resources.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/moc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/opengl.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/uic.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/thread.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/testcase_targets.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		DayLight.pro \
-		/usr/lib/x86_64-linux-gnu/libQt5OpenGL.prl \
-		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Gui.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Core.prl
 	$(QMAKE) -o Makefile DayLight.pro
@@ -368,6 +343,7 @@ Makefile: DayLight.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf:
@@ -377,15 +353,12 @@ Makefile: DayLight.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resources.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/moc.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/opengl.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/uic.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/thread.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/testcase_targets.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf:
 DayLight.pro:
-/usr/lib/x86_64-linux-gnu/libQt5OpenGL.prl:
-/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Core.prl:
 qmake: FORCE
@@ -402,9 +375,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h oglwidget.h Include/AEL.h Include/Cabinet.h Include/Color.h Include/Config.h Include/Curve.h Include/CVM.h Include/Edge.h Include/Ellipsoid.h Include/Face.h Include/Geometry.h Include/Index.h Include/Keyboard.h Include/Line.h Include/Matrix.h Include/Mouse.h Include/Object.h Include/OrthoView.h Include/Shader.h Include/TextView.h Include/Utility.h Include/Vector.h Include/View.h Include/WindowManager.h Include/Program.h Include/GLObject.h Include/Shaper.h Include/GL_include.h Include/Countable.h Include/ArrayBuffer.h Include/Extern.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp oglwidget.cpp Input/Keyboard.cpp Input/Mouse.cpp Internal/Curve.cpp Internal/Edge.cpp Internal/Ellipsoid.cpp Internal/Face.cpp Internal/Geometry.cpp Internal/Line.cpp Internal/Object.cpp Internal/Shader.cpp Internal/Vector.cpp Output/Cabinet.cpp Output/CVM.cpp Output/OrthoView.cpp Output/TextView.cpp Output/View.cpp Utility/AEL.cpp Utility/Color.cpp Utility/Config.cpp Utility/Matrix.cpp Utility/Utility.cpp Output/WindowManager.cpp Internal/Program.cpp Internal/Shaper.cpp Internal/Countable.cpp Internal/ArrayBuffer.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui windowmanager.ui $(DISTDIR)/
+	$(COPY_FILE) --parents Include/ArrayBuffer.h Include/btDebugDrawer.h Include/Cabinet.h Include/Camera.h Include/CImg.h Include/Color.h Include/Config.h Include/Countable.h Include/Extern.h Include/Face.h Include/GL_include.h Include/GLObject.h Include/Instance.h Include/Keyboard.h Include/Light.h Include/Mesh.h Include/ModelAsset.h Include/obj_loader.h Include/OpenGlOffscreenSurface.h Include/PhysicalWorld.h Include/Program.h Include/Renderer.h Include/Shader.h Include/Shaper.h Include/TextView.h Include/tiny_obj_loader.h Include/Transformable.h Include/Utility.h Include/View.h Include/View_bullet.h Include/View_renderer.h Include/WindowManager.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp Internal/ArrayBuffer.cpp Internal/btDebugDrawer.cpp Internal/Camera.cpp Internal/Countable.cpp Internal/Face.cpp Internal/Instance.cpp Internal/Light.cpp Internal/Mesh.cpp Internal/ModelAsset.cpp Internal/OpenGlOffscreenSurface.cpp Internal/PhysicalWorld.cpp Internal/Program.cpp Internal/Shader.cpp Internal/Shaper.cpp Internal/Transformable.cpp Output/Renderer.cpp Output/View.cpp Output/View_bullet.cpp Output/View_renderer.cpp Output/WindowManager.cpp Utility/Color.cpp Utility/Config.cpp Utility/Utility.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -414,6 +386,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) $(TARGET) 
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -427,528 +400,110 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_View.cpp moc_WindowManager.cpp
+compiler_moc_header_make_all: moc_OpenGlOffscreenSurface.cpp moc_View.cpp moc_WindowManager.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_View.cpp moc_WindowManager.cpp
-moc_mainwindow.cpp: mainwindow.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/shunxu/QtProj/DayLight -I/home/shunxu/QtProj/DayLight/Include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	-$(DEL_FILE) moc_OpenGlOffscreenSurface.cpp moc_View.cpp moc_WindowManager.cpp
+moc_OpenGlOffscreenSurface.cpp: Include/OpenGlOffscreenSurface.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/shunxu/QtProj/DayLight -I/home/shunxu/QtProj/DayLight -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Include/OpenGlOffscreenSurface.h -o moc_OpenGlOffscreenSurface.cpp
 
-moc_View.cpp: Include/Index.h \
-		Include/Vector.h \
-		Include/Matrix.h \
-		Include/AEL.h \
-		Include/View.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/shunxu/QtProj/DayLight -I/home/shunxu/QtProj/DayLight/Include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Include/View.h -o moc_View.cpp
-
-moc_WindowManager.cpp: Include/Program.h \
+moc_View.cpp: Include/Shader.h \
 		Include/GL_include.h \
 		Include/GLObject.h \
-		Include/Shader.h \
-		Include/Object.h \
-		Include/Matrix.h \
-		Include/Index.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Vector.h \
-		Include/Line.h \
 		Include/Countable.h \
-		Include/Edge.h \
+		Include/View.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/shunxu/QtProj/DayLight -I/home/shunxu/QtProj/DayLight -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Include/View.h -o moc_View.cpp
+
+moc_WindowManager.cpp: Include/Renderer.h \
+		Include/OpenGlOffscreenSurface.h \
 		Include/WindowManager.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/shunxu/QtProj/DayLight -I/home/shunxu/QtProj/DayLight/Include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Include/WindowManager.h -o moc_WindowManager.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/shunxu/QtProj/DayLight -I/home/shunxu/QtProj/DayLight -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Include/WindowManager.h -o moc_WindowManager.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_windowmanager.h
-compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_windowmanager.h
-ui_mainwindow.h: mainwindow.ui
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic mainwindow.ui -o ui_mainwindow.h
-
-ui_windowmanager.h: windowmanager.ui
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic windowmanager.ui -o ui_windowmanager.h
-
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_moc_header_clean 
 
 ####### Compile
 
-main.o: main.cpp mainwindow.h \
-		Include/Vector.h \
-		Include/Index.h \
-		Include/Matrix.h \
-		Include/WindowManager.h \
-		Include/Program.h \
-		Include/GL_include.h \
-		Include/GLObject.h \
-		Include/Shader.h \
-		Include/Object.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Line.h \
-		Include/Countable.h \
-		Include/Edge.h \
-		Include/Shaper.h \
-		Include/Geometry.h \
-		Include/AEL.h \
-		Include/Curve.h \
-		Include/Utility.h
+main.o: main.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
-mainwindow.o: mainwindow.cpp oglwidget.h \
-		mainwindow.h \
-		ui_mainwindow.h \
-		Include/CVM.h \
-		Include/Index.h \
-		Include/Vector.h \
-		Include/Matrix.h \
-		Include/View.h \
-		Include/AEL.h \
-		Include/Face.h \
-		Include/Geometry.h \
-		Include/GL_include.h \
-		Include/Object.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Line.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
-
-oglwidget.o: oglwidget.cpp oglwidget.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o oglwidget.o oglwidget.cpp
-
-Keyboard.o: Input/Keyboard.cpp Include/Keyboard.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Index.h \
-		Include/Shader.h \
-		Include/Object.h \
-		Include/Matrix.h \
-		Include/Vector.h \
-		Include/Line.h \
-		Include/GLObject.h \
-		Include/Countable.h \
-		Include/Edge.h \
-		Include/Geometry.h \
-		Include/GL_include.h \
-		Include/AEL.h \
-		Include/WindowManager.h \
-		Include/Program.h \
-		Include/Utility.h \
-		Include/Curve.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Keyboard.o Input/Keyboard.cpp
-
-Mouse.o: Input/Mouse.cpp Include/Mouse.h \
-		Include/Vector.h \
-		Include/Index.h \
-		Include/Matrix.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Geometry.h \
-		Include/GL_include.h \
-		Include/AEL.h \
-		Include/Object.h \
-		Include/Line.h \
-		Include/Shader.h \
-		Include/GLObject.h \
-		Include/Countable.h \
-		Include/Edge.h \
-		Include/WindowManager.h \
-		Include/Program.h \
-		Include/Curve.h \
-		Include/Utility.h \
-		Include/OrthoView.h \
-		Include/View.h \
-		Include/Face.h \
-		Include/CVM.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Mouse.o Input/Mouse.cpp
-
-Curve.o: Internal/Curve.cpp Include/Curve.h \
-		Include/Object.h \
-		Include/Matrix.h \
-		Include/Index.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Vector.h \
-		Include/Line.h \
-		Include/Utility.h \
-		Include/WindowManager.h \
-		Include/Program.h \
-		Include/GL_include.h \
-		Include/GLObject.h \
-		Include/Shader.h \
-		Include/Countable.h \
-		Include/Edge.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Curve.o Internal/Curve.cpp
-
-Edge.o: Internal/Edge.cpp Include/Vector.h \
-		Include/Index.h \
-		Include/Matrix.h \
-		Include/Edge.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Edge.o Internal/Edge.cpp
-
-Ellipsoid.o: Internal/Ellipsoid.cpp Include/Line.h \
-		Include/Vector.h \
-		Include/Index.h \
-		Include/Matrix.h \
-		Include/Ellipsoid.h \
-		Include/Object.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/WindowManager.h \
-		Include/Program.h \
-		Include/GL_include.h \
-		Include/GLObject.h \
-		Include/Shader.h \
-		Include/Countable.h \
-		Include/Edge.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Ellipsoid.o Internal/Ellipsoid.cpp
-
-Face.o: Internal/Face.cpp Include/Vector.h \
-		Include/Index.h \
-		Include/Matrix.h \
-		Include/Face.h \
-		Include/Geometry.h \
-		Include/GL_include.h \
-		Include/AEL.h \
-		Include/Object.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Line.h \
-		Include/Utility.h \
-		Include/Shader.h \
-		Include/GLObject.h \
-		Include/Countable.h \
-		Include/Edge.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Face.o Internal/Face.cpp
-
-Geometry.o: Internal/Geometry.cpp Include/GL_include.h \
-		Include/Geometry.h \
-		Include/Vector.h \
-		Include/Index.h \
-		Include/Matrix.h \
-		Include/AEL.h \
-		Include/Object.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Line.h \
-		Include/WindowManager.h \
-		Include/Program.h \
-		Include/GLObject.h \
-		Include/Shader.h \
-		Include/Countable.h \
-		Include/Edge.h \
-		Include/Face.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Geometry.o Internal/Geometry.cpp
-
-Line.o: Internal/Line.cpp Include/Line.h \
-		Include/Vector.h \
-		Include/Index.h \
-		Include/Matrix.h \
-		Include/Ellipsoid.h \
-		Include/Object.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/WindowManager.h \
-		Include/Program.h \
-		Include/GL_include.h \
-		Include/GLObject.h \
-		Include/Shader.h \
-		Include/Countable.h \
-		Include/Edge.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Line.o Internal/Line.cpp
-
-Object.o: Internal/Object.cpp Include/Object.h \
-		Include/Matrix.h \
-		Include/Index.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Vector.h \
-		Include/Line.h \
-		Include/Face.h \
-		Include/Geometry.h \
-		Include/GL_include.h \
-		Include/AEL.h \
-		Include/Edge.h \
-		Include/Curve.h \
-		Include/Utility.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Object.o Internal/Object.cpp
-
-Shader.o: Internal/Shader.cpp Include/GLObject.h \
-		Include/Shader.h \
-		Include/Object.h \
-		Include/Matrix.h \
-		Include/Index.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Vector.h \
-		Include/Line.h \
-		Include/Countable.h \
-		Include/Edge.h \
-		Include/OrthoView.h \
-		Include/View.h \
-		Include/AEL.h \
-		Include/Face.h \
-		Include/Geometry.h \
-		Include/GL_include.h \
-		Include/WindowManager.h \
-		Include/Program.h \
-		Include/Utility.h \
-		Include/Ellipsoid.h \
-		Include/Curve.h \
-		Include/CVM.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Shader.o Internal/Shader.cpp
-
-Vector.o: Internal/Vector.cpp Include/Vector.h \
-		Include/Index.h \
-		Include/Matrix.h \
-		Include/OrthoView.h \
-		Include/View.h \
-		Include/AEL.h \
-		Include/Face.h \
-		Include/Geometry.h \
-		Include/GL_include.h \
-		Include/Object.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Line.h \
-		Include/WindowManager.h \
-		Include/Program.h \
-		Include/GLObject.h \
-		Include/Shader.h \
-		Include/Countable.h \
-		Include/Edge.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Vector.o Internal/Vector.cpp
-
-Cabinet.o: Output/Cabinet.cpp Include/Cabinet.h \
-		Include/OrthoView.h \
-		Include/Index.h \
-		Include/Vector.h \
-		Include/Matrix.h \
-		Include/View.h \
-		Include/AEL.h \
-		Include/Face.h \
-		Include/Geometry.h \
-		Include/GL_include.h \
-		Include/Object.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Line.h \
-		Include/Shader.h \
-		Include/GLObject.h \
-		Include/Countable.h \
-		Include/Edge.h \
-		Include/Mouse.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Cabinet.o Output/Cabinet.cpp
-
-CVM.o: Output/CVM.cpp Include/GL_include.h \
-		Include/Extern.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Index.h \
-		Include/Shaper.h \
-		Include/Geometry.h \
-		Include/Vector.h \
-		Include/Matrix.h \
-		Include/AEL.h \
-		Include/Object.h \
-		Include/Line.h \
-		Include/Program.h \
-		Include/GLObject.h \
-		Include/Shader.h \
-		Include/Countable.h \
-		Include/Edge.h \
-		Include/View.h \
-		Include/CVM.h \
-		Include/Face.h \
-		Include/Mouse.h \
-		Include/Keyboard.h \
-		Include/Curve.h \
-		Include/Utility.h \
-		Include/WindowManager.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CVM.o Output/CVM.cpp
-
-OrthoView.o: Output/OrthoView.cpp Include/View.h \
-		Include/Index.h \
-		Include/Vector.h \
-		Include/Matrix.h \
-		Include/AEL.h \
-		Include/OrthoView.h \
-		Include/Face.h \
-		Include/Geometry.h \
-		Include/GL_include.h \
-		Include/Object.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Line.h \
-		Include/Shader.h \
-		Include/GLObject.h \
-		Include/Countable.h \
-		Include/Edge.h \
-		Include/Mouse.h \
-		Include/Keyboard.h \
-		Include/Curve.h \
-		Include/Utility.h \
-		Include/WindowManager.h \
-		Include/Program.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OrthoView.o Output/OrthoView.cpp
-
-TextView.o: Output/TextView.cpp Include/TextView.h \
-		Include/View.h \
-		Include/Index.h \
-		Include/Vector.h \
-		Include/Matrix.h \
-		Include/AEL.h \
-		Include/Keyboard.h \
-		Include/Config.h \
-		Include/Color.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TextView.o Output/TextView.cpp
-
-View.o: Output/View.cpp Include/View.h \
-		Include/Index.h \
-		Include/Vector.h \
-		Include/Matrix.h \
-		Include/AEL.h \
-		Include/OrthoView.h \
-		Include/Face.h \
-		Include/Geometry.h \
-		Include/GL_include.h \
-		Include/Object.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Line.h \
-		Include/Shader.h \
-		Include/GLObject.h \
-		Include/Countable.h \
-		Include/Edge.h \
-		Include/Mouse.h \
-		Include/Keyboard.h \
-		Include/Utility.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o View.o Output/View.cpp
-
-AEL.o: Utility/AEL.cpp Include/AEL.h \
-		Include/Vector.h \
-		Include/Index.h \
-		Include/Matrix.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AEL.o Utility/AEL.cpp
-
-Color.o: Utility/Color.cpp Include/Color.h \
-		Include/Index.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Color.o Utility/Color.cpp
-
-Config.o: Utility/Config.cpp Include/Config.h \
-		Include/Color.h \
-		Include/Index.h \
-		Include/Shader.h \
-		Include/Object.h \
-		Include/Matrix.h \
-		Include/Vector.h \
-		Include/Line.h \
-		Include/GLObject.h \
-		Include/Countable.h \
-		Include/Edge.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Config.o Utility/Config.cpp
-
-Matrix.o: Utility/Matrix.cpp Include/Matrix.h \
-		Include/Index.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Matrix.o Utility/Matrix.cpp
-
-Utility.o: Utility/Utility.cpp Include/AEL.h \
-		Include/Vector.h \
-		Include/Index.h \
-		Include/Matrix.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Utility.o Utility/Utility.cpp
-
-WindowManager.o: Output/WindowManager.cpp oglwidget.h \
-		Include/WindowManager.h \
-		Include/Program.h \
-		Include/GL_include.h \
-		Include/GLObject.h \
-		Include/Shader.h \
-		Include/Object.h \
-		Include/Matrix.h \
-		Include/Index.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Vector.h \
-		Include/Line.h \
-		Include/Countable.h \
-		Include/Edge.h \
-		Include/Keyboard.h \
-		Include/Cabinet.h \
-		Include/OrthoView.h \
-		Include/View.h \
-		Include/AEL.h \
-		Include/Face.h \
-		Include/Geometry.h \
-		Include/TextView.h \
-		Include/CVM.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o WindowManager.o Output/WindowManager.cpp
-
-Program.o: Internal/Program.cpp Include/Extern.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Index.h \
-		Include/Shaper.h \
-		Include/GL_include.h \
-		Include/Geometry.h \
-		Include/Vector.h \
-		Include/Matrix.h \
-		Include/AEL.h \
-		Include/Object.h \
-		Include/Line.h \
-		Include/Program.h \
-		Include/GLObject.h \
-		Include/Shader.h \
-		Include/Countable.h \
-		Include/Edge.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Program.o Internal/Program.cpp
-
-Shaper.o: Internal/Shaper.cpp Include/Utility.h \
-		Include/Shaper.h \
-		Include/GL_include.h \
-		Include/Geometry.h \
-		Include/Vector.h \
-		Include/Index.h \
-		Include/Matrix.h \
-		Include/AEL.h \
-		Include/Object.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Line.h \
-		Include/Face.h \
-		Include/Extern.h \
-		Include/Program.h \
-		Include/GLObject.h \
-		Include/Shader.h \
-		Include/Countable.h \
-		Include/Edge.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Shaper.o Internal/Shaper.cpp
-
-Countable.o: Internal/Countable.cpp Include/GL_include.h \
-		Include/Countable.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Countable.o Internal/Countable.cpp
-
-ArrayBuffer.o: Internal/ArrayBuffer.cpp Include/GL_include.h \
-		Include/ArrayBuffer.h \
-		Include/Countable.h \
-		Include/GLObject.h \
-		Include/Geometry.h \
-		Include/Vector.h \
-		Include/Index.h \
-		Include/Matrix.h \
-		Include/AEL.h \
-		Include/Object.h \
-		Include/Config.h \
-		Include/Color.h \
-		Include/Line.h
+ArrayBuffer.o: Internal/ArrayBuffer.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ArrayBuffer.o Internal/ArrayBuffer.cpp
 
-moc_mainwindow.o: moc_mainwindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+btDebugDrawer.o: Internal/btDebugDrawer.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o btDebugDrawer.o Internal/btDebugDrawer.cpp
+
+Camera.o: Internal/Camera.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Camera.o Internal/Camera.cpp
+
+Countable.o: Internal/Countable.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Countable.o Internal/Countable.cpp
+
+Face.o: Internal/Face.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Face.o Internal/Face.cpp
+
+Instance.o: Internal/Instance.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Instance.o Internal/Instance.cpp
+
+Light.o: Internal/Light.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Light.o Internal/Light.cpp
+
+Mesh.o: Internal/Mesh.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Mesh.o Internal/Mesh.cpp
+
+ModelAsset.o: Internal/ModelAsset.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ModelAsset.o Internal/ModelAsset.cpp
+
+OpenGlOffscreenSurface.o: Internal/OpenGlOffscreenSurface.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OpenGlOffscreenSurface.o Internal/OpenGlOffscreenSurface.cpp
+
+PhysicalWorld.o: Internal/PhysicalWorld.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PhysicalWorld.o Internal/PhysicalWorld.cpp
+
+Program.o: Internal/Program.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Program.o Internal/Program.cpp
+
+Shader.o: Internal/Shader.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Shader.o Internal/Shader.cpp
+
+Shaper.o: Internal/Shaper.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Shaper.o Internal/Shaper.cpp
+
+Transformable.o: Internal/Transformable.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Transformable.o Internal/Transformable.cpp
+
+Renderer.o: Output/Renderer.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Renderer.o Output/Renderer.cpp
+
+View.o: Output/View.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o View.o Output/View.cpp
+
+View_bullet.o: Output/View_bullet.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o View_bullet.o Output/View_bullet.cpp
+
+View_renderer.o: Output/View_renderer.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o View_renderer.o Output/View_renderer.cpp
+
+WindowManager.o: Output/WindowManager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o WindowManager.o Output/WindowManager.cpp
+
+Color.o: Utility/Color.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Color.o Utility/Color.cpp
+
+Config.o: Utility/Config.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Config.o Utility/Config.cpp
+
+Utility.o: Utility/Utility.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Utility.o Utility/Utility.cpp
+
+moc_OpenGlOffscreenSurface.o: moc_OpenGlOffscreenSurface.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_OpenGlOffscreenSurface.o moc_OpenGlOffscreenSurface.cpp
 
 moc_View.o: moc_View.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_View.o moc_View.cpp
