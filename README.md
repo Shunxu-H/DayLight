@@ -64,7 +64,7 @@ mkdir Daylight-build
 cd Daylight-build
 cp -r /path/to/data/dir .
 cp -r /path/to/GLSL/dir .
-/path/to/Qt/5.8/gcc_64/bin/qmake -o Makefile ../DayLight/DayLight.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
+/path/to/Qt/5.8/gcc_64/bin/qmake -o Makefile /path/to/DayLight.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
 make
 ./Daylight
 ```
