@@ -352,7 +352,7 @@ void View::paintGL(){
 
     if( gProgram == nullptr )
         return;
-    glClearColor(1, 1, 1, 1); // black
+    glClearColor(0, 0, 0, 1); // black
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
