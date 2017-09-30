@@ -31,7 +31,7 @@ Depth Mask:
 - [X] Identify objects which can be seem from a particular camera
 - [X] Tansformable--'isVisible', filter out invisible objects while rendering
 - [X] Standardizing rendering procedures ( render all images given a directory )
-- [ ] Enlarge .obj data for the depth buffer situation 
+- [X] Enlarge .obj data for the depth buffer situation 
 - [ ] Offscreen rendering ( QOffscreenSurface )
 
 ## Motivation
@@ -57,6 +57,18 @@ apt-get install freeglut3-dev
 ```
 
 3. Qt : http://doc.qt.io/qt-5/gettingstarted.html
+	without Qt Creator:
+	
+```
+mkdir Daylight-build
+cd Daylight-build
+cp -r /path/to/data/dir .
+cp -r /path/to/GLSL/dir .
+qmake /path/to/Daylight.pro
+make
+./Daylight
+```
+
 
 4. In some situation where Qt does not have the most update info for opengl, in my case Intel onbooard GPU under Ubuntu 16.04. Use prefix 
 
