@@ -33,7 +33,8 @@ Depth Mask:
 - [X] Standardizing rendering procedures ( render all images given a directory )
 - [X] Enlarge .obj data for the depth buffer situation 
 - [ ] Offscreen rendering ( QOffscreenSurface )
-
+- [ ] Minimize image file ( bit map, text array, lossiless compression)
+ 
 ## Motivation
 
 As for right now, I am trying to put together what I have learnt
