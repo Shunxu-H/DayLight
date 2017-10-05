@@ -7,6 +7,7 @@
 #include <memory>
 #include <iostream>
 #include <set>
+#include <experimental/filesystem>
 #include "GL_include.h"
 #include "btBulletDynamicsCommon.h"
 class AEL;
@@ -83,5 +84,7 @@ namespace Utils {
     void printFramebufferInfo(GLenum target, GLuint fbo);
 
     void cleanAndMkdir(const std::string & path);
+
+    void remove_all( const std::experimental::filesystem::path & path );
 }
 #endif

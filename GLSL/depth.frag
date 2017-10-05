@@ -1,11 +1,13 @@
 #version 130
 
-uniform float maxDepth;
-out vec4 depth;
+out vec4 outColor;
+
+//layout ( locationi = 1) out float depth;
 
 
 void main(void)
 {
-    float z = gl_FragCoord.z / gl_FragCoord.w;
-    depth = vec4( z, z, z, 1);
+    float z = gl_FragCoord.z;
+    //depth = gl_FragCoord.z;
+    outColor = vec4( z, z, z, 1);
 }

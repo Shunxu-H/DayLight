@@ -178,11 +178,26 @@ namespace Utils {
         std::cout << std::endl;
     }
 
-
+    namespace fs = std::experimental::filesystem;
     void cleanAndMkdir(const std::string & path){
-        if( std::experimental::filesystem::exists(path) )
-            std::experimental::filesystem::remove_all(path);
+        if( fs::exists(path) )
+            Utils::remove_all(path);
 
-        std::experimental::filesystem::create_directory(path);
+        fs::create_directory(path);
+    }
+
+
+    void remove_all( const std::experimental::filesystem::path & path ){
+        for(const std::experimental::filesystem::directory_entry& p: std::experimental::filesystem::directory_iterator(path)){
+            //if (fs::path (p).is_)
+            if( fs::is_directory(p) ){
+                Utils::remove_all(fs::path(p));
+            }
+            else{
+                fs::remove(p);
+            }
+        }
+        fs::remove(path);
+
     }
 }

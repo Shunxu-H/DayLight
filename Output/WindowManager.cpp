@@ -72,6 +72,10 @@ void WindowManager::keyPressEvent(QKeyEvent *event)
         int w = 1080, h = 720;
         clock_t start = std::clock();
 
+
+        world->clearAll();
+        shaper->clearAll();
+
         /** iterate from here **/
         shaper->loadFile("./data/indoor/0004dd3cb11e50530676f77b55262d38.obj");
         Patronus::Camera::loadCamerasFromDir("./data/indoor/camera/");
