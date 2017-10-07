@@ -199,9 +199,7 @@ DISTFILES += \
     data/indoor/camera/room_camera_good.txt \
     data/indoor/camera/room_camera_name.txt \
     data/indoor/camera/room_camera_node.txt \
-    data/indoor/0004dd3cb11e50530676f77b55262d38.mtl \
-    GLSL/gen_data.frag \
-    GLSL/gen_data.vert
+    data/indoor/0004dd3cb11e50530676f77b55262d38.mtl
 
 HEADERS += \
     Include/ArrayBuffer.h \

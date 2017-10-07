@@ -4,6 +4,7 @@
 #include <QGLWidget>
 #include <cmath>
 #include <experimental/filesystem>
+#include <fstream>
 //#include "GL_include.h"
 #include "View.h"
 #include "Utility.h"
@@ -81,9 +82,9 @@ void View::getColorAndDepthTexture(){
     // create a depth texture
     glGenTextures(1, &_DepthTextureObject);
     glBindTexture(GL_TEXTURE_2D, _DepthTextureObject);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24,
                         width(), height(),
-                        0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                        0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT,
                         NULL);
 
 
@@ -208,8 +209,9 @@ void View::generateMasks(){
             curOn->turnOff();
         ins->turnOn();
         curOn = ins;
+        ins->setPickingColor(color3(1, 1, 1));
         repaint();
-        QImage image = grabFramebuffer();
+        QImage image = grabFramebuffer().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither );
         image.save( std::string( "./" + shaper->getCurFileName() + "/" + _camInUse->getId() + "/mask_" + ins->getId() + ".png" ).c_str() );
     }
     for (Lumos::Instance * ins : world->getInstances())
@@ -251,14 +253,21 @@ void View::toImageFile_depth( const std::string & fileName ) {
     glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &w);
     glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &h);
 
-    GLfloat * pixels = new GLfloat [w*h*sizeof(GLfloat)];
-    QImage image(w, h, QImage::Format_Grayscale8);
+    //unsigned int * pixels = new unsigned int [w*h*sizeof(unsigned int)];
+    QImage image(w, h, QImage::Format_RGBA8888 );
     Utils::logOpenGLError();
     glGetTexImage ( GL_TEXTURE_2D,
                     0,
                     GL_DEPTH_COMPONENT, // GL will convert to this format
-                    GL_UNSIGNED_BYTE,   // Using this data type per-pixel
+                    GL_UNSIGNED_INT,   // Using this data type per-pixel
                     image.bits() );
+/*
+    std::ofstream toFile(fileName +  ".txt");
+    for (int i = 0; i < width() * height(); i++)
+        toFile << std::to_string(pixels[i]) << " ";
+
+    toFile.close();
+*/
 /*
     float max = 0, min = std::numeric_limits<float>::max();
     for (size_t i = 0; i < w*h ; i++){
