@@ -200,4 +200,35 @@ namespace Utils {
         fs::remove(path);
 
     }
+
+    void getAllFileWithExtension(const std::string & path, const std::string & extension, std::vector<fs::path> & all_files ){
+        if (!fs::exists(path)) return;
+
+        all_files.clear();
+
+        for(const fs::directory_entry& p: fs::directory_iterator(path)){
+            //if (fs::path (p).is_)
+            if( fs::is_regular_file(p) ){
+                if(fs::path(p).extension().compare(extension) == 0)
+                    all_files.push_back(fs::path(p));
+            }
+        }
+
+
+    }
+
+    void getAllDir(const std::string & path, std::vector<fs::path> & all_files ){
+        if (!fs::exists(path)) return;
+
+        all_files.clear();
+
+        for(const fs::directory_entry& p: fs::directory_iterator(path)){
+            //if (fs::path (p).is_)
+            if( fs::is_directory(p) ){
+                all_files.push_back(fs::path(p));
+            }
+        }
+
+
+    }
 }

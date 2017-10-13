@@ -24,6 +24,9 @@ WindowManager * winMan = nullptr;
 Patronus::PhysicalWorld * world = nullptr;
 Lumos::Instance * selectedInstance = nullptr;
 QSurfaceFormat * global_format = nullptr;
+std::string SCENE_FILE_DIR = "./scene_file/";
+std::string TEXTURE_DIR = "./scene_file/texture/ut/";
+std::string CAMERA_DIR = "./cameras/";
 
 void experimental(){
     Renderer paintSurface;
@@ -59,6 +62,7 @@ int main(int argc, char *argv[])
 
     gProgram = new Lumos::Program( );
     shaper = new Patronus::Shaper( "./data/indoor/0004dd3cb11e50530676f77b55262d38.obj" );
+
     gProgram->loadShaders( "/home/shunxu/QtProj/DayLight/GLSL" );
     gProgram->preDrawSetUp();
 

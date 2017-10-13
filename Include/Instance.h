@@ -23,7 +23,7 @@ namespace Lumos {
                   const ModelAsset & asset = ModelAsset()
                   );
 
-        virtual ~Instance();
+        //virtual ~Instance(){}
 
         /**
          * @brief bind data to attributes and uniforms of the shaders currently binded to openGL

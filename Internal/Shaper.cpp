@@ -32,7 +32,7 @@ GLuint Shaper::global_TexCoord_VBO = 0;
 const float Shaper::multiplier = 1;
 
 
-Shaper::Shaper()
+Shaper::Shaper( )
 {
 
     _lights.push_back(Light::makeDirectionalLight());

@@ -86,5 +86,8 @@ namespace Utils {
     void cleanAndMkdir(const std::string & path);
 
     void remove_all( const std::experimental::filesystem::path & path );
+
+    void getAllFileWithExtension(const std::string & path, const std::string & extension, std::vector<std::experimental::filesystem::path> & all_files );
+    void getAllDir(const std::string & path, std::vector<std::experimental::filesystem::path> & all_files );
 }
 #endif

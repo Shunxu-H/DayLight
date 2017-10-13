@@ -14,9 +14,9 @@ Instance::Instance( Patronus::Mesh * meshPtr, const ModelAsset & asset)
 
 }
 
-Instance::~Instance(){
-    if (_rigidBody) delete _rigidBody;
-}
+//Instance::~Instance(){
+//    //if (_rigidBody) delete _rigidBody;
+//}
 
 void Instance::setRidgidBody(  btRigidBody * const &  arg )
 {

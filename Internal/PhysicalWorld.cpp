@@ -152,11 +152,13 @@ void PhysicalWorld::test(){
 
 
 void PhysicalWorld::clearAll(){
-    for (Lumos::Instance* i : _instances){
-        _dynamicsWorld->removeRigidBody(i->getRidgidBody());
-        delete i->getRidgidBody()->getMotionState();
-        delete i;
+    for (size_t i = 0; i < _instances.size(); i++){
+        _dynamicsWorld->removeRigidBody(_instances[i]->getRidgidBody());
+        delete _instances[i]->getRidgidBody()->getMotionState();
+        delete _instances[i]->getRidgidBody();
+        //delete _instances[i];
     }
+
     _instances.clear();
     _names.clear();
 }
@@ -195,7 +197,9 @@ void PhysicalWorld::draw(){
 
 bool PhysicalWorld::loadInstance( Patronus::Mesh & mesh ){
     Lumos::Instance * newI = mesh.instantiate_sequentialDraw();
-    std::string name = Utils::genUniqueName(_names, mesh.getId() + "_instance");
+    std::string name = Utils::genUniqueName(
+                _names,
+                mesh.getId() + "_instance");
 
     newI->setId(name);
     _names.insert(name);
@@ -226,6 +230,7 @@ bool PhysicalWorld::loadInstance( Patronus::Mesh & mesh ){
 
 
     _instances.push_back(newI);
+    //delete newI;
 
 
 

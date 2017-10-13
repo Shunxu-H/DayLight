@@ -162,7 +162,8 @@ void Program::preDrawSetUp() {
         world->loadInstance(m);
 
     // compute bounding box
-    winMan->positionAllViewsToFitAllInstances();
+    if (world->getInstances().size() > 0)
+        winMan->positionAllViewsToFitAllInstances();
 
 /*
     gProgram->use();

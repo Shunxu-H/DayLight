@@ -13,7 +13,7 @@
 #include "Extern.h"
 
 
-
+namespace fs = std::experimental::filesystem;
 
 
 
@@ -76,21 +76,27 @@ void WindowManager::keyPressEvent(QKeyEvent *event)
         world->clearAll();
         shaper->clearAll();
 
+        std::vector<std::experimental::filesystem::path> allobjpath;
+        Utils::getAllDir(SCENE_FILE_DIR, allobjpath);
+
         /** iterate from here **/
-        shaper->loadFile("./data/indoor/0004dd3cb11e50530676f77b55262d38.obj");
-        Patronus::Camera::loadCamerasFromDir("./data/indoor/camera/");
-        gProgram->preDrawSetUp();
+        for (const std::experimental::filesystem::path & p : allobjpath){
+            std::string curScope = p.stem();
+            shaper->loadFile(std::string(p) + "/" + curScope + ".obj");
+            Patronus::Camera::loadCamerasFromDir(CAMERA_DIR + curScope);
+            gProgram->preDrawSetUp();
 
-        Utils::cleanAndMkdir("./" + shaper->getCurFileName());
+            Utils::cleanAndMkdir("./" + shaper->getCurFileName());
 
-        for( size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
-            _render_hidden_view->setCamInUse(shaper->getnCamera(camPtr));
-            _render_hidden_view->resize(w, h);
-            _render_hidden_view->generateData();
+            for( size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
+                _render_hidden_view->setCamInUse(shaper->getnCamera(camPtr));
+                _render_hidden_view->resize(w, h);
+                _render_hidden_view->generateData();
+            }
+
+            world->clearAll();
+            shaper->clearAll();
         }
-
-        world->clearAll();
-        shaper->clearAll();
 
         duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
 
