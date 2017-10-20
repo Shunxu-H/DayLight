@@ -107,6 +107,7 @@ Lumos::Instance* Mesh::instantiate_sequentialDraw ( ){
         //startPos += f.getVerticesInds().size();
         entryCnt += f.getVerticesInds().size();
     }
+
     if ( curM != nullptr )
         asset.materials.push_back( Lumos::MaterialPack(curM, startPos, entryCnt) );
 

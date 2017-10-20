@@ -43,6 +43,8 @@ public:
 
     void positionAllViewsToFitAllInstances();
 
+    void render();
+
 protected:
 
 #ifndef QT_NO_CONTEXTMENU

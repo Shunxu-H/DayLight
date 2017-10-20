@@ -48,8 +48,8 @@ namespace Patronus {
         Mesh(const std::string & id = "" ):
             _id( id ),
             _VBO_VERT(0),
-            _VBO_COLOR(0),
             _VBO_NORMAL(0),
+            _VBO_COLOR(0),
             _material(nullptr){}
         virtual ~Mesh();
 

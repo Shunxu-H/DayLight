@@ -63,46 +63,51 @@ WindowManager::WindowManager(QWidget *parent)
 
 }
 
+void WindowManager::render(){
+    double duration;
+    int w = 1080, h = 720;
+    clock_t start = std::clock();
+
+
+    world->clearAll();
+    shaper->clearAll();
+
+    std::vector<std::experimental::filesystem::path> allobjpath;
+    Utils::getAllDir(SCENE_FILE_DIR, allobjpath);
+
+    /** iterate from here **/
+    for (const std::experimental::filesystem::path & p : allobjpath){
+        qDebug() << "Rendering: " << std::string(p).c_str();
+        std::string curScope = p.stem();
+        shaper->loadFile(std::string(p) + "/" + curScope + ".obj");
+        Patronus::Camera::loadCamerasFromDir(CAMERA_DIR + curScope);
+        gProgram->preDrawSetUp();
+
+        Utils::cleanAndMkdir("./" + shaper->getCurFileName());
+
+        for( size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
+            _render_hidden_view->setCamInUse(shaper->getnCamera(camPtr));
+            _render_hidden_view->resize(w, h);
+            _render_hidden_view->generateData();
+        }
+
+        world->clearAll();
+        shaper->clearAll();
+    }
+
+    duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
+
+    qDebug() << "Time passed: " << duration;
+
+    /** iterate to here **/
+}
+
 void WindowManager::keyPressEvent(QKeyEvent *event)
 {
     std::cout << "You Pressed Key " <<(char) event->key() << std::endl;
     switch(event->key()){
         case 'R':
-        double duration;
-        int w = 1080, h = 720;
-        clock_t start = std::clock();
 
-
-        world->clearAll();
-        shaper->clearAll();
-
-        std::vector<std::experimental::filesystem::path> allobjpath;
-        Utils::getAllDir(SCENE_FILE_DIR, allobjpath);
-
-        /** iterate from here **/
-        for (const std::experimental::filesystem::path & p : allobjpath){
-            std::string curScope = p.stem();
-            shaper->loadFile(std::string(p) + "/" + curScope + ".obj");
-            Patronus::Camera::loadCamerasFromDir(CAMERA_DIR + curScope);
-            gProgram->preDrawSetUp();
-
-            Utils::cleanAndMkdir("./" + shaper->getCurFileName());
-
-            for( size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
-                _render_hidden_view->setCamInUse(shaper->getnCamera(camPtr));
-                _render_hidden_view->resize(w, h);
-                _render_hidden_view->generateData();
-            }
-
-            world->clearAll();
-            shaper->clearAll();
-        }
-
-        duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
-
-        qDebug() << "Time passed: " << duration;
-
-        /** iterate to here **/
 
         /*
             if( !_renderer ){

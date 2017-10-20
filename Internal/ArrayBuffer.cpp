@@ -10,6 +10,7 @@ ArrayBuffer& ArrayBuffer::operator = ( const ArrayBuffer & other ){
     Countable::operator =(other);
     _numOfEntry = other._numOfEntry;
     _bytesPerEntry = other._bytesPerEntry;
+    return *this;
 }
 
 void ArrayBuffer::setVertexBuffer( const std::vector<Patronus::Mesh> & geos ){

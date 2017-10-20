@@ -52,6 +52,7 @@ void View::getColorAndDepthTexture(){
     GLuint FBO;
 
     // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
+    Utils::logOpenGLError();
     GLint drawFboId = 0, readFboId = 0;
     glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawFboId);
     glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readFboId);
@@ -82,9 +83,9 @@ void View::getColorAndDepthTexture(){
     // create a depth texture
     glGenTextures(1, &_DepthTextureObject);
     glBindTexture(GL_TEXTURE_2D, _DepthTextureObject);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24,
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32,
                         width(), height(),
-                        0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT,
+                        0, GL_DEPTH_COMPONENT, GL_FLOAT,
                         NULL);
 
 
@@ -259,8 +260,13 @@ void View::toImageFile_depth( const std::string & fileName ) {
     glGetTexImage ( GL_TEXTURE_2D,
                     0,
                     GL_DEPTH_COMPONENT, // GL will convert to this format
-                    GL_UNSIGNED_INT,   // Using this data type per-pixel
+                    GL_FLOAT,   // Using this data type per-pixel
                     image.bits() );
+
+    // save a binary file
+    FILE *file = fopen((fileName + ".bin").c_str(), "wb");
+    fwrite(image.bits(), sizeof(GLfloat), w*h, file);
+    fclose(file);
 /*
     std::ofstream toFile(fileName +  ".txt");
     for (int i = 0; i < width() * height(); i++)
@@ -356,6 +362,8 @@ void View::getMouseBeam(const int & mouseX, const int & mouseY, point3 * start, 
     *start = point3(lRayStart_world);
     *direction = lRayDir_world;
 }
+
+
 
 void View::paintGL(){
 
@@ -458,7 +466,10 @@ void View::mousePressEvent(QMouseEvent *event){
     case Qt::RightButton:
 
         break;
+    default:
+        break;
     }
+
     _prevMousePos = event->pos();
     winMan->updateAllViews();
 }
