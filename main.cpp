@@ -59,6 +59,7 @@ int main(int argc, char *argv[])
 
     winMan = new WindowManager{};
     winMan->show();
+
     //winMan->hide();
 
     gProgram = new Lumos::Program( );
