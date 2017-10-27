@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/shunxu/QtProj/DayLight/experiment/src/main.cpp
+string
+-
+iostream
+-
+opencv2/opencv.hpp
+-
+EGL/egl.h
+-
+GL/gl.h
+-
+GL/glext.h
+-
+GL/glx.h
+-
+GL/glu.h
+-
+

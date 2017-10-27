@@ -7,7 +7,6 @@
 class View_bullet: public View, public btIDebugDraw{
 public:
     View_bullet(
-            QWidget *parent = nullptr,
             const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr )
          );
     virtual ~View_bullet(){}
@@ -31,15 +30,6 @@ protected:
     virtual void paintGL() override ;
 
 
-    /**
-     * @brief event filter fr hoverEnterm hoverLeave and hoverMove
-     * @param event
-     * @return
-     */
-    virtual bool event(QEvent *event) override ;
-    void hoverEnter(QHoverEvent *event) ;
-    void hoverLeave(QHoverEvent *event) ;
-    void hoverMove(QHoverEvent *event) ;
 private:
     int m_debugMode;
 

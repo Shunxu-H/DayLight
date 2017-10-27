@@ -2,8 +2,8 @@
 #define MODELASSET_H
 
 #include "GL_include.h"
-#include <QImage>
 #include "GL_include.h"
+#include <opencv2/opencv.hpp>
 
 namespace Lumos {
     struct Material{
@@ -13,7 +13,7 @@ namespace Lumos {
         color3 specular;
         color4 diffuseColor;
         GLuint glTexId;
-        QImage texture;
+        cv::Mat texture;
         Material( const color4 & c = color4(1.0f, 1.0f, 1.0f, 1.0f),
                   const float & reflexitivity_ = 0.3
                 ): reflexitivity(reflexitivity_), diffuseColor(c), glTexId(0){}

@@ -1,7 +1,7 @@
 #include "GL_include.h"
 #include "Light.h"
 
-namespace Patronus {
+using namespace Patronus;
 
 
 Light Light::makeDirectionalLight(const point3 & position, const point3 & intensity, const float & ambientCoefficient){
@@ -30,4 +30,3 @@ Light Light::makePointLight( const point3 & position,
 
 
 
-}

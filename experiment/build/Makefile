@@ -123,32 +123,653 @@ DayLight/fast:
 	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/build
 .PHONY : DayLight/fast
 
-main.o: main.cpp.o
+src/Internal/Camera.o: src/Internal/Camera.cpp.o
 
-.PHONY : main.o
+.PHONY : src/Internal/Camera.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/main.cpp.o
-.PHONY : main.cpp.o
+src/Internal/Camera.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/Camera.cpp.o
+.PHONY : src/Internal/Camera.cpp.o
 
-main.i: main.cpp.i
+src/Internal/Camera.i: src/Internal/Camera.cpp.i
 
-.PHONY : main.i
+.PHONY : src/Internal/Camera.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/main.cpp.i
-.PHONY : main.cpp.i
+src/Internal/Camera.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/Camera.cpp.i
+.PHONY : src/Internal/Camera.cpp.i
 
-main.s: main.cpp.s
+src/Internal/Camera.s: src/Internal/Camera.cpp.s
 
-.PHONY : main.s
+.PHONY : src/Internal/Camera.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/main.cpp.s
-.PHONY : main.cpp.s
+src/Internal/Camera.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/Camera.cpp.s
+.PHONY : src/Internal/Camera.cpp.s
+
+src/Internal/Face.o: src/Internal/Face.cpp.o
+
+.PHONY : src/Internal/Face.o
+
+# target to build an object file
+src/Internal/Face.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/Face.cpp.o
+.PHONY : src/Internal/Face.cpp.o
+
+src/Internal/Face.i: src/Internal/Face.cpp.i
+
+.PHONY : src/Internal/Face.i
+
+# target to preprocess a source file
+src/Internal/Face.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/Face.cpp.i
+.PHONY : src/Internal/Face.cpp.i
+
+src/Internal/Face.s: src/Internal/Face.cpp.s
+
+.PHONY : src/Internal/Face.s
+
+# target to generate assembly for a file
+src/Internal/Face.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/Face.cpp.s
+.PHONY : src/Internal/Face.cpp.s
+
+src/Internal/OpenGlOffscreenSurface.o: src/Internal/OpenGlOffscreenSurface.cpp.o
+
+.PHONY : src/Internal/OpenGlOffscreenSurface.o
+
+# target to build an object file
+src/Internal/OpenGlOffscreenSurface.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/OpenGlOffscreenSurface.cpp.o
+.PHONY : src/Internal/OpenGlOffscreenSurface.cpp.o
+
+src/Internal/OpenGlOffscreenSurface.i: src/Internal/OpenGlOffscreenSurface.cpp.i
+
+.PHONY : src/Internal/OpenGlOffscreenSurface.i
+
+# target to preprocess a source file
+src/Internal/OpenGlOffscreenSurface.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/OpenGlOffscreenSurface.cpp.i
+.PHONY : src/Internal/OpenGlOffscreenSurface.cpp.i
+
+src/Internal/OpenGlOffscreenSurface.s: src/Internal/OpenGlOffscreenSurface.cpp.s
+
+.PHONY : src/Internal/OpenGlOffscreenSurface.s
+
+# target to generate assembly for a file
+src/Internal/OpenGlOffscreenSurface.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/OpenGlOffscreenSurface.cpp.s
+.PHONY : src/Internal/OpenGlOffscreenSurface.cpp.s
+
+src/Internal/PhysicalWorld.o: src/Internal/PhysicalWorld.cpp.o
+
+.PHONY : src/Internal/PhysicalWorld.o
+
+# target to build an object file
+src/Internal/PhysicalWorld.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/PhysicalWorld.cpp.o
+.PHONY : src/Internal/PhysicalWorld.cpp.o
+
+src/Internal/PhysicalWorld.i: src/Internal/PhysicalWorld.cpp.i
+
+.PHONY : src/Internal/PhysicalWorld.i
+
+# target to preprocess a source file
+src/Internal/PhysicalWorld.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/PhysicalWorld.cpp.i
+.PHONY : src/Internal/PhysicalWorld.cpp.i
+
+src/Internal/PhysicalWorld.s: src/Internal/PhysicalWorld.cpp.s
+
+.PHONY : src/Internal/PhysicalWorld.s
+
+# target to generate assembly for a file
+src/Internal/PhysicalWorld.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/PhysicalWorld.cpp.s
+.PHONY : src/Internal/PhysicalWorld.cpp.s
+
+src/Internal/btDebugDrawer.o: src/Internal/btDebugDrawer.cpp.o
+
+.PHONY : src/Internal/btDebugDrawer.o
+
+# target to build an object file
+src/Internal/btDebugDrawer.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/btDebugDrawer.cpp.o
+.PHONY : src/Internal/btDebugDrawer.cpp.o
+
+src/Internal/btDebugDrawer.i: src/Internal/btDebugDrawer.cpp.i
+
+.PHONY : src/Internal/btDebugDrawer.i
+
+# target to preprocess a source file
+src/Internal/btDebugDrawer.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/btDebugDrawer.cpp.i
+.PHONY : src/Internal/btDebugDrawer.cpp.i
+
+src/Internal/btDebugDrawer.s: src/Internal/btDebugDrawer.cpp.s
+
+.PHONY : src/Internal/btDebugDrawer.s
+
+# target to generate assembly for a file
+src/Internal/btDebugDrawer.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Internal/btDebugDrawer.cpp.s
+.PHONY : src/Internal/btDebugDrawer.cpp.s
+
+src/Lumos/ArrayBuffer.o: src/Lumos/ArrayBuffer.cpp.o
+
+.PHONY : src/Lumos/ArrayBuffer.o
+
+# target to build an object file
+src/Lumos/ArrayBuffer.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/ArrayBuffer.cpp.o
+.PHONY : src/Lumos/ArrayBuffer.cpp.o
+
+src/Lumos/ArrayBuffer.i: src/Lumos/ArrayBuffer.cpp.i
+
+.PHONY : src/Lumos/ArrayBuffer.i
+
+# target to preprocess a source file
+src/Lumos/ArrayBuffer.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/ArrayBuffer.cpp.i
+.PHONY : src/Lumos/ArrayBuffer.cpp.i
+
+src/Lumos/ArrayBuffer.s: src/Lumos/ArrayBuffer.cpp.s
+
+.PHONY : src/Lumos/ArrayBuffer.s
+
+# target to generate assembly for a file
+src/Lumos/ArrayBuffer.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/ArrayBuffer.cpp.s
+.PHONY : src/Lumos/ArrayBuffer.cpp.s
+
+src/Lumos/Countable.o: src/Lumos/Countable.cpp.o
+
+.PHONY : src/Lumos/Countable.o
+
+# target to build an object file
+src/Lumos/Countable.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/Countable.cpp.o
+.PHONY : src/Lumos/Countable.cpp.o
+
+src/Lumos/Countable.i: src/Lumos/Countable.cpp.i
+
+.PHONY : src/Lumos/Countable.i
+
+# target to preprocess a source file
+src/Lumos/Countable.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/Countable.cpp.i
+.PHONY : src/Lumos/Countable.cpp.i
+
+src/Lumos/Countable.s: src/Lumos/Countable.cpp.s
+
+.PHONY : src/Lumos/Countable.s
+
+# target to generate assembly for a file
+src/Lumos/Countable.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/Countable.cpp.s
+.PHONY : src/Lumos/Countable.cpp.s
+
+src/Lumos/Instance.o: src/Lumos/Instance.cpp.o
+
+.PHONY : src/Lumos/Instance.o
+
+# target to build an object file
+src/Lumos/Instance.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/Instance.cpp.o
+.PHONY : src/Lumos/Instance.cpp.o
+
+src/Lumos/Instance.i: src/Lumos/Instance.cpp.i
+
+.PHONY : src/Lumos/Instance.i
+
+# target to preprocess a source file
+src/Lumos/Instance.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/Instance.cpp.i
+.PHONY : src/Lumos/Instance.cpp.i
+
+src/Lumos/Instance.s: src/Lumos/Instance.cpp.s
+
+.PHONY : src/Lumos/Instance.s
+
+# target to generate assembly for a file
+src/Lumos/Instance.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/Instance.cpp.s
+.PHONY : src/Lumos/Instance.cpp.s
+
+src/Lumos/ModelAsset.o: src/Lumos/ModelAsset.cpp.o
+
+.PHONY : src/Lumos/ModelAsset.o
+
+# target to build an object file
+src/Lumos/ModelAsset.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/ModelAsset.cpp.o
+.PHONY : src/Lumos/ModelAsset.cpp.o
+
+src/Lumos/ModelAsset.i: src/Lumos/ModelAsset.cpp.i
+
+.PHONY : src/Lumos/ModelAsset.i
+
+# target to preprocess a source file
+src/Lumos/ModelAsset.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/ModelAsset.cpp.i
+.PHONY : src/Lumos/ModelAsset.cpp.i
+
+src/Lumos/ModelAsset.s: src/Lumos/ModelAsset.cpp.s
+
+.PHONY : src/Lumos/ModelAsset.s
+
+# target to generate assembly for a file
+src/Lumos/ModelAsset.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/ModelAsset.cpp.s
+.PHONY : src/Lumos/ModelAsset.cpp.s
+
+src/Lumos/Program.o: src/Lumos/Program.cpp.o
+
+.PHONY : src/Lumos/Program.o
+
+# target to build an object file
+src/Lumos/Program.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/Program.cpp.o
+.PHONY : src/Lumos/Program.cpp.o
+
+src/Lumos/Program.i: src/Lumos/Program.cpp.i
+
+.PHONY : src/Lumos/Program.i
+
+# target to preprocess a source file
+src/Lumos/Program.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/Program.cpp.i
+.PHONY : src/Lumos/Program.cpp.i
+
+src/Lumos/Program.s: src/Lumos/Program.cpp.s
+
+.PHONY : src/Lumos/Program.s
+
+# target to generate assembly for a file
+src/Lumos/Program.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/Program.cpp.s
+.PHONY : src/Lumos/Program.cpp.s
+
+src/Lumos/Shader.o: src/Lumos/Shader.cpp.o
+
+.PHONY : src/Lumos/Shader.o
+
+# target to build an object file
+src/Lumos/Shader.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/Shader.cpp.o
+.PHONY : src/Lumos/Shader.cpp.o
+
+src/Lumos/Shader.i: src/Lumos/Shader.cpp.i
+
+.PHONY : src/Lumos/Shader.i
+
+# target to preprocess a source file
+src/Lumos/Shader.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/Shader.cpp.i
+.PHONY : src/Lumos/Shader.cpp.i
+
+src/Lumos/Shader.s: src/Lumos/Shader.cpp.s
+
+.PHONY : src/Lumos/Shader.s
+
+# target to generate assembly for a file
+src/Lumos/Shader.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Lumos/Shader.cpp.s
+.PHONY : src/Lumos/Shader.cpp.s
+
+src/Output/Renderer.o: src/Output/Renderer.cpp.o
+
+.PHONY : src/Output/Renderer.o
+
+# target to build an object file
+src/Output/Renderer.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/Renderer.cpp.o
+.PHONY : src/Output/Renderer.cpp.o
+
+src/Output/Renderer.i: src/Output/Renderer.cpp.i
+
+.PHONY : src/Output/Renderer.i
+
+# target to preprocess a source file
+src/Output/Renderer.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/Renderer.cpp.i
+.PHONY : src/Output/Renderer.cpp.i
+
+src/Output/Renderer.s: src/Output/Renderer.cpp.s
+
+.PHONY : src/Output/Renderer.s
+
+# target to generate assembly for a file
+src/Output/Renderer.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/Renderer.cpp.s
+.PHONY : src/Output/Renderer.cpp.s
+
+src/Output/View.o: src/Output/View.cpp.o
+
+.PHONY : src/Output/View.o
+
+# target to build an object file
+src/Output/View.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/View.cpp.o
+.PHONY : src/Output/View.cpp.o
+
+src/Output/View.i: src/Output/View.cpp.i
+
+.PHONY : src/Output/View.i
+
+# target to preprocess a source file
+src/Output/View.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/View.cpp.i
+.PHONY : src/Output/View.cpp.i
+
+src/Output/View.s: src/Output/View.cpp.s
+
+.PHONY : src/Output/View.s
+
+# target to generate assembly for a file
+src/Output/View.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/View.cpp.s
+.PHONY : src/Output/View.cpp.s
+
+src/Output/View_bullet.o: src/Output/View_bullet.cpp.o
+
+.PHONY : src/Output/View_bullet.o
+
+# target to build an object file
+src/Output/View_bullet.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/View_bullet.cpp.o
+.PHONY : src/Output/View_bullet.cpp.o
+
+src/Output/View_bullet.i: src/Output/View_bullet.cpp.i
+
+.PHONY : src/Output/View_bullet.i
+
+# target to preprocess a source file
+src/Output/View_bullet.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/View_bullet.cpp.i
+.PHONY : src/Output/View_bullet.cpp.i
+
+src/Output/View_bullet.s: src/Output/View_bullet.cpp.s
+
+.PHONY : src/Output/View_bullet.s
+
+# target to generate assembly for a file
+src/Output/View_bullet.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/View_bullet.cpp.s
+.PHONY : src/Output/View_bullet.cpp.s
+
+src/Output/View_renderer.o: src/Output/View_renderer.cpp.o
+
+.PHONY : src/Output/View_renderer.o
+
+# target to build an object file
+src/Output/View_renderer.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/View_renderer.cpp.o
+.PHONY : src/Output/View_renderer.cpp.o
+
+src/Output/View_renderer.i: src/Output/View_renderer.cpp.i
+
+.PHONY : src/Output/View_renderer.i
+
+# target to preprocess a source file
+src/Output/View_renderer.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/View_renderer.cpp.i
+.PHONY : src/Output/View_renderer.cpp.i
+
+src/Output/View_renderer.s: src/Output/View_renderer.cpp.s
+
+.PHONY : src/Output/View_renderer.s
+
+# target to generate assembly for a file
+src/Output/View_renderer.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/View_renderer.cpp.s
+.PHONY : src/Output/View_renderer.cpp.s
+
+src/Output/WindowManager.o: src/Output/WindowManager.cpp.o
+
+.PHONY : src/Output/WindowManager.o
+
+# target to build an object file
+src/Output/WindowManager.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/WindowManager.cpp.o
+.PHONY : src/Output/WindowManager.cpp.o
+
+src/Output/WindowManager.i: src/Output/WindowManager.cpp.i
+
+.PHONY : src/Output/WindowManager.i
+
+# target to preprocess a source file
+src/Output/WindowManager.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/WindowManager.cpp.i
+.PHONY : src/Output/WindowManager.cpp.i
+
+src/Output/WindowManager.s: src/Output/WindowManager.cpp.s
+
+.PHONY : src/Output/WindowManager.s
+
+# target to generate assembly for a file
+src/Output/WindowManager.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Output/WindowManager.cpp.s
+.PHONY : src/Output/WindowManager.cpp.s
+
+src/Patronus/Light.o: src/Patronus/Light.cpp.o
+
+.PHONY : src/Patronus/Light.o
+
+# target to build an object file
+src/Patronus/Light.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Patronus/Light.cpp.o
+.PHONY : src/Patronus/Light.cpp.o
+
+src/Patronus/Light.i: src/Patronus/Light.cpp.i
+
+.PHONY : src/Patronus/Light.i
+
+# target to preprocess a source file
+src/Patronus/Light.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Patronus/Light.cpp.i
+.PHONY : src/Patronus/Light.cpp.i
+
+src/Patronus/Light.s: src/Patronus/Light.cpp.s
+
+.PHONY : src/Patronus/Light.s
+
+# target to generate assembly for a file
+src/Patronus/Light.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Patronus/Light.cpp.s
+.PHONY : src/Patronus/Light.cpp.s
+
+src/Patronus/Mesh.o: src/Patronus/Mesh.cpp.o
+
+.PHONY : src/Patronus/Mesh.o
+
+# target to build an object file
+src/Patronus/Mesh.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Patronus/Mesh.cpp.o
+.PHONY : src/Patronus/Mesh.cpp.o
+
+src/Patronus/Mesh.i: src/Patronus/Mesh.cpp.i
+
+.PHONY : src/Patronus/Mesh.i
+
+# target to preprocess a source file
+src/Patronus/Mesh.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Patronus/Mesh.cpp.i
+.PHONY : src/Patronus/Mesh.cpp.i
+
+src/Patronus/Mesh.s: src/Patronus/Mesh.cpp.s
+
+.PHONY : src/Patronus/Mesh.s
+
+# target to generate assembly for a file
+src/Patronus/Mesh.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Patronus/Mesh.cpp.s
+.PHONY : src/Patronus/Mesh.cpp.s
+
+src/Patronus/Shaper.o: src/Patronus/Shaper.cpp.o
+
+.PHONY : src/Patronus/Shaper.o
+
+# target to build an object file
+src/Patronus/Shaper.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Patronus/Shaper.cpp.o
+.PHONY : src/Patronus/Shaper.cpp.o
+
+src/Patronus/Shaper.i: src/Patronus/Shaper.cpp.i
+
+.PHONY : src/Patronus/Shaper.i
+
+# target to preprocess a source file
+src/Patronus/Shaper.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Patronus/Shaper.cpp.i
+.PHONY : src/Patronus/Shaper.cpp.i
+
+src/Patronus/Shaper.s: src/Patronus/Shaper.cpp.s
+
+.PHONY : src/Patronus/Shaper.s
+
+# target to generate assembly for a file
+src/Patronus/Shaper.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Patronus/Shaper.cpp.s
+.PHONY : src/Patronus/Shaper.cpp.s
+
+src/Patronus/Transformable.o: src/Patronus/Transformable.cpp.o
+
+.PHONY : src/Patronus/Transformable.o
+
+# target to build an object file
+src/Patronus/Transformable.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Patronus/Transformable.cpp.o
+.PHONY : src/Patronus/Transformable.cpp.o
+
+src/Patronus/Transformable.i: src/Patronus/Transformable.cpp.i
+
+.PHONY : src/Patronus/Transformable.i
+
+# target to preprocess a source file
+src/Patronus/Transformable.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Patronus/Transformable.cpp.i
+.PHONY : src/Patronus/Transformable.cpp.i
+
+src/Patronus/Transformable.s: src/Patronus/Transformable.cpp.s
+
+.PHONY : src/Patronus/Transformable.s
+
+# target to generate assembly for a file
+src/Patronus/Transformable.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Patronus/Transformable.cpp.s
+.PHONY : src/Patronus/Transformable.cpp.s
+
+src/Utility/Color.o: src/Utility/Color.cpp.o
+
+.PHONY : src/Utility/Color.o
+
+# target to build an object file
+src/Utility/Color.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Utility/Color.cpp.o
+.PHONY : src/Utility/Color.cpp.o
+
+src/Utility/Color.i: src/Utility/Color.cpp.i
+
+.PHONY : src/Utility/Color.i
+
+# target to preprocess a source file
+src/Utility/Color.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Utility/Color.cpp.i
+.PHONY : src/Utility/Color.cpp.i
+
+src/Utility/Color.s: src/Utility/Color.cpp.s
+
+.PHONY : src/Utility/Color.s
+
+# target to generate assembly for a file
+src/Utility/Color.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Utility/Color.cpp.s
+.PHONY : src/Utility/Color.cpp.s
+
+src/Utility/Config.o: src/Utility/Config.cpp.o
+
+.PHONY : src/Utility/Config.o
+
+# target to build an object file
+src/Utility/Config.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Utility/Config.cpp.o
+.PHONY : src/Utility/Config.cpp.o
+
+src/Utility/Config.i: src/Utility/Config.cpp.i
+
+.PHONY : src/Utility/Config.i
+
+# target to preprocess a source file
+src/Utility/Config.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Utility/Config.cpp.i
+.PHONY : src/Utility/Config.cpp.i
+
+src/Utility/Config.s: src/Utility/Config.cpp.s
+
+.PHONY : src/Utility/Config.s
+
+# target to generate assembly for a file
+src/Utility/Config.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Utility/Config.cpp.s
+.PHONY : src/Utility/Config.cpp.s
+
+src/Utility/Utility.o: src/Utility/Utility.cpp.o
+
+.PHONY : src/Utility/Utility.o
+
+# target to build an object file
+src/Utility/Utility.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Utility/Utility.cpp.o
+.PHONY : src/Utility/Utility.cpp.o
+
+src/Utility/Utility.i: src/Utility/Utility.cpp.i
+
+.PHONY : src/Utility/Utility.i
+
+# target to preprocess a source file
+src/Utility/Utility.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Utility/Utility.cpp.i
+.PHONY : src/Utility/Utility.cpp.i
+
+src/Utility/Utility.s: src/Utility/Utility.cpp.s
+
+.PHONY : src/Utility/Utility.s
+
+# target to generate assembly for a file
+src/Utility/Utility.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/Utility/Utility.cpp.s
+.PHONY : src/Utility/Utility.cpp.s
+
+src/main.o: src/main.cpp.o
+
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles/DayLight.dir/build.make CMakeFiles/DayLight.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 # Help Target
 help:
@@ -159,9 +780,78 @@ help:
 	@echo "... edit_cache"
 	@echo "... DayLight"
 	@echo "... rebuild_cache"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... src/Internal/Camera.o"
+	@echo "... src/Internal/Camera.i"
+	@echo "... src/Internal/Camera.s"
+	@echo "... src/Internal/Face.o"
+	@echo "... src/Internal/Face.i"
+	@echo "... src/Internal/Face.s"
+	@echo "... src/Internal/OpenGlOffscreenSurface.o"
+	@echo "... src/Internal/OpenGlOffscreenSurface.i"
+	@echo "... src/Internal/OpenGlOffscreenSurface.s"
+	@echo "... src/Internal/PhysicalWorld.o"
+	@echo "... src/Internal/PhysicalWorld.i"
+	@echo "... src/Internal/PhysicalWorld.s"
+	@echo "... src/Internal/btDebugDrawer.o"
+	@echo "... src/Internal/btDebugDrawer.i"
+	@echo "... src/Internal/btDebugDrawer.s"
+	@echo "... src/Lumos/ArrayBuffer.o"
+	@echo "... src/Lumos/ArrayBuffer.i"
+	@echo "... src/Lumos/ArrayBuffer.s"
+	@echo "... src/Lumos/Countable.o"
+	@echo "... src/Lumos/Countable.i"
+	@echo "... src/Lumos/Countable.s"
+	@echo "... src/Lumos/Instance.o"
+	@echo "... src/Lumos/Instance.i"
+	@echo "... src/Lumos/Instance.s"
+	@echo "... src/Lumos/ModelAsset.o"
+	@echo "... src/Lumos/ModelAsset.i"
+	@echo "... src/Lumos/ModelAsset.s"
+	@echo "... src/Lumos/Program.o"
+	@echo "... src/Lumos/Program.i"
+	@echo "... src/Lumos/Program.s"
+	@echo "... src/Lumos/Shader.o"
+	@echo "... src/Lumos/Shader.i"
+	@echo "... src/Lumos/Shader.s"
+	@echo "... src/Output/Renderer.o"
+	@echo "... src/Output/Renderer.i"
+	@echo "... src/Output/Renderer.s"
+	@echo "... src/Output/View.o"
+	@echo "... src/Output/View.i"
+	@echo "... src/Output/View.s"
+	@echo "... src/Output/View_bullet.o"
+	@echo "... src/Output/View_bullet.i"
+	@echo "... src/Output/View_bullet.s"
+	@echo "... src/Output/View_renderer.o"
+	@echo "... src/Output/View_renderer.i"
+	@echo "... src/Output/View_renderer.s"
+	@echo "... src/Output/WindowManager.o"
+	@echo "... src/Output/WindowManager.i"
+	@echo "... src/Output/WindowManager.s"
+	@echo "... src/Patronus/Light.o"
+	@echo "... src/Patronus/Light.i"
+	@echo "... src/Patronus/Light.s"
+	@echo "... src/Patronus/Mesh.o"
+	@echo "... src/Patronus/Mesh.i"
+	@echo "... src/Patronus/Mesh.s"
+	@echo "... src/Patronus/Shaper.o"
+	@echo "... src/Patronus/Shaper.i"
+	@echo "... src/Patronus/Shaper.s"
+	@echo "... src/Patronus/Transformable.o"
+	@echo "... src/Patronus/Transformable.i"
+	@echo "... src/Patronus/Transformable.s"
+	@echo "... src/Utility/Color.o"
+	@echo "... src/Utility/Color.i"
+	@echo "... src/Utility/Color.s"
+	@echo "... src/Utility/Config.o"
+	@echo "... src/Utility/Config.i"
+	@echo "... src/Utility/Config.s"
+	@echo "... src/Utility/Utility.o"
+	@echo "... src/Utility/Utility.i"
+	@echo "... src/Utility/Utility.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

@@ -2,7 +2,7 @@
 #include "Transformable.h"
 
 
-namespace Patronus {
+using namespace Patronus;
 
 
 void Transformable::translate ( const float & x, const float & y, const float & z ){
@@ -31,4 +31,4 @@ glm::mat4 Transformable::getInverseModelMatrix() const{
     return glm::inverse(getModelMatrix());
 }
 
-}
+

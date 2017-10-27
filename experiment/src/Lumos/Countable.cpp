@@ -1,7 +1,7 @@
 #include "GL_include.h"
 #include "Countable.h"
 
-namespace Lumos {
+using namespace Lumos;
 
 Countable::Countable():_refCount( nullptr ){
 
@@ -42,4 +42,4 @@ void Countable::_release(){
 }
 
 
-}
+

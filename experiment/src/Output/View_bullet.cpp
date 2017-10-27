@@ -1,6 +1,4 @@
-#include <QDebug>
 
-#include <QtWidgets>
 #include "btBulletDynamicsCommon.h"
 #include "Instance.h"
 #include "View_bullet.h"
@@ -9,8 +7,8 @@
 
 
 
-View_bullet::View_bullet( QWidget *parent, const std::shared_ptr< Patronus::Camera > & cam )
-    :View(parent, cam), m_debugMode(1)
+View_bullet::View_bullet( const std::shared_ptr< Patronus::Camera > & cam )
+    :View(cam), m_debugMode(1)
 {
     world->setDebugView(this);
 }
@@ -41,40 +39,6 @@ void View_bullet::paintGL(){
     */
 
 }
-
-bool View_bullet::event(QEvent *event) {
-    switch(event->type())
-    {
-    case QEvent::HoverEnter:
-        hoverEnter(static_cast<QHoverEvent*>(event));
-        return true;
-        break;
-    case QEvent::HoverLeave:
-        hoverLeave(static_cast<QHoverEvent*>(event));
-        return true;
-        break;
-    case QEvent::HoverMove:
-        hoverMove(static_cast<QHoverEvent*>(event));
-        return true;
-        break;
-    default:
-        break;
-    }
-    return QWidget::event(event);
-}
-
-void View_bullet::hoverEnter(QHoverEvent *event){
-
-}
-
-void View_bullet::hoverLeave(QHoverEvent *event){
-
-}
-
-void View_bullet::hoverMove(QHoverEvent *event){
-    //qDebug() << event->pos() ;
-}
-
 
 void  View_bullet::drawLine(const btVector3& from,const btVector3& to,const btVector3& color)
 {
@@ -139,7 +103,7 @@ void View_bullet::draw3dText(const btVector3& location,const char* textString)
    //BMF_DrawString(BMF_GetFont(BMF_kHelvetica10),textString);
     glPushMatrix();
     glColor3f(1.0f, 0.0f, 0.0f);
-    qDebug() << textString;
+    std::cout << textString << std::endl;
     glPopMatrix();
 }
 

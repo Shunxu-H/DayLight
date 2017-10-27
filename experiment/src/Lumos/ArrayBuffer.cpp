@@ -2,7 +2,7 @@
 #include "ArrayBuffer.h"
 #include "Mesh.h"
 
-namespace Lumos {
+using namespace Lumos;
 
 
 ArrayBuffer& ArrayBuffer::operator = ( const ArrayBuffer & other ){
@@ -65,8 +65,5 @@ ArrayBuffer::~ArrayBuffer(){
 
 void ArrayBuffer::bind() const{
     glBindVertexArray(getObjId());
-}
-
-
 }
 

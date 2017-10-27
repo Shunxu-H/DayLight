@@ -1,9 +1,6 @@
 #ifndef VIEW_H
 	#define VIEW_H
 
-#include <QOpenGLWidget>
-#include <QOpenGLFunctions>
-#include <QPoint>
 #include <memory>
 #include "Shader.h"
 
@@ -19,12 +16,10 @@ namespace Lumos{
 
 class Renderer;
 
-class View: public QOpenGLWidget, protected QOpenGLFunctions
+class View
 {
-    Q_OBJECT
 public:
     View(
-        QWidget *parent = nullptr,
         const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
         const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
          );
@@ -55,19 +50,13 @@ public:
     void getColorAndDepthTexture();
 protected:
 
-    virtual void initializeGL() override ;
-    virtual void resizeGL(int w, int h) override ;
-    virtual void paintGL() override ;
+    virtual void initializeGL() ;
+    virtual void resizeGL(int w, int h) ;
+    virtual void paintGL() ;
 
     void getMouseBeam(const int & mouseX, const int & mouseY, point3 * start, point3 * direction )const;
-    virtual void mousePressEvent(QMouseEvent *event) override;
-    virtual void mouseMoveEvent(QMouseEvent *event) override;
-    virtual void mouseReleaseEvent(QMouseEvent *event) override;
-    virtual void wheelEvent ( QWheelEvent * event ) override;
-
 
     Patronus::Camera * _camInUse;
-    QPoint _prevMousePos;
     GLuint _VAO;
     std::string _shaderId;
     GLuint _ColorTextureObject;

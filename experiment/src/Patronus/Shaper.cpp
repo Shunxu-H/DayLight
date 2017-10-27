@@ -1,9 +1,11 @@
-#include <QDebug>
+
 #include <fstream>
 #include <experimental/filesystem>
 #include <iostream>
 #include <climits>
-#include <QGLWidget>
+
+
+#include <opencv2/opencv.hpp>
 
 #include "GL_include.h"
 #include "Utility.h"
@@ -20,7 +22,8 @@
 #include "Extern.h"
 
 
-namespace Patronus {
+using namespace Patronus;
+
 Lumos::Material* Shaper::default_material   = new Lumos::Material();
 std::vector< point3 > Shaper::global_vertices = std::vector< point3 >();
 std::vector< point3 > Shaper::global_normal_vertices{};
@@ -199,7 +202,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
 
     for ( const tinyobj::material_t & m : materials ){
         Lumos::Material * newMaterial = new Lumos::Material;
-        newMaterial->texture =  QGLWidget::convertToGLFormat( QImage((curDir + "/" + m.diffuse_texname).c_str() ) );
+        newMaterial->texture =  cv::imread((curDir + "/" + m.diffuse_texname).c_str());
         newMaterial->id = m.name;
         newMaterial->diffuseColor = color4( m.diffuse[0], m.diffuse[1], m.diffuse[2], 1.0f ) ;
         newMaterial->reflexitivity = m.shininess;
@@ -272,7 +275,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
 
 void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const GLint & wrapMode ){
 
-    if (m->texture.isNull())
+    if (m->texture.empty())
     {
         _materials.push_back(m);
         return;
@@ -288,12 +291,12 @@ void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const 
     glTexImage2D(GL_TEXTURE_2D,
                  0,
                  m->getBitmapFormat(),
-                 (GLsizei)m->texture.width(),
-                 (GLsizei)m->texture.height(),
+                 (GLsizei)m->texture.cols,
+                 (GLsizei)m->texture.rows,
                  0,
                  m->getBitmapFormat(),
                  GL_UNSIGNED_BYTE,
-                 m->texture.bits());
+                 m->texture.data);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     _materials.push_back(m);
@@ -364,4 +367,3 @@ std::vector<Lumos::Instance> Shaper::getAllInstance(){
 }
 */
 
-}

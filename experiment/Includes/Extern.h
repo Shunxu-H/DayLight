@@ -14,7 +14,6 @@ extern Lumos::Program *gProgram;
 extern WindowManager * winMan;
 extern Patronus::PhysicalWorld * world;
 extern Lumos::Instance * selectedInstance;
-extern QSurfaceFormat * global_format;
 extern std::string SCENE_FILE_DIR;
 extern std::string TEXTURE_DIR;
 extern std::string CAMERA_DIR;

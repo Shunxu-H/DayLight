@@ -2,7 +2,7 @@
 	#define CONFIG_H
 
 #include "Color.h"
-class Mesh;
+
 
 const int INITIAL_WIN_SIZE[] = {500, 500};
 

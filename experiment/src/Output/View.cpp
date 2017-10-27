@@ -14,8 +14,7 @@
 #include "Extern.h"
 
 
-View::View(QWidget *parent, const std::shared_ptr<Patronus::Camera> & cam, const std::string & shaderId )
-    : QOpenGLWidget(parent)
+View::View(const std::shared_ptr<Patronus::Camera> & cam, const std::string & shaderId )
     , _VAO( 0 )
     , _shaderId( shaderId )
     , _ColorTextureObject( 0 )

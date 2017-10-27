@@ -6,7 +6,7 @@
 #include "Extern.h"
 
 
-namespace Patronus {
+using namespace Patronus;
 
 
 Mesh::~Mesh(){
@@ -260,4 +260,3 @@ private:
 
 };
 */
-}

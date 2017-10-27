@@ -11,10 +11,12 @@
 #endif
 #define GLM_FORCE_RADIANS
 //#include <QOpenGLFunctions_4_5_Core>
-//#include <GL/gl.h>
-#include <QOpenGLFunctions>
+#define GL_GLEXT_PROTOTYPES
+#include <GL/gl.h>
 #include <glm/glm.hpp>
+#include <GL/glext.h>
 #include <glm/gtc/matrix_transform.hpp>
+
 #endif
 
 typedef glm::vec4 point4;

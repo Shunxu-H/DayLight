@@ -1,0 +1,1 @@
+/usr/bin/c++    -lGLESv2 -g   CMakeFiles/target_name.dir/main.cpp.o  -o target_name -rdynamic 
