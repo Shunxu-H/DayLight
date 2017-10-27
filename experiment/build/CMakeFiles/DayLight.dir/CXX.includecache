@@ -126,36 +126,6 @@ GL_include.h
 opencv2/opencv.hpp
 -
 
-.././Includes/OpenGlOffscreenSurface.h
-QtCore/QObject
--
-QtGui/QScreen
--
-QtGui/QOffscreenSurface
--
-QtGui/QPaintEvent
--
-QtGui/QResizeEvent
--
-QtGui/QOpenGLPaintDevice
--
-QtGui/QOpenGLFunctions
--
-QtGui/QOpenGLFunctions_3_0
--
-QtGui/QOpenGLFramebufferObject
--
-QtGui/QSurfaceFormat
--
-QtWidgets/QWidget
--
-QOpenGLShaderProgram
--
-atomic
--
-mutex
--
-
 .././Includes/PhysicalWorld.h
 vector
 -
@@ -187,10 +157,6 @@ Instance.h
 .././Includes/Instance.h
 ArrayBuffer.h
 .././Includes/ArrayBuffer.h
-
-.././Includes/Renderer.h
-OpenGlOffscreenSurface.h
-.././Includes/OpenGlOffscreenSurface.h
 
 .././Includes/Shader.h
 vector
@@ -449,26 +415,20 @@ Extern.h
 /home/shunxu/QtProj/DayLight/experiment/src/Output/Extern.h
 
 /home/shunxu/QtProj/DayLight/experiment/src/Output/View.cpp
-QDebug
--
-QMouseEvent
--
-QGLWidget
--
 cmath
 -
 experimental/filesystem
 -
 fstream
 -
+GL_include.h
+/home/shunxu/QtProj/DayLight/experiment/src/Output/GL_include.h
 View.h
 /home/shunxu/QtProj/DayLight/experiment/src/Output/View.h
 Utility.h
 /home/shunxu/QtProj/DayLight/experiment/src/Output/Utility.h
 Camera.h
 /home/shunxu/QtProj/DayLight/experiment/src/Output/Camera.h
-Renderer.h
-/home/shunxu/QtProj/DayLight/experiment/src/Output/Renderer.h
 Extern.h
 /home/shunxu/QtProj/DayLight/experiment/src/Output/Extern.h
 
