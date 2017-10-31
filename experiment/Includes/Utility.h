@@ -62,7 +62,7 @@ namespace Utils {
 
     bool contain(int* a, const int & num2Check, const unsigned int & len);
 
-    int numOfSlotFilled(int* a, const int& len);
+    int numOfSlotFilled(int* a, const size_t& len);
 
     std::shared_ptr<int> generateUniqeInt(const int& numOfE);
 

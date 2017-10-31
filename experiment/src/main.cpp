@@ -4,6 +4,7 @@
 
 #include <opencv2/opencv.hpp>
 
+
 #include <EGL/egl.h>
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
@@ -11,6 +12,23 @@
 #include <GL/glx.h>
 #include <GL/glu.h>
 #include "WindowManager.h"
+
+#include "Shaper.h"
+#include "Program.h"
+#include "WindowManager.h"
+#include "PhysicalWorld.h"
+#include "Instance.h"
+#include "Config.h"
+#include "Utility.h"
+Config progConfig;
+Patronus::Shaper * shaper = nullptr;
+Lumos::Program * gProgram = nullptr;
+WindowManager * winMan = nullptr;
+Patronus::PhysicalWorld * world = nullptr;
+Lumos::Instance * selectedInstance = nullptr;
+std::string SCENE_FILE_DIR = "./scene_file/";
+std::string TEXTURE_DIR = "./scene_file/texture/ut/";
+std::string CAMERA_DIR = "./cameras/";
 
 static const EGLint configAttribs[] = {
       EGL_SURFACE_TYPE, EGL_PBUFFER_BIT,
@@ -37,59 +55,6 @@ GLuint _ColorTextureObject = 0;
 GLuint _DepthTextureObject = 0;
 
 
-void logOpenGLError(const std::string & sourceFile ){
-
-        // check OpenGL error
-    GLenum err;
-    while ((err = glGetError()) != GL_NO_ERROR) {
-        std::stringstream o;
-        switch(err) {
-            case GL_NO_ERROR:
-                return;
-                break;
-            case GL_INVALID_ENUM:
-                o <<"OpenGL Error in "<<sourceFile<<" at line "<<": Invalid enum!"<< std::endl;
-                throw std::runtime_error(o.str());
-                break;
-
-            case GL_INVALID_VALUE:
-                o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Invalid value!"<< std::endl;
-                throw std::runtime_error(o.str());
-                break;
-
-            case GL_INVALID_OPERATION:
-                o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Invalid operation!"<< std::endl;
-                throw std::runtime_error(o.str());
-                break;
-
-            case GL_STACK_OVERFLOW:
-                o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Stack overflow!"<< std::endl;
-                throw std::runtime_error(o.str());
-                break;
-
-            case GL_STACK_UNDERFLOW:
-                o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Stack underflow!"<< std::endl;
-                throw std::runtime_error(o.str());
-                break;
-
-            case GL_OUT_OF_MEMORY:
-                o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Out Of memory!"<< std::endl;
-                throw std::runtime_error(o.str());
-                break;
-
-            case GL_TABLE_TOO_LARGE:
-                o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Table too large!"<< std::endl;
-                throw std::runtime_error(o.str());
-                break;
-
-            default:
-                o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Unknown error!"<< std::endl;
-                throw std::runtime_error(o.str());
-                break;
-        }
-    }
-}
-
 void screenshot(const std::string & fileName){
     cv::Mat img(pbufferWidth, pbufferHeight, CV_8UC4);
     glPixelStorei(GL_PACK_ALIGNMENT, (img.step & 3)?1:4);
@@ -109,23 +74,23 @@ void screenshot(const std::string & fileName){
 }
 
 void DrawAQuad() {
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(-1., 1., -1., 1., 1., 20.);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-1., 1., -1., 1., 1., 20.);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(0., 0., 10., 0., 0., 0., 0., 1., 0.);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(0., 0., 10., 0., 0., 0., 0., 1., 0.);
 
-	glBegin(GL_QUADS);
-	glColor3f(1., 0., 0.); glVertex3f(-.75, -.75, 0.);
-	glColor3f(0., 1., 0.); glVertex3f( .75, -.75, 0.);
-	glColor3f(0., 0., 1.); glVertex3f( .75,  .75, 0.);
-	glColor3f(1., 1., 0.); glVertex3f(-.75,  .75, 0.);
-	glEnd();
+    glBegin(GL_QUADS);
+    glColor3f(1., 0., 0.); glVertex3f(-.75, -.75, 0.);
+    glColor3f(0., 1., 0.); glVertex3f( .75, -.75, 0.);
+    glColor3f(0., 0., 1.); glVertex3f( .75,  .75, 0.);
+    glColor3f(1., 1., 0.); glVertex3f(-.75,  .75, 0.);
+    glEnd();
 
 } 
 
@@ -143,7 +108,7 @@ void makeFrameBuffer(){
     glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
     std::cout << FBO << std::endl;
-    logOpenGLError("genbuffer");
+    Utils::logOpenGLError("genbuffer");
 
     glEnable(GL_DEPTH_TEST);
 
@@ -151,7 +116,7 @@ void makeFrameBuffer(){
     glEnable(GL_POLYGON_OFFSET_FILL);
     glPolygonOffset(1, 0);
 
-    logOpenGLError("Inside");
+    Utils::logOpenGLError("Inside");
     // create a RGBA color texture
 
     glGenTextures(1, &_ColorTextureObject);
@@ -174,9 +139,9 @@ void makeFrameBuffer(){
 
 
     // attach color
-    logOpenGLError("Inside2");
+    Utils::logOpenGLError("Inside2");
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _ColorTextureObject, 0);
-          logOpenGLError("Inside3");
+          Utils::logOpenGLError("Inside3");
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _DepthTextureObject, 0);
 
 
@@ -260,7 +225,7 @@ int main(int argc, char *argv[])
 
   // from now on use your OpenGL context
   makeFrameBuffer();
-  logOpenGLError("here");
+  Utils::logOpenGLError("here");
   
   GLint drawFboId = 0, readFboId = 0;
   glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawFboId);
@@ -271,7 +236,7 @@ int main(int argc, char *argv[])
   glViewport(0, 0, pbufferWidth, pbufferHeight);
   std::cout << pbufferWidth << " " << pbufferHeight << std::endl;
   DrawAQuad();
-  logOpenGLError("here2");
+  Utils::logOpenGLError("here2");
   screenshot("screenshot.png");
 
   

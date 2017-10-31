@@ -1,4 +1,3 @@
-#include <QDebug>
 #include "Instance.h"
 #include "View.h"
 #include "Utility.h"
@@ -59,7 +58,6 @@ void Instance::loadAttribsAndUniform() const {
     }
 
     // load uniform
-    GLuint uniformId;
     if( gProgram->hasUniform("inverseModel") )
         gProgram->setUniform( "inverseModel" , getInverseModelMatrix() );
     Utils::logOpenGLError();
@@ -164,7 +162,7 @@ void Instance::renderBoundngBox( const View & view ) const{
     glm::mat4 transform =  glm::translate(glm::mat4(1), center)* glm::scale(glm::mat4(1), size);
 
     gProgram->setUniform("ModelViewProjectionMatrix",
-                         view.getCamInUse()->getProjectionMatrix(static_cast<float>(view.width())/static_cast<float>(view.height()) )*
+                         view.getCamInUse()->getProjectionMatrix(static_cast<float>(view.getWidth())/static_cast<float>(view.getHeight()) )*
                          view.getCamInUse()->getPerspectiveMatrix()*
                          getModelMatrix()*
                          transform);

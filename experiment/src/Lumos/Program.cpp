@@ -1,6 +1,7 @@
 #include <stdexcept>
 #include <vector>
 #include <experimental/filesystem>
+#include "GL_include.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Program.h"
@@ -113,7 +114,11 @@ void Program::loadShaders( const std::string & GLSL_path ){
         if ( status == GL_FALSE ){
             std::string msg("Program/Shader linking failure: ");
 
-            GLint infoLogLength;
+            GLint infoLogLength = 0;
+            glGetProgramiv( _glObjId,
+                            GL_INFO_LOG_LENGTH,
+                            &infoLogLength);
+
             char* strInfoLog = new char[infoLogLength + 1];
             glGetProgramInfoLog( getObjId(), GL_INFO_LOG_LENGTH, nullptr, strInfoLog );
             msg += strInfoLog;

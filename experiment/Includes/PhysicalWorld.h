@@ -21,9 +21,8 @@ namespace Patronus {
 
         /**
          * @brief loadInstance, load one instance in the physical world, make it interactable in the world
-         * @return if the object is successully loaded
          */
-        bool loadInstance( Patronus::Mesh & mesh );
+        void loadInstance( Patronus::Mesh & mesh );
 
 
         void setDebugView(View_bullet * debugView);

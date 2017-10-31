@@ -29,7 +29,4 @@ Config::Config()
 	
 }
 
-
-bool Config::isValidSelection(){
-    //return shader->nGetGeo(curSelected) != nullptr;
-}		
+	

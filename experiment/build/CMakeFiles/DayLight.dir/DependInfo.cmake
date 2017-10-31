@@ -6,7 +6,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/shunxu/QtProj/DayLight/experiment/src/Internal/Camera.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Internal/Camera.cpp.o"
   "/home/shunxu/QtProj/DayLight/experiment/src/Internal/Face.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Internal/Face.cpp.o"
-  "/home/shunxu/QtProj/DayLight/experiment/src/Internal/OpenGlOffscreenSurface.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Internal/OpenGlOffscreenSurface.cpp.o"
   "/home/shunxu/QtProj/DayLight/experiment/src/Internal/PhysicalWorld.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Internal/PhysicalWorld.cpp.o"
   "/home/shunxu/QtProj/DayLight/experiment/src/Internal/btDebugDrawer.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Internal/btDebugDrawer.cpp.o"
   "/home/shunxu/QtProj/DayLight/experiment/src/Lumos/ArrayBuffer.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Lumos/ArrayBuffer.cpp.o"
@@ -15,7 +14,6 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/shunxu/QtProj/DayLight/experiment/src/Lumos/ModelAsset.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Lumos/ModelAsset.cpp.o"
   "/home/shunxu/QtProj/DayLight/experiment/src/Lumos/Program.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Lumos/Program.cpp.o"
   "/home/shunxu/QtProj/DayLight/experiment/src/Lumos/Shader.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Lumos/Shader.cpp.o"
-  "/home/shunxu/QtProj/DayLight/experiment/src/Output/Renderer.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Output/Renderer.cpp.o"
   "/home/shunxu/QtProj/DayLight/experiment/src/Output/View.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Output/View.cpp.o"
   "/home/shunxu/QtProj/DayLight/experiment/src/Output/View_bullet.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Output/View_bullet.cpp.o"
   "/home/shunxu/QtProj/DayLight/experiment/src/Output/View_renderer.cpp" "/home/shunxu/QtProj/DayLight/experiment/build/CMakeFiles/DayLight.dir/src/Output/View_renderer.cpp.o"
@@ -33,7 +31,6 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  ".././includes"
   ".././Includes"
   "/usr/local/include/bullet"
   "/usr/local/include"

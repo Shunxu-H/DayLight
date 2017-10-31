@@ -1,4 +1,3 @@
-#include <QPoint>
 #include <experimental/filesystem>
 #include <fstream>
 #include <sstream>
@@ -56,22 +55,22 @@ void Camera::loadCamerasFromDir( const std::string & dir ){
 
 
 
-Camera::Camera(const std::string& camId,
-               const CameraType & type,
-               const float      & fov,
-               const float      & near,
-               const float      & far,
-               const point3     & pos,
-               const glm::vec3  & up,
-               const glm::vec3  & at)
-    :_camId( camId )
-    ,Transformable( pos )
+Camera::Camera( const std::string& camId ,
+                const CameraType & type  ,
+                const glm::vec3  & up    ,
+                const glm::vec3  & at    ,
+                const float      & fov   ,
+                const float      & near  ,
+                const float      & far   ,
+                const point3     & pos   )
+    :Transformable( pos )
+    ,_camId( camId )
     ,_type( type )
+    ,_up( up )
+    ,_at( at )
     ,_fov( fov )
     ,_near( near )
     ,_far( far )
-    ,_up( up )
-    ,_at( at )
 {
    if (camId.size() == 0)
        throw std::runtime_error("Camera must be assigned an Id");
@@ -86,7 +85,6 @@ Camera::~Camera(){
 
 void Camera::loadUniforms( const unsigned int & width, const unsigned int & height ) const{
 
-    GLuint uniformId;
     if (gProgram->hasUniform("camera"))
         gProgram->setUniform("camera", getPerspectiveMatrix());
     if (gProgram->hasUniform("cameraPosition"))

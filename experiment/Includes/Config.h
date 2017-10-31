@@ -110,7 +110,7 @@ struct Config
     color4 COLOR_HIGHTLIGHTED_VERTEX;
 
 	Config();
-	bool isValidSelection();
+	
 };
 
 

@@ -23,7 +23,6 @@ namespace Lumos {
         }
         void loadUniforms() const;
 
-        GLenum getBitmapFormat();
     };
 
     struct MaterialPack{

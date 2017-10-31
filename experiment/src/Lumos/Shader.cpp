@@ -6,7 +6,6 @@
 
 #include "Extern.h"
 
-#include <QDebug>
 #include <cstdio>
 
 

@@ -78,8 +78,8 @@ Lumos::Instance* Mesh::instantiate_sequentialDraw ( ){
     _loadTexCoordToBuffer();
 
 
-    // get Material
-    Lumos::Material* m = _material == nullptr? shaper->default_material : _material;
+    // // get Material
+    // Lumos::Material* m = _material == nullptr? shaper->default_material : _material;
 
 
     // get model Asset

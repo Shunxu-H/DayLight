@@ -1,4 +1,4 @@
-#include <QDebug>
+#include <iostream>
 #include "btBulletDynamicsCommon.h"
 #include "PhysicalWorld.h"
 #include "Mesh.h"
@@ -195,7 +195,7 @@ void PhysicalWorld::draw(){
 
 
 
-bool PhysicalWorld::loadInstance( Patronus::Mesh & mesh ){
+void PhysicalWorld::loadInstance( Patronus::Mesh & mesh ){
     Lumos::Instance * newI = mesh.instantiate_sequentialDraw();
     std::string name = Utils::genUniqueName(
                 _names,
@@ -254,7 +254,7 @@ Lumos::Instance * PhysicalWorld::selectWithBean( const btVector3 & start, const 
         std::cout << "Hit instance " + reinterpret_cast<Lumos::Instance*>(RayCallback.m_collisionObject->getUserPointer())->getId() << std::endl;
         return reinterpret_cast<Lumos::Instance*>(RayCallback.m_collisionObject->getUserPointer());
     }else{
-        qDebug() << "Hit background";
+        std::cout << "Hit background" << std::endl;
         return nullptr;
     }
 

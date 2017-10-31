@@ -1,7 +1,6 @@
 #include "GL_include.h"
 #include "btDebugDrawer.h"
-
-#include <stdio.h> //printf debugging
+#include <iostream>
 
 GLDebugDrawer::GLDebugDrawer()
 :m_debugMode(0)
@@ -47,9 +46,9 @@ void GLDebugDrawer::draw3dText(const btVector3& location,const char* textString)
     glPopMatrix();
 }
 
-void GLDebugDrawer::reportErrorWarning(const char* warningString)
+void GLDebugDrawer::reportErrorWarning(const char *warningString)
 {
-   printf(warningString);
+   std::cout << warningString << std::endl;
 }
 
 void GLDebugDrawer::drawContactPoint(const btVector3& pointOnB,const btVector3& normalOnB,btScalar distance,int lifeTime,const btVector3& color)

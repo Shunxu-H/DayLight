@@ -20,9 +20,9 @@ class View
 {
 public:
     View(
-        const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
-        const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
-         );
+         const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
+         const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
+        );
 
     //View(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
     virtual ~View(){}
@@ -48,11 +48,21 @@ public:
     void sendTextureRequest();
     void loadAttribsAndUniform() const;
     void getColorAndDepthTexture();
+
+    inline size_t 
+    getWidth() const { return _width; }
+    inline  void
+    setWidth( const size_t & w) {  _width = w; }
+    inline size_t 
+    getHeight() const { return _height; }
+    inline  void
+    setHeight( const size_t & h) {  _height = h; }
 protected:
 
     virtual void initializeGL() ;
     virtual void resizeGL(int w, int h) ;
     virtual void paintGL() ;
+
 
     void getMouseBeam(const int & mouseX, const int & mouseY, point3 * start, point3 * direction )const;
 
@@ -63,7 +73,8 @@ protected:
     GLuint _DepthTextureObject;
     std::vector< Lumos::Instance * > _visibles;
     bool _isRequestingTexture;
-    Renderer * _renderer;
+    size_t _width;
+    size_t _height;
 private:
     friend class WindowManager;
 

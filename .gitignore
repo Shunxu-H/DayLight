@@ -1,6 +1,21 @@
 # Prerequisites
 *.d
 
+# CMAKE GENERATED FILES
+*/CMakeFiles/*
+*/CMakeCache.txt
+CMakeScripts
+Testing
+*/Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+
+# Image files
+*.png
+*.jpg
+
 # Obj file
 *.obj
 *.mtl

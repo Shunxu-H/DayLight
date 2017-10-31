@@ -1,47 +1,35 @@
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 project( DayLight )
 
 # The version number.
-set (Tutorial_VERSION_MAJOR 1)
-set (Tutorial_VERSION_MINOR 0)
+set ( DayLight_VERSION_MAJOR 1)
+set ( DayLight_VERSION_MINOR 0)
 
-
-include_directories(./includes/)
-
-# add_subdirectory(src)
-
-find_path(EGL_INCLUDE_DIR
-  NAMES
-    EGL/egl.h
-  PATHS
-    ${EGL_ROOT_DIR}/include
-    /usr/local/include
-    /usr/include)
-
-find_library(EGL_LIBRARY
-  NAMES
-    EGL
-  PATHS
-    ${EGL_ROOT_DIR}/lib
-    /usr/local/lib
-    /usr/lib)
+# set warnig option
+if ( CMAKE_COMPILER_IS_GNUCC )
+    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -Werror")
+endif ( CMAKE_COMPILER_IS_GNUCC )
+if ( MSVC )
+    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} /W4")
+endif ( MSVC )
 
 
 
-
+# Check for standard to use
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(EGL_LIBRARIES ${EGL_LIBRARY} )
 set(CMAKE_BUILD_TYPE Debug)
 
 
-SET(GCC_COVERAGE_COMPILE_FLAGS "-lGLESv2 -std=c++1z -lstdc++fs -lBulletDynamics -lBulletCollision -lLinearMath")
-
-
 find_path(EGL_INCLUDE_DIR NAMES EGL/egl.h)
 
 SET( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
-set(EGL_NAMES ${EGL_NAMES} egl EGL)
+SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}" )
+set( EGL_NAMES ${EGL_NAMES} egl EGL)
 find_library(EGL_LIBRARY NAMES ${EGL_NAMES})
 
 include(FindPackageHandleStandardArgs)
@@ -55,6 +43,7 @@ find_package( X11 REQUIRED)
 # find_package( glfw3 REQUIRED)
 find_package( GLEW REQUIRED)
 find_package( GLUT REQUIRED)
+find_package( Bullet REQUIRED)
 
 # find_package( BGM REQUIRED)
 
@@ -77,8 +66,14 @@ add_executable (DayLight ${DayLight_SOURCES})
 target_include_directories(DayLight PRIVATE ${DayLight_INCLUDE_DIRS})
 target_include_directories(DayLight PRIVATE ./Includes)
 target_include_directories(DayLight PUBLIC /usr/local/include/bullet/ )
+# target_link_libraries(DayLight
+#     ${CMAKE_CURRENT_SOURCE_DIR}/bullet/BulletDynamics/libBulletDynamics.a
+#     ${CMAKE_CURRENT_SOURCE_DIR}/bullet/BulletCollision/libBulletCollision.a
+#     ${CMAKE_CURRENT_SOURCE_DIR}/bullet/LinearMath/libLinearMath.a
+#     -lGL -lGLU)
 
-
+target_link_libraries( DayLight stdc++fs)
+target_link_libraries( DayLight ${BULLET_LIBRARIES} )
 
 target_link_libraries( DayLight ${OpenCV_LIBS} )
 target_link_libraries( DayLight ${OPENGL_LIBRARIES} )

@@ -48,7 +48,7 @@ namespace Utils {
         return false;
     }
 
-    int numOfSlotFilled(int* a, const int& len){
+    int numOfSlotFilled(int* a, const size_t & len){
         int ret = 0;
         for (unsigned int i = 0; i < len; i++ )
             if (a[i] != -1)
@@ -141,7 +141,6 @@ namespace Utils {
             std::string curName = prefix + std::to_string(i);
             if (nameList.find(curName) != nameList.end()){ // name exist
                 i++;
-                break;
             }
             else
                 return curName;

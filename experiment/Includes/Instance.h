@@ -19,9 +19,10 @@ namespace Lumos {
 
     class Instance: public Patronus::Transformable{
     public:
-        Instance( Patronus::Mesh * meshPtr = nullptr,
+        Instance( 
+                  Patronus::Mesh * meshPtr = nullptr,
                   const ModelAsset & asset = ModelAsset()
-                  );
+                );
 
         //virtual ~Instance(){}
 
@@ -66,8 +67,8 @@ namespace Lumos {
     protected:
 
     private:
-        ModelAsset _asset;
         Patronus::Mesh * _meshPtr;
+        ModelAsset _asset;
         std::string _id;
         btRigidBody * _rigidBody;
         color3 _pickingColor;

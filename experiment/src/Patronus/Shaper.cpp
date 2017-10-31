@@ -160,13 +160,15 @@ void Shaper::getBoundingSphere(const std::vector< point3 > & points, point3 * po
 bool Shaper::loadFile( const std::string & fileName ){
     namespace fs = std::experimental::filesystem ;
     fs::path p(fileName);
-    if( p.empty() )
+    if( p.empty() ){
         std::cerr << "Input file invalid " << std::endl;
+        return false;
+    }
 
     if ( std::string( p.extension() ).compare( ".obj" ) == 0 )
-        _loadFile_obj( fileName );
+        return _loadFile_obj( fileName );
 
-
+    return false;
 }
 
 bool Shaper::_loadFile_obj(const std::string & f_name){
@@ -184,11 +186,11 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
     bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, f_name.c_str(), curDir.c_str(), true);
 
     if (!err.empty()) { // `err` may contain warning message.
-      std::cerr << err << std::endl;
+        std::cerr << err << std::endl;
     }
 
     if (!ret) {
-      exit(1);
+        exit(1);
     }
 
     assert(attrib.vertices.size() % 3 == 0 && attrib.normals.size() % 3 == 0 && attrib.texcoords.size() % 2 == 0 );
@@ -240,7 +242,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
 
             int fv = shapes[s].mesh.num_face_vertices[f];
             // Loop over vertices in the face.
-            for (size_t v = 0; v < fv; v++) {
+            for (int v = 0; v < fv; v++) {
                 // access to vertex
                 tinyobj::index_t idx = shapes[s].mesh.indices[index_offset + v];
 
@@ -249,8 +251,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
                 float vz = attrib.vertices[3*idx.vertex_index+2];
                 updateMax(point3(vx, vy, vz));
                 updateMin(point3(vx, vy, vz));
-                if(idx.normal_index < 0 || idx.normal_index > global_normal_vertices.size() )
-                    int a = 1;
+                
                 newFace.addVertexIndex(idx.vertex_index);
                 newFace.addNormalIndex(idx.normal_index);
                 newFace.addUvIndex(idx.texcoord_index);
@@ -270,6 +271,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
         newMesh.setMinPos(min);
         _shapes.push_back(newMesh);
     }
+    return true;
 }
 
 
@@ -288,15 +290,16 @@ void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, minMagFiler);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
-    glTexImage2D(GL_TEXTURE_2D,
-                 0,
-                 m->getBitmapFormat(),
-                 (GLsizei)m->texture.cols,
-                 (GLsizei)m->texture.rows,
-                 0,
-                 m->getBitmapFormat(),
-                 GL_UNSIGNED_BYTE,
-                 m->texture.data);
+    assert(false); // fix fotmat 
+    // glTexImage2D(GL_TEXTURE_2D,
+    //              0,
+    //              m->getBitmapFormat(),
+    //              (GLsizei)m->texture.cols,
+    //              (GLsizei)m->texture.rows,
+    //              0,
+    //              m->getBitmapFormat(),
+    //              GL_UNSIGNED_BYTE,
+    //              m->texture.data);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     _materials.push_back(m);
@@ -304,7 +307,6 @@ void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const 
 
 void Shaper::loadAttribsAndUniform() const {
 
-    GLuint uniformId;
     if (gProgram->hasUniform("light.position"))
         gProgram->setUniform("light.position", getDefaultLight().getTranslate() );
     if (gProgram->hasUniform("light.intensities"))

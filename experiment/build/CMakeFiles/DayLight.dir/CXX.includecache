@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -273,8 +273,6 @@ sstream
 -
 
 /home/shunxu/QtProj/DayLight/experiment/src/Internal/Camera.cpp
-QPoint
--
 experimental/filesystem
 -
 fstream
@@ -296,18 +294,8 @@ Extern.h
 Face.h
 /home/shunxu/QtProj/DayLight/experiment/src/Internal/Face.h
 
-/home/shunxu/QtProj/DayLight/experiment/src/Internal/OpenGlOffscreenSurface.cpp
-OpenGlOffscreenSurface.h
-/home/shunxu/QtProj/DayLight/experiment/src/Internal/OpenGlOffscreenSurface.h
-QtCore/QCoreApplication
--
-QtGui/QPainter
--
-Extern.h
-/home/shunxu/QtProj/DayLight/experiment/src/Internal/Extern.h
-
 /home/shunxu/QtProj/DayLight/experiment/src/Internal/PhysicalWorld.cpp
-QDebug
+iostream
 -
 btBulletDynamicsCommon.h
 /home/shunxu/QtProj/DayLight/experiment/src/Internal/btBulletDynamicsCommon.h
@@ -325,7 +313,7 @@ GL_include.h
 /home/shunxu/QtProj/DayLight/experiment/src/Internal/GL_include.h
 btDebugDrawer.h
 /home/shunxu/QtProj/DayLight/experiment/src/Internal/btDebugDrawer.h
-stdio.h
+iostream
 -
 
 /home/shunxu/QtProj/DayLight/experiment/src/Lumos/ArrayBuffer.cpp
@@ -343,8 +331,6 @@ Countable.h
 /home/shunxu/QtProj/DayLight/experiment/src/Lumos/Countable.h
 
 /home/shunxu/QtProj/DayLight/experiment/src/Lumos/Instance.cpp
-QDebug
--
 Instance.h
 /home/shunxu/QtProj/DayLight/experiment/src/Lumos/Instance.h
 View.h
@@ -369,6 +355,8 @@ vector
 -
 experimental/filesystem
 -
+GL_include.h
+/home/shunxu/QtProj/DayLight/experiment/src/Lumos/GL_include.h
 glm/gtc/matrix_transform.hpp
 -
 glm/gtc/type_ptr.hpp
@@ -393,26 +381,8 @@ GL_include.h
 /home/shunxu/QtProj/DayLight/experiment/src/Lumos/GL_include.h
 Extern.h
 /home/shunxu/QtProj/DayLight/experiment/src/Lumos/Extern.h
-QDebug
--
 cstdio
 -
-
-/home/shunxu/QtProj/DayLight/experiment/src/Output/Renderer.cpp
-QPainter
--
-Renderer.h
-/home/shunxu/QtProj/DayLight/experiment/src/Output/Renderer.h
-GL_include.h
-/home/shunxu/QtProj/DayLight/experiment/src/Output/GL_include.h
-Camera.h
-/home/shunxu/QtProj/DayLight/experiment/src/Output/Camera.h
-Utility.h
-/home/shunxu/QtProj/DayLight/experiment/src/Output/Utility.h
-View.h
-/home/shunxu/QtProj/DayLight/experiment/src/Output/View.h
-Extern.h
-/home/shunxu/QtProj/DayLight/experiment/src/Output/Extern.h
 
 /home/shunxu/QtProj/DayLight/experiment/src/Output/View.cpp
 cmath
@@ -455,8 +425,16 @@ iostream
 -
 ctime
 -
+opencv2/opencv.hpp
+-
+EGL/egl.h
+-
+GL_include.h
+/home/shunxu/QtProj/DayLight/experiment/src/Output/GL_include.h
 WindowManager.h
 /home/shunxu/QtProj/DayLight/experiment/src/Output/WindowManager.h
+Shaper.h
+/home/shunxu/QtProj/DayLight/experiment/src/Output/Shaper.h
 
 /home/shunxu/QtProj/DayLight/experiment/src/Patronus/Light.cpp
 GL_include.h
@@ -517,8 +495,6 @@ iostream
 -
 Color.h
 /home/shunxu/QtProj/DayLight/experiment/src/Utility/Color.h
-QDebug
--
 
 /home/shunxu/QtProj/DayLight/experiment/src/Utility/Config.cpp
 cstring
@@ -571,6 +547,20 @@ GL/glu.h
 -
 WindowManager.h
 /home/shunxu/QtProj/DayLight/experiment/src/WindowManager.h
+Shaper.h
+/home/shunxu/QtProj/DayLight/experiment/src/Shaper.h
+Program.h
+/home/shunxu/QtProj/DayLight/experiment/src/Program.h
+WindowManager.h
+/home/shunxu/QtProj/DayLight/experiment/src/WindowManager.h
+PhysicalWorld.h
+/home/shunxu/QtProj/DayLight/experiment/src/PhysicalWorld.h
+Instance.h
+/home/shunxu/QtProj/DayLight/experiment/src/Instance.h
+Config.h
+/home/shunxu/QtProj/DayLight/experiment/src/Config.h
+Utility.h
+/home/shunxu/QtProj/DayLight/experiment/src/Utility.h
 
 /usr/local/include/bullet/BulletCollision/BroadphaseCollision/btAxisSweep3.h
 LinearMath/btVector3.h

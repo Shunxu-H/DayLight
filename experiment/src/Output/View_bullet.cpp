@@ -51,7 +51,7 @@ void  View_bullet::drawLine(const btVector3& from,const btVector3& to,const btVe
                     };
 
     gProgram->setUniform("ModelViewProjectionMatrix",
-                         getCamInUse()->getProjectionMatrix(static_cast<float>(width())/static_cast<float>(height()) )*
+                         getCamInUse()->getProjectionMatrix(static_cast<float>(_width)/static_cast<float>(_height) )*
                          getCamInUse()->getPerspectiveMatrix());
 
     gProgram->setUniform("color", color3(color.x(), color.y(), color.z()));
@@ -109,7 +109,7 @@ void View_bullet::draw3dText(const btVector3& location,const char* textString)
 
 void View_bullet::reportErrorWarning(const char* warningString)
 {
-   printf(warningString);
+   std::cerr << warningString << std::endl;
 }
 
 void View_bullet::drawContactPoint(const btVector3& pointOnB,const btVector3& normalOnB,btScalar distance,int lifeTime,const btVector3& color)

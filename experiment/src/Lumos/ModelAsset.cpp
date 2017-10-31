@@ -7,15 +7,9 @@
 using namespace Lumos;
 
 
-GLenum Material::getBitmapFormat()
-{
-
-}
-
 
 void Material::loadUniforms() const{
 
-    GLuint uniformId;
     if (gProgram->hasUniform("tex")){
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, glTexId);
@@ -26,7 +20,7 @@ void Material::loadUniforms() const{
         gProgram->setUniform("transmittance", transmittance);
     }
     if (gProgram->hasUniform("hasTexture")){
-        gProgram->setUniform("hasTexture", !texture.isNull());
+        gProgram->setUniform("hasTexture", !texture.empty());
     }
     if (gProgram->hasUniform("diffuseColor"))
         gProgram->setUniform("diffuseColor", diffuseColor );
