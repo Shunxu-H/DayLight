@@ -12,6 +12,11 @@
 #include "btBulletDynamicsCommon.h"
 class AEL;
 
+#ifndef NDEBUG
+#define Debug(x) std::cout << x
+#else
+#define Debug(x) 
+#endif 
 
 namespace Utils {
 
@@ -89,5 +94,6 @@ namespace Utils {
 
     void getAllFileWithExtension(const std::string & path, const std::string & extension, std::vector<std::experimental::filesystem::path> & all_files );
     void getAllDir(const std::string & path, std::vector<std::experimental::filesystem::path> & all_files );
+    int glExtCheckFramebufferStatus(char *errorMessage);
 }
 #endif

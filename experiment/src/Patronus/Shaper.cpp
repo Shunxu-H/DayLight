@@ -204,7 +204,11 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
 
     for ( const tinyobj::material_t & m : materials ){
         Lumos::Material * newMaterial = new Lumos::Material;
-        newMaterial->texture =  cv::imread((curDir + "/" + m.diffuse_texname).c_str());
+        if ( m.diffuse_texname.size() > 0 && std::experimental::filesystem::exists((curDir + "/" + m.diffuse_texname))){
+            cv::Mat im = cv::imread((curDir + "/" + m.diffuse_texname).c_str());
+            newMaterial->texture = im;
+            cv::flip(im, newMaterial->texture, 0);
+        }
         newMaterial->id = m.name;
         newMaterial->diffuseColor = color4( m.diffuse[0], m.diffuse[1], m.diffuse[2], 1.0f ) ;
         newMaterial->reflexitivity = m.shininess;
@@ -290,7 +294,16 @@ void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, minMagFiler);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
-    assert(false); // fix fotmat 
+    glTexImage2D(GL_TEXTURE_2D,     // Type of texture
+                     0,                 // Pyramid level (for mip-mapping) - 0 is the top level
+                     GL_RGB,            // Internal colour format to convert to
+                     m->texture.cols,          // Image width  i.e. 640 for Kinect in standard mode
+                     m->texture.rows,          // Image height i.e. 480 for Kinect in standard mode
+                     0,                 // Border width in pixels (can either be 1 or 0)
+                     GL_BGR, // Input image format (i.e. GL_RGB, GL_RGBA, GL_BGR etc.)
+                     GL_UNSIGNED_BYTE,  // Image data type
+                     m->texture.ptr()); 
+
     // glTexImage2D(GL_TEXTURE_2D,
     //              0,
     //              m->getBitmapFormat(),

@@ -1,13 +1,15 @@
 #ifndef GL_INCLUDE_H
 #define GL_INCLUDE_H
 
+#include <opencv2/opencv.hpp>
+
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #include <GLUT/glut.h>
 #else
 #ifdef _WIN32
-  #include <windows.h>
+	#include <windows.h>
 #endif
 #define GLM_FORCE_RADIANS
 //#include <QOpenGLFunctions_4_5_Core>
@@ -16,6 +18,8 @@
 #include <glm/glm.hpp>
 #include <GL/glext.h>
 #include <glm/gtc/matrix_transform.hpp>
+
+#include <GL/glx.h>
 
 #endif
 

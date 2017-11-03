@@ -7,6 +7,8 @@
 class View_bullet: public View, public btIDebugDraw{
 public:
     View_bullet(
+            const size_t & w = 500,
+            const size_t & h = 500,
             const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr )
          );
     virtual ~View_bullet(){}
@@ -26,7 +28,7 @@ public:
 
 protected:
     //virtual void initializeGL() override ;
-    virtual void resizeGL(int w, int h) override ;
+    virtual void resizeGL(const size_t & w, const size_t & h) override ;
     virtual void paintGL() override ;
 
 

@@ -10,12 +10,15 @@
 #include "Extern.h"
 
 
-View::View(const std::shared_ptr< Patronus::Camera > & cam, const std::string & shaderId )
+View::View(
+        const size_t & w,
+        const size_t & h,
+        const std::shared_ptr< Patronus::Camera > & cam, 
+        const std::string & shaderId )
     : _VAO( 0 )
     , _shaderId( shaderId )
-    , _ColorTextureObject( 0 )
-    , _DepthTextureObject( 0 )
-    , _isRequestingTexture( 0 )
+    , _width(w)
+    , _height(h)
 {
     if ( cam == nullptr )
         _camInUse = Patronus::Camera::pers;
@@ -27,256 +30,6 @@ View::View(const std::shared_ptr< Patronus::Camera > & cam, const std::string & 
     //initializeGL();
     //QOpenGLWidget::setRenderHint(QPainter::Antialiasing);
 }
-
-
-void View::getColorAndDepthTexture(){
-
-    GLuint FBO;
-
-    // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-    Utils::logOpenGLError();
-    GLint drawFboId = 0, readFboId = 0;
-    glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawFboId);
-    glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readFboId);
-
-    Utils::logOpenGLError();
-    glGenFramebuffers(1, &FBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-    Utils::logOpenGLError();
-
-    glEnable(GL_DEPTH_TEST);
-
-    // draw line and polygon together
-    glEnable(GL_POLYGON_OFFSET_FILL);
-    glPolygonOffset(1, 0);
-
-
-    // create a RGBA color texture
-
-    glGenTextures(1, &_ColorTextureObject);
-    glBindTexture(GL_TEXTURE_2D, _ColorTextureObject);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-                        _width, _height,
-                        0, GL_RGBA, GL_UNSIGNED_BYTE,
-                        NULL);
-
-    // create a depth texture
-    glGenTextures(1, &_DepthTextureObject);
-    glBindTexture(GL_TEXTURE_2D, _DepthTextureObject);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32,
-                        _width, _height,
-                        0, GL_DEPTH_COMPONENT, GL_FLOAT,
-                        NULL);
-
-
-
-    Utils::logOpenGLError();
-    // attach color
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _ColorTextureObject, 0);
-    glFramebufferTexture2D(GL_FRAMEBUFFER,  GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _DepthTextureObject, 0);
-
-
-    // Set the list of draw buffers.
-    Utils::logOpenGLError();
-
-    // check buffer status
-    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        throw std::runtime_error ( "Error! FrameBuffer is not complete" );
-
-
-
-    Utils::logOpenGLError();
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, FBO);
-
-
-    GLint drawId = 0, readId = 0;
-    glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
-    glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readId);
-
-    Utils::logOpenGLError();
-
-    GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
-    glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT  );
-    glClearColor(0,0,0,1);
-
-    Utils::logOpenGLError();
-    _camInUse->loadUniforms(_width, _height);
-    Utils::logOpenGLError();
-    shaper->loadAttribsAndUniform();
-    Lumos::Material * materialInUse = nullptr;
-    for(Lumos::Instance const * i : world->getInstances()){
-        i->renderMesh(materialInUse);
-    }
-    Utils::logOpenGLError();
-    //glViewport(0,0,width,height);
-    glFlush();
-    //glViewport(0,0,width,height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
-    Utils::logOpenGLError();
-
-
-    glBindFramebuffer(GL_READ_FRAMEBUFFER, readFboId);
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, drawFboId);
-    //glDeleteTextures(1, &DepthTextureObject);
-    glDeleteFramebuffers(1, &FBO);
-
-    Utils::logOpenGLError();
-}
-
-void View::sendTextureRequest(){
-    assert(_ColorTextureObject == 0 && _DepthTextureObject == 0);
-    _isRequestingTexture = true;
-    //repaint();
-}
-
-void View::getVisibleObjects(){
-    // color code objects
-    size_t numOfInstances = world->getInstances().size();
-    std::vector< Lumos::Instance * > worldInstances = world->getInstances();
-    // 0 is reserved for empty space
-    for (size_t instanceItr = 0; instanceItr < numOfInstances; instanceItr++){
-        // get color coded material
-        worldInstances[instanceItr]->setPickingColor( Color::toUniqueColor(instanceItr+1) / 255.0f );
-    }
-
-    std::string temp = _shaderId;
-    _shaderId = Lumos::Shader::mask_shader_id;
-    sendTextureRequest();
-    _shaderId = temp;
-
-    GLint width = 0, height = 0;
-
-    glBindTexture(GL_TEXTURE_2D, _ColorTextureObject);
-    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width);
-    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height);
-    //GLubyte * pixels = new GLubyte [width*height*4*sizeof(GLuint)];
-    GLubyte * pixels = new GLubyte [width*height*3*sizeof(GLubyte)];
-
-    Utils::logOpenGLError();
-    glGetTexImage ( GL_TEXTURE_2D,
-                    0,
-                    GL_RGB, // GL will convert to this format
-                    GL_UNSIGNED_BYTE,   // Using this data type per-pixel
-                    pixels );
-
-    std::set<int> pickedInstanceIndices;
-    for (size_t pixelItr = 0; pixelItr < static_cast<size_t>(width*height); pixelItr++){
-        size_t initPos = pixelItr*3;
-        pickedInstanceIndices.insert(Color::toUniqueInt(pixels[initPos], pixels[initPos+1], pixels[initPos+2]));
-    }
-    _visibles.clear();
-    for (const int & index: pickedInstanceIndices){
-        if ( index > 0 )
-            _visibles.push_back(worldInstances[index-1]);
-    }
-
-    glDeleteTextures(1, &_ColorTextureObject);
-    _ColorTextureObject = 0;
-}
-
-void View::generateMasks(){
-    getVisibleObjects();
-    // make everythign invisible
-    for (Lumos::Instance * ins : world->getInstances())
-    {
-        ins->turnOff();
-    }
-    std::string tempShaderId = _shaderId;
-    _shaderId = Lumos::Shader::mask_shader_id;
-    Lumos::Instance * curOn = nullptr;
-    for (Lumos::Instance * ins : _visibles)
-    {
-        if (curOn != nullptr)
-            curOn->turnOff();
-        ins->turnOn();
-        curOn = ins;
-        ins->setPickingColor(color3(1, 1, 1));
-        //repaint();
-        // QImage image = grabFramebuffer().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither );
-        // image.save( std::string( "./" + shaper->getCurFileName() + "/" + _camInUse->getId() + "/mask_" + ins->getId() + ".png" ).c_str() );
-    }
-    for (Lumos::Instance * ins : world->getInstances())
-    {
-        ins->turnOn();
-    }
-
-    _shaderId = tempShaderId;
-}
-
-void View::generateData(){
-    std::string parentDir = "./" + shaper->getCurFileName() + "/";
-    Utils::cleanAndMkdir(parentDir + _camInUse->getId());
-
-
-    generateMasks();
-    toImageFile_color( parentDir + _camInUse->getId() + "/color.png" );
-    toImageFile_depth( parentDir + _camInUse->getId() + "/depth.png");
-}
-
-
-
-
-void View::toImageFile_color( const std::string & fileName ){
-
-    //repaint();
-    // if (!grabFramebuffer().save(QString(fileName.c_str())))
-    //     throw std::runtime_error("Can't save image");
-
-}
-
-void View::toImageFile_depth( const std::string & fileName ) {
-    assert(_DepthTextureObject != 0);
-
-
-
-    glBindTexture(GL_TEXTURE_2D, _DepthTextureObject);
-    int w = 0, h = 0;
-    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &w);
-    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &h);
-
-    //unsigned int * pixels = new unsigned int [w*h*sizeof(unsigned int)];
-    //QImage image(w, h, QImage::Format_RGBA8888 );
-    Utils::logOpenGLError();
-    // glGetTexImage ( GL_TEXTURE_2D,
-    //                 0,
-    //                 GL_DEPTH_COMPONENT, // GL will convert to this format
-    //                 GL_FLOAT,   // Using this data type per-pixel
-    //                 image.bits() );
-
-    // save a binary file
-    FILE *file = fopen((fileName + ".bin").c_str(), "wb");
-    //fwrite(image.bits(), sizeof(GLfloat), w*h, file);
-    fclose(file);
-/*
-    std::ofstream toFile(fileName +  ".txt");
-    for (int i = 0; i < width() * height(); i++)
-        toFile << std::to_string(pixels[i]) << " ";
-
-    toFile.close();
-*/
-/*
-    float max = 0, min = std::numeric_limits<float>::max();
-    for (size_t i = 0; i < w*h ; i++){
-        min = std::min(pixels[i], min);
-        max = std::max(pixels[i], max );
-    }
-
-    for (size_t i = 0; i < w*h ; i++)
-        pixels[i] = (pixels[i] - min) / (max - min);
-
-    memccpy(image.bits(), pixels, w*h*sizeof(GLfloat), w*h*sizeof(GLfloat));
-*/
-
-    // if (!image.mirrored().save(fileName.c_str()))
-    //     throw std::runtime_error("Save depth image failed.");
-
-    glDeleteTextures(1, &_DepthTextureObject);
-    _DepthTextureObject = 0;
-
-}
-
 
 void View::loadAttribsAndUniform() const{
 
@@ -295,6 +48,7 @@ void View::initializeGL(){
 
     glEnable(GL_DEPTH_TEST);
 
+
     // draw line and polygon together
     glEnable(GL_POLYGON_OFFSET_FILL);
     glPolygonOffset(1, 0);
@@ -310,8 +64,9 @@ void View::initializeGL(){
 
 }
 
-void View::resizeGL(int w, int h){
-
+void View::resizeGL(const size_t & w, const size_t & h){
+    _width = w;
+    _height = h;
 }
 
 
@@ -358,30 +113,27 @@ void View::paintGL(){
 
     //shaper->getnCamera(0)->genFrameBuffer(1080, 720);
     gProgram->use();
+    glViewport(0, 0, _width, _height);
 
-    if(selectedInstance != nullptr){
-        gProgram->enableShadingPipe(Lumos::Shader::selected_instances_shader_id);
+    // if(selectedInstance != nullptr){
+    //     gProgram->enableShadingPipe(Lumos::Shader::selected_instances_shader_id);
 
-        loadAttribsAndUniform();
+    //     loadAttribsAndUniform();
 
-        glBindVertexArray(_VAO);
+    //     glBindVertexArray(_VAO);
 
-        _camInUse->loadUniforms(_width, _height);
-        shaper->loadAttribsAndUniform();
-        selectedInstance->renderMesh(nullptr);
+    //     _camInUse->loadUniforms(_width, _height);
+    //     shaper->loadAttribsAndUniform();
+    //     selectedInstance->renderMesh(nullptr);
 
-        gProgram->disableShadingPipe(Lumos::Shader::selected_instances_shader_id);
-    }
+    //     gProgram->disableShadingPipe(Lumos::Shader::selected_instances_shader_id);
+    // }
 
     gProgram->enableShadingPipe(_shaderId);
 
     loadAttribsAndUniform();
 
     glBindVertexArray(_VAO);
-    if(_isRequestingTexture){
-        _isRequestingTexture = false;
-        getColorAndDepthTexture( );
-    }
 
     _camInUse->loadUniforms(_width, _height);
     shaper->loadAttribsAndUniform();

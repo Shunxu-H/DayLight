@@ -4,13 +4,25 @@
 //#include "Renderer.h"
 
 
+#include <opencv2/opencv.hpp>
+/**
+ * X11 for window management
+ */
+#include  <X11/Xlib.h>
+#include  <X11/Xatom.h>
+#include  <X11/Xutil.h>
+
+
+#include <EGL/egl.h>
+#include "WindowManager_base.h"
+
 class View;
 namespace Lumos {
     class Shader;
 }
 
 class Keyboard;
-class WindowManager
+class WindowManager : public WindowManager_base
 {
 public:
     // Disable copy constructor
@@ -18,7 +30,8 @@ public:
     // Disable assignment operator
     WindowManager& operator = ( const WindowManager& ) = delete;
 
-    WindowManager();
+    WindowManager(  const size_t &w = 500, 
+                    const size_t &h = 500 );
     virtual ~WindowManager();
     void render();
 /*
@@ -31,26 +44,27 @@ public:
 
 
 */
-    void positionAllViewsToFitAllInstances();
-    
-    inline size_t 
-    getWidth() const { return _width; }
-    inline  void
-    setWidth( const size_t & w) {  _width = w; }
-    inline size_t 
-    getHeight() const { return _height; }
-    inline  void
-    setHeight( const size_t & h) {  _height = h; }
+    virtual void show() override;
+    virtual int loop() override;
 protected:
 
 private:
-    size_t _width;
-    size_t _height;
-    std::vector< View* > _views;
+
+    Display    *_x_display;
+    Window      _win;
+    EGLDisplay  _egl_display;
+    EGLContext  _egl_context;
+    EGLSurface  _egl_surface;
+    GLXContext  _xContex;
+
     // View * _render_hidden_view;
     
+    void _X11WindowInit();
+    void _eglInitWithWindow();
 
     void _headlessInit();
+    void _render();
+    void _keyboard_handle(const XEvent & event);
 
 };
 

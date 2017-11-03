@@ -6,7 +6,7 @@
 #include "Transformable.h"
 #include "Color.h"
 #include "Shader.h"
-#include "View.h"
+#include "View_renderer.h"
 #include "ModelAsset.h"
 #include "btBulletDynamicsCommon.h"
 
@@ -73,7 +73,7 @@ namespace Lumos {
         btRigidBody * _rigidBody;
         color3 _pickingColor;
 
-        friend void View::getVisibleObjects();
+        friend void View_renderer::getVisibleObjects();
 
 
     };

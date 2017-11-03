@@ -4,14 +4,14 @@
 #include "Config.h"
 #include "Shaper.h"
 #include "Program.h"
-#include "WindowManager.h"
+#include "WindowManager_base.h"
 #include "PhysicalWorld.h"
 
 extern Config progConfig;
 extern Patronus::Shaper * shaper;
 extern Lumos::Program *gProgram;
 //extern std::vector<Lumos::Instance> drawingInstances;
-extern WindowManager * winMan;
+extern WindowManager_base * winMan;
 extern Patronus::PhysicalWorld * world;
 extern Lumos::Instance * selectedInstance;
 extern std::string SCENE_FILE_DIR;

@@ -20,8 +20,10 @@ class View
 {
 public:
     View(
-         const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
-         const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
+            const size_t & w = 500,
+            const size_t & h = 500,
+            const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
+            const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
         );
 
     //View(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
@@ -39,29 +41,16 @@ public:
 
 
     void fitSphere(const point3 & position, const float & radius);
-
-    void toImageFile_color( const std::string & fileName );
-    void toImageFile_depth( const std::string & fileName );
-    void getVisibleObjects();
-    void generateMasks();
-    void generateData();
-    void sendTextureRequest();
     void loadAttribsAndUniform() const;
-    void getColorAndDepthTexture();
 
-    inline size_t 
-    getWidth() const { return _width; }
-    inline  void
-    setWidth( const size_t & w) {  _width = w; }
-    inline size_t 
-    getHeight() const { return _height; }
-    inline  void
-    setHeight( const size_t & h) {  _height = h; }
-protected:
+    inline size_t getWidth() const {return _width;}
+    inline size_t getHeight() const {return _height;}
 
     virtual void initializeGL() ;
-    virtual void resizeGL(int w, int h) ;
+    virtual void resizeGL(const size_t & w, const size_t & h) ;
     virtual void paintGL() ;
+protected:
+
 
 
     void getMouseBeam(const int & mouseX, const int & mouseY, point3 * start, point3 * direction )const;
@@ -69,10 +58,7 @@ protected:
     Patronus::Camera * _camInUse;
     GLuint _VAO;
     std::string _shaderId;
-    GLuint _ColorTextureObject;
-    GLuint _DepthTextureObject;
     std::vector< Lumos::Instance * > _visibles;
-    bool _isRequestingTexture;
     size_t _width;
     size_t _height;
 private:

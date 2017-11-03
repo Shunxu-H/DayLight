@@ -3,11 +3,21 @@
 #include <ctime>
 
 
-#include <opencv2/opencv.hpp>
-#include <EGL/egl.h>
+
 #include "GL_include.h"
 #include "WindowManager.h"
 #include "Shaper.h"
+#include "Extern.h"
+#include "Utility.h"
+
+#include  <sys/time.h>
+ 
+#include  <X11/Xlib.h>
+#include  <X11/Xatom.h>
+#include  <X11/Xutil.h>
+
+#include <unistd.h>
+ 
 
 // #include "View.h"
 // #include "View_bullet.h"
@@ -20,11 +30,72 @@
 
 namespace fs = std::experimental::filesystem;
 
+// GLfloat
+//    norm_x    =  0.0,
+//    norm_y    =  0.0,
+//    offset_x  =  0.0,
+//    offset_y  =  0.0,
+//    p1_pos_x  =  0.0,
+//    p1_pos_y  =  0.0;
+
+// bool update_pos = false;
 
 
-WindowManager::WindowManager()
+#define GLX_CONTEXT_MAJOR_VERSION_ARB       0x2091
+#define GLX_CONTEXT_MINOR_VERSION_ARB       0x2092
+typedef GLXContext (*glXCreateContextAttribsARBProc)(Display*, GLXFBConfig, GLXContext, Bool, const int*);
+
+// Helper to check for extension string presence.  Adapted from:
+//   http://www.opengl.org/resources/features/OGLextensions/
+static bool isExtensionSupported(const char *extList, const char *extension)
 {
+    const char *start;
+    const char *where, *terminator;
 
+    /* Extension names should not have spaces. */
+    where = strchr(extension, ' ');
+    if (where || *extension == '\0')
+        return false;
+
+    /* It takes a bit of care to be fool-proof about parsing the
+    OpenGL extensions string. Don't be fooled by sub-strings,
+    etc. */
+    for (start=extList;;) {
+        where = strstr(start, extension);
+
+        if (!where)
+            break;
+
+        terminator = where + strlen(extension);
+
+        if ( where == start || *(where - 1) == ' ' )
+            if ( *terminator == ' ' || *terminator == '\0' )
+                return true;
+
+        start = terminator;
+    }
+
+    return false;
+}
+
+static bool ctxErrorOccurred = false;
+static int ctxErrorHandler( Display *dpy, XErrorEvent *ev )
+{
+    ctxErrorOccurred = true;
+    return 0;
+}
+
+WindowManager::WindowManager(const size_t &w, const size_t &h )
+    :WindowManager_base(w, h)
+    ,_x_display(nullptr)
+    ,_win(0)
+    ,_egl_display(0)
+    ,_egl_context(0)
+    ,_egl_surface(0)
+    ,_xContex(0)
+{
+    _X11WindowInit();
+    _views.push_back(new View(h, w));
 }
 
 
@@ -32,18 +103,319 @@ WindowManager::WindowManager()
 WindowManager::~WindowManager()
 {
 
+    ////  cleaning up...
+    // eglDestroyContext ( _egl_display, _egl_context );
+    // eglDestroySurface ( _egl_display, _egl_surface );
+    // eglTerminate      ( _egl_display );
+    glXMakeCurrent( _x_display, 0, 0 );
+    //glXDestroyContext( _x_display, ctx );
+
+    XDestroyWindow( _x_display, _win );
+    //XFreeColormap( _x_display, cmap );
+    XCloseDisplay( _x_display );
+}
+
+
+void WindowManager::_X11WindowInit(){
+    _x_display = XOpenDisplay(NULL);
+
+    if (!_x_display)
+    {
+        printf("Failed to open X _x_display\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Get a matching FB config
+    static int visual_attribs[] =
+    {
+        GLX_X_RENDERABLE    , True,
+        GLX_DRAWABLE_TYPE   , GLX_WINDOW_BIT,
+        GLX_RENDER_TYPE     , GLX_RGBA_BIT,
+        GLX_X_VISUAL_TYPE   , GLX_TRUE_COLOR,
+        GLX_RED_SIZE        , 8,
+        GLX_GREEN_SIZE      , 8,
+        GLX_BLUE_SIZE       , 8,
+        GLX_ALPHA_SIZE      , 8,
+        GLX_DEPTH_SIZE      , 24,
+        GLX_STENCIL_SIZE    , 8,
+        GLX_DOUBLEBUFFER    , True,
+        GLX_SAMPLE_BUFFERS  , 1,
+        GLX_SAMPLES         , 4,
+        None
+    };
+
+    int glx_major, glx_minor;
+
+    // FBConfigs were added in GLX version 1.3.
+    if ( !glXQueryVersion( _x_display, &glx_major, &glx_minor ) || 
+    ( ( glx_major == 1 ) && ( glx_minor < 3 ) ) || ( glx_major < 1 ) )
+    {
+        printf("Invalid GLX version");
+        exit(EXIT_FAILURE);
+    }
+
+    printf( "Getting matching framebuffer configs\n" );
+    int fbcount;
+    GLXFBConfig* fbc = glXChooseFBConfig(_x_display, DefaultScreen(_x_display), visual_attribs, &fbcount);
+    if (!fbc)
+    {
+        printf( "Failed to retrieve a framebuffer config\n" );
+        exit(EXIT_FAILURE);
+    }
+    printf( "Found %d matching FB configs.\n", fbcount );
+
+    // Pick the FB config/visual with the most samples per pixel
+    printf( "Getting XVisualInfos\n" );
+    int best_fbc = -1, worst_fbc = -1, best_num_samp = -1, worst_num_samp = 999;
+
+    int i;
+    for (i=0; i<fbcount; ++i)
+    {
+        XVisualInfo *vi = glXGetVisualFromFBConfig( _x_display, fbc[i] );
+        if ( vi )
+        {
+            int samp_buf, samples;
+            glXGetFBConfigAttrib( _x_display, fbc[i], GLX_SAMPLE_BUFFERS, &samp_buf );
+            glXGetFBConfigAttrib( _x_display, fbc[i], GLX_SAMPLES       , &samples  );
+
+            std::cout << "  Matching fbconfig" << i
+                 << ", visual ID 0x" << vi -> visualid 
+                 << ": SAMPLE_BUFFERS = " 
+                 << samp_buf << 
+                 ", SAMPLES = " << samples 
+                 << std::endl;
+
+            if ( (best_fbc < 0 || samp_buf) && (samples > best_num_samp) )
+                best_fbc = i, best_num_samp = samples;
+            if ( worst_fbc < 0 || !samp_buf || (samples < worst_num_samp) )
+                worst_fbc = i, worst_num_samp = samples;
+        }
+        XFree( vi );
+    }
+
+    GLXFBConfig bestFbc = fbc[ best_fbc ];
+
+    // Be sure to free the FBConfig list allocated by glXChooseFBConfig()
+    XFree( fbc );
+
+    // Get a visual
+    XVisualInfo *vi = glXGetVisualFromFBConfig( _x_display, bestFbc );
+    std::cout << "Chosen visual ID = 0x"
+        << vi->visualid << std::endl;
+
+    printf( "Creating colormap\n" );
+    XSetWindowAttributes swa;
+    Colormap cmap;
+    swa.colormap = cmap = XCreateColormap( _x_display,
+                                 RootWindow( _x_display, vi->screen ), 
+                                 vi->visual, AllocNone );
+    swa.background_pixmap = None ;
+    swa.border_pixel      = 0;
+    swa.event_mask        = ExposureMask | KeyPressMask;
+
+    printf( "Creating window\n" );
+    _win = XCreateWindow( _x_display, RootWindow( _x_display, vi->screen ), 
+                      0, 0, _width, _height, 0, vi->depth, InputOutput, 
+                      vi->visual, 
+                      CWBorderPixel|CWColormap|CWEventMask, &swa );
+    if ( !_win )
+    {
+        printf( "Failed to create window.\n" );
+        exit(EXIT_FAILURE);
+    }
+
+    // Done with the visual info data
+    XFree( vi );
+
+    XStoreName( _x_display, _win, "DayLight" );
+
+    printf( "Mapping window\n" );
+    XMapWindow( _x_display, _win );
+
+    // Get the default screen's GLX extension list
+    const char *glxExts = glXQueryExtensionsString( _x_display,
+                                          DefaultScreen( _x_display ) );
+
+    // NOTE: It is not necessary to create or make current to a context before
+    // calling glXGetProcAddressARB
+    glXCreateContextAttribsARBProc glXCreateContextAttribsARB = 0;
+    glXCreateContextAttribsARB = (glXCreateContextAttribsARBProc)
+    glXGetProcAddressARB( (const GLubyte *) "glXCreateContextAttribsARB" );
+
+
+    // Install an X error handler so the application won't exit if GL 3.0
+    // context allocation fails.
+    //
+    // Note this error handler is global.  All _x_display connections in all threads
+    // of a process use the same error handler, so be sure to guard against other
+    // threads issuing X commands while this code is running.
+    ctxErrorOccurred = false;
+    int (*oldHandler)(Display*, XErrorEvent*) =
+    XSetErrorHandler(&ctxErrorHandler);
+
+    // Check for the GLX_ARB_create_context extension string and the function.
+    // If either is not present, use GLX 1.3 context creation method.
+    if ( !isExtensionSupported( glxExts, "GLX_ARB_create_context" ) ||
+    !glXCreateContextAttribsARB )
+    {
+        printf( "glXCreateContextAttribsARB() not found"
+        " ... using old-style GLX context\n" );
+        _xContex = glXCreateNewContext( _x_display, bestFbc, GLX_RGBA_TYPE, 0, True );
+    }
+
+    // If it does, try to get a GL 3.0 context!
+    else
+    {
+        int context_attribs[] =
+        {
+            GLX_CONTEXT_MAJOR_VERSION_ARB, 3,
+            GLX_CONTEXT_MINOR_VERSION_ARB, 0,
+            //GLX_CONTEXT_FLAGS_ARB        , GLX_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
+            None
+        };
+
+        printf( "Creating context\n" );
+        _xContex = glXCreateContextAttribsARB( _x_display, bestFbc, 0,
+                                  True, context_attribs );
+
+        // Sync to ensure any errors generated are processed.
+        XSync( _x_display, False );
+        if ( !ctxErrorOccurred && _xContex )
+            printf( "Created GL 3.0 context\n" );
+        else
+        {
+            // Couldn't create GL 3.0 context.  Fall back to old-style 2.x context.
+            // When a context version below 3.0 is requested, implementations will
+            // return the newest context version compatible with OpenGL versions less
+            // than version 3.0.
+            // GLX_CONTEXT_MAJOR_VERSION_ARB = 1
+            context_attribs[1] = 1;
+            // GLX_CONTEXT_MINOR_VERSION_ARB = 0
+            context_attribs[3] = 0;
+
+            ctxErrorOccurred = false;
+
+            printf( "Failed to create GL 3.0 context"
+              " ... using old-style GLX context\n" );
+            _xContex = glXCreateContextAttribsARB( _x_display, bestFbc, 0, 
+                                        True, context_attribs );
+        }
+    }
+
+    // Sync to ensure any errors generated are processed.
+    XSync( _x_display, False );
+
+    // Restore the original error handler
+    XSetErrorHandler( oldHandler );
+
+    if ( ctxErrorOccurred || !_xContex )
+    {
+        printf( "Failed to create an OpenGL context\n" );
+        exit(EXIT_FAILURE);
+    }
+
+    // Verifying that context is a direct context
+    if ( ! glXIsDirect ( _x_display, _xContex ) )
+        printf( "Indirect GLX rendering context obtained\n" );
+    else
+        printf( "Direct GLX rendering context obtained\n" );
+    
+
+
+    printf( "Making context current\n" );
+    glXMakeCurrent( _x_display, _win, _xContex );
+    
+
+}
+
+void WindowManager::show(){
+    // printf( "Making context current\n" );
+    // glXMakeCurrent( _x_display, _win, _xContex );
+
+    // glClearColor( 0, 0.5, 1, 1 );
+    // glClear( GL_COLOR_BUFFER_BIT );
+    // glXSwapBuffers ( _x_display, _win );
+    for(auto & v : _views)
+        v->initializeGL();
+    sleep( 10 );
+
+    // glClearColor ( 1, 0.5, 0, 1 );
+    // glClear ( GL_COLOR_BUFFER_BIT );
+    // glXSwapBuffers ( _x_display, _win );
+
+    // sleep( 1 );
+}
+
+
+void WindowManager::_eglInitWithWindow(){
+
+    ///////  the egl part  //////////////////////////////////////////////////////////////////
+    //  egl provides an interface to connect the graphics related functionality of openGL ES
+    //  with the windowing interface and functionality of the native operation system (X11
+    //  in our case.
+
+    _egl_display  =  eglGetDisplay( (EGLNativeDisplayType) _x_display );
+    if ( _egl_display == EGL_NO_DISPLAY ) {
+        std::cerr << "Got no EGL _x_display." << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    if ( !eglInitialize( _egl_display, NULL, NULL ) ) {
+        std::cerr << "Unable to initialize EGL" << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    EGLint attr[] = {       // some attributes to set up our egl-interface
+        EGL_BUFFER_SIZE, 16,
+        EGL_RENDERABLE_TYPE,
+        EGL_OPENGL_ES2_BIT,
+        EGL_NONE
+    };
+
+    EGLConfig  ecfg;
+    EGLint     num_config;
+    if ( !eglChooseConfig( _egl_display, attr, &ecfg, 1, &num_config ) ) {
+        std::cerr << "Failed to choose config (eglError: " << eglGetError() << ")" << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    if ( num_config != 1 ) {
+        std::cerr << "Didn't get exactly one config, but " << num_config << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    _egl_surface = eglCreateWindowSurface ( _egl_display, ecfg, _win, NULL );
+    if ( _egl_surface == EGL_NO_SURFACE ) {
+        std::cerr << "Unable to create EGL surface (eglError: " << eglGetError() << ")" << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    //// egl-contexts collect all state descriptions needed required for operation
+    EGLint ctxattr[] = {
+    EGL_CONTEXT_CLIENT_VERSION, 2,
+    EGL_NONE
+    };
+    _egl_context = eglCreateContext ( _egl_display, ecfg, EGL_NO_CONTEXT, ctxattr );
+        if ( _egl_context == EGL_NO_CONTEXT ) {
+        std::cerr << "Unable to create EGL context (eglError: " << eglGetError() << ")" << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    //// associate the egl-context with the egl-surface
+    eglMakeCurrent( _egl_display, _egl_surface, _egl_surface, _egl_context );
+ 
 }
 
 void WindowManager::_headlessInit(){
 
     static const EGLint configAttribs[] = {
-    EGL_SURFACE_TYPE, EGL_PBUFFER_BIT,
-    EGL_BLUE_SIZE, 8,
-    EGL_GREEN_SIZE, 8,
-    EGL_RED_SIZE, 8,
-    EGL_DEPTH_SIZE, 8,
-    EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
-    EGL_NONE
+        EGL_SURFACE_TYPE, EGL_PBUFFER_BIT,
+        EGL_BLUE_SIZE, 8,
+        EGL_GREEN_SIZE, 8,
+        EGL_RED_SIZE, 8,
+        EGL_DEPTH_SIZE, 8,
+        EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
+        EGL_NONE
     };  
 
     static const EGLint pbufferAttribs[] = {
@@ -54,69 +426,92 @@ void WindowManager::_headlessInit(){
   
 
     // 1. Initialize EGL
-    EGLDisplay eglDpy = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+    _egl_display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 
     EGLint major, minor;
 
-    eglInitialize(eglDpy, &major, &minor);
+    eglInitialize(_egl_display, &major, &minor);
 
     // 2. Select an appropriate configuration
     EGLint numConfigs;
     EGLConfig eglCfg;
-
-    eglChooseConfig(eglDpy, configAttribs, &eglCfg, 1, &numConfigs);
+    
+    eglChooseConfig(_egl_display, configAttribs, &eglCfg, 1, &numConfigs);
 
     // 3. Create a surface
-    EGLSurface eglSurf = eglCreatePbufferSurface(eglDpy, eglCfg, 
+    _egl_surface = eglCreatePbufferSurface(_egl_display, eglCfg, 
                                                pbufferAttribs);
 
     // 4. Bind the API
     eglBindAPI(EGL_OPENGL_API);
 
     // 5. Create a context and make it current
-    EGLContext eglCtx = eglCreateContext(eglDpy, eglCfg, EGL_NO_CONTEXT, 
+    _egl_context = eglCreateContext(_egl_display, eglCfg, EGL_NO_CONTEXT, 
                                        NULL);
 
-    eglMakeCurrent(eglDpy, eglSurf, eglSurf, eglCtx);
+    eglMakeCurrent(_egl_display, _egl_surface, _egl_surface, _egl_context);
 }
 
-void WindowManager::render(){
-    /*
-    double duration;
-    int w = 1080, h = 720;
-    clock_t start = std::clock();
+
+void WindowManager::_keyboard_handle(const XEvent & event){
+
+    if (event.type == KeyPress)
+    {
+        printf( "KeyPress: %x\n", event.xkey.keycode );
 
 
-    world->clearAll();
-    shaper->clearAll();
+        /* exit on ESC key press */
+        if(event.xkey.keycode == 0x09){
+            glXMakeCurrent(_x_display, None, NULL);
+            glXDestroyContext(_x_display, _xContex);
+            XDestroyWindow(_x_display, _win);
+            XCloseDisplay(_x_display);
 
-    std::vector<std::experimental::filesystem::path> allobjpath;
-    Utils::getAllDir(SCENE_FILE_DIR, allobjpath);
-
-    for (const std::experimental::filesystem::path & p : allobjpath){
-        qDebug() << "Rendering: " << std::string(p).c_str();
-        std::string curScope = p.stem();
-        shaper->loadFile(std::string(p) + "/" + curScope + ".obj");
-        Patronus::Camera::loadCamerasFromDir(CAMERA_DIR + curScope);
-        gProgram->preDrawSetUp();
-
-        Utils::cleanAndMkdir("./" + shaper->getCurFileName());
-
-        for( size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
-            _render_hidden_view->setCamInUse(shaper->getnCamera(camPtr));
-            _render_hidden_view->resize(w, h);
-            _render_hidden_view->generateData();
+            exit(EXIT_SUCCESS);
+            
         }
-
-        world->clearAll();
-        shaper->clearAll();
+        else if (event.xkey.keycode == 0x27) // press 's' for SCREEN SHOT
+        {
+            //screenshot("snapshot.png");
+            printf("screen shot!\n" );
+        }
+            
+        
+    }
+    else if (event.type == KeyRelease)
+    {
+        printf( "KeyRelease: %x\n", event.xkey.keycode );
     }
 
-    duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
+}
 
-    qDebug() << "Time passed: " << duration;
 
-    */
+int WindowManager::loop()
+{
+    std::cout << "Start looping" << std::endl;
+    XEvent xev;
+    while(true) {
+        XNextEvent(_x_display, &xev);
+
+        if(xev.type == Expose) {
+            std::cout << "Exposing" << std::endl;
+
+            render(); 
+            glXSwapBuffers(_x_display, _win);
+        }
+
+        else if(xev.type == KeyPress) {
+
+            _keyboard_handle(xev);
+        }
+    } /* this closes while(1) { */
+} /* this is the } which closes int main(int argc, char *argv[]) { */
+
+
+void WindowManager::render(){
+
+    for(auto & v: _views)
+        v->paintGL();
 }
 /*
 
@@ -127,14 +522,4 @@ void WindowManager::updateAllViews(){
 
 */
 
-void WindowManager::positionAllViewsToFitAllInstances(){
-    // compute bounding circle
-    point3 position;
-    float radius;
-    Patronus::Shaper::getBoundingSphere(Patronus::Shaper::global_vertices, &position, &radius);
-
-    for( View * v: _views )
-        v->fitSphere(position, radius);
-
-}
 

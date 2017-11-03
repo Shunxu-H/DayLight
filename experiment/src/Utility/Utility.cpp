@@ -230,4 +230,45 @@ namespace Utils {
 
 
     }
+    
+    int glExtCheckFramebufferStatus(char *errorMessage)
+    {
+        GLenum status;
+        status=glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
+        switch(status)
+        {
+            case GL_FRAMEBUFFER_COMPLETE_EXT:
+            break;
+            case GL_FRAMEBUFFER_UNSUPPORTED_EXT:
+            //Choose different formats
+            strcpy(errorMessage, "Framebuffer object format is unsupported by the video hardware. (GL_FRAMEBUFFER_UNSUPPORTED_EXT)(FBO - 820)");
+            return -1;
+            case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT:
+            strcpy(errorMessage, "Incomplete attachment. (GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT)(FBO - 820)");
+            return -1;
+            case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT:
+            strcpy(errorMessage, "Incomplete missing attachment. (GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT)(FBO - 820)");
+            return -1;
+            case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT:
+            strcpy(errorMessage, "Incomplete dimensions. (GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT)(FBO - 820)");
+            return -1;
+            case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:
+            strcpy(errorMessage, "Incomplete formats. (GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT)(FBO - 820)");
+            return -1;
+            case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT:
+            strcpy(errorMessage, "Incomplete draw buffer. (GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT)(FBO - 820)");
+            return -1;
+            case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT:
+            strcpy(errorMessage, "Incomplete read buffer. (GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT)(FBO - 820)");
+            return -1;
+            case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT:
+            strcpy(errorMessage, "Incomplete multisample buffer. (GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT)(FBO - 820)");
+            return -1;
+            default:
+            //Programming error; will fail on all hardware
+            strcpy(errorMessage, "Some video driver error or programming error occured. Framebuffer object status is invalid. (FBO - 823)");
+            return -2;
+        }
+        return 1;
+    }
 }
