@@ -39,7 +39,7 @@ std::string CAMERA_DIR = "./cameras/";
 int main(int argc, char *argv[])
 {
   bool isHeadless = false;
-  if (argc > 1 and strcmp(argv[1], "-headless") == 0)
+  if (argc > 1 and strcmp(argv[1], "-hl") == 0)
     isHeadless = true;
 
   if (isHeadless)
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
   gProgram = new Lumos::Program( );
   shaper = new Patronus::Shaper( );
 
-  gProgram->loadShaders( "/GLSL" );
+  gProgram->loadShaders( "./GLSL" );
   gProgram->preDrawSetUp();
 
   winMan->show();
