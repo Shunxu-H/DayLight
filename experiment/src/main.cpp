@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 
   world = new Patronus::PhysicalWorld();
   gProgram = new Lumos::Program( );
-  shaper = new Patronus::Shaper( "./data/indoor/0004dd3cb11e50530676f77b55262d38.obj" );
+  shaper = new Patronus::Shaper( );
 
   gProgram->loadShaders( "/home/shunxu/QtProj/DayLight/GLSL" );
   gProgram->preDrawSetUp();

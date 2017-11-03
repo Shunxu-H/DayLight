@@ -6,6 +6,30 @@ project( DayLight )
 set ( DayLight_VERSION_MAJOR 1)
 set ( DayLight_VERSION_MINOR 0)
 
+find_path(EGL_INCLUDE_DIR
+  NAMES
+    EGL/egl.h
+  PATHS
+    ${EGL_ROOT_DIR}/include
+    /usr/local/include
+    /usr/include)
+
+find_library(EGL_LIBRARY
+  NAMES
+    EGL
+  PATHS
+    ${EGL_ROOT_DIR}/lib
+    /usr/local/lib
+    /usr/lib)
+
+
+
+set(EGL_LIBRARIES ${EGL_LIBRARY} )
+
+
+SET(GCC_COVERAGE_COMPILE_FLAGS "-lGLESv2")
+
+
 # set warnig option
 if ( CMAKE_COMPILER_IS_GNUCC )
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -Werror")
@@ -46,8 +70,6 @@ find_package( GLUT REQUIRED)
 find_package( Bullet REQUIRED)
 
 # find_package( BGM REQUIRED)
-
-
 
 
 
