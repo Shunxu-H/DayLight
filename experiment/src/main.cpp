@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
   gProgram = new Lumos::Program( );
   shaper = new Patronus::Shaper( );
 
-  gProgram->loadShaders( "/home/shunxu/QtProj/DayLight/GLSL" );
+  gProgram->loadShaders( "/GLSL" );
   gProgram->preDrawSetUp();
 
   winMan->show();

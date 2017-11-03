@@ -1,5 +1,5 @@
 
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 2.8)
 project( DayLight )
 
 # The version number.
@@ -70,7 +70,6 @@ find_package( GLUT REQUIRED)
 find_package( Bullet REQUIRED)
 
 # find_package( BGM REQUIRED)
-
 
 
 file(GLOB_RECURSE DayLight_SOURCES "src/*.cpp")
