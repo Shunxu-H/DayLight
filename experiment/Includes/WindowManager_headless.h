@@ -59,6 +59,7 @@ private:
     
 
     void _headlessInit();
+    void _headlessInitWithX11();
     void _render();
     void _keyboard_handle(const XEvent & event);
 

@@ -36,6 +36,14 @@ namespace fs = std::experimental::filesystem;
 //    p1_pos_y  =  0.0;
 
 // bool update_pos = false;
+// 
+
+typedef GLXContext (*glXCreateContextAttribsARBProc)(Display*, GLXFBConfig, GLXContext, Bool, const int*);
+typedef Bool (*glXMakeContextCurrentARBProc)(Display*, GLXDrawable, GLXDrawable, GLXContext);
+static glXCreateContextAttribsARBProc glXCreateContextAttribsARB = NULL;
+static glXMakeContextCurrentARBProc   glXMakeContextCurrentARB   = NULL;
+
+
 
 
 WindowManager_headless::WindowManager_headless(const size_t &w, const size_t &h )
@@ -46,10 +54,67 @@ WindowManager_headless::WindowManager_headless(const size_t &w, const size_t &h 
     ,_egl_context(0)
     ,_egl_surface(0)
 {
-	_headlessInit();
+    _headlessInitWithX11();
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    
+    glewExperimental = GL_TRUE;
+    assert(GLEW_OK == glewInit());
+    glGetError();
+    Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
+   
     _render_hidden_view = new View_renderer(w, h);
-    _render_hidden_view->initializeGL();
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
+    _render_hidden_view->initializeGL();
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+}
+
+
+void WindowManager_headless::_headlessInitWithX11(){
+    
+
+    glXCreateContextAttribsARB = (glXCreateContextAttribsARBProc) glXGetProcAddressARB( (const GLubyte *) "glXCreateContextAttribsARB" );
+    glXMakeContextCurrentARB   = (glXMakeContextCurrentARBProc)   glXGetProcAddressARB( (const GLubyte *) "glXMakeContextCurrent"      );
+
+    const char *displayName = NULL;
+    Display* display = XOpenDisplay( displayName );
+
+    assert(display != nullptr);
+
+    static int visualAttribs[] = { None };
+    int numberOfFramebufferConfigurations = 0;
+    GLXFBConfig* fbConfigs = glXChooseFBConfig( display, DefaultScreen(display), visualAttribs, &numberOfFramebufferConfigurations );
+
+
+    int context_attribs[] = {
+        GLX_CONTEXT_MAJOR_VERSION_ARB, 4,
+        GLX_CONTEXT_MINOR_VERSION_ARB, 2,
+        GLX_CONTEXT_FLAGS_ARB, GLX_CONTEXT_DEBUG_BIT_ARB,
+        GLX_CONTEXT_PROFILE_MASK_ARB, GLX_CONTEXT_CORE_PROFILE_BIT_ARB,
+        None
+    };
+     
+    GLXContext openGLContext = glXCreateContextAttribsARB( display, fbConfigs[0], 0, True, context_attribs);
+
+    int pbufferAttribs[] = {
+        GLX_PBUFFER_WIDTH,  static_cast<int>( _width ),
+        GLX_PBUFFER_HEIGHT, static_cast<int>( _height ),
+        None
+    };
+
+    GLXPbuffer pbuffer = glXCreatePbuffer( display, fbConfigs[0], pbufferAttribs );
+     
+    // clean up:
+    XFree( fbConfigs );
+    XSync( display, False );
+     
+    if ( !glXMakeContextCurrent( display, pbuffer, pbuffer, openGLContext ) )
+    {
+        std::cerr << "Failed to acquire OpenGL context for headless setup. " << std::endl;
+    }
+    Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
+   
 }
 
 
@@ -97,6 +162,8 @@ void WindowManager_headless::_headlessInit(){
 
     eglInitialize(_egl_display, &major, &minor);
 
+    std::cout << "EGL version: " << major << "." << minor << std::endl;
+
     // 2. Select an appropriate configuration
     EGLint numConfigs;
     EGLConfig eglCfg;
@@ -120,6 +187,8 @@ void WindowManager_headless::_headlessInit(){
 
 int WindowManager_headless::loop()
 {
+
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
 	render();
     return EXIT_SUCCESS;
 } /* this is the } which closes int main(int argc, char *argv[]) { */
@@ -129,6 +198,7 @@ void WindowManager_headless::render(){
 
     
     
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
     double duration;
     int w = 1080, h = 720;
     clock_t start = std::clock();
@@ -139,19 +209,25 @@ void WindowManager_headless::render(){
 
     std::vector<std::experimental::filesystem::path> allobjpath;
     Utils::getAllDir(SCENE_FILE_DIR, allobjpath);
+    _render_hidden_view->resizeGL(w, h);
 
     for (const std::experimental::filesystem::path & p : allobjpath){
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
         std::cout << "Rendering: " << std::string(p).c_str() << std::endl;
         std::string curScope = p.stem();
         shaper->loadFile(std::string(p) + "/" + curScope + ".obj");
         Patronus::Camera::loadCamerasFromDir(CAMERA_DIR + curScope);
         gProgram->preDrawSetUp();
 
-        Utils::cleanAndMkdir("./" + shaper->getCurFileName());
+        Utils::cleanAndMkdir(OUTPUT_DIR + shaper->getCurFileName());
 
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
         for( size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
+
+            GLError( __PRETTY_FUNCTION__ , __LINE__ );
             _render_hidden_view->setCamInUse(shaper->getnCamera(camPtr));
-            _render_hidden_view->resizeGL(w, h);
+
+            GLError( __PRETTY_FUNCTION__ , __LINE__ );
             _render_hidden_view->generateData();
         }
 

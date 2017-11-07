@@ -77,7 +77,8 @@ void Instance::renderMesh( Material * materialInUse ) const{
 
     for (const MaterialPack & mp: _asset.materials ){
         if (materialInUse != mp.material ){
-
+            
+            Utils::logOpenGLError();
             mp.material->loadUniforms();
             Utils::logOpenGLError();
             materialInUse = mp.material;

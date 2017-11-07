@@ -26,20 +26,25 @@ protected:
 
 
 private:
-    GLuint _FBO;
-    GLuint _ColorTextureObject;
-    GLuint _DepthTextureObject;
-    GLuint _ColorBuffer;
-    GLuint _DepthBuffer;
+    GLuint _Multisampled_FBO;
+    GLuint _Multisampled_ColorBuffer;
+    GLuint _Multisampled_DepthBuffer;
+    GLuint _out_FBO;
+    GLuint _out_ColorTextureObject;
+    GLuint _out_DepthTextureObject;
 
-    void _saveColorTexture(const std::string & fileName);
-    void _saveDepthTexture(const std::string & fileName);
-    void _deleteTextures();
-    void _remakeTextureObjects();
-    void _deleteBuffers();
-    void _remakeBuffers();
-    void _getColorAndDepthTexture();
-    void _getColorAndDepthBuffers();
+    cv::Mat _saveColorImage(const std::string & fileName);
+    cv::Mat _saveDepthImage(const std::string & fileName);
+    cv::Mat _saveBitMap(const std::string & fileName);
+    
+    void _saveColorBuffer(const std::string & fileName);
+    void _saveDepthBuffer(const std::string & fileName);
+    void _deleteMultisampledBuffers();
+    void _deleteOutTextures();
+    void _makeMultisampledBuffers();
+    void _makeOutTextures();
+    void _remakeMultisampledBuffers();
+    void _remakeOutTextures();
 };
 
 #endif // VIEW_RENDERER_H

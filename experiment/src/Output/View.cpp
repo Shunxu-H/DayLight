@@ -132,12 +132,15 @@ void View::paintGL(){
     gProgram->enableShadingPipe(_shaderId);
 
     loadAttribsAndUniform();
-
+    Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
+    
     glBindVertexArray(_VAO);
-
+    Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
+    
     _camInUse->loadUniforms(_width, _height);
     shaper->loadAttribsAndUniform();
     Lumos::Material * materialInUse = nullptr;
+    Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
     for(Lumos::Instance const * i : world->getInstances()){
         if (i->isOn())
             i->renderMesh(materialInUse);

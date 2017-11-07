@@ -23,7 +23,7 @@ int Color::toUniqueInt( const int & r, const int & g, const int & b ){
     return pickedID;
 }
 
-color3 Color::toUniqueColor ( const size_t & i){
+color3 Color::toUniqueColor ( const int & i){
     int r = (i & 0x000000FF) >>  0;
     int g = (i & 0x0000FF00) >>  8;
     int b = (i & 0x00FF0000) >> 16;

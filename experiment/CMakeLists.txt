@@ -1,6 +1,9 @@
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.10)
 project( DayLight )
+
+
+include(glbinding-config.cmake)
 
 # The version number.
 set ( DayLight_VERSION_MAJOR 1)
@@ -63,11 +66,12 @@ mark_as_advanced(EGL_INCLUDE_DIR EGL_LIBRARY)
 
 find_package( OpenCV REQUIRED )
 find_package( OpenGL REQUIRED )
-find_package( X11 REQUIRED)
+find_package( X11 REQUIRED )
 # find_package( glfw3 REQUIRED)
-find_package( GLEW REQUIRED)
-find_package( GLUT REQUIRED)
-find_package( Bullet REQUIRED)
+find_package( GLEW REQUIRED )
+find_package( GLUT REQUIRED )
+find_package( Bullet REQUIRED )
+find_package( glbinding REQUIRED )
 
 # find_package( BGM REQUIRED)
 
@@ -87,6 +91,7 @@ add_executable (DayLight ${DayLight_SOURCES})
 target_include_directories(DayLight PRIVATE ${DayLight_INCLUDE_DIRS})
 target_include_directories(DayLight PRIVATE ./Includes)
 target_include_directories(DayLight PUBLIC /usr/local/include/bullet/ )
+
 # target_link_libraries(DayLight
 #     ${CMAKE_CURRENT_SOURCE_DIR}/bullet/BulletDynamics/libBulletDynamics.a
 #     ${CMAKE_CURRENT_SOURCE_DIR}/bullet/BulletCollision/libBulletCollision.a
@@ -103,3 +108,8 @@ target_link_libraries( DayLight ${EGL_LIBRARIES} ) #here you can put your opengl
 # target_link_libraries( DayLight ${GLFW3_LIBRARY})
 target_link_libraries( DayLight ${GLEW_LIBRARY})
 target_link_libraries( DayLight ${GLUT_LIBRARIES})
+target_link_libraries( DayLight ${GLBINDING_LIBRARIES})
+
+
+message(STATUS "GLBINDING_LIBRARIES = ${GLBINDING_LIBRARIES}")
+message(STATUS "GLBINDING_INCLUDES = ${GLBINDING_INCLUDES}")

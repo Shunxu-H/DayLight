@@ -37,8 +37,8 @@ namespace Patronus {
                 const glm::vec3  & up    = glm::vec3(  0,  1,  0 ),
                 const glm::vec3  & at    = glm::vec3(  0,  0, -1 ),
                 const float      & fov   = glm::radians(60.0f),
-                const float      & near  = 0.1f,
-                const float      & far   = 1000.0f,
+                const float      & near  = 2.0f,
+                const float      & far   = 700.0f,
                 const point3     & pos   = glm::vec3(  0,  2,  5 )
 
                );

@@ -3,25 +3,21 @@
 
 #include <opencv2/opencv.hpp>
 
-#ifdef __APPLE__
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#include <GLUT/glut.h>
-#else
-#ifdef _WIN32
-	#include <windows.h>
-#endif
+
 #define GLM_FORCE_RADIANS
 //#include <QOpenGLFunctions_4_5_Core>
 #define GL_GLEXT_PROTOTYPES
+
+// #include <glbinding/gl/gl.h>
+// #include <glbinding/Binding.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
-#include <glm/glm.hpp>
-#include <GL/glext.h>
-#include <glm/gtc/matrix_transform.hpp>
-
 #include <GL/glx.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <GL/glext.h>
 
-#endif
+
 
 typedef glm::vec4 point4;
 typedef glm::vec3 point3;

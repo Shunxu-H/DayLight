@@ -32,7 +32,7 @@ GLuint Shaper::global_VAO          = 0;
 GLuint Shaper::global_Vertex_VBO   = 0;
 GLuint Shaper::global_Normal_VBO   = 0;
 GLuint Shaper::global_TexCoord_VBO = 0;
-const float Shaper::multiplier = 1;
+const float Shaper::multiplier = 10;
 
 
 Shaper::Shaper( )

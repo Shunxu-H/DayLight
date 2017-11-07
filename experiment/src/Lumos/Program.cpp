@@ -7,7 +7,7 @@
 #include "Program.h"
 #include "Shader.h"
 #include "ArrayBuffer.h"
-
+#include "Utility.h"
 #include "Extern.h"
 
 namespace Lumos{
@@ -163,6 +163,8 @@ void Program::loadShaders( const std::string & GLSL_path ){
 
 void Program::preDrawSetUp() {
     //use();
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
     for ( auto & m : shaper->getMeshes())
         world->loadInstance(m);
 
@@ -170,6 +172,7 @@ void Program::preDrawSetUp() {
     if (world->getInstances().size() > 0)
         winMan->positionAllViewsToFitAllInstances();
 
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
 /*
     gProgram->use();
     gProgram->enableShadingPipe("shader");

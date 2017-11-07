@@ -37,8 +37,8 @@ namespace Patronus {
          */
         Lumos::Instance * selectWithBean( const btVector3 & start, const btVector3 & end );
 
-        inline const std::vector< Lumos::Instance * >
-            getInstances() const { return _instances; }
+        inline std::vector< Lumos::Instance * >
+            getInstances() { return _instances; }
 
         inline btDiscreteDynamicsWorld*
             getWorld() const { return _dynamicsWorld; }

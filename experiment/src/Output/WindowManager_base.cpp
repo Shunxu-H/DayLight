@@ -5,7 +5,7 @@ WindowManager_base::WindowManager_base( const size_t & w, const size_t & h )
 	:_width(w)
 	,_height(h)
 {
-
+	 
 
 }
 

@@ -13,9 +13,12 @@
 class AEL;
 
 #ifndef NDEBUG
-#define Debug(x) std::cout << x
+#define Debug(x) std::cout << x << std::endl
+#define GLError(func, line) Utils::logOpenGLError( std::string(func) + ":" + std::to_string(line) ) 
 #else
 #define Debug(x) 
+#define GLError(func, line) 
+
 #endif 
 
 namespace Utils {
