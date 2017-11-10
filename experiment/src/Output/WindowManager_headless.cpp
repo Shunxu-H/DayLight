@@ -1,7 +1,9 @@
 
-
+#include <iterator>
 #include <experimental/filesystem>
+#include <algorithm>
 #include <iostream>
+#include <fstream>
 #include <ctime>
 
 
@@ -188,7 +190,7 @@ void WindowManager_headless::_headlessInit(){
 int WindowManager_headless::loop()
 {
 
-        GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
 	render();
     return EXIT_SUCCESS;
 } /* this is the } which closes int main(int argc, char *argv[]) { */
@@ -207,32 +209,64 @@ void WindowManager_headless::render(){
     world->clearAll();
     shaper->clearAll();
 
+    std::ifstream obj_file (RENDER_LIST);
+    if(!obj_file.is_open())
+        throw std::runtime_error("RENDER_LIST NOT FOUND.");
+    std::vector<std::string> v_objs;
+    std::copy(  std::istream_iterator<std::string>(obj_file),
+                std::istream_iterator<std::string>(),
+                back_inserter(v_objs));
+
     std::vector<std::experimental::filesystem::path> allobjpath;
-    Utils::getAllDir(SCENE_FILE_DIR, allobjpath);
+    Utils::getAllDir(SCENE_FILE_DIR, allobjpath, v_objs);
+    std::cout << "Start rendering " << allobjpath.size() << " files." << std::endl;
+
     _render_hidden_view->resizeGL(w, h);
 
     for (const std::experimental::filesystem::path & p : allobjpath){
-        GLError( __PRETTY_FUNCTION__ , __LINE__ );
-        std::cout << "Rendering: " << std::string(p).c_str() << std::endl;
-        std::string curScope = p.stem();
-        shaper->loadFile(std::string(p) + "/" + curScope + ".obj");
-        Patronus::Camera::loadCamerasFromDir(CAMERA_DIR + curScope);
-        gProgram->preDrawSetUp();
-
-        Utils::cleanAndMkdir(OUTPUT_DIR + shaper->getCurFileName());
-
-        GLError( __PRETTY_FUNCTION__ , __LINE__ );
-        for( size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
+        try{
 
             GLError( __PRETTY_FUNCTION__ , __LINE__ );
-            _render_hidden_view->setCamInUse(shaper->getnCamera(camPtr));
+            std::cout << "Rendering: " << std::string(p).c_str() << std::endl;
+            std::string curScope = p.stem();
+            if (std::experimental::filesystem::exists(OUTPUT_DIR + curScope)){
+                std::cerr << "Directory exists, skipped current set of data..." << std::endl;
+                continue;
+            }
+            shaper->loadFile(std::string(p) + "/" + curScope + ".obj");
+            Patronus::Camera::loadCamerasFromDir(CAMERA_DIR + curScope);
+            gProgram->preDrawSetUp();
+
+            Utils::cleanAndMkdir(OUTPUT_DIR + shaper->getCurFileName());
 
             GLError( __PRETTY_FUNCTION__ , __LINE__ );
-            _render_hidden_view->generateData();
+            for( size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
+
+                GLError( __PRETTY_FUNCTION__ , __LINE__ );
+                _render_hidden_view->setCamInUse(shaper->getnCamera(camPtr));
+
+                GLError( __PRETTY_FUNCTION__ , __LINE__ );
+                _render_hidden_view->generateData();
+            }
+
+            world->clearAll();
+            shaper->clearAll();
         }
-
-        world->clearAll();
-        shaper->clearAll();
+        catch (const std::exception& ex) {
+            std::cerr << ex.what() << std::endl;
+            std::cerr << "Cleaning unfinished data..." << std::endl;
+            Utils::remove_all(p);
+        } 
+        catch (const std::string& ex) {
+            std::cerr << ex << std::endl;
+            std::cerr << "Cleaning unfinished data..." << std::endl;
+            Utils::remove_all(p);  
+        } 
+        catch (...) {
+            std::cerr << "Undefined Crash occured." << std::endl;
+            std::cerr << "Cleaning unfinished data..." << std::endl;
+            Utils::remove_all(p); 
+        }
     }
 
     duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;

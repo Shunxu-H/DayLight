@@ -190,7 +190,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
     }
 
     if (!ret) {
-        exit(1);
+        return false;
     }
 
     assert(attrib.vertices.size() % 3 == 0 && attrib.normals.size() % 3 == 0 && attrib.texcoords.size() % 2 == 0 );
@@ -204,8 +204,8 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
 
     for ( const tinyobj::material_t & m : materials ){
         Lumos::Material * newMaterial = new Lumos::Material;
-        if ( m.diffuse_texname.size() > 0 && std::experimental::filesystem::exists((curDir + "/" + m.diffuse_texname))){
-            cv::Mat im = cv::imread((curDir + "/" + m.diffuse_texname).c_str());
+        if ( m.diffuse_texname.size() > 0 && std::experimental::filesystem::exists(( m.diffuse_texname))){
+            cv::Mat im = cv::imread(( m.diffuse_texname).c_str());
             newMaterial->texture = im;
             cv::flip(im, newMaterial->texture, 0);
         }

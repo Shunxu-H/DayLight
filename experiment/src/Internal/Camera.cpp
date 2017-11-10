@@ -14,11 +14,13 @@ Camera * Camera::pers = new Camera{"pers"};
 
 
 void Camera::loadCamerasFromDir( const std::string & dir ){
-    if ( shaper == nullptr )
-        throw std::runtime_error( "Shaper object is uninitialized!");
+    if ( shaper == nullptr ){
+        std::cerr << "Shaper object is uninitialized!" << std::endl;
+        //return false;
+    }
     filesystem::path p ( dir );
     if ( p.empty() )
-       throw std::runtime_error( " invalid directory in Camera::loadCamerasFromDir()");
+       throw std::runtime_error( "Invalid directory in Camera::loadCamerasFromDir()");
 
     std::string camNameFile = std::string( p ) + "/room_camera_name.txt";
     std::string camStatFile = std::string( p ) + "/room_camera.txt";
@@ -51,7 +53,7 @@ void Camera::loadCamerasFromDir( const std::string & dir ){
     }
 
 
- }
+}
 
 
 
@@ -80,8 +82,6 @@ Camera::~Camera(){
 
 
 }
-
-
 
 void Camera::loadUniforms( const unsigned int & width, const unsigned int & height ) const{
 

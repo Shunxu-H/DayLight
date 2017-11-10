@@ -201,10 +201,10 @@ cv::Mat View_renderer::_saveDepthImage(const std::string & fileName){
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
-    cv::Point min_loc, max_loc
-    uint8_t min, max;
-    cv::minMaxLoc(img, &min, &max, &min_loc, &max_loc);
-    Debug()
+    //cv::Point min_loc, max_loc
+    // uint8_t min, max;
+    // cv::minMaxLoc(img, &min, &max, &min_loc, &max_loc);
+    // Debug()
 
     cv::Mat flipped(img);
     cv::flip(img, flipped, 0);

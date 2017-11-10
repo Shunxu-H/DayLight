@@ -216,17 +216,31 @@ namespace Utils {
 
     }
 
-    void getAllDir(const std::string & path, std::vector<fs::path> & all_files ){
+    void getAllDir(const std::string & path, std::vector<fs::path> & all_files, const std::vector<std::string> & obj_list ){
         if (!fs::exists(path)) return;
-
+        //std::cout << path << std::endl;
         all_files.clear();
-
-        for(const fs::directory_entry& p: fs::directory_iterator(path)){
-            //if (fs::path (p).is_)
-            if( fs::is_directory(p) ){
-                all_files.push_back(fs::path(p));
+        if (obj_list.size() == 0){
+            std::cerr << "No .obj list passed in, will render everything in the folder." << std::endl;
+            for(const fs::directory_entry& p: fs::directory_iterator(path)){
+                //if (fs::path (p).is_)
+                if( fs::is_directory(p) ){
+                    std::cout << fs::path(p).filename() << std::endl;
+                    all_files.push_back(fs::path(p));
+                }
             }
         }
+        else{
+            for (const std::string & f : obj_list){
+                fs::path curP(std::string(path) + f);
+                if (!fs::exists(curP) || !fs::is_directory(curP)){
+                    std::cerr << (std::string(curP) + " does not exist of it is not a directory.") << std::endl;
+                    continue;
+                }
+                all_files.push_back(curP);
+            }
+        }
+
 
 
     }

@@ -38,6 +38,7 @@ std::string SCENE_FILE_DIR = "./scene_file/";
 std::string TEXTURE_DIR = "./scene_file/texture/ut/";
 std::string CAMERA_DIR = "./cameras/";
 std::string OUTPUT_DIR = "./output/";
+std::string RENDER_LIST = "./obj_list.txt";
 
 
 

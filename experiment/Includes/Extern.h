@@ -18,5 +18,6 @@ extern std::string SCENE_FILE_DIR;
 extern std::string TEXTURE_DIR;
 extern std::string CAMERA_DIR;
 extern std::string OUTPUT_DIR;
+extern std::string RENDER_LIST;
 
 #endif // EXTERN_H
