@@ -220,14 +220,20 @@ void WindowManager_headless::render(){
     std::vector<std::experimental::filesystem::path> allobjpath;
     Utils::getAllDir(SCENE_FILE_DIR, allobjpath, v_objs);
     std::cout << "Start rendering " << allobjpath.size() << " files." << std::endl;
+    //Utils::cleanAndMkdir("./output");
 
     _render_hidden_view->resizeGL(w, h);
-
+    size_t  numToRender = allobjpath.size(),
+            indx = 0;
     for (const std::experimental::filesystem::path & p : allobjpath){
         try{
 
             GLError( __PRETTY_FUNCTION__ , __LINE__ );
-            std::cout << "Rendering: " << std::string(p).c_str() << std::endl;
+
+            std::cout << "[";
+            std::cout << static_cast<int>(  static_cast<float> (++indx) / static_cast<float> (numToRender) * 100 );
+            std::cout << std::setw(4) << std::right << std::setfill(' ')  ;
+            std::cout << std::resetiosflags(std::ios::showbase)   << "%] Rendering: " << std::string(p).c_str() << std::endl;
             std::string curScope = p.stem();
             if (std::experimental::filesystem::exists(OUTPUT_DIR + curScope)){
                 std::cerr << "Directory exists, skipped current set of data..." << std::endl;

@@ -204,10 +204,16 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
 
     for ( const tinyobj::material_t & m : materials ){
         Lumos::Material * newMaterial = new Lumos::Material;
-        if ( m.diffuse_texname.size() > 0 && std::experimental::filesystem::exists(( m.diffuse_texname))){
-            cv::Mat im = cv::imread(( m.diffuse_texname).c_str());
-            newMaterial->texture = im;
-            cv::flip(im, newMaterial->texture, 0);
+        if ( m.diffuse_texname.size() > 0 ){
+
+            if( std::experimental::filesystem::exists(( m.diffuse_texname))){
+                cv::Mat im = cv::imread(( m.diffuse_texname).c_str());
+                newMaterial->texture = im;
+                cv::flip(im, newMaterial->texture, 0);
+            }
+            else{
+                std::cout << "Texture file does not exist: " << m.diffuse_texname << std::endl;
+            }
         }
         newMaterial->id = m.name;
         newMaterial->diffuseColor = color4( m.diffuse[0], m.diffuse[1], m.diffuse[2], 1.0f ) ;

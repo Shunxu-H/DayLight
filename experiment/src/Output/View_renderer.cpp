@@ -132,7 +132,7 @@ cv::Mat View_renderer::_saveColorImage(const std::string & fileName){
     cv::flip(img, flipped, 0);
     if (fileName.size() > 0){
         cv::imwrite(fileName, img);
-        Debug("save " << fileName);
+        //Debug("save " << fileName);
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
@@ -158,7 +158,7 @@ cv::Mat View_renderer::_saveBitMap(const std::string & fileName){
 
     if (fileName.size() > 0){
         cv::imwrite(fileName, binaryMat);
-        Debug("save " << fileName);
+        //Debug("save " << fileName);
     }
     return binaryMat;
 }
@@ -210,7 +210,7 @@ cv::Mat View_renderer::_saveDepthImage(const std::string & fileName){
     cv::flip(img, flipped, 0);
     if( fileName.size() > 0 ){
         cv::imwrite(fileName, img);
-        Debug("save " << fileName );
+        //Debug("save " << fileName );
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
