@@ -227,7 +227,7 @@ void WindowManager_headless::render(){
             indx = 0;
     for (const std::experimental::filesystem::path & p : allobjpath){
         try{
-
+            
             GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
             std::cout << "[";
@@ -261,17 +261,17 @@ void WindowManager_headless::render(){
         catch (const std::exception& ex) {
             std::cerr << ex.what() << std::endl;
             std::cerr << "Cleaning unfinished data..." << std::endl;
-            Utils::remove_all(p);
+            Utils::remove_all(OUTPUT_DIR + shaper->getCurFileName());
         } 
         catch (const std::string& ex) {
             std::cerr << ex << std::endl;
             std::cerr << "Cleaning unfinished data..." << std::endl;
-            Utils::remove_all(p);  
+            Utils::remove_all(OUTPUT_DIR + shaper->getCurFileName());  
         } 
         catch (...) {
             std::cerr << "Undefined Crash occured." << std::endl;
             std::cerr << "Cleaning unfinished data..." << std::endl;
-            Utils::remove_all(p); 
+            Utils::remove_all(OUTPUT_DIR + shaper->getCurFileName()); 
         }
     }
 
