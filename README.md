@@ -36,7 +36,7 @@ Depth Mask:
 - [X] Minimize image file ( bit map, text array, lossiless compression)
 - [ ] Make sure x11 works on the vision machines 
 - [ ] Rebuild GUI
-* - [ ] Rebuild Navigation with x11
+- [ ] Rebuild Navigation with x11
 	* - [ ] pan
 	* - [ ] tilt
 	* - [ ] zoom
