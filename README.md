@@ -32,8 +32,15 @@ Depth Mask:
 - [X] Tansformable--'isVisible', filter out invisible objects while rendering
 - [X] Standardizing rendering procedures ( render all images given a directory )
 - [X] Enlarge .obj data for the depth buffer situation 
-- [ ] Offscreen rendering ( QOffscreenSurface )
+- [X] Offscreen rendering ( QOffscreenSurface )
 - [X] Minimize image file ( bit map, text array, lossiless compression)
+- [ ] Make sure x11 works on the vision machines 
+- [ ] Rebuild GUI
+* - [ ] Rebuild Navigation with x11
+	* - [ ] pan
+	* - [ ] tilt
+	* - [ ] zoom
+	* - [ ] select
  
 ## Motivation
 
