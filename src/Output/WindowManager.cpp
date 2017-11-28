@@ -94,7 +94,12 @@ WindowManager::WindowManager(const size_t &w, const size_t &h )
     ,_egl_surface(0)
     ,_xContex(0)
 {
+    
     _X11WindowInit();
+    glewExperimental = GL_TRUE;
+    assert(GLEW_OK == glewInit());
+    
+    glGetError();
     _views.push_back(new View(h, w));
 }
 

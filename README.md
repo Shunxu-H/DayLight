@@ -34,8 +34,10 @@ Depth Mask:
 - [X] Enlarge .obj data for the depth buffer situation 
 - [X] Offscreen rendering ( QOffscreenSurface )
 - [X] Minimize image file ( bit map, text array, lossiless compression)
+- [ ] Bullet physic detachable
+- [ ] Build 'openGl self management'
 - [ ] Make sure x11 works on the vision machines 
-- [ ] Rebuild GUI
+- [X] Rebuild GUI
 - [ ] Rebuild Navigation with x11
 	* - [ ] pan
 	* - [ ] tilt
