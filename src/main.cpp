@@ -13,6 +13,7 @@
 #include <iostream>
 #include <fstream>
 
+
 #include <opencv2/opencv.hpp>
 
 
@@ -36,7 +37,7 @@ WindowManager_base * winMan = nullptr;
 Patronus::PhysicalWorld * world = nullptr;
 Lumos::Instance * selectedInstance = nullptr;
 std::string SCENE_FILE_DIR = "./scene_file/";
-std::string TEXTURE_DIR = "./scene_file/texture/ut/";
+std::string TEXTURE_DIR = "./scene_file/texture/";
 std::string CAMERA_DIR = "./cameras/";
 std::string OUTPUT_DIR = "./output/";
 std::string RENDER_LIST = "./obj_list.txt";
@@ -62,21 +63,20 @@ void set(T & arg, T setTo, const std::string & var_name){
   arg = setTo;
 }
 
-int main(int argc, char *argv[])
-{
+void parseCmdLn(int argc, char *argv[]){
   InputParser parser(argc, argv);
   std::vector<std::string> vargs;
 
   if (parser.has(Flag::HELP)){
       displayHelp();
-      return EXIT_SUCCESS;
+      exit( EXIT_SUCCESS );
   }
 
   if (parser.has(Flag::WINDOW_DIMENTSION)){
      vargs = parser.get(Flag::WINDOW_DIMENTSION).getArgs();
      if (vargs.size() != 2){
       displayHelp();
-      return EXIT_FAILURE;
+      exit( EXIT_FAILURE );
      }
      set(WINDOW_WIDTH, (size_t)std::stoi(vargs[0].c_str()), "WINDOW_WIDTH");
      set(WINDOW_HEIGHT, (size_t)std::stoi(vargs[1].c_str()), "WINDOW_HEIGHT");
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
      vargs = parser.get(Flag::SCENE_DIRECTORY).getArgs();
      if (vargs.size() != 1){
       displayHelp();
-      return EXIT_FAILURE;
+      exit( EXIT_FAILURE );
      }
      set(SCENE_FILE_DIR, vargs[0], "SCENE_DIRECTORY");
   }
@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
      vargs = parser.get(Flag::TEXTURE_DIRECTORY).getArgs();
      if (vargs.size() != 1){
       displayHelp();
-      return EXIT_FAILURE;
+      exit( EXIT_FAILURE );
      }
      set(TEXTURE_DIR, vargs[0], "TEXTURE_DIRECTORY");
   }
@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
      vargs = parser.get(Flag::CAMERA_DIRECTORY).getArgs();
      if (vargs.size() != 1){
       displayHelp();
-      return EXIT_FAILURE;
+      exit( EXIT_FAILURE );
      }
      set(CAMERA_DIR, vargs[0], "CAMERA_DIRECTORY");
   }
@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
      vargs = parser.get(Flag::OUTPUT_DIRECTORY).getArgs();
      if (vargs.size() != 1){
       displayHelp();
-      return EXIT_FAILURE;
+      exit( EXIT_FAILURE );
      }
      set(OUTPUT_DIR, vargs[0], "OUTPUT_DIRECTORY");
   }
@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
      vargs = parser.get(Flag::RENDER_LIST).getArgs();
      if (vargs.size() != 1){
       displayHelp();
-      return EXIT_FAILURE;
+      exit( EXIT_FAILURE );
      }
      set(RENDER_LIST, vargs[0], "RENDER_LIST");
   }
@@ -146,15 +146,15 @@ int main(int argc, char *argv[])
     std::cout << "Default RENDER_LIST is " << RENDER_LIST << std::endl;
   }
 
-
-
-
-
   if (parser.has(Flag::HEADLEASS))
     winMan = new WindowManager_headless{WINDOW_WIDTH, WINDOW_HEIGHT};
   else
     winMan = new WindowManager{WINDOW_WIDTH, WINDOW_HEIGHT};
+}
 
+int main(int argc, char *argv[])
+{
+  parseCmdLn(argc, argv);
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
   world = new Patronus::PhysicalWorld();
