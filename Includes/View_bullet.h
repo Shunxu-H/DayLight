@@ -7,6 +7,8 @@
 class View_bullet: public View, public btIDebugDraw{
 public:
     View_bullet(
+            const size_t & x,
+            const size_t & y,
             const size_t & w = 500,
             const size_t & h = 500,
             const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr )

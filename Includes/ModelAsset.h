@@ -5,6 +5,9 @@
 #include "GL_include.h"
 #include <opencv2/opencv.hpp>
 
+/**
+ * @TODO: Make Texture a separated class
+ */
 namespace Lumos {
     struct Material{
         float reflexitivity;

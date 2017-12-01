@@ -32,10 +32,9 @@ Depth Mask:
 - [X] Tansformable--'isVisible', filter out invisible objects while rendering
 - [X] Standardizing rendering procedures ( render all images given a directory )
 - [X] Enlarge .obj data for the depth buffer situation 
-- [X] Offscreen rendering ( QOffscreenSurface )
 - [X] Minimize image file ( bit map, text array, lossiless compression)
-- [ ] Bullet physic detachable
-- [ ] Build 'openGl self management'
+- [X] Build 'openGl self management'
+- [X] Test GLObject(seems working, more tests required)
 - [ ] Make sure x11 works on the vision machines 
 - [X] Rebuild GUI
 - [ ] Rebuild Navigation with x11
@@ -43,10 +42,19 @@ Depth Mask:
 	* - [ ] tilt
 	* - [ ] zoom
 	* - [ ] select
- 
+- [ ] Make Texture a separated class
+- [ ] Make FrameBuffer a separated class
+- [ ] Enable more than two shaders in pipes
+- [ ] Deffered rendering 
+	* - [ ] Shadow Mapping
+	* - [ ] Glow Effect 
+- [ ] Bullet physic detachable
+- [ ] Decide a way to save game state 
+
 ## Motivation
 
-As for right now, I am trying to put together what I have learnt
+1. Headless rendering with OpenGL and X11
+2. Game Engine 
 
 ## Installation
 
@@ -66,25 +74,17 @@ For distributions derived from Debian such as Ubuntu
 apt-get install freeglut3-dev
 ```
 
-3. Qt : http://doc.qt.io/qt-5/gettingstarted.html
-	without Qt Creator:
 	
 ```
-mkdir Daylight-build
-cd Daylight-build
+mkdir build
+cd build
 cp -r /path/to/data/dir .
 cp -r /path/to/GLSL/dir .
-/path/to/Qt/5.8/gcc_64/bin/qmake -o Makefile /path/to/DayLight.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
+cmake ..
 make
 ./Daylight
 ```
 
-
-4. In some situation where Qt does not have the most update info for opengl, in my case Intel onbooard GPU under Ubuntu 16.04. Use prefix 
-
-```
-MESA_GL_VERSION_OVERRIDE=4.5 ./Daylight
-```
 
 ## API Reference
 

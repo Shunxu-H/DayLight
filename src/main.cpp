@@ -152,6 +152,23 @@ void parseCmdLn(int argc, char *argv[]){
     winMan = new WindowManager{WINDOW_WIDTH, WINDOW_HEIGHT};
 }
 
+#include "ArrayBuffer.h"
+
+void test_within_test(const Lumos::ArrayBuffer & ab){
+  Lumos::ArrayBuffer inner_ab(ab);
+  int a = 1;
+  a = a;
+}
+
+void test(){
+  Lumos::ArrayBuffer ab1{};
+  Lumos::ArrayBuffer ab2(ab1);
+  Lumos::ArrayBuffer ab3 = ab2;
+  Lumos::ArrayBuffer different_ab{};
+  ab2 = different_ab;
+  test_within_test(ab1);
+}
+
 int main(int argc, char *argv[])
 {
   parseCmdLn(argc, argv);
@@ -168,6 +185,6 @@ int main(int argc, char *argv[])
   gProgram->preDrawSetUp();
 
   winMan->show();
-  
+  // test();
   return winMan->loop();
 }

@@ -17,11 +17,7 @@
 #include "WindowManager_base.h"
 
 class View;
-namespace Lumos {
-    class Shader;
-}
 
-class Keyboard;
 class WindowManager : public WindowManager_base
 {
 public:

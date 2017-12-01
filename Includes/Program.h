@@ -13,6 +13,10 @@
 
 #include "ArrayBuffer.h"
 
+/**
+ * @TODO:
+ * 1. Enable more than two shaders in pipes
+ */
 
 namespace Lumos {
     using shading_pipe = std::vector<Shader>;

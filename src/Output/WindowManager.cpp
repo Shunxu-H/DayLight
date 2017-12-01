@@ -100,7 +100,7 @@ WindowManager::WindowManager(const size_t &w, const size_t &h )
     assert(GLEW_OK == glewInit());
     
     glGetError();
-    _views.push_back(new View(h, w));
+    _views.push_back(new View(0, 0, h, w));
 }
 
 

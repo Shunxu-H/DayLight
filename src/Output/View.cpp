@@ -11,14 +11,18 @@
 
 
 View::View(
+        const size_t & x,
+        const size_t & y,
         const size_t & w,
         const size_t & h,
         const std::shared_ptr< Patronus::Camera > & cam, 
         const std::string & shaderId )
-    : _VAO( 0 )
-    , _shaderId( shaderId )
+    : _x( x )
+    , _y( y )
     , _width(w)
     , _height(h)
+    , _VAO( 0 )
+    , _shaderId( shaderId )
 {
     if ( cam == nullptr )
         _camInUse = Patronus::Camera::pers;
@@ -28,7 +32,11 @@ View::View(
     //_renderer = new Renderer(this, nullptr, QSize(width(), height()));
 
     //initializeGL();
-    //QOpenGLWidget::setRenderHint(QPainter::Antialiasing);
+}
+
+
+bool View::isClick(const size_t & x, const size_t & y){
+    return (x >= _x and x <= _x + _width) and (y >= _y and y <= _y + _height); 
 }
 
 void View::loadAttribsAndUniform() const{

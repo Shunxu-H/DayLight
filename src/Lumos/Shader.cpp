@@ -21,8 +21,16 @@ const std::string Shader::mask_shader_id = "mask";
 const std::string Shader::selected_instances_shader_id = "wired_frame_shader";
 
 
-Shader::Shader(const std::string & shaderCode, const GLenum & shaderType){
-    setObjId( glCreateShader( shaderType ) );
+Shader::Shader()
+{
+
+}
+
+Shader::Shader(const std::string & shaderCode, const GLenum & shaderType)
+    :GLObject( glCreateShader( shaderType ), 
+              [](const GLuint * id){glDeleteBuffers(1, id);})
+{
+
 
     if ( getObjId() == 0 )
         throw std::runtime_error( "glCreateShader failed");
@@ -55,10 +63,6 @@ Shader::Shader(const std::string & shaderCode, const GLenum & shaderType){
 }
 
 Shader::~Shader(){
-    if (*_refCount == 1){
-        glDeleteShader( getObjId() );
-        setObjId( 0 );
-    }
 }
 
 void Shader::getCurrentVaryingsAndUniforms(

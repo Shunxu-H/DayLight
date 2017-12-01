@@ -205,7 +205,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
     for ( const tinyobj::material_t & m : materials ){
         Lumos::Material * newMaterial = new Lumos::Material;
         if ( m.diffuse_texname.size() > 0 ){
-
+            
             if( std::experimental::filesystem::exists(( m.diffuse_texname))){
                 cv::Mat im = cv::imread(( m.diffuse_texname).c_str());
                 newMaterial->texture = im;

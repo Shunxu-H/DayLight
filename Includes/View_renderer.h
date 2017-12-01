@@ -6,8 +6,10 @@
 class View_renderer : public View{
 public:
     View_renderer(
-    		const size_t & w = 500,
-    		const size_t & h = 500,
+            const size_t & x = 0,
+            const size_t & y = 0,
+            const size_t & w = 500,
+            const size_t & h = 500,
 	        const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
 	        const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
          );

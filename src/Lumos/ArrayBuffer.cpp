@@ -5,9 +5,24 @@
 using namespace Lumos;
 
 
+ArrayBuffer::ArrayBuffer( )
+    : GLObject( [](GLuint * id){glGenBuffers(1, id);}, 
+                [](const GLuint * id){glDeleteBuffers(1, id);} )
+{
+
+}
+
+
+ArrayBuffer::ArrayBuffer( const ArrayBuffer & rhs)
+    : GLObject( rhs )
+    , _numOfEntry( rhs._numOfEntry )
+    , _bytesPerEntry( rhs._bytesPerEntry )
+{
+
+}
+
 ArrayBuffer& ArrayBuffer::operator = ( const ArrayBuffer & other ){
     GLObject::operator =(other);
-    Countable::operator =(other);
     _numOfEntry = other._numOfEntry;
     _bytesPerEntry = other._bytesPerEntry;
     return *this;
@@ -20,7 +35,6 @@ void ArrayBuffer::setVertexBuffer( const std::vector<Patronus::Mesh> & geos ){
         _numOfEntry += geo.getNumOfFaces()*3;
 
 
-    glGenBuffers(1, &_glObjId);
     glBindBuffer( GL_ARRAY_BUFFER, _glObjId );
     glBufferData( GL_ARRAY_BUFFER,
                   getSizeInByte(),
@@ -40,7 +54,6 @@ void ArrayBuffer::setVertexNormalBuffer( const std::vector<Patronus::Mesh> & mes
     for ( const Patronus::Mesh & mesh: meshes )
         _numOfEntry += mesh.getNumOfFaces()*3;
 
-    glGenBuffers(1, &_glObjId);
     glBindBuffer( GL_ARRAY_BUFFER, _glObjId );
     glBufferData( GL_ARRAY_BUFFER,
                   getSizeInByte(),
@@ -57,13 +70,20 @@ void ArrayBuffer::setColorBuffer( const std::vector<Patronus::Mesh> & shapes  ){
 }
 
 ArrayBuffer::~ArrayBuffer(){
-    if ( *_refCount == 1){
-        GLuint n = getObjId();
-        glDeleteBuffers( 1, &n );
-    }
 }
 
-void ArrayBuffer::bind() const{
+void ArrayBuffer::use() const{
     glBindVertexArray(getObjId());
+}
+
+bool ArrayBuffer::isInUse() const{
+    GLint currentVertexArrat = 0;
+    glGetIntegerv(GL_VERTEX_ARRAY_BUFFER_BINDING, &currentVertexArrat);
+    return (currentVertexArrat == static_cast<GLint>( getObjId() ));
+
+}
+
+void ArrayBuffer::stopUsing() const{
+    glBindVertexArray(0);
 }
 

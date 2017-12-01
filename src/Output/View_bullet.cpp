@@ -8,12 +8,14 @@
 
 
 View_bullet::View_bullet( 
-  const size_t & w,
-  const size_t & h,
-  const std::shared_ptr< Patronus::Camera > & cam )
-:View(w, h, cam), m_debugMode(1)
+    const size_t & x,
+    const size_t & y,
+    const size_t & w,
+    const size_t & h,
+    const std::shared_ptr< Patronus::Camera > & cam )
+:View(x, y, w, h, cam), m_debugMode(1)
 {
-  world->setDebugView(this);
+    world->setDebugView(this);
 }
 
 void View_bullet::resizeGL(const size_t & w, const size_t & h){

@@ -5,11 +5,13 @@
 
 
 View_renderer::View_renderer(
-		const size_t & w, 
-		const size_t & h, 
+        const size_t & x, 
+        const size_t & y, 
+        const size_t & w, 
+        const size_t & h, 
 		const std::shared_ptr<Patronus::Camera> & cam, 
 		const std::string & shaderId )
-    : View(w, h, cam, shaderId)
+    : View(x, y, w, h, cam, shaderId)
     , _Multisampled_FBO(0)
     , _Multisampled_ColorBuffer(0)
     , _Multisampled_DepthBuffer(0)

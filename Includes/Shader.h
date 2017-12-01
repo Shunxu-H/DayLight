@@ -6,16 +6,13 @@
 #include <memory>
 #include "GL_include.h"
 #include "GLObject.h"
-#include "Countable.h"
-
 namespace Lumos {
 
-    class Shader : public GLObject, public Countable
+    class Shader : public GLObject
     {
     public:
-        Shader(){}
+        Shader();
         virtual ~Shader();
-        virtual void bind () const{}
 
         static const std::string default_mesh_shader_id;
         static const std::string default_bbox_shader_id;
@@ -47,11 +44,11 @@ namespace Lumos {
         /**
          * @brief wrapper class to provide access to OpenGL
          */
-        void use() const;
+        void use() const override;
+        void stopUsing() const override;
 
         bool isInUse() const;
 
-        void stopUsing() const;
 
     protected:
 
@@ -61,7 +58,7 @@ namespace Lumos {
          * @brief Shader
          * @param filePath file path to the GLSL file
          * @param shaderType type of shader
-         *        must be
+         *        must be one of 
          *        GL_COMPUTE_SHADER | GL_VERTEX_SHADER |
          *        GL_TESS_CONTROL_SHADER | GL_TESS_EVALUATION_SHADER |
          *        GL_Mesh_SHADER | GL_FRAGMENT_SHADER

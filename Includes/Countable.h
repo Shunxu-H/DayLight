@@ -1,6 +1,8 @@
 #ifndef COUNTABLE_H
 #define COUNTABLE_H
 
+#include "GL_include.h"
+
 namespace Lumos {
 
      /**
@@ -9,17 +11,19 @@ namespace Lumos {
      */
     class Countable{
     public:
-        Countable();
+        Countable(){}
+        Countable(void (*_releaseFunc)(GLsizei n, const GLuint * textures));
         Countable( const Countable & other );
         Countable & operator = (const Countable & other );
         virtual ~Countable();
 
     protected:
-        unsigned int *_refCount; // use to keep the reference count for the shader
 
     private:
+        unsigned int *_refCount; // use to keep the reference count for the shader
         void _retain();
         void _release();
+        void (*_releaseFunc)(GLsizei n, const GLuint * textures);
     };
 
 }

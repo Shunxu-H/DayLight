@@ -2,7 +2,6 @@
 #define ARRAYBUFFER_H
 
 #include "GL_include.h"
-#include "Countable.h"
 #include "GLObject.h"
 #include "Mesh.h"
 
@@ -15,10 +14,11 @@ namespace Lumos {
         POINT3_BUFFER
     };
 
-    class ArrayBuffer: public GLObject, public Countable{
+    class ArrayBuffer: public GLObject{
     public:
         static Type type;
-        ArrayBuffer( ):GLObject(), Countable(){}
+        ArrayBuffer( );
+        ArrayBuffer( const ArrayBuffer & rhs);
         ArrayBuffer& operator = ( const ArrayBuffer & other );
         void setVertexBuffer( const std::vector<Patronus::Mesh> & shapes );
         void setVertexNormalBuffer( const std::vector<Patronus::Mesh> & shapes );
@@ -35,7 +35,9 @@ namespace Lumos {
         inline size_t
             getNumOfEntry() const { return _numOfEntry; }
 
-        void bind() const;
+        void use() const override;
+        bool isInUse() const override;
+        void stopUsing() const override;
 
     protected:
 
