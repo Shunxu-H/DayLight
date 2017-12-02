@@ -206,8 +206,8 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
         Lumos::Material * newMaterial = new Lumos::Material;
         if ( m.diffuse_texname.size() > 0 ){
             
-            if( std::experimental::filesystem::exists(( m.diffuse_texname))){
-                cv::Mat im = cv::imread(( m.diffuse_texname).c_str());
+            if( std::experimental::filesystem::exists(( curDir + m.diffuse_texname).c_str())){
+                cv::Mat im = cv::imread(( curDir + m.diffuse_texname).c_str());
                 newMaterial->texture = im;
                 cv::flip(im, newMaterial->texture, 0);
             }
