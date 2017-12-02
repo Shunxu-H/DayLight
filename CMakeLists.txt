@@ -25,13 +25,9 @@ find_library(EGL_LIBRARY
     /usr/local/lib
     /usr/lib)
 
-
-
 set(EGL_LIBRARIES ${EGL_LIBRARY} )
 
-
 SET(GCC_COVERAGE_COMPILE_FLAGS "-lGLESv2")
-
 
 # set warnig option
 if ( CMAKE_COMPILER_IS_GNUCC )
@@ -41,8 +37,6 @@ if ( MSVC )
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} /W4")
 endif ( MSVC )
 
-
-
 # Check for standard to use
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -50,7 +44,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(EGL_LIBRARIES ${EGL_LIBRARY} )
 set(CMAKE_BUILD_TYPE Debug)
-
 
 find_path(EGL_INCLUDE_DIR NAMES EGL/egl.h)
 
