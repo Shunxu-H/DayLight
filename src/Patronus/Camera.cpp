@@ -1,3 +1,26 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2016-2017 Shunxu Huang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 #include <experimental/filesystem>
 #include <fstream>
 #include <sstream>
@@ -100,126 +123,6 @@ void Camera::loadUniforms( const unsigned int & width, const unsigned int & heig
 
 }
 
-void Camera::getColorAndDepthTexture(const unsigned int & width, const unsigned int & height, GLuint * colorTexture, GLuint * depthTexture )const{
-
-    GLuint FBO;
-    GLuint DepthTextureObject;
-    GLuint ColorTextureObject;
-
-
-    // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-    GLint drawFboId = 0, readFboId = 0;
-    glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawFboId);
-    glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readFboId);
-
-    Utils::logOpenGLError();
-    glGenFramebuffers(1, &FBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-    Utils::logOpenGLError();
-
-    glEnable(GL_DEPTH_TEST);
-
-    // draw line and polygon together
-    glEnable(GL_POLYGON_OFFSET_FILL);
-    glPolygonOffset(1, 0);
-
-
-    // create a RGBA color texture
-
-    glGenTextures(1, &ColorTextureObject);
-    glBindTexture(GL_TEXTURE_2D, ColorTextureObject);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-                        width, height,
-                        0, GL_RGBA, GL_UNSIGNED_BYTE,
-                        NULL);
-
-    // create a depth texture
-    glGenTextures(1, &DepthTextureObject);
-    glBindTexture(GL_TEXTURE_2D, DepthTextureObject);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
-                        width, height,
-                        0, GL_DEPTH_COMPONENT, GL_FLOAT,
-                        NULL);
-
-
-
-    Utils::logOpenGLError();
-    // attach color
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ColorTextureObject, 0);
-    glFramebufferTexture2D(GL_FRAMEBUFFER,  GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, DepthTextureObject, 0);
-
-
-    // Set the list of draw buffers.
-    Utils::logOpenGLError();
-
-    // check buffer status
-    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        throw std::runtime_error ( "Error! FrameBuffer is not complete" );
-
-
-
-    Utils::logOpenGLError();
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, FBO);
-
-
-    GLint drawId = 0, readId = 0;
-    glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
-    glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readId);
-
-    Utils::logOpenGLError();
-
-    GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
-    glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT  );
-    glClearColor(0,0,0,1);
-
-    Utils::logOpenGLError();
-    loadUniforms(width, height);
-    Utils::logOpenGLError();
-    shaper->loadAttribsAndUniform();
-    Lumos::Material * materialInUse = nullptr;
-    for(Lumos::Instance const * i : world->getInstances()){
-        i->renderMesh(materialInUse);
-    }
-    Utils::logOpenGLError();
-    //glViewport(0,0,width,height);
-    glFlush();
-    //glViewport(0,0,width,height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
-    Utils::logOpenGLError();
-
-    /*
-    glBindFramebuffer(GL_READ_FRAMEBUFFER, FBO);
-
-    GLubyte * pixels = new GLubyte [height*width*4*sizeof(GLubyte)];
-    size_t size = sizeof(GLubyte);
-
-    glBindTexture(GL_TEXTURE_2D, ColorTextureObject);
-    //glReadBuffer(GL_COLOR_ATTACHMENT0);
-
-
-    Utils::logOpenGLError();
-    glGetTexImage ( GL_TEXTURE_2D,
-                    0,
-                    GL_RGBA, // GL will convert to this format
-                    GL_UNSIGNED_BYTE,   // Using this data type per-pixel
-                    pixels );
-    glBindTexture(GL_TEXTURE_2D, 0);
-    delete[] pixels;
-
-    */
-
-    glBindFramebuffer(GL_READ_FRAMEBUFFER, readFboId);
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, drawFboId);
-    //glDeleteTextures(1, &DepthTextureObject);
-    glDeleteFramebuffers(1, &FBO);
-
-    Utils::logOpenGLError();
-    *colorTexture = ColorTextureObject;
-    *depthTexture = DepthTextureObject;
-}
-
 
 void Camera::moveForward( const float & sensitivity ){
     point3 temp = _translate + _at;
@@ -261,4 +164,3 @@ glm::mat4 Camera::getPerspectiveMatrix()const{
 glm::mat4 Camera::getProjectionMatrix(const float & aspect_ratio )const {
     return glm::perspective	( _fov, aspect_ratio, _near, _far);
 }
-

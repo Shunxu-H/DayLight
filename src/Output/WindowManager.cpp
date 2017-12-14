@@ -1,9 +1,29 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2016-2017 Shunxu Huang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 #include <experimental/filesystem>
 #include <iostream>
 #include <ctime>
-
-
-
 #include "GL_include.h"
 #include "WindowManager.h"
 #include "Shaper.h"
@@ -11,13 +31,13 @@
 #include "Utility.h"
 
 #include  <sys/time.h>
- 
+
 #include  <X11/Xlib.h>
 #include  <X11/Xatom.h>
 #include  <X11/Xutil.h>
 
 #include <unistd.h>
- 
+
 
 // #include "View.h"
 // #include "View_bullet.h"
@@ -94,11 +114,11 @@ WindowManager::WindowManager(const size_t &w, const size_t &h )
     ,_egl_surface(0)
     ,_xContex(0)
 {
-    
+
     _X11WindowInit();
     glewExperimental = GL_TRUE;
     assert(GLEW_OK == glewInit());
-    
+
     glGetError();
     _views.push_back(new View(0, 0, h, w));
 }
@@ -152,7 +172,7 @@ void WindowManager::_X11WindowInit(){
     int glx_major, glx_minor;
 
     // FBConfigs were added in GLX version 1.3.
-    if ( !glXQueryVersion( _x_display, &glx_major, &glx_minor ) || 
+    if ( !glXQueryVersion( _x_display, &glx_major, &glx_minor ) ||
     ( ( glx_major == 1 ) && ( glx_minor < 3 ) ) || ( glx_major < 1 ) )
     {
         printf("Invalid GLX version");
@@ -184,10 +204,10 @@ void WindowManager::_X11WindowInit(){
             glXGetFBConfigAttrib( _x_display, fbc[i], GLX_SAMPLES       , &samples  );
 
             std::cout << "  Matching fbconfig" << i
-                 << ", visual ID 0x" << vi -> visualid 
-                 << ": SAMPLE_BUFFERS = " 
-                 << samp_buf << 
-                 ", SAMPLES = " << samples 
+                 << ", visual ID 0x" << vi -> visualid
+                 << ": SAMPLE_BUFFERS = "
+                 << samp_buf <<
+                 ", SAMPLES = " << samples
                  << std::endl;
 
             if ( (best_fbc < 0 || samp_buf) && (samples > best_num_samp) )
@@ -212,16 +232,16 @@ void WindowManager::_X11WindowInit(){
     XSetWindowAttributes swa;
     Colormap cmap;
     swa.colormap = cmap = XCreateColormap( _x_display,
-                                 RootWindow( _x_display, vi->screen ), 
+                                 RootWindow( _x_display, vi->screen ),
                                  vi->visual, AllocNone );
     swa.background_pixmap = None ;
     swa.border_pixel      = 0;
     swa.event_mask        = ExposureMask | KeyPressMask;
 
     printf( "Creating window\n" );
-    _win = XCreateWindow( _x_display, RootWindow( _x_display, vi->screen ), 
-                      0, 0, _width, _height, 0, vi->depth, InputOutput, 
-                      vi->visual, 
+    _win = XCreateWindow( _x_display, RootWindow( _x_display, vi->screen ),
+                      0, 0, _width, _height, 0, vi->depth, InputOutput,
+                      vi->visual,
                       CWBorderPixel|CWColormap|CWEventMask, &swa );
     if ( !_win )
     {
@@ -302,7 +322,7 @@ void WindowManager::_X11WindowInit(){
 
             printf( "Failed to create GL 3.0 context"
               " ... using old-style GLX context\n" );
-            _xContex = glXCreateContextAttribsARB( _x_display, bestFbc, 0, 
+            _xContex = glXCreateContextAttribsARB( _x_display, bestFbc, 0,
                                         True, context_attribs );
         }
     }
@@ -324,12 +344,12 @@ void WindowManager::_X11WindowInit(){
         printf( "Indirect GLX rendering context obtained\n" );
     else
         printf( "Direct GLX rendering context obtained\n" );
-    
+
 
 
     printf( "Making context current\n" );
     glXMakeCurrent( _x_display, _win, _xContex );
-    
+
 
 }
 
@@ -408,7 +428,7 @@ void WindowManager::_eglInitWithWindow(){
 
     //// associate the egl-context with the egl-surface
     eglMakeCurrent( _egl_display, _egl_surface, _egl_surface, _egl_context );
- 
+
 }
 
 void WindowManager::_headlessInit(){
@@ -421,14 +441,14 @@ void WindowManager::_headlessInit(){
         EGL_DEPTH_SIZE, 8,
         EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
         EGL_NONE
-    };  
+    };
 
     static const EGLint pbufferAttribs[] = {
         EGL_WIDTH, static_cast<int>(_width),
         EGL_HEIGHT, static_cast<int>(_height),
         EGL_NONE,
     };
-  
+
 
     // 1. Initialize EGL
     _egl_display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
@@ -440,18 +460,18 @@ void WindowManager::_headlessInit(){
     // 2. Select an appropriate configuration
     EGLint numConfigs;
     EGLConfig eglCfg;
-    
+
     eglChooseConfig(_egl_display, configAttribs, &eglCfg, 1, &numConfigs);
 
     // 3. Create a surface
-    _egl_surface = eglCreatePbufferSurface(_egl_display, eglCfg, 
+    _egl_surface = eglCreatePbufferSurface(_egl_display, eglCfg,
                                                pbufferAttribs);
 
     // 4. Bind the API
     eglBindAPI(EGL_OPENGL_API);
 
     // 5. Create a context and make it current
-    _egl_context = eglCreateContext(_egl_display, eglCfg, EGL_NO_CONTEXT, 
+    _egl_context = eglCreateContext(_egl_display, eglCfg, EGL_NO_CONTEXT,
                                        NULL);
 
     eglMakeCurrent(_egl_display, _egl_surface, _egl_surface, _egl_context);
@@ -473,15 +493,15 @@ void WindowManager::_keyboard_handle(const XEvent & event){
             XCloseDisplay(_x_display);
 
             exit(EXIT_SUCCESS);
-            
+
         }
         else if (event.xkey.keycode == 0x27) // press 's' for SCREEN SHOT
         {
             //screenshot("snapshot.png");
             printf("screen shot!\n" );
         }
-            
-        
+
+
     }
     else if (event.type == KeyRelease)
     {
@@ -501,7 +521,7 @@ int WindowManager::loop()
         if(xev.type == Expose) {
             std::cout << "Exposing" << std::endl;
 
-            render(); 
+            render();
             glXSwapBuffers(_x_display, _win);
         }
 
@@ -526,5 +546,3 @@ void WindowManager::updateAllViews(){
 }
 
 */
-
-

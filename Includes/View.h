@@ -1,3 +1,26 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2016-2017 Shunxu Huang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 #ifndef VIEW_H
 	#define VIEW_H
 
@@ -21,7 +44,7 @@ class View
 public:
     View(
             const size_t & x = 0,
-            const size_t & y = 0, 
+            const size_t & y = 0,
             const size_t & w = 500,
             const size_t & h = 500,
             const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
@@ -31,7 +54,7 @@ public:
     //View(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
     virtual ~View(){}
 
-    /** 
+    /**
      * START OF GETTERS AND SETTERS
      */
     inline void
@@ -48,7 +71,7 @@ public:
     inline size_t getHeight() const {return _height;}
     inline size_t getX() const {return _x;}
     inline size_t getY() const {return _y;}
-    /** 
+    /**
      * END OF GETTERS AND SETTERS
      */
 
@@ -75,4 +98,4 @@ private:
 
 
 
-#endif 
+#endif

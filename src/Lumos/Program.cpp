@@ -1,3 +1,26 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2016-2017 Shunxu Huang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 #include <stdexcept>
 #include <vector>
 #include <experimental/filesystem>
@@ -21,44 +44,6 @@ Program::Program(){
 
     glLinkProgram( _glObjId );
 }
-
-/*
-Program::Program(std::vector<Shader> shaders)
-{
-    if( shaders.size() <=0 )
-        throw std::runtime_error("No Shaders loaded");
-
-
-    // testing on attaching and detaching the program and shader objects
-    for ( const Shader & shader : shaders )
-        glAttachShader( getObjId(), shader.getGlObjId() );
-
-    glLinkProgram( getObjId() );
-
-    for ( const Shader & shader: shaders )
-        glDetachShader( getObjId(), shader.getGlObjId() );
-
-    GLint status;
-    glGetProgramiv( getObjId(), GL_LINK_STATUS, & status );
-
-    // displaying log error
-    if ( status == GL_FALSE ){
-        std::string msg("Program/Shader linking failure: ");
-
-        GLint infoLogLength;
-        char* strInfoLog = new char[infoLogLength + 1];
-        glGetProgramInfoLog( getObjId(), GL_INFO_LOG_LENGTH, nullptr, strInfoLog );
-        msg += strInfoLog;
-        delete[] strInfoLog;
-
-        glDeleteProgram( getObjId() );  setObjId( 0 );
-        throw std::runtime_error ( msg );
-
-    }
-    _shaders = shaders;
-
-}
-*/
 
 
 void Program::enableShadingPipe( const std::string & pipe_name ){
@@ -130,35 +115,6 @@ void Program::loadShaders( const std::string & GLSL_path ){
         }
     }
 
-    // testing on attaching and detaching the program and shader objects
-    /*
-    for ( const Shader & shader : shaders )
-        glAttachShader( getObjId(), shader.getGlObjId() );
-
-    glLinkProgram( getObjId() );
-
-    for ( const Shader & shader: shaders )
-        glDetachShader( getObjId(), shader.getGlObjId() );
-
-    GLint status;
-    glGetProgramiv( getObjId(), GL_LINK_STATUS, & status );
-
-    // displaying log error
-    if ( status == GL_FALSE ){
-        std::string msg("Program/Shader linking failure: ");
-
-        GLint infoLogLength;
-        char* strInfoLog = new char[infoLogLength + 1];
-        glGetProgramInfoLog( getObjId(), GL_INFO_LOG_LENGTH, nullptr, strInfoLog );
-        msg += strInfoLog;
-        delete[] strInfoLog;
-
-        glDeleteProgram( getObjId() );  setObjId( 0 );
-        throw std::runtime_error ( msg );
-
-    }
-    _shaders = shaders;
-    */
 }
 
 void Program::preDrawSetUp() {
@@ -173,54 +129,6 @@ void Program::preDrawSetUp() {
         winMan->positionAllViewsToFitAllInstances();
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-/*
-    gProgram->use();
-    gProgram->enableShadingPipe("shader");
-    glLinkProgram(_glObjId);
-
-    GLsizei count;
-    GLuint shaderName[3];
-    glGetAttachedShaders(	gProgram->getObjId(),
-        3,
-        &count,
-        shaderName);
-
-    //glGenVertexArrays(1, &_curVAO);
-    glBindVertexArray( drawingInstances[0].getAsset().VAO );
-
-
-    //_curVBO = shaper.getVertexBuffer();
-    glBindBuffer(GL_ARRAY_BUFFER, drawingInstances[0].getAsset().VBO_VERT );
-
-    // connect the xyz to the "vert" attribute of the vertex shader
-    GLuint vert = gProgram->getAttrib("vert");
-
-    //glVertexAttribPointer(gProgram->getAttrib("vert"), 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), NULL);
-    glEnableVertexAttribArray(vert);
-    glVertexAttribPointer(vert, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-
-    //_curVBO_normal = shaper.getNormalBuffer();
-    glBindBuffer(GL_ARRAY_BUFFER, drawingInstances[0].getAsset().VBO_NORMAL);
-
-    GLuint vertNormal = gProgram->getAttrib("vertNormal");
-
-    //glVertexAttribPointer(gProgram->getAttrib("vert"), 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), NULL);
-    glEnableVertexAttribArray(vertNormal);
-    glVertexAttribPointer(vertNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-
-    //glBufferData(GL_ARRAY_BUFFER, sizeof(point4)*shaper.getNumOfVertices(), vertexData, GL_STATIC_DRAW);
-
-
-    // connect the uv coords to the "vertTexCoord" attribute of the vertex shader
-    //glEnableVertexAttribArray(gProgram->getAttrib("vertTexCoord"));
-    //glVertexAttribPointer(gProgram->getAttrib("vertTexCoord"), 2, GL_FLOAT, GL_TRUE,  5*sizeof(GLfloat), (const GLvoid*)(3 * sizeof(GLfloat)));
-
-    // unbind the VAO
-    //glBindVertexArray(0);
-
-*/
 }
 
 Program::~Program(){

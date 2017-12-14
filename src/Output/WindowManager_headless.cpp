@@ -1,4 +1,26 @@
+/*
+The MIT License (MIT)
 
+Copyright (c) 2016-2017 Shunxu Huang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 #include <iterator>
 #include <experimental/filesystem>
 #include <algorithm>
@@ -17,7 +39,7 @@
 
 
 #include <unistd.h>
- 
+
 
 // #include "View.h"
 // #include "View_bullet.h"
@@ -39,7 +61,7 @@ namespace fs = std::experimental::filesystem;
 //    p1_pos_y  =  0.0;
 
 // bool update_pos = false;
-// 
+//
 
 typedef GLXContext (*glXCreateContextAttribsARBProc)(Display*, GLXFBConfig, GLXContext, Bool, const int*);
 typedef Bool (*glXMakeContextCurrentARBProc)(Display*, GLXDrawable, GLXDrawable, GLXContext);
@@ -59,12 +81,18 @@ WindowManager_headless::WindowManager_headless(const size_t &w, const size_t &h 
 {
     _headlessInitWithX11();
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-    
+
+    std::cout << "GLEW version: " << glewGetString(GLEW_VERSION) << std::endl;
     glewExperimental = GL_TRUE;
-    assert(GLEW_OK == glewInit());
+    GLenum err;
+    if ( ( err = glewInit()) != GLEW_OK) {
+        std::cout << "GLEW Error: " << glewGetErrorString(err) << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     glGetError();
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
-   
+
     _render_hidden_view = new View_renderer(w, h);
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
@@ -75,7 +103,7 @@ WindowManager_headless::WindowManager_headless(const size_t &w, const size_t &h 
 
 
 void WindowManager_headless::_headlessInitWithX11(){
-    
+
 
     glXCreateContextAttribsARB = (glXCreateContextAttribsARBProc) glXGetProcAddressARB( (const GLubyte *) "glXCreateContextAttribsARB" );
     glXMakeContextCurrentARB   = (glXMakeContextCurrentARBProc)   glXGetProcAddressARB( (const GLubyte *) "glXMakeContextCurrent"      );
@@ -91,13 +119,13 @@ void WindowManager_headless::_headlessInitWithX11(){
 
 
     int context_attribs[] = {
-        GLX_CONTEXT_MAJOR_VERSION_ARB, 4,
-        GLX_CONTEXT_MINOR_VERSION_ARB, 2,
+        GLX_CONTEXT_MAJOR_VERSION_ARB, 3,
+        GLX_CONTEXT_MINOR_VERSION_ARB, 0,
         GLX_CONTEXT_FLAGS_ARB, GLX_CONTEXT_DEBUG_BIT_ARB,
         GLX_CONTEXT_PROFILE_MASK_ARB, GLX_CONTEXT_CORE_PROFILE_BIT_ARB,
         None
     };
-     
+
     GLXContext openGLContext = glXCreateContextAttribsARB( display, fbConfigs[0], 0, True, context_attribs);
 
     int pbufferAttribs[] = {
@@ -107,17 +135,17 @@ void WindowManager_headless::_headlessInitWithX11(){
     };
 
     GLXPbuffer pbuffer = glXCreatePbuffer( display, fbConfigs[0], pbufferAttribs );
-     
+
     // clean up:
     XFree( fbConfigs );
     XSync( display, False );
-     
+
     if ( !glXMakeContextCurrent( display, pbuffer, pbuffer, openGLContext ) )
     {
         std::cerr << "Failed to acquire OpenGL context for headless setup. " << std::endl;
     }
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
-   
+
 }
 
 
@@ -149,14 +177,14 @@ void WindowManager_headless::_headlessInit(){
         EGL_DEPTH_SIZE, 8,
         EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
         EGL_NONE
-    };  
+    };
 
     static const EGLint pbufferAttribs[] = {
         EGL_WIDTH, static_cast<int>(_width),
         EGL_HEIGHT, static_cast<int>(_height),
         EGL_NONE,
     };
-  
+
 
     // 1. Initialize EGL
     _egl_display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
@@ -170,18 +198,18 @@ void WindowManager_headless::_headlessInit(){
     // 2. Select an appropriate configuration
     EGLint numConfigs;
     EGLConfig eglCfg;
-    
+
     eglChooseConfig(_egl_display, configAttribs, &eglCfg, 1, &numConfigs);
 
     // 3. Create a surface
-    _egl_surface = eglCreatePbufferSurface(_egl_display, eglCfg, 
+    _egl_surface = eglCreatePbufferSurface(_egl_display, eglCfg,
                                                pbufferAttribs);
 
     // 4. Bind the API
     eglBindAPI(EGL_OPENGL_API);
 
     // 5. Create a context and make it current
-    _egl_context = eglCreateContext(_egl_display, eglCfg, EGL_NO_CONTEXT, 
+    _egl_context = eglCreateContext(_egl_display, eglCfg, EGL_NO_CONTEXT,
                                        NULL);
 
     eglMakeCurrent(_egl_display, _egl_surface, _egl_surface, _egl_context);
@@ -192,15 +220,12 @@ int WindowManager_headless::loop()
 {
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-	render();
+    render();
     return EXIT_SUCCESS;
 } /* this is the } which closes int main(int argc, char *argv[]) { */
 
 
 void WindowManager_headless::render(){
-
-    
-    
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     double duration;
     int w = 1080, h = 720;
@@ -228,13 +253,13 @@ void WindowManager_headless::render(){
             indx = 0;
     for (const std::experimental::filesystem::path & p : allobjpath){
         try{
-            
+
             GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
             std::cout << "[";
             std::cout << static_cast<int>(  static_cast<float> (++indx) / static_cast<float> (numToRender) * 100 );
             std::cout << std::setw(4) << std::right << std::setfill(' ')  ;
-            std::cout << std::resetiosflags(std::ios::showbase)   << "%] Rendering: " << std::string(p).c_str() << std::endl;
+            std::cout << std::resetiosflags(std::ios::showbase)   << "\%] Rendering: " << std::string(p).c_str() << std::endl;
             std::string curScope = p.stem();
             if (std::experimental::filesystem::exists(OUTPUT_DIR + curScope)){
                 std::cerr << "Directory exists, skipped current set of data..." << std::endl;
@@ -263,23 +288,24 @@ void WindowManager_headless::render(){
             std::cerr << ex.what() << std::endl;
             std::cerr << "Cleaning unfinished data..." << std::endl;
             Utils::remove_all(OUTPUT_DIR + shaper->getCurFileName());
-        } 
+        }
         catch (const std::string& ex) {
             std::cerr << ex << std::endl;
             std::cerr << "Cleaning unfinished data..." << std::endl;
-            Utils::remove_all(OUTPUT_DIR + shaper->getCurFileName());  
-        } 
+            Utils::remove_all(OUTPUT_DIR + shaper->getCurFileName());
+        }
         catch (...) {
             std::cerr << "Undefined Crash occured." << std::endl;
             std::cerr << "Cleaning unfinished data..." << std::endl;
-            Utils::remove_all(OUTPUT_DIR + shaper->getCurFileName()); 
+            Utils::remove_all(OUTPUT_DIR + shaper->getCurFileName());
         }
+
+        duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
+
+        std::cout << "Time passed: " << duration << std::endl;
     }
 
-    duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
 
-    std::cout << "Time passed: " << duration << std::endl;
-     
 }
 
 
@@ -294,4 +320,3 @@ void WindowManager::updateAllViews(){
 }
 
 */
-

@@ -1,13 +1,35 @@
+/*
+The MIT License (MIT)
 
+Copyright (c) 2016-2017 Shunxu Huang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 /**
  * TO DO
- * x. TRY X11 HEADLESS SETUP 
+ * x. TRY X11 HEADLESS SETUP
  * x. BLIT THE MULTI SAMPLE BUFFER TO A REFULAR ONE AND READ FROM THERE
  * x. Anti aliasing for RGB images
  *  . Depth image -> more precise from 255
  * x. Compress the mask images
  *  . save the results to a new folder under ./build  --> experiments/build/results
- *  . skip the folders already existed  
+ *  . skip the folders already existed
  */
 #include <string>
 #include <iostream>
@@ -44,6 +66,9 @@ std::string RENDER_LIST = "./obj_list.txt";
 
 size_t WINDOW_HEIGHT = 600, WINDOW_WIDTH = 800;
 
+/**
+ * [displayHelp display help menu]
+ */
 void displayHelp(){
   std::ifstream ifs("./help.txt");
   if (ifs.is_open())
@@ -63,6 +88,11 @@ void set(T & arg, T setTo, const std::string & var_name){
   arg = setTo;
 }
 
+/**
+ * [parseCmdLn parase command line]
+ * @param argc [argc from main()]
+ * @param argv [argv from main()]
+ */
 void parseCmdLn(int argc, char *argv[]){
   InputParser parser(argc, argv);
   std::vector<std::string> vargs;
@@ -81,10 +111,10 @@ void parseCmdLn(int argc, char *argv[]){
      set(WINDOW_WIDTH, (size_t)std::stoi(vargs[0].c_str()), "WINDOW_WIDTH");
      set(WINDOW_HEIGHT, (size_t)std::stoi(vargs[1].c_str()), "WINDOW_HEIGHT");
   }
-  else 
+  else
     std::cout << "Default WINDOW_HEIGHT is " << WINDOW_HEIGHT << std::endl
               << "Default WINDOW_HEIGHT is " << WINDOW_WIDTH << std::endl;
-     
+
 
   if (parser.has(Flag::SCENE_DIRECTORY)){
      vargs = parser.get(Flag::SCENE_DIRECTORY).getArgs();
@@ -109,7 +139,7 @@ void parseCmdLn(int argc, char *argv[]){
   else {
     std::cout << "Default TEXTURE_DIRECTORY is " << TEXTURE_DIR << std::endl;
   }
-     
+
   if (parser.has(Flag::CAMERA_DIRECTORY)){
      vargs = parser.get(Flag::CAMERA_DIRECTORY).getArgs();
      if (vargs.size() != 1){
@@ -174,10 +204,11 @@ int main(int argc, char *argv[])
   parseCmdLn(argc, argv);
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
+  // for physical simulartion
   world = new Patronus::PhysicalWorld();
+  // openGL resource management
   gProgram = new Lumos::Program( );
   shaper = new Patronus::Shaper( );
-  GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
   gProgram->loadShaders( "./GLSL" );
   GLError( __PRETTY_FUNCTION__ , __LINE__ );

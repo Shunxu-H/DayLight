@@ -1,4 +1,26 @@
+/*
+The MIT License (MIT)
 
+Copyright (c) 2016-2017 Shunxu Huang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 #include <cmath>
 #include <experimental/filesystem>
 #include <fstream>
@@ -15,7 +37,7 @@ View::View(
         const size_t & y,
         const size_t & w,
         const size_t & h,
-        const std::shared_ptr< Patronus::Camera > & cam, 
+        const std::shared_ptr< Patronus::Camera > & cam,
         const std::string & shaderId )
     : _x( x )
     , _y( y )
@@ -36,7 +58,7 @@ View::View(
 
 
 bool View::isClick(const size_t & x, const size_t & y){
-    return (x >= _x and x <= _x + _width) and (y >= _y and y <= _y + _height); 
+    return (x >= _x and x <= _x + _width) and (y >= _y and y <= _y + _height);
 }
 
 void View::loadAttribsAndUniform() const{
@@ -141,10 +163,10 @@ void View::paintGL(){
 
     loadAttribsAndUniform();
     Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
-    
+
     glBindVertexArray(_VAO);
     Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
-    
+
     _camInUse->loadUniforms(_width, _height);
     shaper->loadAttribsAndUniform();
     Lumos::Material * materialInUse = nullptr;
@@ -197,7 +219,7 @@ void View::fitSphere(const point3 & position, const float & radius){
 //         break;
 //     case Qt::MiddleButton:
 //     {
-        
+
 //         float rgba[4]
 //                , depth_z = 0.0f;
 //         glReadPixels(event->pos().x(), height() - event->pos().y(), 1, 1, GL_RGBA, GL_FLOAT, rgba);

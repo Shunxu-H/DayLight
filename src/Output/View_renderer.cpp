@@ -1,3 +1,26 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2016-2017 Shunxu Huang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 #include <algorithm>
 #include "View_renderer.h"
 #include "Extern.h"
@@ -5,11 +28,11 @@
 
 
 View_renderer::View_renderer(
-        const size_t & x, 
-        const size_t & y, 
-        const size_t & w, 
-        const size_t & h, 
-		const std::shared_ptr<Patronus::Camera> & cam, 
+        const size_t & x,
+        const size_t & y,
+        const size_t & w,
+        const size_t & h,
+		const std::shared_ptr<Patronus::Camera> & cam,
 		const std::string & shaderId )
     : View(x, y, w, h, cam, shaderId)
     , _Multisampled_FBO(0)
@@ -19,16 +42,16 @@ View_renderer::View_renderer(
     , _out_ColorTextureObject(0)
     , _out_DepthTextureObject(0)
 {
-	
+
 
     glGenFramebuffers(1, &_Multisampled_FBO);
     glGenFramebuffers(1, &_out_FBO);
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-    
+
     glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
     glGetError();
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-    
+
     //QTimer::singleShot(1000, this, SLOT(_checkRendererReady()));
 }
 
@@ -47,14 +70,14 @@ View_renderer::~View_renderer(){
 
 void View_renderer::_deleteMultisampledBuffers(){
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-    
+
     assert(_Multisampled_ColorBuffer != 0 and _Multisampled_DepthBuffer != 0);
     glDeleteRenderbuffers(1, &_Multisampled_ColorBuffer);
     _Multisampled_ColorBuffer = 0;
     glDeleteRenderbuffers(1, &_Multisampled_DepthBuffer);
     _Multisampled_DepthBuffer = 0;
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-    
+
 
 }
 
@@ -79,7 +102,7 @@ void View_renderer::_remakeOutTextures(){
 }
 
 void View_renderer::resizeGL(const size_t & w, const size_t &h){
-	_width = w; 
+	_width = w;
 	_height = h;
 	_remakeMultisampledBuffers();
     _remakeOutTextures();
@@ -95,8 +118,8 @@ void View_renderer::initializeGL(){
 
 cv::Mat View_renderer::_saveColorImage(const std::string & fileName){
 
-    // blit frame buffer 
-    
+    // blit frame buffer
+
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     glBindFramebuffer(GL_READ_FRAMEBUFFER, _Multisampled_FBO);
 
@@ -104,15 +127,15 @@ cv::Mat View_renderer::_saveColorImage(const std::string & fileName){
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _out_FBO);
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-    glBlitFramebuffer(  0, 
-                        0, 
-                        _width, 
-                        _height, 
-                        0, 
-                        0, 
-                        _width, 
+    glBlitFramebuffer(  0,
+                        0,
+                        _width,
                         _height,
-                        GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, 
+                        0,
+                        0,
+                        _width,
+                        _height,
+                        GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT,
                         GL_NEAREST
                       );
 
@@ -168,22 +191,22 @@ cv::Mat View_renderer::_saveBitMap(const std::string & fileName){
 
 cv::Mat View_renderer::_saveDepthImage(const std::string & fileName){
 
-    // blit frame buffer 
-    
+    // blit frame buffer
+
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     glBindFramebuffer(GL_READ_FRAMEBUFFER, _Multisampled_FBO);
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _out_FBO);
-    glBlitFramebuffer(  0, 
-                        0, 
-                        _width, 
-                        _height, 
-                        0, 
-                        0, 
-                        _width, 
+    glBlitFramebuffer(  0,
+                        0,
+                        _width,
                         _height,
-                        GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, 
+                        0,
+                        0,
+                        _width,
+                        _height,
+                        GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT,
                         GL_NEAREST
                       );
 
@@ -223,11 +246,11 @@ cv::Mat View_renderer::_saveDepthImage(const std::string & fileName){
 
 
 void View_renderer::_makeMultisampledBuffers(){
-    
-    
+
+
     assert(_Multisampled_ColorBuffer == 0 and _Multisampled_DepthBuffer == 0 and _Multisampled_FBO != 0);
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-    
+
     glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
 
     int samples;
@@ -240,7 +263,7 @@ void View_renderer::_makeMultisampledBuffers(){
     //You can attempt to make sample from 1 to 16, but some of them might fail
     //Now, let's make a FBO
     assert( samples >= 4);
-    
+
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     //----------------------
     //Now make a multisample color buffer
@@ -248,7 +271,7 @@ void View_renderer::_makeMultisampledBuffers(){
     glBindRenderbuffer(GL_RENDERBUFFER, _Multisampled_ColorBuffer);
     //samples=4, format=GL_RGBA8, width=256, height=256
     glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_RGBA8, _width, _height);
-    
+
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     //----------------------
     //Make a depth multisample depth buffer
@@ -256,16 +279,16 @@ void View_renderer::_makeMultisampledBuffers(){
     //else you will either get a GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT or some other error
 
     glGenRenderbuffers(1, &_Multisampled_DepthBuffer);
-    // glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 
-    //                         samples, 
-    //                         GL_DEPTH_COMPONENT32F, 
+    // glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE,
+    //                         samples,
+    //                         GL_DEPTH_COMPONENT32F,
     //                         _width, _height, GL_FALSE);
 
     glBindRenderbuffer(GL_RENDERBUFFER, _Multisampled_DepthBuffer);
     //samples=4, format=GL_DEPTH_COMPONENT24, width=256, height=256
     glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_DEPTH_COMPONENT32F, _width, _height);
     //----------------------
-    
+
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
     //It's time to attach the RBs to the FBO
@@ -273,13 +296,13 @@ void View_renderer::_makeMultisampledBuffers(){
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _Multisampled_DepthBuffer);
     //----------------------
     //Make sure FBO status is good
-    
+
     GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
     glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
     assert(Utils::glExtCheckFramebufferStatus(ErrorMessage) == 1);
 
-    
-    
+
+
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
 }
@@ -308,11 +331,11 @@ void View_renderer::_makeOutTextures(){
                         _width, _height,
                         0, GL_DEPTH_COMPONENT, GL_FLOAT,
                         NULL);
-    
 
 
 
-    
+
+
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     glBindFramebuffer(GL_FRAMEBUFFER, _out_FBO);
     // attach color
@@ -333,14 +356,14 @@ void View_renderer::_makeOutTextures(){
     // glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
     // glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readId);
 
-    
+
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
     GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
     glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
 
     //glViewport(0,0,width,height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
-    
+
 
     glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
@@ -369,13 +392,13 @@ void View_renderer::getVisibleObjects(){
 
     //GLubyte * pixels = new GLubyte [width*height*4*sizeof(GLuint)];
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
-    
+
 
     GLint drawId = 0, readId = 0;
     glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
     glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readId);
     //glMapBufferRange(_ColorBuffer, 0, GLsizeiptr length​, GLbitfield access​);
-    
+
     cv::Mat img(_height, _width, CV_8UC3);
     glPixelStorei(GL_PACK_ALIGNMENT, (img.step & 3)?1:4);
     glPixelStorei(GL_PACK_ROW_LENGTH, img.step/img.elemSize());
@@ -408,7 +431,7 @@ void View_renderer::getVisibleObjects(){
     //                     GL_UNSIGNED_BYTE,   // Using this data type per-pixel
     //                     img.data );
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
-    
+
     std::set<size_t> pickedInstanceIndices;
     // for (size_t pixelItr = 0; pixelItr < static_cast<size_t>(_width*_height); pixelItr++){
     //     size_t initPos = pixelItr*3;
@@ -436,10 +459,10 @@ void View_renderer::getVisibleObjects(){
 
 void View_renderer::generateMasks(){
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
-    
+
     getVisibleObjects();
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
-    
+
     // make everythign invisible
     for (Lumos::Instance * ins : world->getInstances())
     {
@@ -456,8 +479,8 @@ void View_renderer::generateMasks(){
         curOn = ins;
         ins->setPickingColor(color3(1, 1, 1));
         paintGL();
-        _saveBitMap(std::string(  OUTPUT_DIR + shaper->getCurFileName() + 
-        							  "/" + _camInUse->getId() + 
+        _saveBitMap(std::string(  OUTPUT_DIR + shaper->getCurFileName() +
+        							  "/" + _camInUse->getId() +
         							  "/mask_" + ins->getId() + ".png" ));
     }
     for (Lumos::Instance * ins : world->getInstances())
@@ -468,7 +491,7 @@ void View_renderer::generateMasks(){
     _shaderId = tempShaderId;
 
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
-    
+
 }
 
 void View_renderer::generateData(){
@@ -505,9 +528,8 @@ void View_renderer::toImageFile_depth( const std::string & fileName ) {
 
     //unsigned int * pixels = new unsigned int [w*h*sizeof(unsigned int)];
     //QImage image(w, h, QImage::Format_RGBA8888 );
-    
+
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     paintGL();
     _saveDepthImage(fileName);
 }
-

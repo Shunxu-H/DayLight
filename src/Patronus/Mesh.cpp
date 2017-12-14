@@ -1,4 +1,26 @@
+/*
+The MIT License (MIT)
 
+Copyright (c) 2016-2017 Shunxu Huang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 #include "GL_include.h"
 #include "Mesh.h"
 #include "ModelAsset.h"
@@ -11,13 +33,14 @@ using namespace Patronus;
 
 Mesh::~Mesh(){
 
+    glDeleteBuffers(1, &_VBO_VERT);
+    glDeleteBuffers(1, &_VBO_NORMAL);
+    glDeleteBuffers(1, &_VBO_TEXCOORD);
+    glDeleteBuffers(1, &_VBO_COLOR);
 }
 
 
 void Mesh::copyVertexData( size_t * initPos )const{
-    //for (const size_t & index : _indices )
-    //    glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
-    //                     sizeof(point3),  &(_vertices_combinded[index].position) );
     for( const Face & f: _faces)
         for( const int & ind : f.getVerticesInds())
             glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
@@ -25,10 +48,6 @@ void Mesh::copyVertexData( size_t * initPos )const{
 }
 
 void Mesh::copyVertexNormalData( size_t * initPos )const{
-//    for (const size_t & index : _indices )
-//        glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
-//                         sizeof(point3),  &(Shaper::global[index].normal) );
-
     for( const Face & f: _faces)
         for( const int & ind : f.getNormalInds())
             glBufferSubData( GL_ARRAY_BUFFER, ((*initPos)++)*sizeof(point3),
@@ -76,11 +95,6 @@ Lumos::Instance* Mesh::instantiate_sequentialDraw ( ){
     _loadVertexToBuffer();
     _loadNormalToBuffer();
     _loadTexCoordToBuffer();
-
-
-    // // get Material
-    // Lumos::Material* m = _material == nullptr? shaper->default_material : _material;
-
 
     // get model Asset
     Lumos::ModelAsset asset{};
@@ -227,36 +241,3 @@ void Mesh::_loadNormalIndicesToBuffer( ){
 void Mesh::_loadColorIndicesToBuffer( ){
 
 }
-
-//void Mesh::_loadBoundingBoxToBuffer( ){
-
-//}
-
-/*
-struct Material{
-    color4 color;
-    float reflexitivity;
-    Material():color(color4(1.0f, 1.0f, 1.0f, 1.0f)), reflexitivity(0.3){}
-};
-
-struct ModelAsset {
-    Shader shaders;
-    Material material;
-    GLuint _VAO;
-    std::vector<ArrayBuffer> _VBOs;
-    GLenum drawType;
-    GLint drawStart;
-    GLint drawCount;
-};
-
-class Instance{
-public:
-
-protected:
-
-private:
-    glm::mat4 _modelMatrix;
-    ModelAsset _asset;
-
-};
-*/

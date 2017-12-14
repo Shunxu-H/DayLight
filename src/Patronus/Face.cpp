@@ -21,38 +21,29 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef COLOR_H
-	#define COLOR_H
+#include "Face.h"
 
-#include "GL_include.h"
+Face::Face(){
 
-class Color
-{
-public:
-	Color();
-
-    static int toUniqueInt( const int & r, const int & g, const int & b );
-    static color3 toUniqueColor ( const int & i);
+}
 
 
-    const static color4 BLACK ;
-    const static color4 DGREY ;
-    const static color4 GREY  ;
-    const static color4 LGREY ;
-    const static color4 WHITE ;
-    const static color4 RED   ;
-    const static color4 GREEN ;
-    const static color4 DGREEN;
-    const static color4 BLUE  ;
 
-	float* getColor(const float&,const float&, const float&);
-	void print (float*);
+void Face::setVertexIndeces(const int & n1, const int & n2, const int & n3){
+    _verticesIndeces = std::vector< int >({n1, n2, n3});
+}
 
+void Face::setUvIndeces(const int & n1, const int & n2, const int & n3){
+    _uvIndeces = std::vector< int >({n1, n2, n3});
 
-protected:
+}
 
-private:
-};
+void Face::setNormalIndeces(const int & n1, const int & n2, const int & n3){
+    _normalIndeces = std::vector< int >({n1, n2, n3});
+
+}
 
 
-    #endif
+Face::~Face(){
+
+}

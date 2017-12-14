@@ -1,4 +1,26 @@
+/*
+The MIT License (MIT)
 
+Copyright (c) 2016-2017 Shunxu Huang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 #include <fstream>
 #include <experimental/filesystem>
 #include <iostream>
@@ -28,10 +50,6 @@ Lumos::Material* Shaper::default_material   = new Lumos::Material();
 std::vector< point3 > Shaper::global_vertices = std::vector< point3 >();
 std::vector< point3 > Shaper::global_normal_vertices{};
 std::vector< point2 > Shaper::global_uv_coords{};
-GLuint Shaper::global_VAO          = 0;
-GLuint Shaper::global_Vertex_VBO   = 0;
-GLuint Shaper::global_Normal_VBO   = 0;
-GLuint Shaper::global_TexCoord_VBO = 0;
 const float Shaper::multiplier = 10;
 
 
@@ -205,7 +223,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
     for ( const tinyobj::material_t & m : materials ){
         Lumos::Material * newMaterial = new Lumos::Material;
         if ( m.diffuse_texname.size() > 0 ){
-            
+
             if( std::experimental::filesystem::exists(( curDir + m.diffuse_texname).c_str())){
                 cv::Mat im = cv::imread(( curDir + m.diffuse_texname).c_str());
                 newMaterial->texture = im;
@@ -261,7 +279,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
                 float vz = attrib.vertices[3*idx.vertex_index+2];
                 updateMax(point3(vx, vy, vz));
                 updateMin(point3(vx, vy, vz));
-                
+
                 newFace.addVertexIndex(idx.vertex_index);
                 newFace.addNormalIndex(idx.normal_index);
                 newFace.addUvIndex(idx.texcoord_index);
@@ -308,7 +326,7 @@ void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const 
                      0,                 // Border width in pixels (can either be 1 or 0)
                      GL_BGR, // Input image format (i.e. GL_RGB, GL_RGBA, GL_BGR etc.)
                      GL_UNSIGNED_BYTE,  // Image data type
-                     m->texture.ptr()); 
+                     m->texture.ptr());
 
     // glTexImage2D(GL_TEXTURE_2D,
     //              0,
@@ -368,23 +386,3 @@ Lumos::ArrayBuffer Shaper::getNormalBuffer( )const
     ret.setVertexNormalBuffer(_shapes);
     return ret;
 }
-
-
-
-int Shaper::getNumOfVertices() const{
-    size_t size = 0;
-    for ( const auto & shape: _shapes )
-        size += shape.getNumOfVertices();
-    return size;
-}
-
-/*
-std::vector<Lumos::Instance> Shaper::getAllInstance(){
-    std::vector<Lumos::Instance> ret;
-    for (Mesh & mesh: _shapes)
-        ret.push_back(mesh.instantiate());
-
-    return ret;
-}
-*/
-

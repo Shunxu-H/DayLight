@@ -1,0 +1,909 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ARRAYBUFFER_H	Includes/ArrayBuffer.h	25;"	d
+ARRAY_SIZE_X	src/BulletPhysics/PhysicalWorld.cpp	34;"	d	file:
+ARRAY_SIZE_Y	src/BulletPhysics/PhysicalWorld.cpp	33;"	d	file:
+ARRAY_SIZE_Z	src/BulletPhysics/PhysicalWorld.cpp	35;"	d	file:
+ATTRIB_N_UNIFORM_SETTERS	src/Lumos/Program.cpp	206;"	d	file:
+AngleBetweenV3	Includes/obj_loader.h	/^        float AngleBetweenV3(const Vector3 a, const Vector3 b)$/;"	f	namespace:objl::math
+ArrayBuffer	Includes/ArrayBuffer.h	/^    class ArrayBuffer: public GLObject{$/;"	c	namespace:Lumos
+ArrayBuffer	src/Lumos/ArrayBuffer.cpp	/^ArrayBuffer::ArrayBuffer( )$/;"	f	class:ArrayBuffer
+ArrayBuffer	src/Lumos/ArrayBuffer.cpp	/^ArrayBuffer::ArrayBuffer( const ArrayBuffer & rhs)$/;"	f	class:ArrayBuffer
+BEZIER	Includes/Config.h	/^	BEZIER,$/;"	e	enum:CurveType
+BLACK	Includes/Color.h	/^    const static color4 BLACK ;$/;"	m	class:Color
+BLACK	src/Utility/Color.cpp	/^const color4 Color::BLACK  = color4{ 0.00f,  0.00f,  0.00f, 1.00f };$/;"	m	class:Color	file:
+BLUE	Includes/Color.h	/^    const static color4 BLUE  ;$/;"	m	class:Color
+BLUE	src/Utility/Color.cpp	/^const color4 Color::BLUE   = color4{ 0.00f,  0.00f,  1.00f, 1.00f };$/;"	m	class:Color	file:
+BSH	Includes/Config.h	/^	BSH \/\/ Brosenham's algorithm$/;"	e	enum:LineAlg
+BSPLINE	Includes/Config.h	/^	BSPLINE$/;"	e	enum:CurveType
+BTDEBUGDRAWER_H	Includes/btDebugDrawer.h	25;"	d
+BoundingBox	Includes/Mesh.h	/^        BoundingBox():minPos(glm::vec3(std::numeric_limits<float>::max())),$/;"	f	struct:Patronus::BoundingBox
+BoundingBox	Includes/Mesh.h	/^    struct BoundingBox{$/;"	s	namespace:Patronus
+CABINET	Includes/Camera.h	/^        CABINET,$/;"	m	class:Patronus::CameraType
+CAMERA_DIR	src/main.cpp	/^std::string CAMERA_DIR = ".\/cameras\/";$/;"	v
+CAMERA_DIRECTORY	Includes/InputParser.h	/^    CAMERA_DIRECTORY,$/;"	m	class:Flag
+CAMERA_H	Includes/Camera.h	25;"	d
+CLIPPING	Includes/Config.h	/^	CLIPPING,$/;"	e	enum:OpMode
+COLOR4_BUFFER	Includes/ArrayBuffer.h	/^        COLOR4_BUFFER,$/;"	m	class:Lumos::Type
+COLOR_H	Includes/Color.h	25;"	d
+COLOR_HIGHTLIGHTED_VERTEX	Includes/Config.h	/^    color4 COLOR_HIGHTLIGHTED_VERTEX;$/;"	m	struct:Config
+COLOR_SELECTION_BOX	Includes/Config.h	/^    color4 COLOR_SELECTION_BOX;$/;"	m	struct:Config
+COLOR_axis	Includes/Config.h	/^    color4 COLOR_axis;$/;"	m	struct:Config
+COLOR_bg	Includes/Config.h	/^    color4 COLOR_bg;$/;"	m	struct:Config
+COLOR_fill	Includes/Config.h	/^    color4 COLOR_fill;$/;"	m	struct:Config
+COLOR_hlStroke	Includes/Config.h	/^    color4 COLOR_hlStroke;$/;"	m	struct:Config
+COLOR_outline	Includes/Config.h	/^    color4 COLOR_outline;$/;"	m	struct:Config
+COLOR_regStroke	Includes/Config.h	/^    color4 COLOR_regStroke;$/;"	m	struct:Config
+COLOR_rotVec	Includes/Config.h	/^    color4 COLOR_rotVec;$/;"	m	struct:Config
+COLOR_text	Includes/Config.h	/^    color4 COLOR_text;$/;"	m	struct:Config
+CONFIG_H	Includes/Config.h	25;"	d
+COUNT	Includes/Config.h	/^	COUNT$/;"	e	enum:FillMode
+CURVE	Includes/Config.h	/^	CURVE,$/;"	e	enum:ObjType
+Camera	Includes/Camera.h	/^    class Camera: public Transformable{$/;"	c	namespace:Patronus
+Camera	src/Patronus/Camera.cpp	/^Camera::Camera( const std::string& camId ,$/;"	f	class:Camera
+CameraType	Includes/Camera.h	/^    enum class CameraType$/;"	c	namespace:Patronus
+ClipMode	Includes/Config.h	/^enum ClipMode$/;"	g
+Cmd	Includes/InputParser.h	/^class Cmd$/;"	c
+Cmd	src/Utility/InputParser.cpp	/^Cmd::Cmd(Flag _f){$/;"	f	class:Cmd
+Cmd	src/Utility/InputParser.cpp	/^Cmd::Cmd(char* s):Cmd(string2flag(s)){};$/;"	f	class:Cmd
+Color	Includes/Color.h	/^class Color$/;"	c
+Color	src/Utility/Color.cpp	/^Color::Color(){$/;"	f	class:Color
+ColorMode	Includes/Config.h	/^enum ColorMode$/;"	g
+Config	Includes/Config.h	/^struct Config$/;"	s
+Config	src/Utility/Config.cpp	/^Config::Config()$/;"	f	class:Config
+CrossV3	Includes/obj_loader.h	/^        Vector3 CrossV3(const Vector3 a, const Vector3 b)$/;"	f	namespace:objl::math
+CurveType	Includes/Config.h	/^enum CurveType {$/;"	g
+DDA	Includes/Config.h	/^	DDA, \/\/ Digital Differential Analyzer$/;"	e	enum:LineAlg
+DGREEN	Includes/Color.h	/^    const static color4 DGREEN;$/;"	m	class:Color
+DGREEN	src/Utility/Color.cpp	/^const color4 Color::DGREEN = color4{ 0.00f,  0.50f,  0.00f, 1.00f };$/;"	m	class:Color	file:
+DGREY	Includes/Color.h	/^    const static color4 DGREY ;$/;"	m	class:Color
+DGREY	src/Utility/Color.cpp	/^const color4 Color::DGREY  = color4{ 0.25f,  0.25f,  0.25f, 1.00f };$/;"	m	class:Color	file:
+DIRECTIONAL	Includes/Light.h	/^        DIRECTIONAL,$/;"	m	class:Patronus::LightType
+DOWN	Includes/Config.h	/^	DOWN,$/;"	e	enum:ClipMode
+DRAWCURVE	Includes/Config.h	/^	DRAWCURVE,$/;"	e	enum:DrawMode
+DRAWING	Includes/Config.h	/^	DRAWING,$/;"	e	enum:OpMode
+DRAWSHAPE	Includes/Config.h	/^	DRAWSHAPE$/;"	e	enum:DrawMode
+Debug	Includes/Utility.h	39;"	d
+Debug	Includes/Utility.h	42;"	d
+DotV3	Includes/obj_loader.h	/^        float DotV3(const Vector3 a, const Vector3 b)$/;"	f	namespace:objl::math
+DrawMode	Includes/Config.h	/^enum DrawMode$/;"	g
+EDGE	Includes/Config.h	/^	EDGE,$/;"	e	enum:ObjType
+EDITING	Includes/Config.h	/^	EDITING,$/;"	e	enum:OpMode
+ELLIPSOID	Includes/Config.h	/^	ELLIPSOID,$/;"	e	enum:ObjType
+EXTERN_H	Includes/Extern.h	25;"	d
+FACE_H	Includes/Face.h	25;"	d
+FILL	Includes/Config.h	/^	FILL,$/;"	e	enum:FillMode
+Face	Includes/Face.h	/^class Face$/;"	c
+Face	src/Patronus/Face.cpp	/^Face::Face(){$/;"	f	class:Face
+FillMode	Includes/Config.h	/^enum FillMode$/;"	g
+Flag	Includes/InputParser.h	/^enum class Flag{$/;"	c
+GLDebugDrawer	Includes/btDebugDrawer.h	/^class GLDebugDrawer : public btIDebugDraw$/;"	c
+GLDebugDrawer	src/BulletPhysics/btDebugDrawer.cpp	/^GLDebugDrawer::GLDebugDrawer()$/;"	f	class:GLDebugDrawer
+GLError	Includes/Utility.h	40;"	d
+GLError	Includes/Utility.h	43;"	d
+GLM_FORCE_RADIANS	Includes/GL_include.h	31;"	d
+GLOBJECT_H	Includes/GLObject.h	25;"	d
+GLObject	Includes/GLObject.h	/^    class GLObject{$/;"	c	namespace:Lumos
+GLObject	src/Lumos/GLObject.cpp	/^GLObject::GLObject( const GLObject & other )$/;"	f	class:GLObject
+GLObject	src/Lumos/GLObject.cpp	/^GLObject::GLObject($/;"	f	class:GLObject
+GLX_CONTEXT_MAJOR_VERSION_ARB	src/Output/WindowManager.cpp	64;"	d	file:
+GLX_CONTEXT_MINOR_VERSION_ARB	src/Output/WindowManager.cpp	65;"	d	file:
+GL_GLEXT_PROTOTYPES	Includes/GL_include.h	33;"	d
+GL_INCLUDE_H	Includes/GL_include.h	26;"	d
+GREEN	Includes/Color.h	/^    const static color4 GREEN ;$/;"	m	class:Color
+GREEN	src/Utility/Color.cpp	/^const color4 Color::GREEN  = color4{ 0.00f,  1.00f,  0.00f, 1.00f };$/;"	m	class:Color	file:
+GREY	Includes/Color.h	/^    const static color4 GREY  ;$/;"	m	class:Color
+GREY	src/Utility/Color.cpp	/^const color4 Color::GREY   = color4{ 0.50f,  0.50f,  0.50f, 1.00f };$/;"	m	class:Color	file:
+GenVerticesFromRawOBJ	Includes/obj_loader.h	/^        void GenVerticesFromRawOBJ(std::vector<Vertex>& oVerts,$/;"	f	class:objl::Loader
+HALFTONE	Includes/Config.h	/^	HALFTONE,$/;"	e	enum:FillMode
+HEADLEASS	Includes/InputParser.h	/^    HEADLEASS,$/;"	m	class:Flag
+HELP	Includes/InputParser.h	/^    HELP,$/;"	m	class:Flag
+HIGHLIGHT	Includes/Config.h	/^	HIGHLIGHT$/;"	e	enum:RenderMode
+INITIAL_WIN_SIZE	Includes/Config.h	/^const int INITIAL_WIN_SIZE[] = {500, 500};$/;"	v
+INPUTPARSER	Includes/InputParser.h	25;"	d
+INSERT	Includes/Config.h	/^	INSERT,$/;"	e	enum:OpMode
+INSTANCE_H	Includes/Instance.h	25;"	d
+IS_DIGIT	Includes/tiny_obj_loader.h	261;"	d
+IS_NEW_LINE	Includes/tiny_obj_loader.h	263;"	d
+IS_SPACE	Includes/tiny_obj_loader.h	260;"	d
+Indices	Includes/obj_loader.h	/^        std::vector<unsigned int> Indices;$/;"	m	struct:objl::Mesh
+InitMaterial	Includes/tiny_obj_loader.h	/^static void InitMaterial(material_t *material) {$/;"	f	namespace:tinyobj
+InputParser	Includes/InputParser.h	/^class InputParser{$/;"	c
+InputParser	src/Utility/InputParser.cpp	/^InputParser::InputParser (int &argc, char **argv){$/;"	f	class:InputParser
+Instance	Includes/Instance.h	/^    class Instance: public Patronus::Transformable{$/;"	c	namespace:Lumos
+Instance	src/Lumos/Instance.cpp	/^Instance::Instance( Patronus::Mesh * meshPtr, const ModelAsset & asset)$/;"	f	class:Lumos::Instance
+KEYBOARD_H	Includes/Keyboard.h	25;"	d
+Ka	Includes/obj_loader.h	/^        Vector3 Ka;$/;"	m	struct:objl::Material
+Kd	Includes/obj_loader.h	/^        Vector3 Kd;$/;"	m	struct:objl::Material
+Keyboard	Includes/Keyboard.h	/^	Keyboard(){};$/;"	f	class:Keyboard
+Keyboard	Includes/Keyboard.h	/^class Keyboard$/;"	c
+Ks	Includes/obj_loader.h	/^        Vector3 Ks;$/;"	m	struct:objl::Material
+LEFT	Includes/Config.h	/^	LEFT$/;"	e	enum:ClipMode
+LGREY	Includes/Color.h	/^    const static color4 LGREY ;$/;"	m	class:Color
+LGREY	src/Utility/Color.cpp	/^const color4 Color::LGREY  = color4{ 0.80f,  0.80f,  0.80f, 1.00f };$/;"	m	class:Color	file:
+LIGHT_H	Includes/Light.h	25;"	d
+LINE	Includes/Config.h	/^	LINE,$/;"	e	enum:ObjType
+Light	Includes/Light.h	/^        Light   ($/;"	f	class:Patronus::Light
+Light	Includes/Light.h	/^    class Light: public Transformable$/;"	c	namespace:Patronus
+LightType	Includes/Light.h	/^    enum class LightType{$/;"	c	namespace:Patronus
+LineAlg	Includes/Config.h	/^enum LineAlg$/;"	g
+LoadFile	Includes/obj_loader.h	/^        bool LoadFile(std::string Path)$/;"	f	class:objl::Loader
+LoadMaterials	Includes/obj_loader.h	/^        bool LoadMaterials(std::string path)$/;"	f	class:objl::Loader
+LoadMtl	Includes/tiny_obj_loader.h	/^void LoadMtl(std::map<std::string, int> *material_map,$/;"	f	namespace:tinyobj
+LoadObj	Includes/tiny_obj_loader.h	/^bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,$/;"	f	namespace:tinyobj
+LoadObjWithCallback	Includes/tiny_obj_loader.h	/^bool LoadObjWithCallback(std::istream &inStream, const callback_t &callback,$/;"	f	namespace:tinyobj
+LoadedIndices	Includes/obj_loader.h	/^        std::vector<unsigned int> LoadedIndices;$/;"	m	class:objl::Loader
+LoadedMaterials	Includes/obj_loader.h	/^        std::vector<Material> LoadedMaterials;$/;"	m	class:objl::Loader
+LoadedMeshes	Includes/obj_loader.h	/^        std::vector<Mesh> LoadedMeshes;$/;"	m	class:objl::Loader
+LoadedVertices	Includes/obj_loader.h	/^        std::vector<Vertex> LoadedVertices;$/;"	m	class:objl::Loader
+Loader	Includes/obj_loader.h	/^        Loader()$/;"	f	class:objl::Loader
+Loader	Includes/obj_loader.h	/^    class Loader$/;"	c	namespace:objl
+Lumos	Includes/ArrayBuffer.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/GLObject.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/Instance.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/Mesh.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/ModelAsset.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/PhysicalWorld.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/Program.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/Shader.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/Shaper.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/View.h	/^namespace Lumos{$/;"	n
+Lumos	Includes/WindowManager_headless.h	/^namespace Lumos {$/;"	n
+Lumos	src/Lumos/Instance.cpp	/^namespace Lumos {$/;"	n	file:
+Lumos	src/Lumos/Program.cpp	/^namespace Lumos{$/;"	n	file:
+Lumos	src/Lumos/Shader.cpp	/^namespace Lumos {$/;"	n	file:
+MODELASSET_H	Includes/ModelAsset.h	25;"	d
+MOVING	Includes/Config.h	/^	MOVING,$/;"	e	enum:OpMode
+MagnitudeV3	Includes/obj_loader.h	/^        float MagnitudeV3(const Vector3 in)$/;"	f	namespace:objl::math
+Material	Includes/ModelAsset.h	/^        Material( const color4 & c = color4(1.0f, 1.0f, 1.0f, 1.0f),$/;"	f	struct:Lumos::Material
+Material	Includes/ModelAsset.h	/^    struct Material{$/;"	s	namespace:Lumos
+Material	Includes/obj_loader.h	/^        Material()$/;"	f	struct:objl::Material
+Material	Includes/obj_loader.h	/^    struct Material$/;"	s	namespace:objl
+MaterialFileReader	Includes/tiny_obj_loader.h	/^  explicit MaterialFileReader(const std::string &mtl_basepath)$/;"	f	class:tinyobj::MaterialFileReader
+MaterialFileReader	Includes/tiny_obj_loader.h	/^class MaterialFileReader : public MaterialReader {$/;"	c	namespace:tinyobj
+MaterialPack	Includes/ModelAsset.h	/^        MaterialPack(Material * m_, const GLuint & drawStart_, const GLuint & drawCnt_ )$/;"	f	struct:Lumos::MaterialPack
+MaterialPack	Includes/ModelAsset.h	/^    struct MaterialPack{$/;"	s	namespace:Lumos
+MaterialReader	Includes/tiny_obj_loader.h	/^  MaterialReader() {}$/;"	f	class:tinyobj::MaterialReader
+MaterialReader	Includes/tiny_obj_loader.h	/^class MaterialReader {$/;"	c	namespace:tinyobj
+Mesh	Includes/Mesh.h	/^        Mesh(const std::string & id = "" ):$/;"	f	class:Patronus::Mesh
+Mesh	Includes/Mesh.h	/^    class Mesh$/;"	c	namespace:Patronus
+Mesh	Includes/obj_loader.h	/^        Mesh()$/;"	f	struct:objl::Mesh
+Mesh	Includes/obj_loader.h	/^        Mesh(std::vector<Vertex>& _Vertices, std::vector<unsigned int>& _Indices)$/;"	f	struct:objl::Mesh
+Mesh	Includes/obj_loader.h	/^    struct Mesh$/;"	s	namespace:objl
+MeshMaterial	Includes/obj_loader.h	/^        Material MeshMaterial;$/;"	m	struct:objl::Mesh
+MeshName	Includes/obj_loader.h	/^        std::string MeshName;$/;"	m	struct:objl::Mesh
+Mesh_H	Includes/Mesh.h	25;"	d
+ModelAsset	Includes/ModelAsset.h	/^    struct ModelAsset {$/;"	s	namespace:Lumos
+NAVIGATING	Includes/Config.h	/^    NAVIGATING,$/;"	e	enum:OpMode
+NORMAL	Includes/Config.h	/^	NORMAL,$/;"	e	enum:RenderMode
+Ni	Includes/obj_loader.h	/^        float Ni;$/;"	m	struct:objl::Material
+Normal	Includes/obj_loader.h	/^        Vector3 Normal;$/;"	m	struct:objl::Vertex
+Ns	Includes/obj_loader.h	/^        float Ns;$/;"	m	struct:objl::Material
+OBJL_CONSOLE_OUTPUT	Includes/obj_loader.h	15;"	d
+OBJTYPE_COUNT	Includes/Config.h	/^	OBJTYPE_COUNT$/;"	e	enum:ObjType
+ORTHO_XY	Includes/Camera.h	/^        ORTHO_XY,$/;"	m	class:Patronus::CameraType
+ORTHO_XZ	Includes/Camera.h	/^        ORTHO_XZ,$/;"	m	class:Patronus::CameraType
+ORTHO_ZY	Includes/Camera.h	/^        ORTHO_ZY,$/;"	m	class:Patronus::CameraType
+OUTLINE	Includes/Config.h	/^	OUTLINE,$/;"	e	enum:FillMode
+OUTPUT_DIR	src/main.cpp	/^std::string OUTPUT_DIR = ".\/output\/";$/;"	v
+OUTPUT_DIRECTORY	Includes/InputParser.h	/^    OUTPUT_DIRECTORY,$/;"	m	class:Flag
+ObjType	Includes/Config.h	/^enum ObjType{$/;"	g
+OpMode	Includes/Config.h	/^enum OpMode$/;"	g
+PERSPECTIVE	Includes/Camera.h	/^        PERSPECTIVE,$/;"	m	class:Patronus::CameraType
+PHYSICALWORLD_H	Includes/PhysicalWorld.h	25;"	d
+POINT4_BUFFER	Includes/ArrayBuffer.h	/^        POINT4_BUFFER,$/;"	m	class:Lumos::Type
+POLYGON	Includes/Config.h	/^	POLYGON,$/;"	e	enum:ObjType
+POLYHEDRON	Includes/Config.h	/^	POLYHEDRON,$/;"	e	enum:ObjType
+PROGRAM_H	Includes/Program.h	25;"	d
+Patronus	Includes/Camera.h	/^namespace Patronus {$/;"	n
+Patronus	Includes/Instance.h	/^namespace Patronus {$/;"	n
+Patronus	Includes/Light.h	/^namespace Patronus {$/;"	n
+Patronus	Includes/Mesh.h	/^namespace Patronus {$/;"	n
+Patronus	Includes/PhysicalWorld.h	/^namespace Patronus {$/;"	n
+Patronus	Includes/Shaper.h	/^namespace Patronus {$/;"	n
+Patronus	Includes/Transformable.h	/^namespace Patronus {$/;"	n
+Patronus	Includes/View.h	/^namespace Patronus {$/;"	n
+Patronus	src/BulletPhysics/PhysicalWorld.cpp	/^namespace Patronus {$/;"	n	file:
+PhysicalWorld	Includes/PhysicalWorld.h	/^    class PhysicalWorld{$/;"	c	namespace:Patronus
+PhysicalWorld	src/BulletPhysics/PhysicalWorld.cpp	/^PhysicalWorld::PhysicalWorld(){$/;"	f	class:Patronus::PhysicalWorld
+Position	Includes/obj_loader.h	/^        Vector3 Position;$/;"	m	struct:objl::Vertex
+Program	Includes/Program.h	/^    class Program: public GLObject{$/;"	c	namespace:Lumos
+Program	src/Lumos/Program.cpp	/^Program::Program(){$/;"	f	class:Lumos::Program
+RED	Includes/Color.h	/^    const static color4 RED   ;$/;"	m	class:Color
+RED	src/Utility/Color.cpp	/^const color4 Color::RED    = color4{ 1.00f,  0.00f,  0.00f, 1.00f };$/;"	m	class:Color	file:
+RENDER_LIST	Includes/InputParser.h	/^    RENDER_LIST,$/;"	m	class:Flag
+RENDER_LIST	src/main.cpp	/^std::string RENDER_LIST = ".\/obj_list.txt";$/;"	v
+RGB	Includes/Config.h	/^	RGB,$/;"	e	enum:ColorMode
+RGBA	Includes/Config.h	/^	RGBA$/;"	e	enum:ColorMode
+RIGHT	Includes/Config.h	/^	RIGHT,$/;"	e	enum:ClipMode
+ROTATE	Includes/Config.h	/^	ROTATE$/;"	e	enum:TransfromMode
+RenderMode	Includes/Config.h	/^enum RenderMode$/;"	g
+SCALE	Includes/Config.h	/^	SCALE,$/;"	e	enum:TransfromMode
+SCENE_DIRECTORY	Includes/InputParser.h	/^    SCENE_DIRECTORY,$/;"	m	class:Flag
+SCENE_FILE_DIR	src/main.cpp	/^std::string SCENE_FILE_DIR = ".\/scene_file\/";$/;"	v
+SELECTING	Includes/Config.h	/^	SELECTING,$/;"	e	enum:OpMode
+SHADER_H	Includes/Shader.h	25;"	d
+SHAPER_H	Includes/Shaper.h	26;"	d
+SPOT	Includes/Light.h	/^        SPOT,$/;"	m	class:Patronus::LightType
+SelectMode	Includes/Config.h	/^typedef ObjType SelectMode;$/;"	t
+SetLightUniform	Includes/Program.h	/^        void SetLightUniform(const char* propertyName, size_t lightIndex, const T& value) {$/;"	f	class:Lumos::Program
+Shader	Includes/Shader.h	/^    class Shader : public GLObject$/;"	c	namespace:Lumos
+Shader	src/Lumos/Shader.cpp	/^Shader::Shader()$/;"	f	class:Lumos::Shader
+Shader	src/Lumos/Shader.cpp	/^Shader::Shader(const std::string & shaderCode, const GLenum & shaderType)$/;"	f	class:Lumos::Shader
+Shaper	Includes/Shaper.h	/^    class Shaper{$/;"	c	namespace:Patronus
+Shaper	src/Patronus/Shaper.cpp	/^Shaper::Shaper( )$/;"	f	class:Shaper
+Shaper	src/Patronus/Shaper.cpp	/^Shaper::Shaper( const std::string & fileName )$/;"	f	class:Shaper
+TEXTURE_DIR	src/main.cpp	/^std::string TEXTURE_DIR = ".\/scene_file\/texture\/";$/;"	v
+TEXTURE_DIRECTORY	Includes/InputParser.h	/^    TEXTURE_DIRECTORY,$/;"	m	class:Flag
+TINYOBJLOADER_IMPLEMENTATION	src/Patronus/Shaper.cpp	41;"	d	file:
+TINYOBJ_SSCANF_BUFFER_SIZE	Includes/tiny_obj_loader.h	237;"	d
+TINY_OBJ_LOADER_H_	Includes/tiny_obj_loader.h	36;"	d
+TRANSFORM	Includes/Config.h	/^	TRANSFORM$/;"	e	enum:OpMode
+TRANSFORMABLE_H	Includes/Transformable.h	25;"	d
+TRANSLATE	Includes/Config.h	/^	TRANSLATE,$/;"	e	enum:TransfromMode
+TextureCoordinate	Includes/obj_loader.h	/^        Vector2 TextureCoordinate;$/;"	m	struct:objl::Vertex
+Transformable	Includes/Transformable.h	/^        Transformable(const point3 & pos = point3 (0.0f, 0.0f, 0.0f)):$/;"	f	class:Patronus::Transformable
+Transformable	Includes/Transformable.h	/^    class Transformable{$/;"	c	namespace:Patronus
+TransfromMode	Includes/Config.h	/^enum TransfromMode$/;"	g
+Type	Includes/ArrayBuffer.h	/^    enum class Type{$/;"	c	namespace:Lumos
+UNSET	Includes/Config.h	/^	UNSET,$/;"	e	enum:TransfromMode
+UP	Includes/Config.h	/^	UP,$/;"	e	enum:ClipMode
+UTILITY_H	Includes/Utility.h	25;"	d
+Utils	Includes/Utility.h	/^namespace Utils {$/;"	n
+Utils	src/Utility/Utility.cpp	/^namespace Utils {$/;"	n	file:
+VBO_COLOR	Includes/ModelAsset.h	/^        GLuint VBO_COLOR;$/;"	m	struct:Lumos::ModelAsset
+VBO_NORMAL	Includes/ModelAsset.h	/^        GLuint VBO_NORMAL;$/;"	m	struct:Lumos::ModelAsset
+VBO_TEXCOORD	Includes/ModelAsset.h	/^        GLuint VBO_TEXCOORD;$/;"	m	struct:Lumos::ModelAsset
+VBO_VERT	Includes/ModelAsset.h	/^        GLuint VBO_VERT;$/;"	m	struct:Lumos::ModelAsset
+VERTEX	Includes/Config.h	/^	VERTEX,$/;"	e	enum:ObjType
+VIEW_BULLET_H	Includes/View_bullet.h	25;"	d
+VIEW_H	Includes/View.h	25;"	d
+VIEW_RENDERER_H	Includes/View_renderer.h	25;"	d
+Vector2	Includes/obj_loader.h	/^        Vector2()$/;"	f	struct:objl::Vector2
+Vector2	Includes/obj_loader.h	/^        Vector2(float X_, float Y_)$/;"	f	struct:objl::Vector2
+Vector2	Includes/obj_loader.h	/^    struct Vector2$/;"	s	namespace:objl
+Vector3	Includes/obj_loader.h	/^        Vector3()$/;"	f	struct:objl::Vector3
+Vector3	Includes/obj_loader.h	/^        Vector3(float X_, float Y_, float Z_)$/;"	f	struct:objl::Vector3
+Vector3	Includes/obj_loader.h	/^    struct Vector3$/;"	s	namespace:objl
+Vertex	Includes/Mesh.h	/^    struct Vertex{$/;"	s	namespace:Patronus
+Vertex	Includes/obj_loader.h	/^    struct Vertex$/;"	s	namespace:objl
+VertexTriangluation	Includes/obj_loader.h	/^        void VertexTriangluation(std::vector<unsigned int>& oIndices,$/;"	f	class:objl::Loader
+Vertices	Includes/obj_loader.h	/^        std::vector<Vertex> Vertices;$/;"	m	struct:objl::Mesh
+View	Includes/View.h	/^class View$/;"	c
+View	src/Output/View.cpp	/^View::View($/;"	f	class:View
+View_bullet	Includes/View_bullet.h	/^class View_bullet: public View, public btIDebugDraw{$/;"	c
+View_bullet	src/Output/View_bullet.cpp	/^View_bullet::View_bullet($/;"	f	class:View_bullet
+View_renderer	Includes/View_renderer.h	/^class View_renderer : public View{$/;"	c
+View_renderer	src/Output/View_renderer.cpp	/^View_renderer::View_renderer($/;"	f	class:View_renderer
+WHITE	Includes/Color.h	/^    const static color4 WHITE ;$/;"	m	class:Color
+WHITE	src/Utility/Color.cpp	/^const color4 Color::WHITE  = color4{ 1.00f,  1.00f,  1.00f, 1.00f };$/;"	m	class:Color	file:
+WINDOWMANAGER_BASE_H	Includes/WindowManager_base.h	25;"	d
+WINDOWMANAGER_H	Includes/WindowManager.h	25;"	d
+WINDOWMANAGER_HEADLESS_H	Includes/WindowManager_headless.h	25;"	d
+WINDOW_DIMENTSION	Includes/InputParser.h	/^    WINDOW_DIMENTSION,$/;"	m	class:Flag
+WINDOW_HEIGHT	src/main.cpp	/^size_t WINDOW_HEIGHT = 600, WINDOW_WIDTH = 800;$/;"	v
+WINDOW_WIDTH	src/main.cpp	/^size_t WINDOW_HEIGHT = 600, WINDOW_WIDTH = 800;$/;"	v
+WindowManager	Includes/WindowManager.h	/^class WindowManager : public WindowManager_base$/;"	c
+WindowManager	src/Output/WindowManager.cpp	/^WindowManager::WindowManager(const size_t &w, const size_t &h )$/;"	f	class:WindowManager
+WindowManager_base	Includes/WindowManager_base.h	/^class WindowManager_base$/;"	c
+WindowManager_base	src/Output/WindowManager_base.cpp	/^WindowManager_base::WindowManager_base( const size_t & w, const size_t & h )$/;"	f	class:WindowManager_base
+WindowManager_headless	Includes/WindowManager_headless.h	/^class WindowManager_headless : public WindowManager_base$/;"	c
+WindowManager_headless	src/Output/WindowManager_headless.cpp	/^WindowManager_headless::WindowManager_headless(const size_t &w, const size_t &h )$/;"	f	class:WindowManager_headless
+X	Includes/obj_loader.h	/^        float X;$/;"	m	struct:objl::Vector2
+X	Includes/obj_loader.h	/^        float X;$/;"	m	struct:objl::Vector3
+Y	Includes/obj_loader.h	/^        float Y;$/;"	m	struct:objl::Vector2
+Y	Includes/obj_loader.h	/^        float Y;$/;"	m	struct:objl::Vector3
+Z	Includes/obj_loader.h	/^        float Z;$/;"	m	struct:objl::Vector3
+_Multisampled_ColorBuffer	Includes/View_renderer.h	/^    GLuint _Multisampled_ColorBuffer;$/;"	m	class:View_renderer
+_Multisampled_DepthBuffer	Includes/View_renderer.h	/^    GLuint _Multisampled_DepthBuffer;$/;"	m	class:View_renderer
+_Multisampled_FBO	Includes/View_renderer.h	/^    GLuint _Multisampled_FBO;$/;"	m	class:View_renderer
+_TDOGL_PROGRAM_ATTRIB_N_UNIFORM_SETTERS	Includes/Program.h	113;"	d
+_VAO	Includes/View.h	/^    GLuint _VAO;$/;"	m	class:View
+_VBO_COLOR	Includes/Mesh.h	/^        GLuint _VBO_COLOR;$/;"	m	class:Patronus::Mesh
+_VBO_NORMAL	Includes/Mesh.h	/^        GLuint _VBO_NORMAL;$/;"	m	class:Patronus::Mesh
+_VBO_TEXCOORD	Includes/Mesh.h	/^        GLuint _VBO_TEXCOORD;$/;"	m	class:Patronus::Mesh
+_VBO_VERT	Includes/Mesh.h	/^        GLuint _VBO_VERT;$/;"	m	class:Patronus::Mesh
+_X11WindowInit	src/Output/WindowManager.cpp	/^void WindowManager::_X11WindowInit(){$/;"	f	class:WindowManager
+_ambientCoefficient	Includes/Light.h	/^        float _ambientCoefficient;$/;"	m	class:Patronus::Light
+_args	Includes/InputParser.h	/^    std::vector<std::string> _args;$/;"	m	class:Cmd
+_asset	Includes/Instance.h	/^        ModelAsset _asset;$/;"	m	class:Lumos::Instance
+_at	Includes/Camera.h	/^        glm::vec3 _at;$/;"	m	class:Patronus::Camera
+_attenuation	Includes/Light.h	/^        float _attenuation;$/;"	m	class:Patronus::Light
+_boundingBox	Includes/Mesh.h	/^        BoundingBox _boundingBox;$/;"	m	class:Patronus::Mesh
+_broadphase	Includes/PhysicalWorld.h	/^        btBroadphaseInterface* _broadphase;$/;"	m	class:Patronus::PhysicalWorld
+_bytesPerEntry	Includes/ArrayBuffer.h	/^        size_t _bytesPerEntry;$/;"	m	class:Lumos::ArrayBuffer
+_camId	Includes/Camera.h	/^        std::string _camId;$/;"	m	class:Patronus::Camera
+_camInUse	Includes/View.h	/^    Patronus::Camera * _camInUse;$/;"	m	class:View
+_cameras	Includes/Shaper.h	/^        std::vector< Camera * > _cameras;$/;"	m	class:Patronus::Shaper
+_collisionConfiguration	Includes/PhysicalWorld.h	/^        btDefaultCollisionConfiguration* _collisionConfiguration;$/;"	m	class:Patronus::PhysicalWorld
+_compare	src/Utility/Utility.cpp	/^    bool _compare(std::pair<int, std::shared_ptr<float>> p1, std::pair<int, std::shared_ptr<float>> p2){$/;"	f	namespace:Utils
+_coneAngle	Includes/Light.h	/^        float _coneAngle;$/;"	m	class:Patronus::Light
+_coneDirection	Includes/Light.h	/^        glm::vec3 _coneDirection;$/;"	m	class:Patronus::Light
+_curFileName	Includes/Shaper.h	/^        std::string _curFileName;$/;"	m	class:Patronus::Shaper
+_deleteFunc	Includes/GLObject.h	/^        void (*_deleteFunc)(const GLuint *); \/\/ function will be called when refCount is 0$/;"	m	class:Lumos::GLObject
+_deleteMultisampledBuffers	src/Output/View_renderer.cpp	/^void View_renderer::_deleteMultisampledBuffers(){$/;"	f	class:View_renderer
+_deleteOutTextures	src/Output/View_renderer.cpp	/^void View_renderer::_deleteOutTextures(){$/;"	f	class:View_renderer
+_dispatcher	Includes/PhysicalWorld.h	/^        btCollisionDispatcher* _dispatcher;$/;"	m	class:Patronus::PhysicalWorld
+_drawer	Includes/PhysicalWorld.h	/^        GLDebugDrawer * _drawer;$/;"	m	class:Patronus::PhysicalWorld
+_dynamicsWorld	Includes/PhysicalWorld.h	/^        btDiscreteDynamicsWorld* _dynamicsWorld;$/;"	m	class:Patronus::PhysicalWorld
+_eglInitWithWindow	src/Output/WindowManager.cpp	/^void WindowManager::_eglInitWithWindow(){$/;"	f	class:WindowManager
+_egl_context	Includes/WindowManager.h	/^    EGLContext  _egl_context;$/;"	m	class:WindowManager
+_egl_context	Includes/WindowManager_headless.h	/^    EGLContext  _egl_context;$/;"	m	class:WindowManager_headless
+_egl_display	Includes/WindowManager.h	/^    EGLDisplay  _egl_display;$/;"	m	class:WindowManager
+_egl_display	Includes/WindowManager_headless.h	/^    EGLDisplay  _egl_display;$/;"	m	class:WindowManager_headless
+_egl_surface	Includes/WindowManager.h	/^    EGLSurface  _egl_surface;$/;"	m	class:WindowManager
+_egl_surface	Includes/WindowManager_headless.h	/^    EGLSurface  _egl_surface;$/;"	m	class:WindowManager_headless
+_faces	Includes/Mesh.h	/^        std::vector< Face > _faces;$/;"	m	class:Patronus::Mesh
+_far	Includes/Camera.h	/^        float _far;$/;"	m	class:Patronus::Camera
+_flag	Includes/InputParser.h	/^    Flag _flag;$/;"	m	class:Cmd
+_fov	Includes/Camera.h	/^        float _fov;$/;"	m	class:Patronus::Camera
+_glObjId	Includes/GLObject.h	/^        GLuint _glObjId;$/;"	m	class:Lumos::GLObject
+_headlessInit	src/Output/WindowManager.cpp	/^void WindowManager::_headlessInit(){$/;"	f	class:WindowManager
+_headlessInit	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_headlessInit(){$/;"	f	class:WindowManager_headless
+_headlessInitWithX11	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_headlessInitWithX11(){$/;"	f	class:WindowManager_headless
+_height	Includes/View.h	/^    size_t _width, _height;$/;"	m	class:View
+_height	Includes/WindowManager_base.h	/^	size_t _height;$/;"	m	class:WindowManager_base
+_id	Includes/Instance.h	/^        std::string _id;$/;"	m	class:Lumos::Instance
+_id	Includes/Mesh.h	/^        std::string _id;$/;"	m	class:Patronus::Mesh
+_indices	Includes/Mesh.h	/^        std::vector< unsigned int > _indices;$/;"	m	class:Patronus::Mesh
+_instances	Includes/PhysicalWorld.h	/^        std::vector< Lumos::Instance * > _instances;$/;"	m	class:Patronus::PhysicalWorld
+_intensity	Includes/Light.h	/^        color3 _intensity;$/;"	m	class:Patronus::Light
+_isOn	Includes/Light.h	/^        bool _isOn;$/;"	m	class:Patronus::Light
+_isOn	Includes/Transformable.h	/^        bool _isOn;$/;"	m	class:Patronus::Transformable
+_keyboard_handle	src/Output/WindowManager.cpp	/^void WindowManager::_keyboard_handle(const XEvent & event){$/;"	f	class:WindowManager
+_lights	Includes/Shaper.h	/^        std::vector<Light> _lights;$/;"	m	class:Patronus::Shaper
+_loadColorIndicesToBuffer	src/Patronus/Mesh.cpp	/^void Mesh::_loadColorIndicesToBuffer( ){$/;"	f	class:Mesh
+_loadColorToBuffer	src/Patronus/Mesh.cpp	/^void Mesh::_loadColorToBuffer( ){$/;"	f	class:Mesh
+_loadDefaultObjects	src/Patronus/Shaper.cpp	/^void Shaper::_loadDefaultObjects(){$/;"	f	class:Shaper
+_loadFile_obj	src/Patronus/Shaper.cpp	/^bool Shaper::_loadFile_obj(const std::string & f_name){$/;"	f	class:Shaper
+_loadNormalIndicesToBuffer	src/Patronus/Mesh.cpp	/^void Mesh::_loadNormalIndicesToBuffer( ){$/;"	f	class:Mesh
+_loadNormalToBuffer	src/Patronus/Mesh.cpp	/^void Mesh::_loadNormalToBuffer( ){$/;"	f	class:Mesh
+_loadTexCoordToBuffer	src/Patronus/Mesh.cpp	/^void Mesh::_loadTexCoordToBuffer( ){$/;"	f	class:Mesh
+_loadVertexIndicesToBuffer	src/Patronus/Mesh.cpp	/^void Mesh::_loadVertexIndicesToBuffer( ){$/;"	f	class:Mesh
+_loadVertexToBuffer	src/Patronus/Mesh.cpp	/^void Mesh::_loadVertexToBuffer( ){$/;"	f	class:Mesh
+_makeMultisampledBuffers	src/Output/View_renderer.cpp	/^void View_renderer::_makeMultisampledBuffers(){$/;"	f	class:View_renderer
+_makeOutTextures	src/Output/View_renderer.cpp	/^void View_renderer::_makeOutTextures(){$/;"	f	class:View_renderer
+_material	Includes/Face.h	/^    Lumos::Material *  _material;$/;"	m	class:Face
+_materials	Includes/Shaper.h	/^        std::vector< Lumos::Material * > _materials;$/;"	m	class:Patronus::Shaper
+_meshPtr	Includes/Instance.h	/^        Patronus::Mesh * _meshPtr;$/;"	m	class:Lumos::Instance
+_names	Includes/PhysicalWorld.h	/^        std::set< std::string > _names;$/;"	m	class:Patronus::PhysicalWorld
+_near	Includes/Camera.h	/^        float _near;$/;"	m	class:Patronus::Camera
+_normalIndeces	Includes/Face.h	/^    std::vector< int > _normalIndeces;$/;"	m	class:Face
+_normals	Includes/Mesh.h	/^        std::vector< glm::vec3 > _normals;$/;"	m	class:Patronus::Mesh
+_numOfEntry	Includes/ArrayBuffer.h	/^        size_t _numOfEntry;$/;"	m	class:Lumos::ArrayBuffer
+_orientation	Includes/Transformable.h	/^        point3 _orientation;$/;"	m	class:Patronus::Transformable
+_out_ColorTextureObject	Includes/View_renderer.h	/^    GLuint _out_ColorTextureObject;$/;"	m	class:View_renderer
+_out_DepthTextureObject	Includes/View_renderer.h	/^    GLuint _out_DepthTextureObject;$/;"	m	class:View_renderer
+_out_FBO	Includes/View_renderer.h	/^    GLuint _out_FBO;$/;"	m	class:View_renderer
+_pickingColor	Includes/Instance.h	/^        color3 _pickingColor;$/;"	m	class:Lumos::Instance
+_refCount	Includes/GLObject.h	/^        unsigned int *_refCount; \/\/ use to keep the reference count for the shader$/;"	m	class:Lumos::GLObject
+_release	src/Lumos/GLObject.cpp	/^void GLObject::_release(){$/;"	f	class:GLObject
+_remakeMultisampledBuffers	src/Output/View_renderer.cpp	/^void View_renderer::_remakeMultisampledBuffers(){$/;"	f	class:View_renderer
+_remakeOutTextures	src/Output/View_renderer.cpp	/^void View_renderer::_remakeOutTextures(){$/;"	f	class:View_renderer
+_render_hidden_view	Includes/WindowManager_headless.h	/^    View_renderer * _render_hidden_view;$/;"	m	class:WindowManager_headless
+_retain	src/Lumos/GLObject.cpp	/^void GLObject::_retain(){$/;"	f	class:GLObject
+_rigidBody	Includes/Instance.h	/^        btRigidBody * _rigidBody;$/;"	m	class:Lumos::Instance
+_saveBitMap	src/Output/View_renderer.cpp	/^cv::Mat View_renderer::_saveBitMap(const std::string & fileName){$/;"	f	class:View_renderer
+_saveColorImage	src/Output/View_renderer.cpp	/^cv::Mat View_renderer::_saveColorImage(const std::string & fileName){$/;"	f	class:View_renderer
+_saveDepthImage	src/Output/View_renderer.cpp	/^cv::Mat View_renderer::_saveDepthImage(const std::string & fileName){$/;"	f	class:View_renderer
+_scale	Includes/Transformable.h	/^        point3 _scale;$/;"	m	class:Patronus::Transformable
+_shaderId	Includes/View.h	/^    std::string _shaderId;$/;"	m	class:View
+_shading_pipes	Includes/Program.h	/^        std::unordered_map<std::string, shading_pipe> _shading_pipes;$/;"	m	class:Lumos::Program
+_shapes	Includes/Shaper.h	/^        std::vector<Mesh> _shapes;$/;"	m	class:Patronus::Shaper
+_solver	Includes/PhysicalWorld.h	/^        btSequentialImpulseConstraintSolver* _solver;$/;"	m	class:Patronus::PhysicalWorld
+_translate	Includes/Transformable.h	/^        point3 _translate;$/;"	m	class:Patronus::Transformable
+_type	Includes/Camera.h	/^        CameraType _type;$/;"	m	class:Patronus::Camera
+_type	Includes/Light.h	/^        LightType _type;$/;"	m	class:Patronus::Light
+_uniforms	Includes/Shader.h	/^        std::vector<std::string> _uniforms;$/;"	m	class:Lumos::Shader
+_up	Includes/Camera.h	/^        glm::vec3 _up;$/;"	m	class:Patronus::Camera
+_uvIndeces	Includes/Face.h	/^    std::vector< int > _uvIndeces;$/;"	m	class:Face
+_uvs	Includes/Mesh.h	/^        std::vector< glm::vec2 > _uvs;$/;"	m	class:Patronus::Mesh
+_varyings	Includes/Shader.h	/^        std::vector<std::string> _varyings;$/;"	m	class:Lumos::Shader
+_vertices	Includes/Mesh.h	/^        std::vector< point3 > _vertices;$/;"	m	class:Patronus::Mesh
+_verticesIndeces	Includes/Face.h	/^    std::vector< int > _verticesIndeces;$/;"	m	class:Face
+_vertices_combinded	Includes/Mesh.h	/^        std::vector< Vertex > _vertices_combinded;$/;"	m	class:Patronus::Mesh
+_views	Includes/WindowManager_base.h	/^    std::vector< View* > _views;$/;"	m	class:WindowManager_base
+_visibles	Includes/View.h	/^    std::vector< Lumos::Instance * > _visibles;$/;"	m	class:View
+_width	Includes/View.h	/^    size_t _width, _height;$/;"	m	class:View
+_width	Includes/WindowManager_base.h	/^	size_t _width;$/;"	m	class:WindowManager_base
+_win	Includes/WindowManager.h	/^    Window      _win;$/;"	m	class:WindowManager
+_win	Includes/WindowManager_headless.h	/^    Window      _win;$/;"	m	class:WindowManager_headless
+_x	Includes/View.h	/^    size_t _x, _y;$/;"	m	class:View
+_xContex	Includes/WindowManager.h	/^    GLXContext  _xContex;$/;"	m	class:WindowManager
+_x_display	Includes/WindowManager.h	/^    Display    *_x_display;$/;"	m	class:WindowManager
+_x_display	Includes/WindowManager_headless.h	/^    Display    *_x_display;$/;"	m	class:WindowManager_headless
+_y	Includes/View.h	/^    size_t _x, _y;$/;"	m	class:View
+addArg	Includes/InputParser.h	/^    inline void addArg(const std::string & s){ _args.push_back(s);}$/;"	f	class:Cmd
+addCamera	Includes/Shaper.h	/^        inline void addCamera( Camera * c ) { _cameras.push_back(c); }$/;"	f	class:Patronus::Shaper
+addFace	src/Patronus/Mesh.cpp	/^void Mesh::addFace(const Face &f){$/;"	f	class:Mesh
+addMaterial	src/Patronus/Shaper.cpp	/^void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const GLint & wrapMode ){$/;"	f	class:Shaper
+addNormal	src/Patronus/Mesh.cpp	/^void Mesh::addNormal(const glm::vec3& n){$/;"	f	class:Mesh
+addNormalIndex	Includes/Face.h	/^        addNormalIndex( const int & indx ) { _normalIndeces.push_back(indx); }$/;"	f	class:Face
+addUvIndex	Includes/Face.h	/^        addUvIndex( const int & indx ) { _uvIndeces.push_back(indx); }$/;"	f	class:Face
+addVertex	src/Patronus/Mesh.cpp	/^void Mesh::addVertex( const Vertex & v){$/;"	f	class:Mesh
+addVertex	src/Patronus/Mesh.cpp	/^void Mesh::addVertex(const point3 & v){$/;"	f	class:Mesh
+addVertexIndex	Includes/Face.h	/^        addVertexIndex( const int & indx ) { _verticesIndeces.push_back(indx); }$/;"	f	class:Face
+addVu	src/Patronus/Mesh.cpp	/^void Mesh::addVu(const glm::vec2& uv){$/;"	f	class:Mesh
+algorithm	Includes/obj_loader.h	/^    namespace algorithm$/;"	n	namespace:objl
+alpha_texname	Includes/tiny_obj_loader.h	/^  std::string alpha_texname;               \/\/ map_d$/;"	m	struct:tinyobj::__anon1
+ambient	Includes/tiny_obj_loader.h	/^  float ambient[3];$/;"	m	struct:tinyobj::__anon1
+ambient_texname	Includes/tiny_obj_loader.h	/^  std::string ambient_texname;             \/\/ map_Ka$/;"	m	struct:tinyobj::__anon1
+anisotropy	Includes/tiny_obj_loader.h	/^  float anisotropy;               \/\/ aniso. [0, 1] default 0$/;"	m	struct:tinyobj::__anon1
+anisotropy_rotation	Includes/tiny_obj_loader.h	/^  float anisotropy_rotation;      \/\/ anisor. [0, 1] default 0$/;"	m	struct:tinyobj::__anon1
+argc	Includes/InputParser.h	/^    inline int argc()const {return _args.size();}$/;"	f	class:Cmd
+attrib_t	Includes/tiny_obj_loader.h	/^} attrib_t;$/;"	t	namespace:tinyobj	typeref:struct:tinyobj::__anon6
+bind	src/Lumos/Program.cpp	/^void Program::bind() const{$/;"	f	class:Lumos::Program
+bump_texname	Includes/tiny_obj_loader.h	/^  std::string bump_texname;                \/\/ map_bump, bump$/;"	m	struct:tinyobj::__anon1
+callback_t	Includes/tiny_obj_loader.h	/^} callback_t;$/;"	t	namespace:tinyobj	typeref:struct:tinyobj::callback_t_
+callback_t_	Includes/tiny_obj_loader.h	/^  callback_t_()$/;"	f	struct:tinyobj::callback_t_
+callback_t_	Includes/tiny_obj_loader.h	/^typedef struct callback_t_ {$/;"	s	namespace:tinyobj
+cleanAndMkdir	src/Utility/Utility.cpp	/^    void cleanAndMkdir(const std::string & path){$/;"	f	namespace:Utils
+clearAll	src/BulletPhysics/PhysicalWorld.cpp	/^void PhysicalWorld::clearAll(){$/;"	f	class:Patronus::PhysicalWorld
+clearAll	src/Patronus/Shaper.cpp	/^void Shaper::clearAll(){$/;"	f	class:Shaper
+clearcoat_roughness	Includes/tiny_obj_loader.h	/^  float clearcoat_roughness;      \/\/ [0, 1] default 0$/;"	m	struct:tinyobj::__anon1
+clearcoat_thickness	Includes/tiny_obj_loader.h	/^  float clearcoat_thickness;      \/\/ [0, 1] default 0$/;"	m	struct:tinyobj::__anon1
+clipMode	Includes/Config.h	/^	ClipMode clipMode;$/;"	m	struct:Config
+cmds	Includes/InputParser.h	/^        std::vector <Cmd> cmds;$/;"	m	class:InputParser
+color	Includes/Config.h	/^	Color color;$/;"	m	struct:Config
+color3	Includes/GL_include.h	/^typedef glm::vec3 color3;$/;"	t
+color4	Includes/GL_include.h	/^typedef glm::vec4 color4;$/;"	t
+config	Includes/Keyboard.h	/^	textConfig config;$/;"	m	class:Keyboard
+contain	src/Utility/Utility.cpp	/^    bool contain(int* a, const int & num2Check, const unsigned int & len){$/;"	f	namespace:Utils
+convert	Includes/Utility.h	/^    void convert(const From & from, To & to, const size_t & size){$/;"	f	namespace:Utils
+copyVertexData	src/Patronus/Mesh.cpp	/^void Mesh::copyVertexData( size_t * initPos )const{$/;"	f	class:Mesh
+copyVertexNormalData	src/Patronus/Mesh.cpp	/^void Mesh::copyVertexNormalData( size_t * initPos )const{$/;"	f	class:Mesh
+copyVertexTexCoordData	src/Patronus/Mesh.cpp	/^void Mesh::copyVertexTexCoordData( size_t * initPos )const{$/;"	f	class:Mesh
+ctxErrorHandler	src/Output/WindowManager.cpp	/^static int ctxErrorHandler( Display *dpy, XErrorEvent *ev )$/;"	f	file:
+ctxErrorOccurred	src/Output/WindowManager.cpp	/^static bool ctxErrorOccurred = false;$/;"	v	file:
+curStr	Includes/Keyboard.h	/^	std::string curStr;$/;"	m	class:Keyboard
+d	Includes/obj_loader.h	/^        float d;$/;"	m	struct:objl::Material
+default_bbox_shader_id	Includes/Shader.h	/^        static const std::string default_bbox_shader_id;$/;"	m	class:Lumos::Shader
+default_bbox_shader_id	src/Lumos/Shader.cpp	/^const std::string Shader::default_bbox_shader_id = "bbox_shader";$/;"	m	class:Lumos::Shader	file:
+default_material	Includes/Shaper.h	/^        static Lumos::Material * default_material;$/;"	m	class:Patronus::Shaper
+default_mesh_shader_id	Includes/Shader.h	/^        static const std::string default_mesh_shader_id;$/;"	m	class:Lumos::Shader
+default_mesh_shader_id	src/Lumos/Shader.cpp	/^const std::string Shader::default_mesh_shader_id = "multilight_shader";$/;"	m	class:Lumos::Shader	file:
+depth_shader_id	Includes/Shader.h	/^        static const std::string depth_shader_id;$/;"	m	class:Lumos::Shader
+depth_shader_id	src/Lumos/Shader.cpp	/^const std::string Shader::depth_shader_id = "depth";$/;"	m	class:Lumos::Shader	file:
+diffuse	Includes/tiny_obj_loader.h	/^  float diffuse[3];$/;"	m	struct:tinyobj::__anon1
+diffuseColor	Includes/ModelAsset.h	/^        color4 diffuseColor;$/;"	m	struct:Lumos::Material
+diffuse_texname	Includes/tiny_obj_loader.h	/^  std::string diffuse_texname;             \/\/ map_Kd$/;"	m	struct:tinyobj::__anon1
+disableShadingPipe	src/Lumos/Program.cpp	/^void Program::disableShadingPipe( const std::string & pipe_name ){$/;"	f	class:Lumos::Program
+displacement_texname	Includes/tiny_obj_loader.h	/^  std::string displacement_texname;        \/\/ disp$/;"	m	struct:tinyobj::__anon1
+displayHelp	src/main.cpp	/^void displayHelp(){$/;"	f
+dissolve	Includes/tiny_obj_loader.h	/^  float dissolve;  \/\/ 1 == opaque; 0 == fully transparent$/;"	m	struct:tinyobj::__anon1
+draw	src/BulletPhysics/PhysicalWorld.cpp	/^void PhysicalWorld::draw(){$/;"	f	class:Patronus::PhysicalWorld
+draw3dText	src/BulletPhysics/btDebugDrawer.cpp	/^void GLDebugDrawer::draw3dText(const btVector3& location,const char* textString)$/;"	f	class:GLDebugDrawer
+draw3dText	src/Output/View_bullet.cpp	/^void View_bullet::draw3dText(const btVector3& location,const char* textString)$/;"	f	class:View_bullet
+drawCnt	Includes/ModelAsset.h	/^        GLuint drawCnt;$/;"	m	struct:Lumos::MaterialPack
+drawContactPoint	src/BulletPhysics/btDebugDrawer.cpp	/^void GLDebugDrawer::drawContactPoint(const btVector3& pointOnB,const btVector3& normalOnB,btScalar distance,int lifeTime,const btVector3& color)$/;"	f	class:GLDebugDrawer
+drawContactPoint	src/Output/View_bullet.cpp	/^void View_bullet::drawContactPoint(const btVector3& pointOnB,const btVector3& normalOnB,btScalar distance,int lifeTime,const btVector3& color)$/;"	f	class:View_bullet
+drawCount	Includes/ModelAsset.h	/^        GLint drawCount;$/;"	m	struct:Lumos::ModelAsset
+drawLine	src/BulletPhysics/btDebugDrawer.cpp	/^void  GLDebugDrawer::drawLine(const btVector3& from,const btVector3& to,const btVector3& color)$/;"	f	class:GLDebugDrawer
+drawLine	src/Output/View_bullet.cpp	/^void  View_bullet::drawLine(const btVector3& from,const btVector3& to,const btVector3& color)$/;"	f	class:View_bullet
+drawMode	Includes/Config.h	/^	DrawMode drawMode;$/;"	m	struct:Config
+drawStart	Includes/ModelAsset.h	/^        GLint drawStart;$/;"	m	struct:Lumos::ModelAsset
+drawStart	Includes/ModelAsset.h	/^        GLuint drawStart;$/;"	m	struct:Lumos::MaterialPack
+drawType	Includes/ModelAsset.h	/^        GLenum drawType;$/;"	m	struct:Lumos::ModelAsset
+dummy	Includes/tiny_obj_loader.h	/^  int dummy;  \/\/ Suppress padding warning.$/;"	m	struct:tinyobj::__anon1
+emission	Includes/tiny_obj_loader.h	/^  float emission[3];$/;"	m	struct:tinyobj::__anon1
+emissive_texname	Includes/tiny_obj_loader.h	/^  std::string emissive_texname;   \/\/ map_Ke$/;"	m	struct:tinyobj::__anon1
+enableShadingPipe	src/Lumos/Program.cpp	/^void Program::enableShadingPipe( const std::string & pipe_name ){$/;"	f	class:Lumos::Program
+exportFaceGroupToShape	Includes/tiny_obj_loader.h	/^static bool exportFaceGroupToShape($/;"	f	namespace:tinyobj
+fillMode	Includes/Config.h	/^	FillMode fillMode;$/;"	m	struct:Config
+firstToken	Includes/obj_loader.h	/^        inline std::string firstToken(const std::string &in)$/;"	f	namespace:objl::algorithm
+fitSphere	src/Output/View.cpp	/^void View::fitSphere(const point3 & position, const float & radius){$/;"	f	class:View
+fixIndex	Includes/tiny_obj_loader.h	/^static inline int fixIndex(int idx, int n) {$/;"	f	namespace:tinyobj
+floatValues	Includes/tiny_obj_loader.h	/^  std::vector<float> floatValues;$/;"	m	struct:tinyobj::__anon2
+font	Includes/Keyboard.h	/^	void* font;$/;"	m	struct:textConfig
+fontSize	Includes/Keyboard.h	/^	int fontSize;$/;"	m	struct:textConfig
+gProgram	src/main.cpp	/^Lumos::Program * gProgram = nullptr;$/;"	v
+genUniqueName	src/Utility/Utility.cpp	/^    std::string genUniqueName(const std::set<std::string> & nameList, const std::string & prefix ){$/;"	f	namespace:Utils
+generateData	src/Output/View_renderer.cpp	/^void View_renderer::generateData(){$/;"	f	class:View_renderer
+generateMasks	src/Output/View_renderer.cpp	/^void View_renderer::generateMasks(){$/;"	f	class:View_renderer
+generateUniqeInt	src/Utility/Utility.cpp	/^    std::shared_ptr<int> generateUniqeInt(const int& numOfE){$/;"	f	namespace:Utils
+get	src/Utility/InputParser.cpp	/^Cmd InputParser::get(const Flag & flag) const{$/;"	f	class:InputParser
+getAllDir	src/Utility/Utility.cpp	/^    void getAllDir(const std::string & path, std::vector<fs::path> & all_files, const std::vector<std::string> & obj_list ){$/;"	f	namespace:Utils
+getAllFileWithExtension	src/Utility/Utility.cpp	/^    void getAllFileWithExtension(const std::string & path, const std::string & extension, std::vector<fs::path> & all_files ){$/;"	f	namespace:Utils
+getAmbientCoefficient	Includes/Light.h	/^            getAmbientCoefficient() const { return _ambientCoefficient; }$/;"	f	class:Patronus::Light
+getArgs	Includes/InputParser.h	/^    inline std::vector<std::string> getArgs()const {return _args;};$/;"	f	class:Cmd
+getAt	Includes/Camera.h	/^            getAt() const { return _at; }$/;"	f	class:Patronus::Camera
+getAttenuation	Includes/Light.h	/^            getAttenuation() const { return _attenuation; }$/;"	f	class:Patronus::Light
+getAttrib	src/Lumos/Program.cpp	/^GLint Program::getAttrib(const GLchar* attribName) const {$/;"	f	class:Lumos::Program
+getBoundingSphere	src/Patronus/Shaper.cpp	/^void Shaper::getBoundingSphere(const std::vector< point3 > & points, point3 * position, float * radius){$/;"	f	class:Shaper
+getCamInUse	Includes/View.h	/^        getCamInUse() const { return _camInUse; }$/;"	f	class:View
+getColor	src/Utility/Color.cpp	/^float* Color::getColor(const float& a, const float& b, const float& c){$/;"	f	class:Color
+getConeAngle	Includes/Light.h	/^            getConeAngle() const { return _coneAngle; }$/;"	f	class:Patronus::Light
+getConeDirection	Includes/Light.h	/^            getConeDirection() const { return _coneDirection; }$/;"	f	class:Patronus::Light
+getCurFileName	Includes/Shaper.h	/^            getCurFileName() const { return _curFileName; }$/;"	f	class:Patronus::Shaper
+getCurrentVaryingsAndUniforms	src/Lumos/Shader.cpp	/^void Shader::getCurrentVaryingsAndUniforms($/;"	f	class:Lumos::Shader
+getDebugMode	Includes/View_bullet.h	/^    virtual int getDebugMode() const { return m_debugMode;}$/;"	f	class:View_bullet
+getDebugMode	Includes/btDebugDrawer.h	/^        virtual int      getDebugMode() const { return m_debugMode;}$/;"	f	class:GLDebugDrawer
+getDefaultLight	Includes/Shaper.h	/^        inline Light getDefaultLight() const { return _lights[0]; }$/;"	f	class:Patronus::Shaper
+getElement	Includes/obj_loader.h	/^        inline const T & getElement(const std::vector<T> &elements, std::string &index)$/;"	f	namespace:objl::algorithm
+getFarClipDist	Includes/Camera.h	/^            getFarClipDist() const { return _far; }$/;"	f	class:Patronus::Camera
+getFlag	Includes/InputParser.h	/^    inline Flag getFlag() const {return _flag;}$/;"	f	class:Cmd
+getFovy	Includes/Camera.h	/^            getFovy() const { return _fov; }$/;"	f	class:Patronus::Camera
+getGlObjId	Includes/GLObject.h	/^            getGlObjId()const { return _glObjId; }$/;"	f	class:Lumos::GLObject
+getGlobalMax	src/Patronus/Shaper.cpp	/^point3 Shaper::getGlobalMax(){$/;"	f	class:Shaper
+getGlobalMin	src/Patronus/Shaper.cpp	/^point3 Shaper::getGlobalMin(){$/;"	f	class:Shaper
+getHeight	Includes/View.h	/^    inline size_t getHeight() const {return _height;}$/;"	f	class:View
+getHeight	Includes/WindowManager_base.h	/^    	getHeight() const { return _height; }$/;"	f	class:WindowManager_base
+getId	Includes/Camera.h	/^            getId() const { return _camId; }$/;"	f	class:Patronus::Camera
+getId	Includes/Instance.h	/^            getId() const { return _id; }$/;"	f	class:Lumos::Instance
+getId	Includes/Mesh.h	/^            getId() const { return _id; }$/;"	f	class:Patronus::Mesh
+getIndices	Includes/Mesh.h	/^            getIndices() const { return _indices; }$/;"	f	class:Patronus::Mesh
+getInstances	Includes/PhysicalWorld.h	/^            getInstances() { return _instances; }$/;"	f	class:Patronus::PhysicalWorld
+getIntensity	Includes/Light.h	/^            getIntensity() const { return _intensity; }$/;"	f	class:Patronus::Light
+getInverseModelMatrix	src/Patronus/Transformable.cpp	/^glm::mat4 Transformable::getInverseModelMatrix() const{$/;"	f	class:Transformable
+getLights	Includes/Shaper.h	/^        inline std::vector< Light > getLights()$/;"	f	class:Patronus::Shaper
+getMaterial	Includes/Face.h	/^        getMaterial( ) const { return _material; }$/;"	f	class:Face
+getMaxPos	Includes/Mesh.h	/^            getMaxPos() const { return _boundingBox.maxPos; }$/;"	f	class:Patronus::Mesh
+getMeshAsset	Includes/Instance.h	/^            getMeshAsset() const { return _asset; }$/;"	f	class:Lumos::Instance
+getMeshPtr	Includes/Instance.h	/^            getMeshPtr() const { return _meshPtr; }$/;"	f	class:Lumos::Instance
+getMeshes	Includes/Shaper.h	/^            getMeshes() { return _shapes; }$/;"	f	class:Patronus::Shaper
+getMinPos	Includes/Mesh.h	/^            getMinPos() const { return _boundingBox.minPos; }$/;"	f	class:Patronus::Mesh
+getModelMatrix	src/Patronus/Transformable.cpp	/^glm::mat4 Transformable::getModelMatrix() const{$/;"	f	class:Transformable
+getMouseBeam	src/Output/View.cpp	/^void View::getMouseBeam(const int & mouseX, const int & mouseY, point3 * start, point3 * direction )const{$/;"	f	class:View
+getNearClipDist	Includes/Camera.h	/^            getNearClipDist() const { return _near; }$/;"	f	class:Patronus::Camera
+getNormalBuffer	src/Patronus/Shaper.cpp	/^Lumos::ArrayBuffer Shaper::getNormalBuffer( )const$/;"	f	class:Shaper
+getNormalInds	Includes/Face.h	/^        getNormalInds() const { return _normalIndeces; }$/;"	f	class:Face
+getNumOfCameras	Includes/Shaper.h	/^            getNumOfCameras() const { return _cameras.size(); }$/;"	f	class:Patronus::Shaper
+getNumOfEntry	Includes/ArrayBuffer.h	/^            getNumOfEntry() const { return _numOfEntry; }$/;"	f	class:Lumos::ArrayBuffer
+getNumOfFaces	Includes/Mesh.h	/^            getNumOfFaces() const { return _faces.size(); }$/;"	f	class:Patronus::Mesh
+getNumOfVertices	Includes/Mesh.h	/^            getNumOfVertices() const { return _vertices.size(); }$/;"	f	class:Patronus::Mesh
+getObjId	Includes/GLObject.h	/^            getObjId() const { return _glObjId; }$/;"	f	class:Lumos::GLObject
+getOrientation	Includes/Transformable.h	/^            getOrientation() const { return _orientation; }$/;"	f	class:Patronus::Transformable
+getPerspectiveMatrix	src/Patronus/Camera.cpp	/^glm::mat4 Camera::getPerspectiveMatrix()const{$/;"	f	class:Camera
+getPickingColor	Includes/Instance.h	/^            getPickingColor() const { return _pickingColor; }$/;"	f	class:Lumos::Instance
+getProjectionMatrix	src/Patronus/Camera.cpp	/^glm::mat4 Camera::getProjectionMatrix(const float & aspect_ratio )const {$/;"	f	class:Camera
+getRidgidBody	Includes/Instance.h	/^            getRidgidBody() const { return _rigidBody; }$/;"	f	class:Lumos::Instance
+getScale	Includes/Transformable.h	/^            getScale() const { return _scale; }$/;"	f	class:Patronus::Transformable
+getShaderId	Includes/View.h	/^        getShaderId() const { return _shaderId; }$/;"	f	class:View
+getSizeInByte	Includes/ArrayBuffer.h	/^            getSizeInByte() const { return _numOfEntry*_bytesPerEntry; }$/;"	f	class:Lumos::ArrayBuffer
+getTranslate	Includes/Transformable.h	/^            getTranslate() const { return _translate; }$/;"	f	class:Patronus::Transformable
+getTranslatev4	Includes/Transformable.h	/^            getTranslatev4() const { return point4(_translate, 1.0f); }$/;"	f	class:Patronus::Transformable
+getType	Includes/Camera.h	/^            getType() const { return _type; }$/;"	f	class:Patronus::Camera
+getType	Includes/Light.h	/^            getType() const { return _type; }$/;"	f	class:Patronus::Light
+getUniform	src/Lumos/Program.cpp	/^GLint Program::getUniform(const GLchar* uniformName) const {$/;"	f	class:Lumos::Program
+getUp	Includes/Camera.h	/^            getUp() const { return _up; }$/;"	f	class:Patronus::Camera
+getUvInds	Includes/Face.h	/^        getUvInds() const { return _uvIndeces; }$/;"	f	class:Face
+getVertexBuffer	src/Patronus/Shaper.cpp	/^Lumos::ArrayBuffer Shaper::getVertexBuffer( )const$/;"	f	class:Shaper
+getVerticesInds	Includes/Face.h	/^        getVerticesInds() const { return _verticesIndeces; }$/;"	f	class:Face
+getVisibleObjects	src/Output/View_renderer.cpp	/^void View_renderer::getVisibleObjects(){$/;"	f	class:View_renderer
+getWidth	Includes/View.h	/^    inline size_t getWidth() const {return _width;}$/;"	f	class:View
+getWidth	Includes/WindowManager_base.h	/^    	getWidth() const { return _width; }$/;"	f	class:WindowManager_base
+getWorld	Includes/PhysicalWorld.h	/^            getWorld() const { return _dynamicsWorld; }$/;"	f	class:Patronus::PhysicalWorld
+getX	Includes/View.h	/^    inline size_t getX() const {return _x;}$/;"	f	class:View
+getY	Includes/View.h	/^    inline size_t getY() const {return _y;}$/;"	f	class:View
+getnCamera	Includes/Shaper.h	/^            getnCamera( const size_t & index ){ if (index >= _cameras.size()) return nullptr; else return _cameras[index]; }$/;"	f	class:Patronus::Shaper
+glExtCheckFramebufferStatus	src/Utility/Utility.cpp	/^    int glExtCheckFramebufferStatus(char *errorMessage)$/;"	f	namespace:Utils
+glTexId	Includes/ModelAsset.h	/^        GLuint glTexId;$/;"	m	struct:Lumos::Material
+glXCreateContextAttribsARB	src/Output/WindowManager_headless.cpp	/^static glXCreateContextAttribsARBProc glXCreateContextAttribsARB = NULL;$/;"	v	file:
+glXCreateContextAttribsARBProc	src/Output/WindowManager.cpp	/^typedef GLXContext (*glXCreateContextAttribsARBProc)(Display*, GLXFBConfig, GLXContext, Bool, const int*);$/;"	t	file:
+glXCreateContextAttribsARBProc	src/Output/WindowManager_headless.cpp	/^typedef GLXContext (*glXCreateContextAttribsARBProc)(Display*, GLXFBConfig, GLXContext, Bool, const int*);$/;"	t	file:
+glXMakeContextCurrentARB	src/Output/WindowManager_headless.cpp	/^static glXMakeContextCurrentARBProc   glXMakeContextCurrentARB   = NULL;$/;"	v	file:
+glXMakeContextCurrentARBProc	src/Output/WindowManager_headless.cpp	/^typedef Bool (*glXMakeContextCurrentARBProc)(Display*, GLXDrawable, GLXDrawable, GLXContext);$/;"	t	file:
+global_normal_vertices	Includes/Shaper.h	/^        static std::vector< point3 > global_normal_vertices;$/;"	m	class:Patronus::Shaper
+global_uv_coords	Includes/Shaper.h	/^        static std::vector< point2 > global_uv_coords;$/;"	m	class:Patronus::Shaper
+global_vertices	Includes/Shaper.h	/^        static std::vector< point3 > global_vertices;$/;"	m	class:Patronus::Shaper
+global_vertices	src/Patronus/Shaper.cpp	/^std::vector< point3 > Shaper::global_vertices = std::vector< point3 >();$/;"	m	class:Shaper	file:
+group_cb	Includes/tiny_obj_loader.h	/^  void (*group_cb)(void *user_data, const char **names, int num_names);$/;"	m	struct:tinyobj::callback_t_
+has	src/Utility/InputParser.cpp	/^bool InputParser::has(const Flag & f) const{$/;"	f	class:InputParser
+hasAttribute	src/Lumos/Program.cpp	/^bool Program::hasAttribute( const GLchar * attribName ) const {$/;"	f	class:Lumos::Program
+hasUniform	src/Lumos/Program.cpp	/^bool Program::hasUniform( const GLchar * uniformName ) const {$/;"	f	class:Lumos::Program
+history	Includes/Keyboard.h	/^	std::vector<std::string> history;$/;"	m	class:Keyboard
+id	Includes/ModelAsset.h	/^        std::string id;$/;"	m	struct:Lumos::Material
+illum	Includes/obj_loader.h	/^        int illum;$/;"	m	struct:objl::Material
+illum	Includes/tiny_obj_loader.h	/^  int illum;$/;"	m	struct:tinyobj::__anon1
+inTriangle	Includes/obj_loader.h	/^        bool inTriangle(Vector3 point, Vector3 tri1, Vector3 tri2, Vector3 tri3)$/;"	f	namespace:objl::algorithm
+index_cb	Includes/tiny_obj_loader.h	/^  void (*index_cb)(void *user_data, index_t *indices, int num_indices);$/;"	m	struct:tinyobj::callback_t_
+index_t	Includes/tiny_obj_loader.h	/^} index_t;$/;"	t	namespace:tinyobj	typeref:struct:tinyobj::__anon3
+indices	Includes/tiny_obj_loader.h	/^  std::vector<index_t> indices;$/;"	m	struct:tinyobj::__anon4
+initializeGL	src/Output/View.cpp	/^void View::initializeGL(){$/;"	f	class:View
+initializeGL	src/Output/View_renderer.cpp	/^void View_renderer::initializeGL(){$/;"	f	class:View_renderer
+instantiate_indexedDraw	src/Patronus/Mesh.cpp	/^Lumos::Instance* Mesh::instantiate_indexedDraw ( const GLuint & VAO ){$/;"	f	class:Mesh
+instantiate_sequentialDraw	src/Patronus/Mesh.cpp	/^Lumos::Instance* Mesh::instantiate_sequentialDraw ( ){$/;"	f	class:Mesh
+intValues	Includes/tiny_obj_loader.h	/^  std::vector<int> intValues;$/;"	m	struct:tinyobj::__anon2
+ior	Includes/tiny_obj_loader.h	/^  float ior;       \/\/ index of refraction$/;"	m	struct:tinyobj::__anon1
+isClick	src/Output/View.cpp	/^bool View::isClick(const size_t & x, const size_t & y){$/;"	f	class:View
+isExtensionSupported	src/Output/WindowManager.cpp	/^static bool isExtensionSupported(const char *extList, const char *extension)$/;"	f	file:
+isFlag	Includes/InputParser.h	/^    inline bool isFlag( const Flag & _f) const {return _f == _flag;}$/;"	f	class:Cmd
+isInUse	src/Lumos/ArrayBuffer.cpp	/^bool ArrayBuffer::isInUse() const{$/;"	f	class:ArrayBuffer
+isInUse	src/Lumos/Program.cpp	/^bool Program::isInUse() const {$/;"	f	class:Lumos::Program
+isInUse	src/Lumos/Shader.cpp	/^bool Shader::isInUse() const{$/;"	f	class:Lumos::Shader
+isLoaded	Includes/Shaper.h	/^            isLoaded() const { return _shapes.size() > 0; }$/;"	f	class:Patronus::Shaper
+isOn	Includes/Light.h	/^        bool isOn() const { return _isOn; }$/;"	f	class:Patronus::Light
+isOn	Includes/Transformable.h	/^        bool isOn() const { return _isOn; }$/;"	f	class:Patronus::Transformable
+isSet	Includes/GLObject.h	/^            isSet() const { return _glObjId != 0; }$/;"	f	class:Lumos::GLObject
+lineAlg	Includes/Config.h	/^	LineAlg lineAlg;$/;"	m	struct:Config
+loadAttribsAndUniform	src/Lumos/Instance.cpp	/^void Instance::loadAttribsAndUniform() const {$/;"	f	class:Lumos::Instance
+loadAttribsAndUniform	src/Output/View.cpp	/^void View::loadAttribsAndUniform() const{$/;"	f	class:View
+loadAttribsAndUniform	src/Patronus/Shaper.cpp	/^void Shaper::loadAttribsAndUniform() const {$/;"	f	class:Shaper
+loadCamerasFromDir	src/Patronus/Camera.cpp	/^void Camera::loadCamerasFromDir( const std::string & dir ){$/;"	f	class:Camera
+loadFile	src/Patronus/Shaper.cpp	/^bool Shaper::loadFile( const std::string & fileName ){$/;"	f	class:Shaper
+loadInstance	src/BulletPhysics/PhysicalWorld.cpp	/^void PhysicalWorld::loadInstance( Patronus::Mesh & mesh ){$/;"	f	class:Patronus::PhysicalWorld
+loadShaders	src/Lumos/Program.cpp	/^void Program::loadShaders( const std::string & GLSL_path ){$/;"	f	class:Lumos::Program
+loadUniforms	src/Lumos/ModelAsset.cpp	/^void Material::loadUniforms() const{$/;"	f	class:Material
+loadUniforms	src/Patronus/Camera.cpp	/^void Camera::loadUniforms( const unsigned int & width, const unsigned int & height ) const{$/;"	f	class:Camera
+logOpenGLError	src/Utility/Utility.cpp	/^    void logOpenGLError(const std::string & sourceFile ){$/;"	f	namespace:Utils
+loop	src/Output/WindowManager.cpp	/^int WindowManager::loop()$/;"	f	class:WindowManager
+loop	src/Output/WindowManager_headless.cpp	/^int WindowManager_headless::loop()$/;"	f	class:WindowManager_headless
+m_debugMode	Includes/View_bullet.h	/^    int m_debugMode;$/;"	m	class:View_bullet
+m_debugMode	Includes/btDebugDrawer.h	/^        int m_debugMode;$/;"	m	class:GLDebugDrawer
+m_mtlBasePath	Includes/tiny_obj_loader.h	/^  std::string m_mtlBasePath;$/;"	m	class:tinyobj::MaterialFileReader
+main	src/main.cpp	/^int main(int argc, char *argv[])$/;"	f
+makeDirectionalLight	src/Patronus/Light.cpp	/^Light Light::makeDirectionalLight(const point3 & position, const point3 & intensity, const float & ambientCoefficient){$/;"	f	class:Light
+makePointLight	src/Patronus/Light.cpp	/^Light Light::makePointLight( const point3 & position,$/;"	f	class:Light
+map_Ka	Includes/obj_loader.h	/^        std::string map_Ka;$/;"	m	struct:objl::Material
+map_Kd	Includes/obj_loader.h	/^        std::string map_Kd;$/;"	m	struct:objl::Material
+map_Ks	Includes/obj_loader.h	/^        std::string map_Ks;$/;"	m	struct:objl::Material
+map_Ns	Includes/obj_loader.h	/^        std::string map_Ns;$/;"	m	struct:objl::Material
+map_bump	Includes/obj_loader.h	/^        std::string map_bump;$/;"	m	struct:objl::Material
+map_d	Includes/obj_loader.h	/^        std::string map_d;$/;"	m	struct:objl::Material
+mask_shader_id	Includes/Shader.h	/^        static const std::string mask_shader_id;$/;"	m	class:Lumos::Shader
+mask_shader_id	src/Lumos/Shader.cpp	/^const std::string Shader::mask_shader_id = "mask";$/;"	m	class:Lumos::Shader	file:
+material	Includes/ModelAsset.h	/^        Material * material;$/;"	m	struct:Lumos::MaterialPack
+material_ids	Includes/tiny_obj_loader.h	/^  std::vector<int> material_ids;                 \/\/ per-face material ID$/;"	m	struct:tinyobj::__anon4
+material_t	Includes/tiny_obj_loader.h	/^} material_t;$/;"	t	namespace:tinyobj	typeref:struct:tinyobj::__anon1
+materials	Includes/ModelAsset.h	/^        std::vector<MaterialPack> materials;$/;"	m	struct:Lumos::ModelAsset
+math	Includes/obj_loader.h	/^    namespace math$/;"	n	namespace:objl
+max	Includes/Utility.h	/^    T max(T a, T b){$/;"	f	namespace:Utils
+maxPos	Includes/Mesh.h	/^        glm::vec3 maxPos;$/;"	m	struct:Patronus::BoundingBox
+mesh	Includes/tiny_obj_loader.h	/^  mesh_t mesh;$/;"	m	struct:tinyobj::__anon5
+mesh_t	Includes/tiny_obj_loader.h	/^} mesh_t;$/;"	t	namespace:tinyobj	typeref:struct:tinyobj::__anon4
+metallic	Includes/tiny_obj_loader.h	/^  float metallic;                 \/\/ [0, 1] default 0$/;"	m	struct:tinyobj::__anon1
+metallic_texname	Includes/tiny_obj_loader.h	/^  std::string metallic_texname;   \/\/ map_Pm$/;"	m	struct:tinyobj::__anon1
+min	Includes/Utility.h	/^    T min(T a, T b){$/;"	f	namespace:Utils
+minPos	Includes/Mesh.h	/^        glm::vec3 minPos;$/;"	m	struct:Patronus::BoundingBox
+moveForward	src/Patronus/Camera.cpp	/^void Camera::moveForward( const float & sensitivity ){$/;"	f	class:Camera
+mtllib_cb	Includes/tiny_obj_loader.h	/^  void (*mtllib_cb)(void *user_data, const material_t *materials,$/;"	m	struct:tinyobj::callback_t_
+multiplier	Includes/Shaper.h	/^        static const float multiplier;$/;"	m	class:Patronus::Shaper
+multiplier	src/Patronus/Shaper.cpp	/^const float Shaper::multiplier = 10;$/;"	m	class:Shaper	file:
+mystrtok	src/Utility/Utility.cpp	/^    std::deque<std::string> mystrtok (const std::string& str, const char* delim)$/;"	f	namespace:Utils
+name	Includes/obj_loader.h	/^        std::string name;$/;"	m	struct:objl::Material
+name	Includes/tiny_obj_loader.h	/^  std::string name;$/;"	m	struct:tinyobj::__anon1
+name	Includes/tiny_obj_loader.h	/^  std::string name;$/;"	m	struct:tinyobj::__anon2
+name	Includes/tiny_obj_loader.h	/^  std::string name;$/;"	m	struct:tinyobj::__anon5
+normal	Includes/Mesh.h	/^        point3 normal;$/;"	m	struct:Patronus::Vertex
+normal_cb	Includes/tiny_obj_loader.h	/^  void (*normal_cb)(void *user_data, float x, float y, float z);$/;"	m	struct:tinyobj::callback_t_
+normal_index	Includes/tiny_obj_loader.h	/^  int normal_index;$/;"	m	struct:tinyobj::__anon3
+normal_texname	Includes/tiny_obj_loader.h	/^  std::string normal_texname;     \/\/ norm. For normal mapping.$/;"	m	struct:tinyobj::__anon1
+normals	Includes/tiny_obj_loader.h	/^  std::vector<float> normals;    \/\/ 'vn'$/;"	m	struct:tinyobj::__anon6
+numOfSlotFilled	src/Utility/Utility.cpp	/^    int numOfSlotFilled(int* a, const size_t & len){$/;"	f	namespace:Utils
+num_face_vertices	Includes/tiny_obj_loader.h	/^  std::vector<unsigned char> num_face_vertices;  \/\/ The number of vertices per$/;"	m	struct:tinyobj::__anon4
+num_floats	Includes/tiny_obj_loader.h	/^  int num_floats;$/;"	m	struct:tinyobj::tag_sizes
+num_ints	Includes/tiny_obj_loader.h	/^  int num_ints;$/;"	m	struct:tinyobj::tag_sizes
+num_strings	Includes/tiny_obj_loader.h	/^  int num_strings;$/;"	m	struct:tinyobj::tag_sizes
+obj_shape	Includes/tiny_obj_loader.h	/^struct obj_shape {$/;"	s	namespace:tinyobj
+object_cb	Includes/tiny_obj_loader.h	/^  void (*object_cb)(void *user_data, const char *name);$/;"	m	struct:tinyobj::callback_t_
+objl	Includes/obj_loader.h	/^namespace objl$/;"	n
+opMode	Includes/Config.h	/^	OpMode opMode;$/;"	m	struct:Config
+operator !=	Includes/obj_loader.h	/^        bool operator!=(const Vector2& other) const$/;"	f	struct:objl::Vector2
+operator !=	Includes/obj_loader.h	/^        bool operator!=(const Vector3& other) const$/;"	f	struct:objl::Vector3
+operator ()	Includes/tiny_obj_loader.h	/^bool MaterialFileReader::operator()(const std::string &matId,$/;"	f	class:tinyobj::MaterialFileReader
+operator *	Includes/obj_loader.h	/^        Vector2 operator*(const float& other) const$/;"	f	struct:objl::Vector2
+operator *	Includes/obj_loader.h	/^        Vector3 operator*(const float& left, const Vector3& right)$/;"	f	namespace:objl::algorithm
+operator *	Includes/obj_loader.h	/^        Vector3 operator*(const float& other) const$/;"	f	struct:objl::Vector3
+operator +	Includes/obj_loader.h	/^        Vector2 operator+(const Vector2& right) const$/;"	f	struct:objl::Vector2
+operator +	Includes/obj_loader.h	/^        Vector3 operator+(const Vector3& right) const$/;"	f	struct:objl::Vector3
+operator -	Includes/obj_loader.h	/^        Vector2 operator-(const Vector2& right) const$/;"	f	struct:objl::Vector2
+operator -	Includes/obj_loader.h	/^        Vector3 operator-(const Vector3& right) const$/;"	f	struct:objl::Vector3
+operator =	src/Lumos/ArrayBuffer.cpp	/^ArrayBuffer& ArrayBuffer::operator = ( const ArrayBuffer & other ){$/;"	f	class:ArrayBuffer
+operator =	src/Lumos/GLObject.cpp	/^GLObject& GLObject::operator = (const GLObject & other ){$/;"	f	class:GLObject
+operator ==	Includes/InputParser.h	/^    bool operator==(const Cmd & rhs) const { return _flag == rhs._flag;}$/;"	f	class:Cmd
+operator ==	Includes/obj_loader.h	/^        bool operator==(const Vector2& other) const$/;"	f	struct:objl::Vector2
+operator ==	Includes/obj_loader.h	/^        bool operator==(const Vector3& other) const$/;"	f	struct:objl::Vector3
+operator []	src/Utility/InputParser.cpp	/^std::string Cmd::operator [] (const size_t & index ){$/;"	f	class:Cmd
+override	Includes/ArrayBuffer.h	/^        bool isInUse() const override;$/;"	m	class:Lumos::ArrayBuffer
+override	Includes/ArrayBuffer.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::ArrayBuffer
+override	Includes/ArrayBuffer.h	/^        void use() const override;$/;"	m	class:Lumos::ArrayBuffer
+override	Includes/Program.h	/^        bool isInUse() const override;$/;"	m	class:Lumos::Program
+override	Includes/Program.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::Program
+override	Includes/Program.h	/^        void use() const override;$/;"	m	class:Lumos::Program
+override	Includes/Shader.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::Shader
+override	Includes/Shader.h	/^        void use() const override;$/;"	m	class:Lumos::Shader
+override	Includes/View_bullet.h	/^    virtual void paintGL() override ;$/;"	m	class:View_bullet
+override	Includes/View_bullet.h	/^    virtual void resizeGL(const size_t & w, const size_t & h) override ;$/;"	m	class:View_bullet
+override	Includes/View_renderer.h	/^    virtual void initializeGL() override;$/;"	m	class:View_renderer
+override	Includes/View_renderer.h	/^    virtual void resizeGL(const size_t & w, const size_t &h) override;$/;"	m	class:View_renderer
+override	Includes/WindowManager.h	/^    virtual int loop() override;$/;"	m	class:WindowManager
+override	Includes/WindowManager.h	/^    virtual void show() override;$/;"	m	class:WindowManager
+override	Includes/WindowManager_headless.h	/^    virtual int loop() override;$/;"	m	class:WindowManager_headless
+override	Includes/WindowManager_headless.h	/^    virtual void show() override;$/;"	m	class:WindowManager_headless
+paintGL	src/Output/View.cpp	/^void View::paintGL(){$/;"	f	class:View
+paintGL	src/Output/View_bullet.cpp	/^void View_bullet::paintGL(){$/;"	f	class:View_bullet
+panAndPadestal	src/Patronus/Camera.cpp	/^void Camera::panAndPadestal( const float & x_axis, const float & y_axis ){$/;"	f	class:Camera
+parseCmdLn	src/main.cpp	/^void parseCmdLn(int argc, char *argv[]){$/;"	f
+parseFloat	Includes/tiny_obj_loader.h	/^static inline float parseFloat(const char **token, double default_value = 0.0) {$/;"	f	namespace:tinyobj
+parseFloat2	Includes/tiny_obj_loader.h	/^static inline void parseFloat2(float *x, float *y, const char **token) {$/;"	f	namespace:tinyobj
+parseFloat3	Includes/tiny_obj_loader.h	/^static inline void parseFloat3(float *x, float *y, float *z,$/;"	f	namespace:tinyobj
+parseInt	Includes/tiny_obj_loader.h	/^static inline int parseInt(const char **token) {$/;"	f	namespace:tinyobj
+parseRawTriple	Includes/tiny_obj_loader.h	/^static vertex_index parseRawTriple(const char **token) {$/;"	f	namespace:tinyobj
+parseString	Includes/tiny_obj_loader.h	/^static inline std::string parseString(const char **token) {$/;"	f	namespace:tinyobj
+parseTagTriple	Includes/tiny_obj_loader.h	/^static tag_sizes parseTagTriple(const char **token) {$/;"	f	namespace:tinyobj
+parseTriple	Includes/tiny_obj_loader.h	/^static vertex_index parseTriple(const char **token, int vsize, int vnsize,$/;"	f	namespace:tinyobj
+parseV	Includes/tiny_obj_loader.h	/^static inline void parseV(float *x, float *y, float *z, float *w,$/;"	f	namespace:tinyobj
+pers	Includes/Camera.h	/^        static Camera* pers;$/;"	m	class:Patronus::Camera
+point2	Includes/GL_include.h	/^typedef glm::vec2 point2;$/;"	t
+point3	Includes/GL_include.h	/^typedef glm::vec3 point3;$/;"	t
+point4	Includes/GL_include.h	/^typedef glm::vec4 point4;$/;"	t
+position	Includes/Mesh.h	/^        point3 position;$/;"	m	struct:Patronus::Vertex
+positionAllViewsToFitAllInstances	src/Output/WindowManager_base.cpp	/^void WindowManager_base::positionAllViewsToFitAllInstances(){$/;"	f	class:WindowManager_base
+preDrawSetUp	src/Lumos/Program.cpp	/^void Program::preDrawSetUp() {$/;"	f	class:Lumos::Program
+prevMode	Includes/Keyboard.h	/^	OpMode prevMode;$/;"	m	class:Keyboard
+print	Includes/Utility.h	/^    void print(T obj)$/;"	f	namespace:Utils
+print	src/Utility/Color.cpp	/^void Color::print (float* c){$/;"	f	class:Color
+printDebug	Includes/Utility.h	/^    void printDebug(T obj){$/;"	f	namespace:Utils
+printFramebufferInfo	src/Utility/Utility.cpp	/^    void printFramebufferInfo(GLenum target, GLuint fbo) {$/;"	f	namespace:Utils
+progConfig	src/main.cpp	/^Config progConfig;$/;"	v
+readFromFile	src/Lumos/Shader.cpp	/^Shader Shader::readFromFile(const std::string & fileName, const GLenum & shaderType ){$/;"	f	class:Lumos::Shader
+readFromFiles	src/Lumos/Shader.cpp	/^std::vector<Shader> Shader::readFromFiles( const std::string & shaderDir ){$/;"	f	class:Lumos::Shader
+reflexitivity	Includes/ModelAsset.h	/^        float reflexitivity;$/;"	m	struct:Lumos::Material
+remove	Includes/Utility.h	/^    void remove(std::vector<T>* v, unsigned int &index){$/;"	f	namespace:Utils
+remove_all	src/Utility/Utility.cpp	/^    void remove_all( const std::experimental::filesystem::path & path ){$/;"	f	namespace:Utils
+render	src/Output/WindowManager.cpp	/^void WindowManager::render(){$/;"	f	class:WindowManager
+render	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::render(){$/;"	f	class:WindowManager_headless
+renderBoundngBox	src/Lumos/Instance.cpp	/^void Instance::renderBoundngBox( const View & view ) const{$/;"	f	class:Lumos::Instance
+renderMesh	src/Lumos/Instance.cpp	/^void Instance::renderMesh( Material * materialInUse ) const{$/;"	f	class:Lumos::Instance
+renderMode	Includes/Config.h	/^	RenderMode renderMode;$/;"	m	struct:Config
+reportErrorWarning	src/BulletPhysics/btDebugDrawer.cpp	/^void GLDebugDrawer::reportErrorWarning(const char *warningString)$/;"	f	class:GLDebugDrawer
+reportErrorWarning	src/Output/View_bullet.cpp	/^void View_bullet::reportErrorWarning(const char* warningString)$/;"	f	class:View_bullet
+resizeGL	src/Output/View.cpp	/^void View::resizeGL(const size_t & w, const size_t & h){$/;"	f	class:View
+resizeGL	src/Output/View_bullet.cpp	/^void View_bullet::resizeGL(const size_t & w, const size_t & h){$/;"	f	class:View_bullet
+resizeGL	src/Output/View_renderer.cpp	/^void View_renderer::resizeGL(const size_t & w, const size_t &h){$/;"	f	class:View_renderer
+rotate	src/Patronus/Transformable.cpp	/^void Transformable::rotate ( const float & x, const float & y, const float & z ){$/;"	f	class:Transformable
+rotateAroundFocus	src/Patronus/Camera.cpp	/^void Camera::rotateAroundFocus( const float & x_axis, const float & y_axis){$/;"	f	class:Camera
+roughness	Includes/tiny_obj_loader.h	/^  float roughness;                \/\/ [0, 1] default 0$/;"	m	struct:tinyobj::__anon1
+roughness_texname	Includes/tiny_obj_loader.h	/^  std::string roughness_texname;  \/\/ map_Pr$/;"	m	struct:tinyobj::__anon1
+scale	src/Patronus/Transformable.cpp	/^void Transformable::scale ( const float & x, const float & y, const float & z ){$/;"	f	class:Transformable
+selectMode	Includes/Config.h	/^	SelectMode selectMode;$/;"	m	struct:Config
+selectWithBean	src/BulletPhysics/PhysicalWorld.cpp	/^Lumos::Instance * PhysicalWorld::selectWithBean( const btVector3 & start, const btVector3 & end ){$/;"	f	class:Patronus::PhysicalWorld
+selectedInstance	src/main.cpp	/^Lumos::Instance * selectedInstance = nullptr;$/;"	v
+selected_instances_shader_id	Includes/Shader.h	/^        static const std::string selected_instances_shader_id;$/;"	m	class:Lumos::Shader
+selected_instances_shader_id	src/Lumos/Shader.cpp	/^const std::string Shader::selected_instances_shader_id = "wired_frame_shader";$/;"	m	class:Lumos::Shader	file:
+set	src/main.cpp	/^void set(T & arg, T setTo, const std::string & var_name){$/;"	f
+setAmbientCoefficient	Includes/Light.h	/^            setAmbientCoefficient( const float & n ) { _ambientCoefficient = n; }$/;"	f	class:Patronus::Light
+setAt	Includes/Camera.h	/^            setAt(const point3 & p) { _at= p; }$/;"	f	class:Patronus::Camera
+setAtGlobal	Includes/Camera.h	/^            setAtGlobal( const point3 & p ) { _at = p - _translate; }$/;"	f	class:Patronus::Camera
+setAttenuation	Includes/Light.h	/^            setAttenuation( const float & n ) { _attenuation = n; }$/;"	f	class:Patronus::Light
+setCamInUse	Includes/View.h	/^        setCamInUse( Patronus::Camera * cam) { _camInUse = cam; }$/;"	f	class:View
+setColorBuffer	src/Lumos/ArrayBuffer.cpp	/^void ArrayBuffer::setColorBuffer( const std::vector<Patronus::Mesh> & shapes  ){$/;"	f	class:ArrayBuffer
+setConeAngle	Includes/Light.h	/^            setConeAngle( const float & angle ) { _coneAngle = angle; }$/;"	f	class:Patronus::Light
+setConeDirection	Includes/Light.h	/^            setConeDirection( const glm::vec3 & direction ) { _coneDirection = direction; }$/;"	f	class:Patronus::Light
+setCurFileName	Includes/Shaper.h	/^            setCurFileName( const std::string & fn ) { _curFileName = fn; }$/;"	f	class:Patronus::Shaper
+setDebugMode	src/BulletPhysics/btDebugDrawer.cpp	/^void GLDebugDrawer::setDebugMode(int debugMode)$/;"	f	class:GLDebugDrawer
+setDebugMode	src/Output/View_bullet.cpp	/^void View_bullet::setDebugMode(int debugMode)$/;"	f	class:View_bullet
+setDebugView	src/BulletPhysics/PhysicalWorld.cpp	/^void PhysicalWorld::setDebugView(View_bullet * debugView){$/;"	f	class:Patronus::PhysicalWorld
+setFarClipDist	Includes/Camera.h	/^            setFarClipDist(const float & dist) { _far = dist; }$/;"	f	class:Patronus::Camera
+setFov	Includes/Camera.h	/^            setFov(const float & fov) { _fov = fov; }$/;"	f	class:Patronus::Camera
+setHeight	Includes/WindowManager_base.h	/^    	setHeight( const size_t & h) {  _height = h; }$/;"	f	class:WindowManager_base
+setId	Includes/Camera.h	/^            setId( const std::string & id ) { _camId = id; }$/;"	f	class:Patronus::Camera
+setId	Includes/Instance.h	/^            setId( const std::string & id ) { _id = id; }$/;"	f	class:Lumos::Instance
+setId	Includes/Mesh.h	/^            setId( const std::string & id ){ _id = id; }$/;"	f	class:Patronus::Mesh
+setIndices	Includes/Mesh.h	/^            setIndices( const std::vector< unsigned int > & indx ) { _indices = indx; }$/;"	f	class:Patronus::Mesh
+setIntensity	Includes/Light.h	/^            setIntensity( const color3 & _i ) { _intensity = _i; }$/;"	f	class:Patronus::Light
+setMaterial	Includes/Face.h	/^        setMaterial( Lumos::Material * m_ptr ) { _material = m_ptr; }$/;"	f	class:Face
+setMaxPos	Includes/Mesh.h	/^            setMaxPos( const glm::vec3 & p ) { _boundingBox.maxPos = p; }$/;"	f	class:Patronus::Mesh
+setMeshAsset	Includes/Instance.h	/^            setMeshAsset( ModelAsset asset ) { _asset = asset; }$/;"	f	class:Lumos::Instance
+setMinPos	Includes/Mesh.h	/^            setMinPos( const glm::vec3 & p ) { _boundingBox.minPos = p; }$/;"	f	class:Patronus::Mesh
+setNearClipDist	Includes/Camera.h	/^            setNearClipDist(const float & dist) { _near = dist; }$/;"	f	class:Patronus::Camera
+setNormalIndeces	src/Patronus/Face.cpp	/^void Face::setNormalIndeces(const int & n1, const int & n2, const int & n3){$/;"	f	class:Face
+setObjId	Includes/GLObject.h	/^            setObjId( const GLuint id) { _glObjId = id; }$/;"	f	class:Lumos::GLObject
+setOrientation	Includes/Transformable.h	/^            setOrientation( const point3 & arg ) { _orientation=arg; }$/;"	f	class:Patronus::Transformable
+setPickingColor	Includes/Instance.h	/^            setPickingColor( const color3 & c ) { _pickingColor = c; }$/;"	f	class:Lumos::Instance
+setRidgidBody	src/Lumos/Instance.cpp	/^void Instance::setRidgidBody(  btRigidBody * const &  arg )$/;"	f	class:Lumos::Instance
+setScale	Includes/Transformable.h	/^            setScale( const point3 & arg ) { _scale=arg; }$/;"	f	class:Patronus::Transformable
+setShaderId	Includes/View.h	/^        setShaderId( const std::string & id) { _shaderId = id; }$/;"	f	class:View
+setTranslate	Includes/Transformable.h	/^            setTranslate( const point3 & arg ) { _translate=arg; }$/;"	f	class:Patronus::Transformable
+setTranslatev4	Includes/Transformable.h	/^            setTranslatev4( const point4 & arg){ _translate = glm::vec3(arg); }$/;"	f	class:Patronus::Transformable
+setType	Includes/Camera.h	/^            setType(const CameraType & type ) { _type = type; }$/;"	f	class:Patronus::Camera
+setType	Includes/Light.h	/^            setType( const LightType & type) { _type = type; }$/;"	f	class:Patronus::Light
+setUniform	src/Lumos/Program.cpp	/^void Program::setUniform(const GLchar* name, const glm::mat2& m, GLboolean transpose) {$/;"	f	class:Lumos::Program
+setUniform	src/Lumos/Program.cpp	/^void Program::setUniform(const GLchar* name, const glm::mat3& m, GLboolean transpose) {$/;"	f	class:Lumos::Program
+setUniform	src/Lumos/Program.cpp	/^void Program::setUniform(const GLchar* name, const glm::mat4& m, GLboolean transpose) {$/;"	f	class:Lumos::Program
+setUniform	src/Lumos/Program.cpp	/^void Program::setUniform(const GLchar* uniformName, const glm::vec3& v) {$/;"	f	class:Lumos::Program
+setUniform	src/Lumos/Program.cpp	/^void Program::setUniform(const GLchar* uniformName, const glm::vec4& v) {$/;"	f	class:Lumos::Program
+setUniformMatrix2	src/Lumos/Program.cpp	/^void Program::setUniformMatrix2(const GLchar* name, const GLfloat* v, GLsizei count, GLboolean transpose) {$/;"	f	class:Lumos::Program
+setUniformMatrix3	src/Lumos/Program.cpp	/^void Program::setUniformMatrix3(const GLchar* name, const GLfloat* v, GLsizei count, GLboolean transpose) {$/;"	f	class:Lumos::Program
+setUniformMatrix4	src/Lumos/Program.cpp	/^void Program::setUniformMatrix4(const GLchar* name, const GLfloat* v, GLsizei count, GLboolean transpose) {$/;"	f	class:Lumos::Program
+setUp	Includes/Camera.h	/^            setUp(const point3 & p) { _up= p; }$/;"	f	class:Patronus::Camera
+setUvIndeces	src/Patronus/Face.cpp	/^void Face::setUvIndeces(const int & n1, const int & n2, const int & n3){$/;"	f	class:Face
+setVertexBuffer	src/Lumos/ArrayBuffer.cpp	/^void ArrayBuffer::setVertexBuffer( const std::vector<Patronus::Mesh> & meshes ){$/;"	f	class:ArrayBuffer
+setVertexIndeces	src/Patronus/Face.cpp	/^void Face::setVertexIndeces(const int & n1, const int & n2, const int & n3){$/;"	f	class:Face
+setVertexNormalBuffer	src/Lumos/ArrayBuffer.cpp	/^void ArrayBuffer::setVertexNormalBuffer( const std::vector<Patronus::Mesh> & meshes ){$/;"	f	class:ArrayBuffer
+setWidth	Includes/WindowManager_base.h	/^    	setWidth( const size_t & w) {  _width = w; }$/;"	f	class:WindowManager_base
+shaderId	Includes/ModelAsset.h	/^        std::string shaderId;$/;"	m	struct:Lumos::ModelAsset
+shape_t	Includes/tiny_obj_loader.h	/^} shape_t;$/;"	t	namespace:tinyobj	typeref:struct:tinyobj::__anon5
+shaper	src/main.cpp	/^Patronus::Shaper * shaper = nullptr;$/;"	v
+sheen	Includes/tiny_obj_loader.h	/^  float sheen;                    \/\/ [0, 1] default 0$/;"	m	struct:tinyobj::__anon1
+sheen_texname	Includes/tiny_obj_loader.h	/^  std::string sheen_texname;      \/\/ map_Ps$/;"	m	struct:tinyobj::__anon1
+shininess	Includes/tiny_obj_loader.h	/^  float shininess;$/;"	m	struct:tinyobj::__anon1
+show	src/Output/WindowManager.cpp	/^void WindowManager::show(){$/;"	f	class:WindowManager
+show	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::show(){$/;"	f	class:WindowManager_headless
+specular	Includes/ModelAsset.h	/^        color3 specular;$/;"	m	struct:Lumos::Material
+specular	Includes/tiny_obj_loader.h	/^  float specular[3];$/;"	m	struct:tinyobj::__anon1
+specular_highlight_texname	Includes/tiny_obj_loader.h	/^  std::string specular_highlight_texname;  \/\/ map_Ns$/;"	m	struct:tinyobj::__anon1
+specular_texname	Includes/tiny_obj_loader.h	/^  std::string specular_texname;            \/\/ map_Ks$/;"	m	struct:tinyobj::__anon1
+split	Includes/obj_loader.h	/^        inline void split(const std::string &in,$/;"	f	namespace:objl::algorithm
+stopUsing	src/Lumos/ArrayBuffer.cpp	/^void ArrayBuffer::stopUsing() const{$/;"	f	class:ArrayBuffer
+stopUsing	src/Lumos/Program.cpp	/^void Program::stopUsing() const {$/;"	f	class:Lumos::Program
+stopUsing	src/Lumos/Shader.cpp	/^void Shader::stopUsing() const{$/;"	f	class:Lumos::Shader
+str2int	Includes/Utility.h	/^    constexpr unsigned int str2int(const char* str, int h = 0)$/;"	f	namespace:Utils
+string2flag	src/Utility/InputParser.cpp	/^Flag Cmd::string2flag(const std::string & str){$/;"	f	class:Cmd
+stringValues	Includes/tiny_obj_loader.h	/^  std::vector<std::string> stringValues;$/;"	m	struct:tinyobj::__anon2
+tag_sizes	Includes/tiny_obj_loader.h	/^  tag_sizes() : num_ints(0), num_floats(0), num_strings(0) {}$/;"	f	struct:tinyobj::tag_sizes
+tag_sizes	Includes/tiny_obj_loader.h	/^struct tag_sizes {$/;"	s	namespace:tinyobj
+tag_t	Includes/tiny_obj_loader.h	/^} tag_t;$/;"	t	namespace:tinyobj	typeref:struct:tinyobj::__anon2
+tags	Includes/tiny_obj_loader.h	/^  std::vector<tag_t> tags;                       \/\/ SubD tag$/;"	m	struct:tinyobj::__anon4
+tail	Includes/obj_loader.h	/^        inline std::string tail(const std::string &in)$/;"	f	namespace:objl::algorithm
+test	src/BulletPhysics/PhysicalWorld.cpp	/^void PhysicalWorld::test(){$/;"	f	class:Patronus::PhysicalWorld
+test	src/main.cpp	/^void test(){$/;"	f
+test_within_test	src/main.cpp	/^void test_within_test(const Lumos::ArrayBuffer & ab){$/;"	f
+texcoord_cb	Includes/tiny_obj_loader.h	/^  void (*texcoord_cb)(void *user_data, float x, float y, float z);$/;"	m	struct:tinyobj::callback_t_
+texcoord_index	Includes/tiny_obj_loader.h	/^  int texcoord_index;$/;"	m	struct:tinyobj::__anon3
+texcoords	Includes/tiny_obj_loader.h	/^  std::vector<float> texcoords;  \/\/ 'vt'$/;"	m	struct:tinyobj::__anon6
+textConfig	Includes/Keyboard.h	/^struct textConfig$/;"	s
+texture	Includes/ModelAsset.h	/^        cv::Mat texture;$/;"	m	struct:Lumos::Material
+tinyobj	Includes/tiny_obj_loader.h	/^namespace tinyobj {$/;"	n
+toChar	src/Utility/Utility.cpp	/^    std::shared_ptr<char> toChar(const std::string& str){$/;"	f	namespace:Utils
+toImageFile_color	src/Output/View_renderer.cpp	/^void View_renderer::toImageFile_color( const std::string & fileName ){$/;"	f	class:View_renderer
+toImageFile_depth	src/Output/View_renderer.cpp	/^void View_renderer::toImageFile_depth( const std::string & fileName ) {$/;"	f	class:View_renderer
+toUniqueColor	src/Utility/Color.cpp	/^color3 Color::toUniqueColor ( const int & i){$/;"	f	class:Color
+toUniqueInt	src/Utility/Color.cpp	/^int Color::toUniqueInt( const int & r, const int & g, const int & b ){$/;"	f	class:Color
+transMode	Includes/Config.h	/^	TransfromMode transMode;$/;"	m	struct:Config
+translate	src/Patronus/Transformable.cpp	/^void Transformable::translate ( const float & x, const float & y, const float & z ){$/;"	f	class:Transformable
+transmittance	Includes/ModelAsset.h	/^        color3 transmittance;$/;"	m	struct:Lumos::Material
+transmittance	Includes/tiny_obj_loader.h	/^  float transmittance[3];$/;"	m	struct:tinyobj::__anon1
+tryParseDouble	Includes/tiny_obj_loader.h	/^static bool tryParseDouble(const char *s, const char *s_end, double *result) {$/;"	f	namespace:tinyobj
+turnOff	Includes/Light.h	/^            turnOff() { _isOn = false; }$/;"	f	class:Patronus::Light
+turnOff	Includes/Transformable.h	/^            turnOff() { _isOn = false; }$/;"	f	class:Patronus::Transformable
+turnOn	Includes/Light.h	/^            turnOn() { _isOn = true; }$/;"	f	class:Patronus::Light
+turnOn	Includes/Transformable.h	/^            turnOn() { _isOn = true; }$/;"	f	class:Patronus::Transformable
+type	Includes/ArrayBuffer.h	/^        static Type type;$/;"	m	class:Lumos::ArrayBuffer
+unknown_parameter	Includes/tiny_obj_loader.h	/^  std::map<std::string, std::string> unknown_parameter;$/;"	m	struct:tinyobj::__anon1
+update	Includes/Mesh.h	/^        void update( const point3 & p){$/;"	f	struct:Patronus::BoundingBox
+use	src/Lumos/ArrayBuffer.cpp	/^void ArrayBuffer::use() const{$/;"	f	class:ArrayBuffer
+use	src/Lumos/Program.cpp	/^void Program::use() const {$/;"	f	class:Lumos::Program
+use	src/Lumos/Shader.cpp	/^void Shader::use() const{$/;"	f	class:Lumos::Shader
+usemtl_cb	Includes/tiny_obj_loader.h	/^  void (*usemtl_cb)(void *user_data, const char *name, int material_id);$/;"	m	struct:tinyobj::callback_t_
+uvCoords	Includes/Mesh.h	/^        point2 uvCoords;$/;"	m	struct:Patronus::Vertex
+v	Includes/tiny_obj_loader.h	/^  std::vector<float> v;$/;"	m	struct:tinyobj::obj_shape
+v_idx	Includes/tiny_obj_loader.h	/^  int v_idx, vt_idx, vn_idx;$/;"	m	struct:tinyobj::vertex_index
+vertex_cb	Includes/tiny_obj_loader.h	/^  void (*vertex_cb)(void *user_data, float x, float y, float z, float w);$/;"	m	struct:tinyobj::callback_t_
+vertex_index	Includes/tiny_obj_loader.h	/^  explicit vertex_index(int idx) : v_idx(idx), vt_idx(idx), vn_idx(idx) {}$/;"	f	struct:tinyobj::vertex_index
+vertex_index	Includes/tiny_obj_loader.h	/^  int vertex_index;$/;"	m	struct:tinyobj::__anon3
+vertex_index	Includes/tiny_obj_loader.h	/^  vertex_index() : v_idx(-1), vt_idx(-1), vn_idx(-1) {}$/;"	f	struct:tinyobj::vertex_index
+vertex_index	Includes/tiny_obj_loader.h	/^  vertex_index(int vidx, int vtidx, int vnidx)$/;"	f	struct:tinyobj::vertex_index
+vertex_index	Includes/tiny_obj_loader.h	/^struct vertex_index {$/;"	s	namespace:tinyobj
+vertices	Includes/tiny_obj_loader.h	/^  std::vector<float> vertices;   \/\/ 'v'$/;"	m	struct:tinyobj::__anon6
+vn	Includes/tiny_obj_loader.h	/^  std::vector<float> vn;$/;"	m	struct:tinyobj::obj_shape
+vn_idx	Includes/tiny_obj_loader.h	/^  int v_idx, vt_idx, vn_idx;$/;"	m	struct:tinyobj::vertex_index
+vt	Includes/tiny_obj_loader.h	/^  std::vector<float> vt;$/;"	m	struct:tinyobj::obj_shape
+vt_idx	Includes/tiny_obj_loader.h	/^  int v_idx, vt_idx, vn_idx;$/;"	m	struct:tinyobj::vertex_index
+winMan	src/main.cpp	/^WindowManager_base * winMan = nullptr;$/;"	v
+world	src/main.cpp	/^Patronus::PhysicalWorld * world = nullptr;$/;"	v
+~ArrayBuffer	src/Lumos/ArrayBuffer.cpp	/^ArrayBuffer::~ArrayBuffer(){$/;"	f	class:ArrayBuffer
+~Camera	src/Patronus/Camera.cpp	/^Camera::~Camera(){$/;"	f	class:Camera
+~Cmd	Includes/InputParser.h	/^    virtual ~Cmd(){};$/;"	f	class:Cmd
+~Face	src/Patronus/Face.cpp	/^Face::~Face(){$/;"	f	class:Face
+~GLObject	src/Lumos/GLObject.cpp	/^GLObject::~GLObject(){$/;"	f	class:GLObject
+~Keyboard	Includes/Keyboard.h	/^	~Keyboard(){};$/;"	f	class:Keyboard
+~Loader	Includes/obj_loader.h	/^        ~Loader()$/;"	f	class:objl::Loader
+~Material	Includes/ModelAsset.h	/^        ~Material(){$/;"	f	struct:Lumos::Material
+~MaterialFileReader	Includes/tiny_obj_loader.h	/^  virtual ~MaterialFileReader() {}$/;"	f	class:tinyobj::MaterialFileReader
+~MaterialReader	Includes/tiny_obj_loader.h	/^MaterialReader::~MaterialReader() {}$/;"	f	class:tinyobj::MaterialReader
+~Mesh	src/Patronus/Mesh.cpp	/^Mesh::~Mesh(){$/;"	f	class:Mesh
+~PhysicalWorld	src/BulletPhysics/PhysicalWorld.cpp	/^PhysicalWorld::~PhysicalWorld(){$/;"	f	class:Patronus::PhysicalWorld
+~Program	src/Lumos/Program.cpp	/^Program::~Program(){$/;"	f	class:Lumos::Program
+~Shader	src/Lumos/Shader.cpp	/^Shader::~Shader(){$/;"	f	class:Lumos::Shader
+~Transformable	Includes/Transformable.h	/^        virtual ~Transformable(){}$/;"	f	class:Patronus::Transformable
+~View	Includes/View.h	/^    virtual ~View(){}$/;"	f	class:View
+~View_bullet	Includes/View_bullet.h	/^    virtual ~View_bullet(){}$/;"	f	class:View_bullet
+~View_renderer	src/Output/View_renderer.cpp	/^View_renderer::~View_renderer(){$/;"	f	class:View_renderer
+~WindowManager	src/Output/WindowManager.cpp	/^WindowManager::~WindowManager()$/;"	f	class:WindowManager
+~WindowManager_base	Includes/WindowManager_base.h	/^	virtual ~WindowManager_base(){};$/;"	f	class:WindowManager_base
+~WindowManager_headless	src/Output/WindowManager_headless.cpp	/^WindowManager_headless::~WindowManager_headless()$/;"	f	class:WindowManager_headless

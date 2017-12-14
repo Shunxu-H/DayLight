@@ -37,6 +37,8 @@ Depth Mask:
 - [X] Test GLObject(seems working, more tests required)
 - [ ] Make sure x11 works on the vision machines 
 - [X] Rebuild GUI
+- [ ] Remake help.txt
+- [ ] Copy all necessary files to build directory with CMake
 - [ ] Rebuild Navigation with x11
 	* - [ ] pan
 	* - [ ] tilt
