@@ -899,7 +899,8 @@ world	src/main.cpp	/^Patronus::PhysicalWorld * world = nullptr;$/;"	v
 ~Mesh	src/Patronus/Mesh.cpp	/^Mesh::~Mesh(){$/;"	f	class:Mesh
 ~PhysicalWorld	src/BulletPhysics/PhysicalWorld.cpp	/^PhysicalWorld::~PhysicalWorld(){$/;"	f	class:Patronus::PhysicalWorld
 ~Program	src/Lumos/Program.cpp	/^Program::~Program(){$/;"	f	class:Lumos::Program
-~Shader	src/Lumos/Shader.cpp	/^Shader::~Shader(){$/;"	f	class:Lumos::Shader
+~Shader	Includes/Shader.h	/^        virtual ~Shader(){};$/;"	f	class:Lumos::Shader
+~Shaper	src/Patronus/Shaper.cpp	/^Shaper::~Shaper(){$/;"	f	class:Shaper
 ~Transformable	Includes/Transformable.h	/^        virtual ~Transformable(){}$/;"	f	class:Patronus::Transformable
 ~View	Includes/View.h	/^    virtual ~View(){}$/;"	f	class:View
 ~View_bullet	Includes/View_bullet.h	/^    virtual ~View_bullet(){}$/;"	f	class:View_bullet

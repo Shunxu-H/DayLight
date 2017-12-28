@@ -177,9 +177,10 @@ void PhysicalWorld::test(){
 void PhysicalWorld::clearAll(){
     for (size_t i = 0; i < _instances.size(); i++){
         _dynamicsWorld->removeRigidBody(_instances[i]->getRidgidBody());
+        delete _instances[i]->getRidgidBody()->getCollisionShape();
         delete _instances[i]->getRidgidBody()->getMotionState();
         delete _instances[i]->getRidgidBody();
-        //delete _instances[i];
+        delete _instances[i];
     }
 
     _instances.clear();
@@ -188,13 +189,8 @@ void PhysicalWorld::clearAll(){
 
 
 PhysicalWorld::~PhysicalWorld(){
-    for (Lumos::Instance* i : _instances){
-        _dynamicsWorld->removeRigidBody(i->getRidgidBody());
-        delete i->getRidgidBody()->getMotionState();
-        delete i;
-    }
+    clearAll();
     delete _broadphase;
-
     // Set up the collision configuration and dispatcher
     delete _collisionConfiguration;
     delete _dispatcher;

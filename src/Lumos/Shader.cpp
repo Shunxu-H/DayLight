@@ -86,8 +86,6 @@ Shader::Shader(const std::string & shaderCode, const GLenum & shaderType)
 
 }
 
-Shader::~Shader(){
-}
 
 void Shader::getCurrentVaryingsAndUniforms(
         std::vector<std::string> & varyings, std::vector<std::string> & uniforms){

@@ -35,7 +35,7 @@ namespace Lumos {
     {
     public:
         Shader();
-        virtual ~Shader();
+        virtual ~Shader(){};
 
         static const std::string default_mesh_shader_id;
         static const std::string default_bbox_shader_id;

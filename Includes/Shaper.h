@@ -44,6 +44,7 @@ namespace Patronus {
         Shaper();
 
         Shaper( const std::string & fileName );
+        virtual ~Shaper();
 
         //static const std::shared_ptr<Camera> _pers;
         static Lumos::Material * default_material;

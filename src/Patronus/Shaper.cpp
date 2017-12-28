@@ -76,6 +76,9 @@ Shaper::Shaper( const std::string & fileName )
 
 }
 
+Shaper::~Shaper(){
+    clearAll();
+}
 
 point3 Shaper::getGlobalMax(){
     glm::vec3 max(std::numeric_limits<float>::min(),
@@ -116,9 +119,11 @@ void Shaper::clearAll(){
     global_normal_vertices.clear();
     global_uv_coords.clear();
 
-    for (Lumos::Material * m : _materials )
-        if(m->glTexId != 0)
-            glDeleteTextures(1, &(m->glTexId));
+    for (Lumos::Material * m : _materials ){
+      if(m->glTexId != 0)
+      glDeleteTextures(1, &(m->glTexId));
+      delete m;
+    }
     _materials.clear();
 }
 
@@ -328,15 +333,6 @@ void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const 
                      GL_UNSIGNED_BYTE,  // Image data type
                      m->texture.ptr());
 
-    // glTexImage2D(GL_TEXTURE_2D,
-    //              0,
-    //              m->getBitmapFormat(),
-    //              (GLsizei)m->texture.cols,
-    //              (GLsizei)m->texture.rows,
-    //              0,
-    //              m->getBitmapFormat(),
-    //              GL_UNSIGNED_BYTE,
-    //              m->texture.data);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     _materials.push_back(m);
