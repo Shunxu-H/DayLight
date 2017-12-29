@@ -309,6 +309,87 @@ void WindowManager_headless::render(){
 }
 
 
+void WindowManager_headless::render_infintitely(){
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    double duration;
+    int w = 1080, h = 720;
+    clock_t start = std::clock();
+
+
+    world->clearAll();
+    shaper->clearAll();
+
+    std::ifstream obj_file (RENDER_LIST);
+    if(!obj_file.is_open())
+        throw std::runtime_error("RENDER_LIST NOT FOUND.");
+    std::vector<std::string> v_objs;
+    std::copy(  std::istream_iterator<std::string>(obj_file),
+                std::istream_iterator<std::string>(),
+                back_inserter(v_objs));
+
+    std::vector<std::experimental::filesystem::path> allobjpath;
+    Utils::getAllDir(SCENE_FILE_DIR, allobjpath, v_objs);
+    std::cout << "Start rendering " << allobjpath.size() << " files." << std::endl;
+    //Utils::cleanAndMkdir("./output");
+
+    _render_hidden_view->resizeGL(w, h);
+    size_t  numToRender = allobjpath.size(),
+            indx = 0;
+    while (true){
+        try{
+            const std::experimental::filesystem::path & p = allobjpath[0];
+            GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+            std::cout << "[";
+            std::cout << static_cast<int>(  static_cast<float> (++indx) / static_cast<float> (numToRender) * 100 );
+            std::cout << std::setw(4) << std::right << std::setfill(' ')  ;
+            std::cout << std::resetiosflags(std::ios::showbase)   << "\%] Rendering: " << std::string(p).c_str() << std::endl;
+            std::string curScope = p.stem();
+
+            shaper->loadFile(std::string(p) + "/" + curScope + ".obj");
+            Patronus::Camera::loadCamerasFromDir(CAMERA_DIR + curScope);
+            gProgram->preDrawSetUp();
+
+            Utils::cleanAndMkdir(OUTPUT_DIR + shaper->getCurFileName());
+
+            GLError( __PRETTY_FUNCTION__ , __LINE__ );
+            for( size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
+
+                GLError( __PRETTY_FUNCTION__ , __LINE__ );
+                _render_hidden_view->setCamInUse(shaper->getnCamera(camPtr));
+
+                GLError( __PRETTY_FUNCTION__ , __LINE__ );
+                _render_hidden_view->generateData();
+            }
+
+            world->clearAll();
+            shaper->clearAll();
+        }
+        catch (const std::exception& ex) {
+            std::cerr << ex.what() << std::endl;
+            std::cerr << "Cleaning unfinished data..." << std::endl;
+            Utils::remove_all(OUTPUT_DIR + shaper->getCurFileName());
+        }
+        catch (const std::string& ex) {
+            std::cerr << ex << std::endl;
+            std::cerr << "Cleaning unfinished data..." << std::endl;
+            Utils::remove_all(OUTPUT_DIR + shaper->getCurFileName());
+        }
+        catch (...) {
+            std::cerr << "Undefined Crash occured." << std::endl;
+            std::cerr << "Cleaning unfinished data..." << std::endl;
+            Utils::remove_all(OUTPUT_DIR + shaper->getCurFileName());
+        }
+
+        duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
+
+        std::cout << "Time passed: " << duration << std::endl;
+    }
+
+
+}
+
+
 void WindowManager_headless::show(){
 	// _render_hidden_view->initializeGL();
 }

@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include "Shaper.h"
 #include "Extern.h"
 #include "Utility.h"
+#include "PerspectiveView.h"
 
 #include  <sys/time.h>
 
@@ -120,7 +121,7 @@ WindowManager::WindowManager(const size_t &w, const size_t &h )
     assert(GLEW_OK == glewInit());
 
     glGetError();
-    _views.push_back(new View(0, 0, h, w));
+    _views.push_back(new PerspectiveView(0, 0, h, w));
 }
 
 
@@ -236,7 +237,7 @@ void WindowManager::_X11WindowInit(){
                                  vi->visual, AllocNone );
     swa.background_pixmap = None ;
     swa.border_pixel      = 0;
-    swa.event_mask        = ExposureMask | KeyPressMask;
+    swa.event_mask        = ExposureMask | KeyPressMask | ButtonPress;
 
     printf( "Creating window\n" );
     _win = XCreateWindow( _x_display, RootWindow( _x_display, vi->screen ),
@@ -510,6 +511,41 @@ void WindowManager::_keyboard_handle(const XEvent & event){
 
 }
 
+void WindowManager::_button_handle(const XEvent & event){
+
+    if (event.xbutton.type == ButtonPress)
+    {
+        Debug( "Buton presses at " << event.xbutton.x << ", "
+                  << event.xbutton.y  );
+        switch (event.xbutton.button) {
+          case Button1: // left
+          Debug("Button1");
+          break;
+          case Button2: // middle
+          Debug("Button2");
+          break;
+          case Button3: // right
+          Debug("Button3");
+          break;
+          case Button4:// wheel up
+          Debug("Button4");
+          break;
+          case Button5: // wheel down
+          Debug("Button5");
+          break;
+          default:
+          Debug("Unknow button " << event.xbutton.button);
+        }
+    }
+    else if (event.xbutton.type == ButtonRelease) // press 's' for SCREEN SHOT
+    {
+        Debug("Release at " << event.xbutton.x << ", "
+                  << event.xbutton.y);
+    }
+
+}
+
+
 
 int WindowManager::loop()
 {
@@ -518,7 +554,7 @@ int WindowManager::loop()
     while(true) {
         XNextEvent(_x_display, &xev);
 
-        if(xev.type == Expose) {
+        if(xev.type == Expose && xev.xexpose.count==0) {
             std::cout << "Exposing" << std::endl;
 
             render();
@@ -529,6 +565,12 @@ int WindowManager::loop()
 
             _keyboard_handle(xev);
         }
+        else if (xev.type==ButtonPress) {
+    		    /* tell where the mouse Button was Pressed */
+    			  _button_handle(xev);
+    		}
+        else
+          std::cout << "Unrecognized events" << std::endl;
     } /* this closes while(1) { */
 } /* this is the } which closes int main(int argc, char *argv[]) { */
 

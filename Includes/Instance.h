@@ -65,7 +65,7 @@ namespace Lumos {
          * [renderBoundngBox render the bounding box for the instance]
          * @param v [description]
          */
-        void renderBoundngBox( const View & v) const;
+        void renderBoundngBox( const PerspectiveView & v) const;
 
 
         /**

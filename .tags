@@ -74,7 +74,9 @@ DrawMode	Includes/Config.h	/^enum DrawMode$/;"	g
 EDGE	Includes/Config.h	/^	EDGE,$/;"	e	enum:ObjType
 EDITING	Includes/Config.h	/^	EDITING,$/;"	e	enum:OpMode
 ELLIPSOID	Includes/Config.h	/^	ELLIPSOID,$/;"	e	enum:ObjType
+EVENTCATCHER_H	Includes/EventCatcher.h	2;"	d
 EXTERN_H	Includes/Extern.h	25;"	d
+EventCatcher	Includes/EventCatcher.h	/^class EventCatcher{$/;"	c
 FACE_H	Includes/Face.h	25;"	d
 FILL	Includes/Config.h	/^	FILL,$/;"	e	enum:FillMode
 Face	Includes/Face.h	/^class Face$/;"	c
@@ -90,8 +92,8 @@ GLOBJECT_H	Includes/GLObject.h	25;"	d
 GLObject	Includes/GLObject.h	/^    class GLObject{$/;"	c	namespace:Lumos
 GLObject	src/Lumos/GLObject.cpp	/^GLObject::GLObject( const GLObject & other )$/;"	f	class:GLObject
 GLObject	src/Lumos/GLObject.cpp	/^GLObject::GLObject($/;"	f	class:GLObject
-GLX_CONTEXT_MAJOR_VERSION_ARB	src/Output/WindowManager.cpp	64;"	d	file:
-GLX_CONTEXT_MINOR_VERSION_ARB	src/Output/WindowManager.cpp	65;"	d	file:
+GLX_CONTEXT_MAJOR_VERSION_ARB	src/Output/WindowManager.cpp	65;"	d	file:
+GLX_CONTEXT_MINOR_VERSION_ARB	src/Output/WindowManager.cpp	66;"	d	file:
 GL_GLEXT_PROTOTYPES	Includes/GL_include.h	33;"	d
 GL_INCLUDE_H	Includes/GL_include.h	26;"	d
 GREEN	Includes/Color.h	/^    const static color4 GREEN ;$/;"	m	class:Color
@@ -127,6 +129,8 @@ LGREY	Includes/Color.h	/^    const static color4 LGREY ;$/;"	m	class:Color
 LGREY	src/Utility/Color.cpp	/^const color4 Color::LGREY  = color4{ 0.80f,  0.80f,  0.80f, 1.00f };$/;"	m	class:Color	file:
 LIGHT_H	Includes/Light.h	25;"	d
 LINE	Includes/Config.h	/^	LINE,$/;"	e	enum:ObjType
+LOAD_FILE	Includes/InputParser.h	/^    LOAD_FILE,$/;"	m	class:Flag
+LOOP	Includes/InputParser.h	/^    LOOP,$/;"	m	class:Flag
 Light	Includes/Light.h	/^        Light   ($/;"	f	class:Patronus::Light
 Light	Includes/Light.h	/^    class Light: public Transformable$/;"	c	namespace:Patronus
 LightType	Includes/Light.h	/^    enum class LightType{$/;"	c	namespace:Patronus
@@ -147,11 +151,11 @@ Lumos	Includes/GLObject.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Instance.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Mesh.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/ModelAsset.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/PerspectiveView.h	/^namespace Lumos{$/;"	n
 Lumos	Includes/PhysicalWorld.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Program.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Shader.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Shaper.h	/^namespace Lumos {$/;"	n
-Lumos	Includes/View.h	/^namespace Lumos{$/;"	n
 Lumos	Includes/WindowManager_headless.h	/^namespace Lumos {$/;"	n
 Lumos	src/Lumos/Instance.cpp	/^namespace Lumos {$/;"	n	file:
 Lumos	src/Lumos/Program.cpp	/^namespace Lumos{$/;"	n	file:
@@ -194,6 +198,7 @@ OUTPUT_DIRECTORY	Includes/InputParser.h	/^    OUTPUT_DIRECTORY,$/;"	m	class:Flag
 ObjType	Includes/Config.h	/^enum ObjType{$/;"	g
 OpMode	Includes/Config.h	/^enum OpMode$/;"	g
 PERSPECTIVE	Includes/Camera.h	/^        PERSPECTIVE,$/;"	m	class:Patronus::CameraType
+PERSPECTIVEVIEW_H	Includes/PerspectiveView.h	25;"	d
 PHYSICALWORLD_H	Includes/PhysicalWorld.h	25;"	d
 POINT4_BUFFER	Includes/ArrayBuffer.h	/^        POINT4_BUFFER,$/;"	m	class:Lumos::Type
 POLYGON	Includes/Config.h	/^	POLYGON,$/;"	e	enum:ObjType
@@ -203,11 +208,13 @@ Patronus	Includes/Camera.h	/^namespace Patronus {$/;"	n
 Patronus	Includes/Instance.h	/^namespace Patronus {$/;"	n
 Patronus	Includes/Light.h	/^namespace Patronus {$/;"	n
 Patronus	Includes/Mesh.h	/^namespace Patronus {$/;"	n
+Patronus	Includes/PerspectiveView.h	/^namespace Patronus {$/;"	n
 Patronus	Includes/PhysicalWorld.h	/^namespace Patronus {$/;"	n
 Patronus	Includes/Shaper.h	/^namespace Patronus {$/;"	n
 Patronus	Includes/Transformable.h	/^namespace Patronus {$/;"	n
-Patronus	Includes/View.h	/^namespace Patronus {$/;"	n
 Patronus	src/BulletPhysics/PhysicalWorld.cpp	/^namespace Patronus {$/;"	n	file:
+PerspectiveView	Includes/PerspectiveView.h	/^class PerspectiveView$/;"	c
+PerspectiveView	src/Output/PerspectiveView.cpp	/^PerspectiveView::PerspectiveView($/;"	f	class:PerspectiveView
 PhysicalWorld	Includes/PhysicalWorld.h	/^    class PhysicalWorld{$/;"	c	namespace:Patronus
 PhysicalWorld	src/BulletPhysics/PhysicalWorld.cpp	/^PhysicalWorld::PhysicalWorld(){$/;"	f	class:Patronus::PhysicalWorld
 Position	Includes/obj_loader.h	/^        Vector3 Position;$/;"	m	struct:objl::Vertex
@@ -261,7 +268,6 @@ VBO_TEXCOORD	Includes/ModelAsset.h	/^        GLuint VBO_TEXCOORD;$/;"	m	struct:L
 VBO_VERT	Includes/ModelAsset.h	/^        GLuint VBO_VERT;$/;"	m	struct:Lumos::ModelAsset
 VERTEX	Includes/Config.h	/^	VERTEX,$/;"	e	enum:ObjType
 VIEW_BULLET_H	Includes/View_bullet.h	25;"	d
-VIEW_H	Includes/View.h	25;"	d
 VIEW_RENDERER_H	Includes/View_renderer.h	25;"	d
 Vector2	Includes/obj_loader.h	/^        Vector2()$/;"	f	struct:objl::Vector2
 Vector2	Includes/obj_loader.h	/^        Vector2(float X_, float Y_)$/;"	f	struct:objl::Vector2
@@ -273,11 +279,9 @@ Vertex	Includes/Mesh.h	/^    struct Vertex{$/;"	s	namespace:Patronus
 Vertex	Includes/obj_loader.h	/^    struct Vertex$/;"	s	namespace:objl
 VertexTriangluation	Includes/obj_loader.h	/^        void VertexTriangluation(std::vector<unsigned int>& oIndices,$/;"	f	class:objl::Loader
 Vertices	Includes/obj_loader.h	/^        std::vector<Vertex> Vertices;$/;"	m	struct:objl::Mesh
-View	Includes/View.h	/^class View$/;"	c
-View	src/Output/View.cpp	/^View::View($/;"	f	class:View
-View_bullet	Includes/View_bullet.h	/^class View_bullet: public View, public btIDebugDraw{$/;"	c
+View_bullet	Includes/View_bullet.h	/^class View_bullet: public PerspectiveView, public btIDebugDraw{$/;"	c
 View_bullet	src/Output/View_bullet.cpp	/^View_bullet::View_bullet($/;"	f	class:View_bullet
-View_renderer	Includes/View_renderer.h	/^class View_renderer : public View{$/;"	c
+View_renderer	Includes/View_renderer.h	/^class View_renderer : public PerspectiveView {$/;"	c
 View_renderer	src/Output/View_renderer.cpp	/^View_renderer::View_renderer($/;"	f	class:View_renderer
 WHITE	Includes/Color.h	/^    const static color4 WHITE ;$/;"	m	class:Color
 WHITE	src/Utility/Color.cpp	/^const color4 Color::WHITE  = color4{ 1.00f,  1.00f,  1.00f, 1.00f };$/;"	m	class:Color	file:
@@ -302,7 +306,7 @@ _Multisampled_ColorBuffer	Includes/View_renderer.h	/^    GLuint _Multisampled_Co
 _Multisampled_DepthBuffer	Includes/View_renderer.h	/^    GLuint _Multisampled_DepthBuffer;$/;"	m	class:View_renderer
 _Multisampled_FBO	Includes/View_renderer.h	/^    GLuint _Multisampled_FBO;$/;"	m	class:View_renderer
 _TDOGL_PROGRAM_ATTRIB_N_UNIFORM_SETTERS	Includes/Program.h	113;"	d
-_VAO	Includes/View.h	/^    GLuint _VAO;$/;"	m	class:View
+_VAO	Includes/PerspectiveView.h	/^    GLuint _VAO;$/;"	m	class:PerspectiveView
 _VBO_COLOR	Includes/Mesh.h	/^        GLuint _VBO_COLOR;$/;"	m	class:Patronus::Mesh
 _VBO_NORMAL	Includes/Mesh.h	/^        GLuint _VBO_NORMAL;$/;"	m	class:Patronus::Mesh
 _VBO_TEXCOORD	Includes/Mesh.h	/^        GLuint _VBO_TEXCOORD;$/;"	m	class:Patronus::Mesh
@@ -315,9 +319,10 @@ _at	Includes/Camera.h	/^        glm::vec3 _at;$/;"	m	class:Patronus::Camera
 _attenuation	Includes/Light.h	/^        float _attenuation;$/;"	m	class:Patronus::Light
 _boundingBox	Includes/Mesh.h	/^        BoundingBox _boundingBox;$/;"	m	class:Patronus::Mesh
 _broadphase	Includes/PhysicalWorld.h	/^        btBroadphaseInterface* _broadphase;$/;"	m	class:Patronus::PhysicalWorld
+_button_handle	src/Output/WindowManager.cpp	/^void WindowManager::_button_handle(const XEvent & event){$/;"	f	class:WindowManager
 _bytesPerEntry	Includes/ArrayBuffer.h	/^        size_t _bytesPerEntry;$/;"	m	class:Lumos::ArrayBuffer
 _camId	Includes/Camera.h	/^        std::string _camId;$/;"	m	class:Patronus::Camera
-_camInUse	Includes/View.h	/^    Patronus::Camera * _camInUse;$/;"	m	class:View
+_camInUse	Includes/PerspectiveView.h	/^    Patronus::Camera * _camInUse;$/;"	m	class:PerspectiveView
 _cameras	Includes/Shaper.h	/^        std::vector< Camera * > _cameras;$/;"	m	class:Patronus::Shaper
 _collisionConfiguration	Includes/PhysicalWorld.h	/^        btDefaultCollisionConfiguration* _collisionConfiguration;$/;"	m	class:Patronus::PhysicalWorld
 _compare	src/Utility/Utility.cpp	/^    bool _compare(std::pair<int, std::shared_ptr<float>> p1, std::pair<int, std::shared_ptr<float>> p2){$/;"	f	namespace:Utils
@@ -345,7 +350,7 @@ _glObjId	Includes/GLObject.h	/^        GLuint _glObjId;$/;"	m	class:Lumos::GLObj
 _headlessInit	src/Output/WindowManager.cpp	/^void WindowManager::_headlessInit(){$/;"	f	class:WindowManager
 _headlessInit	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_headlessInit(){$/;"	f	class:WindowManager_headless
 _headlessInitWithX11	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_headlessInitWithX11(){$/;"	f	class:WindowManager_headless
-_height	Includes/View.h	/^    size_t _width, _height;$/;"	m	class:View
+_height	Includes/PerspectiveView.h	/^		size_t _width, _height;$/;"	m	class:PerspectiveView
 _height	Includes/WindowManager_base.h	/^	size_t _height;$/;"	m	class:WindowManager_base
 _id	Includes/Instance.h	/^        std::string _id;$/;"	m	class:Lumos::Instance
 _id	Includes/Mesh.h	/^        std::string _id;$/;"	m	class:Patronus::Mesh
@@ -391,7 +396,7 @@ _saveBitMap	src/Output/View_renderer.cpp	/^cv::Mat View_renderer::_saveBitMap(co
 _saveColorImage	src/Output/View_renderer.cpp	/^cv::Mat View_renderer::_saveColorImage(const std::string & fileName){$/;"	f	class:View_renderer
 _saveDepthImage	src/Output/View_renderer.cpp	/^cv::Mat View_renderer::_saveDepthImage(const std::string & fileName){$/;"	f	class:View_renderer
 _scale	Includes/Transformable.h	/^        point3 _scale;$/;"	m	class:Patronus::Transformable
-_shaderId	Includes/View.h	/^    std::string _shaderId;$/;"	m	class:View
+_shaderId	Includes/PerspectiveView.h	/^    std::string _shaderId;$/;"	m	class:PerspectiveView
 _shading_pipes	Includes/Program.h	/^        std::unordered_map<std::string, shading_pipe> _shading_pipes;$/;"	m	class:Lumos::Program
 _shapes	Includes/Shaper.h	/^        std::vector<Mesh> _shapes;$/;"	m	class:Patronus::Shaper
 _solver	Includes/PhysicalWorld.h	/^        btSequentialImpulseConstraintSolver* _solver;$/;"	m	class:Patronus::PhysicalWorld
@@ -406,17 +411,17 @@ _varyings	Includes/Shader.h	/^        std::vector<std::string> _varyings;$/;"	m	
 _vertices	Includes/Mesh.h	/^        std::vector< point3 > _vertices;$/;"	m	class:Patronus::Mesh
 _verticesIndeces	Includes/Face.h	/^    std::vector< int > _verticesIndeces;$/;"	m	class:Face
 _vertices_combinded	Includes/Mesh.h	/^        std::vector< Vertex > _vertices_combinded;$/;"	m	class:Patronus::Mesh
-_views	Includes/WindowManager_base.h	/^    std::vector< View* > _views;$/;"	m	class:WindowManager_base
-_visibles	Includes/View.h	/^    std::vector< Lumos::Instance * > _visibles;$/;"	m	class:View
-_width	Includes/View.h	/^    size_t _width, _height;$/;"	m	class:View
+_views	Includes/WindowManager_base.h	/^    std::vector< PerspectiveView* > _views;$/;"	m	class:WindowManager_base
+_visibles	Includes/PerspectiveView.h	/^    std::vector< Lumos::Instance * > _visibles;$/;"	m	class:PerspectiveView
+_width	Includes/PerspectiveView.h	/^		size_t _width, _height;$/;"	m	class:PerspectiveView
 _width	Includes/WindowManager_base.h	/^	size_t _width;$/;"	m	class:WindowManager_base
 _win	Includes/WindowManager.h	/^    Window      _win;$/;"	m	class:WindowManager
 _win	Includes/WindowManager_headless.h	/^    Window      _win;$/;"	m	class:WindowManager_headless
-_x	Includes/View.h	/^    size_t _x, _y;$/;"	m	class:View
+_x	Includes/PerspectiveView.h	/^		size_t _x, _y;$/;"	m	class:PerspectiveView
 _xContex	Includes/WindowManager.h	/^    GLXContext  _xContex;$/;"	m	class:WindowManager
 _x_display	Includes/WindowManager.h	/^    Display    *_x_display;$/;"	m	class:WindowManager
 _x_display	Includes/WindowManager_headless.h	/^    Display    *_x_display;$/;"	m	class:WindowManager_headless
-_y	Includes/View.h	/^    size_t _x, _y;$/;"	m	class:View
+_y	Includes/PerspectiveView.h	/^		size_t _x, _y;$/;"	m	class:PerspectiveView
 addArg	Includes/InputParser.h	/^    inline void addArg(const std::string & s){ _args.push_back(s);}$/;"	f	class:Cmd
 addCamera	Includes/Shaper.h	/^        inline void addCamera( Camera * c ) { _cameras.push_back(c); }$/;"	f	class:Patronus::Shaper
 addFace	src/Patronus/Mesh.cpp	/^void Mesh::addFace(const Face &f){$/;"	f	class:Mesh
@@ -441,6 +446,7 @@ bump_texname	Includes/tiny_obj_loader.h	/^  std::string bump_texname;           
 callback_t	Includes/tiny_obj_loader.h	/^} callback_t;$/;"	t	namespace:tinyobj	typeref:struct:tinyobj::callback_t_
 callback_t_	Includes/tiny_obj_loader.h	/^  callback_t_()$/;"	f	struct:tinyobj::callback_t_
 callback_t_	Includes/tiny_obj_loader.h	/^typedef struct callback_t_ {$/;"	s	namespace:tinyobj
+catchEvent	src/Output/EventCatcher.cpp	/^void EventCatcher::catchEvent(const XEvent & xev){$/;"	f	class:EventCatcher
 cleanAndMkdir	src/Utility/Utility.cpp	/^    void cleanAndMkdir(const std::string & path){$/;"	f	namespace:Utils
 clearAll	src/BulletPhysics/PhysicalWorld.cpp	/^void PhysicalWorld::clearAll(){$/;"	f	class:Patronus::PhysicalWorld
 clearAll	src/Patronus/Shaper.cpp	/^void Shaper::clearAll(){$/;"	f	class:Shaper
@@ -495,7 +501,7 @@ enableShadingPipe	src/Lumos/Program.cpp	/^void Program::enableShadingPipe( const
 exportFaceGroupToShape	Includes/tiny_obj_loader.h	/^static bool exportFaceGroupToShape($/;"	f	namespace:tinyobj
 fillMode	Includes/Config.h	/^	FillMode fillMode;$/;"	m	struct:Config
 firstToken	Includes/obj_loader.h	/^        inline std::string firstToken(const std::string &in)$/;"	f	namespace:objl::algorithm
-fitSphere	src/Output/View.cpp	/^void View::fitSphere(const point3 & position, const float & radius){$/;"	f	class:View
+fitSphere	src/Output/PerspectiveView.cpp	/^void PerspectiveView::fitSphere(const point3 & position, const float & radius){$/;"	f	class:PerspectiveView
 fixIndex	Includes/tiny_obj_loader.h	/^static inline int fixIndex(int idx, int n) {$/;"	f	namespace:tinyobj
 floatValues	Includes/tiny_obj_loader.h	/^  std::vector<float> floatValues;$/;"	m	struct:tinyobj::__anon2
 font	Includes/Keyboard.h	/^	void* font;$/;"	m	struct:textConfig
@@ -514,7 +520,7 @@ getAt	Includes/Camera.h	/^            getAt() const { return _at; }$/;"	f	class:
 getAttenuation	Includes/Light.h	/^            getAttenuation() const { return _attenuation; }$/;"	f	class:Patronus::Light
 getAttrib	src/Lumos/Program.cpp	/^GLint Program::getAttrib(const GLchar* attribName) const {$/;"	f	class:Lumos::Program
 getBoundingSphere	src/Patronus/Shaper.cpp	/^void Shaper::getBoundingSphere(const std::vector< point3 > & points, point3 * position, float * radius){$/;"	f	class:Shaper
-getCamInUse	Includes/View.h	/^        getCamInUse() const { return _camInUse; }$/;"	f	class:View
+getCamInUse	Includes/PerspectiveView.h	/^        getCamInUse() const { return _camInUse; }$/;"	f	class:PerspectiveView
 getColor	src/Utility/Color.cpp	/^float* Color::getColor(const float& a, const float& b, const float& c){$/;"	f	class:Color
 getConeAngle	Includes/Light.h	/^            getConeAngle() const { return _coneAngle; }$/;"	f	class:Patronus::Light
 getConeDirection	Includes/Light.h	/^            getConeDirection() const { return _coneDirection; }$/;"	f	class:Patronus::Light
@@ -530,7 +536,7 @@ getFovy	Includes/Camera.h	/^            getFovy() const { return _fov; }$/;"	f	c
 getGlObjId	Includes/GLObject.h	/^            getGlObjId()const { return _glObjId; }$/;"	f	class:Lumos::GLObject
 getGlobalMax	src/Patronus/Shaper.cpp	/^point3 Shaper::getGlobalMax(){$/;"	f	class:Shaper
 getGlobalMin	src/Patronus/Shaper.cpp	/^point3 Shaper::getGlobalMin(){$/;"	f	class:Shaper
-getHeight	Includes/View.h	/^    inline size_t getHeight() const {return _height;}$/;"	f	class:View
+getHeight	Includes/PerspectiveView.h	/^    inline size_t getHeight() const {return _height;}$/;"	f	class:PerspectiveView
 getHeight	Includes/WindowManager_base.h	/^    	getHeight() const { return _height; }$/;"	f	class:WindowManager_base
 getId	Includes/Camera.h	/^            getId() const { return _camId; }$/;"	f	class:Patronus::Camera
 getId	Includes/Instance.h	/^            getId() const { return _id; }$/;"	f	class:Lumos::Instance
@@ -547,7 +553,7 @@ getMeshPtr	Includes/Instance.h	/^            getMeshPtr() const { return _meshPt
 getMeshes	Includes/Shaper.h	/^            getMeshes() { return _shapes; }$/;"	f	class:Patronus::Shaper
 getMinPos	Includes/Mesh.h	/^            getMinPos() const { return _boundingBox.minPos; }$/;"	f	class:Patronus::Mesh
 getModelMatrix	src/Patronus/Transformable.cpp	/^glm::mat4 Transformable::getModelMatrix() const{$/;"	f	class:Transformable
-getMouseBeam	src/Output/View.cpp	/^void View::getMouseBeam(const int & mouseX, const int & mouseY, point3 * start, point3 * direction )const{$/;"	f	class:View
+getMouseBeam	src/Output/PerspectiveView.cpp	/^void PerspectiveView::getMouseBeam(const int & mouseX, const int & mouseY, point3 * start, point3 * direction )const{$/;"	f	class:PerspectiveView
 getNearClipDist	Includes/Camera.h	/^            getNearClipDist() const { return _near; }$/;"	f	class:Patronus::Camera
 getNormalBuffer	src/Patronus/Shaper.cpp	/^Lumos::ArrayBuffer Shaper::getNormalBuffer( )const$/;"	f	class:Shaper
 getNormalInds	Includes/Face.h	/^        getNormalInds() const { return _normalIndeces; }$/;"	f	class:Face
@@ -562,7 +568,7 @@ getPickingColor	Includes/Instance.h	/^            getPickingColor() const { retu
 getProjectionMatrix	src/Patronus/Camera.cpp	/^glm::mat4 Camera::getProjectionMatrix(const float & aspect_ratio )const {$/;"	f	class:Camera
 getRidgidBody	Includes/Instance.h	/^            getRidgidBody() const { return _rigidBody; }$/;"	f	class:Lumos::Instance
 getScale	Includes/Transformable.h	/^            getScale() const { return _scale; }$/;"	f	class:Patronus::Transformable
-getShaderId	Includes/View.h	/^        getShaderId() const { return _shaderId; }$/;"	f	class:View
+getShaderId	Includes/PerspectiveView.h	/^        getShaderId() const { return _shaderId; }$/;"	f	class:PerspectiveView
 getSizeInByte	Includes/ArrayBuffer.h	/^            getSizeInByte() const { return _numOfEntry*_bytesPerEntry; }$/;"	f	class:Lumos::ArrayBuffer
 getTranslate	Includes/Transformable.h	/^            getTranslate() const { return _translate; }$/;"	f	class:Patronus::Transformable
 getTranslatev4	Includes/Transformable.h	/^            getTranslatev4() const { return point4(_translate, 1.0f); }$/;"	f	class:Patronus::Transformable
@@ -574,11 +580,11 @@ getUvInds	Includes/Face.h	/^        getUvInds() const { return _uvIndeces; }$/;"
 getVertexBuffer	src/Patronus/Shaper.cpp	/^Lumos::ArrayBuffer Shaper::getVertexBuffer( )const$/;"	f	class:Shaper
 getVerticesInds	Includes/Face.h	/^        getVerticesInds() const { return _verticesIndeces; }$/;"	f	class:Face
 getVisibleObjects	src/Output/View_renderer.cpp	/^void View_renderer::getVisibleObjects(){$/;"	f	class:View_renderer
-getWidth	Includes/View.h	/^    inline size_t getWidth() const {return _width;}$/;"	f	class:View
+getWidth	Includes/PerspectiveView.h	/^    inline size_t getWidth() const {return _width;}$/;"	f	class:PerspectiveView
 getWidth	Includes/WindowManager_base.h	/^    	getWidth() const { return _width; }$/;"	f	class:WindowManager_base
 getWorld	Includes/PhysicalWorld.h	/^            getWorld() const { return _dynamicsWorld; }$/;"	f	class:Patronus::PhysicalWorld
-getX	Includes/View.h	/^    inline size_t getX() const {return _x;}$/;"	f	class:View
-getY	Includes/View.h	/^    inline size_t getY() const {return _y;}$/;"	f	class:View
+getX	Includes/PerspectiveView.h	/^    inline size_t getX() const {return _x;}$/;"	f	class:PerspectiveView
+getY	Includes/PerspectiveView.h	/^    inline size_t getY() const {return _y;}$/;"	f	class:PerspectiveView
 getnCamera	Includes/Shaper.h	/^            getnCamera( const size_t & index ){ if (index >= _cameras.size()) return nullptr; else return _cameras[index]; }$/;"	f	class:Patronus::Shaper
 glExtCheckFramebufferStatus	src/Utility/Utility.cpp	/^    int glExtCheckFramebufferStatus(char *errorMessage)$/;"	f	namespace:Utils
 glTexId	Includes/ModelAsset.h	/^        GLuint glTexId;$/;"	m	struct:Lumos::Material
@@ -603,13 +609,13 @@ inTriangle	Includes/obj_loader.h	/^        bool inTriangle(Vector3 point, Vector
 index_cb	Includes/tiny_obj_loader.h	/^  void (*index_cb)(void *user_data, index_t *indices, int num_indices);$/;"	m	struct:tinyobj::callback_t_
 index_t	Includes/tiny_obj_loader.h	/^} index_t;$/;"	t	namespace:tinyobj	typeref:struct:tinyobj::__anon3
 indices	Includes/tiny_obj_loader.h	/^  std::vector<index_t> indices;$/;"	m	struct:tinyobj::__anon4
-initializeGL	src/Output/View.cpp	/^void View::initializeGL(){$/;"	f	class:View
+initializeGL	src/Output/PerspectiveView.cpp	/^void PerspectiveView::initializeGL(){$/;"	f	class:PerspectiveView
 initializeGL	src/Output/View_renderer.cpp	/^void View_renderer::initializeGL(){$/;"	f	class:View_renderer
 instantiate_indexedDraw	src/Patronus/Mesh.cpp	/^Lumos::Instance* Mesh::instantiate_indexedDraw ( const GLuint & VAO ){$/;"	f	class:Mesh
 instantiate_sequentialDraw	src/Patronus/Mesh.cpp	/^Lumos::Instance* Mesh::instantiate_sequentialDraw ( ){$/;"	f	class:Mesh
 intValues	Includes/tiny_obj_loader.h	/^  std::vector<int> intValues;$/;"	m	struct:tinyobj::__anon2
 ior	Includes/tiny_obj_loader.h	/^  float ior;       \/\/ index of refraction$/;"	m	struct:tinyobj::__anon1
-isClick	src/Output/View.cpp	/^bool View::isClick(const size_t & x, const size_t & y){$/;"	f	class:View
+isClick	src/Output/PerspectiveView.cpp	/^bool PerspectiveView::isClick(const size_t & x, const size_t & y){$/;"	f	class:PerspectiveView
 isExtensionSupported	src/Output/WindowManager.cpp	/^static bool isExtensionSupported(const char *extList, const char *extension)$/;"	f	file:
 isFlag	Includes/InputParser.h	/^    inline bool isFlag( const Flag & _f) const {return _f == _flag;}$/;"	f	class:Cmd
 isInUse	src/Lumos/ArrayBuffer.cpp	/^bool ArrayBuffer::isInUse() const{$/;"	f	class:ArrayBuffer
@@ -621,7 +627,7 @@ isOn	Includes/Transformable.h	/^        bool isOn() const { return _isOn; }$/;"	
 isSet	Includes/GLObject.h	/^            isSet() const { return _glObjId != 0; }$/;"	f	class:Lumos::GLObject
 lineAlg	Includes/Config.h	/^	LineAlg lineAlg;$/;"	m	struct:Config
 loadAttribsAndUniform	src/Lumos/Instance.cpp	/^void Instance::loadAttribsAndUniform() const {$/;"	f	class:Lumos::Instance
-loadAttribsAndUniform	src/Output/View.cpp	/^void View::loadAttribsAndUniform() const{$/;"	f	class:View
+loadAttribsAndUniform	src/Output/PerspectiveView.cpp	/^void PerspectiveView::loadAttribsAndUniform() const{$/;"	f	class:PerspectiveView
 loadAttribsAndUniform	src/Patronus/Shaper.cpp	/^void Shaper::loadAttribsAndUniform() const {$/;"	f	class:Shaper
 loadCamerasFromDir	src/Patronus/Camera.cpp	/^void Camera::loadCamerasFromDir( const std::string & dir ){$/;"	f	class:Camera
 loadFile	src/Patronus/Shaper.cpp	/^bool Shaper::loadFile( const std::string & fileName ){$/;"	f	class:Shaper
@@ -714,7 +720,7 @@ override	Includes/WindowManager.h	/^    virtual int loop() override;$/;"	m	class
 override	Includes/WindowManager.h	/^    virtual void show() override;$/;"	m	class:WindowManager
 override	Includes/WindowManager_headless.h	/^    virtual int loop() override;$/;"	m	class:WindowManager_headless
 override	Includes/WindowManager_headless.h	/^    virtual void show() override;$/;"	m	class:WindowManager_headless
-paintGL	src/Output/View.cpp	/^void View::paintGL(){$/;"	f	class:View
+paintGL	src/Output/PerspectiveView.cpp	/^void PerspectiveView::paintGL(){$/;"	f	class:PerspectiveView
 paintGL	src/Output/View_bullet.cpp	/^void View_bullet::paintGL(){$/;"	f	class:View_bullet
 panAndPadestal	src/Patronus/Camera.cpp	/^void Camera::panAndPadestal( const float & x_axis, const float & y_axis ){$/;"	f	class:Camera
 parseCmdLn	src/main.cpp	/^void parseCmdLn(int argc, char *argv[]){$/;"	f
@@ -747,12 +753,13 @@ remove	Includes/Utility.h	/^    void remove(std::vector<T>* v, unsigned int &ind
 remove_all	src/Utility/Utility.cpp	/^    void remove_all( const std::experimental::filesystem::path & path ){$/;"	f	namespace:Utils
 render	src/Output/WindowManager.cpp	/^void WindowManager::render(){$/;"	f	class:WindowManager
 render	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::render(){$/;"	f	class:WindowManager_headless
-renderBoundngBox	src/Lumos/Instance.cpp	/^void Instance::renderBoundngBox( const View & view ) const{$/;"	f	class:Lumos::Instance
+renderBoundngBox	src/Lumos/Instance.cpp	/^void Instance::renderBoundngBox( const PerspectiveView & view ) const{$/;"	f	class:Lumos::Instance
 renderMesh	src/Lumos/Instance.cpp	/^void Instance::renderMesh( Material * materialInUse ) const{$/;"	f	class:Lumos::Instance
 renderMode	Includes/Config.h	/^	RenderMode renderMode;$/;"	m	struct:Config
+render_infintitely	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::render_infintitely(){$/;"	f	class:WindowManager_headless
 reportErrorWarning	src/BulletPhysics/btDebugDrawer.cpp	/^void GLDebugDrawer::reportErrorWarning(const char *warningString)$/;"	f	class:GLDebugDrawer
 reportErrorWarning	src/Output/View_bullet.cpp	/^void View_bullet::reportErrorWarning(const char* warningString)$/;"	f	class:View_bullet
-resizeGL	src/Output/View.cpp	/^void View::resizeGL(const size_t & w, const size_t & h){$/;"	f	class:View
+resizeGL	src/Output/PerspectiveView.cpp	/^void PerspectiveView::resizeGL(const size_t & w, const size_t & h){$/;"	f	class:PerspectiveView
 resizeGL	src/Output/View_bullet.cpp	/^void View_bullet::resizeGL(const size_t & w, const size_t & h){$/;"	f	class:View_bullet
 resizeGL	src/Output/View_renderer.cpp	/^void View_renderer::resizeGL(const size_t & w, const size_t &h){$/;"	f	class:View_renderer
 rotate	src/Patronus/Transformable.cpp	/^void Transformable::rotate ( const float & x, const float & y, const float & z ){$/;"	f	class:Transformable
@@ -770,7 +777,7 @@ setAmbientCoefficient	Includes/Light.h	/^            setAmbientCoefficient( cons
 setAt	Includes/Camera.h	/^            setAt(const point3 & p) { _at= p; }$/;"	f	class:Patronus::Camera
 setAtGlobal	Includes/Camera.h	/^            setAtGlobal( const point3 & p ) { _at = p - _translate; }$/;"	f	class:Patronus::Camera
 setAttenuation	Includes/Light.h	/^            setAttenuation( const float & n ) { _attenuation = n; }$/;"	f	class:Patronus::Light
-setCamInUse	Includes/View.h	/^        setCamInUse( Patronus::Camera * cam) { _camInUse = cam; }$/;"	f	class:View
+setCamInUse	Includes/PerspectiveView.h	/^        setCamInUse( Patronus::Camera * cam) { _camInUse = cam; }$/;"	f	class:PerspectiveView
 setColorBuffer	src/Lumos/ArrayBuffer.cpp	/^void ArrayBuffer::setColorBuffer( const std::vector<Patronus::Mesh> & shapes  ){$/;"	f	class:ArrayBuffer
 setConeAngle	Includes/Light.h	/^            setConeAngle( const float & angle ) { _coneAngle = angle; }$/;"	f	class:Patronus::Light
 setConeDirection	Includes/Light.h	/^            setConeDirection( const glm::vec3 & direction ) { _coneDirection = direction; }$/;"	f	class:Patronus::Light
@@ -797,7 +804,7 @@ setOrientation	Includes/Transformable.h	/^            setOrientation( const poin
 setPickingColor	Includes/Instance.h	/^            setPickingColor( const color3 & c ) { _pickingColor = c; }$/;"	f	class:Lumos::Instance
 setRidgidBody	src/Lumos/Instance.cpp	/^void Instance::setRidgidBody(  btRigidBody * const &  arg )$/;"	f	class:Lumos::Instance
 setScale	Includes/Transformable.h	/^            setScale( const point3 & arg ) { _scale=arg; }$/;"	f	class:Patronus::Transformable
-setShaderId	Includes/View.h	/^        setShaderId( const std::string & id) { _shaderId = id; }$/;"	f	class:View
+setShaderId	Includes/PerspectiveView.h	/^        setShaderId( const std::string & id) { _shaderId = id; }$/;"	f	class:PerspectiveView
 setTranslate	Includes/Transformable.h	/^            setTranslate( const point3 & arg ) { _translate=arg; }$/;"	f	class:Patronus::Transformable
 setTranslatev4	Includes/Transformable.h	/^            setTranslatev4( const point4 & arg){ _translate = glm::vec3(arg); }$/;"	f	class:Patronus::Transformable
 setType	Includes/Camera.h	/^            setType(const CameraType & type ) { _type = type; }$/;"	f	class:Patronus::Camera
@@ -833,7 +840,7 @@ stopUsing	src/Lumos/ArrayBuffer.cpp	/^void ArrayBuffer::stopUsing() const{$/;"	f
 stopUsing	src/Lumos/Program.cpp	/^void Program::stopUsing() const {$/;"	f	class:Lumos::Program
 stopUsing	src/Lumos/Shader.cpp	/^void Shader::stopUsing() const{$/;"	f	class:Lumos::Shader
 str2int	Includes/Utility.h	/^    constexpr unsigned int str2int(const char* str, int h = 0)$/;"	f	namespace:Utils
-string2flag	src/Utility/InputParser.cpp	/^Flag Cmd::string2flag(const std::string & str){$/;"	f	class:Cmd
+string2flag	src/Utility/InputParser.cpp	/^ Flag Cmd::string2flag(const std::string & str){$/;"	f	class:Cmd
 stringValues	Includes/tiny_obj_loader.h	/^  std::vector<std::string> stringValues;$/;"	m	struct:tinyobj::__anon2
 tag_sizes	Includes/tiny_obj_loader.h	/^  tag_sizes() : num_ints(0), num_floats(0), num_strings(0) {}$/;"	f	struct:tinyobj::tag_sizes
 tag_sizes	Includes/tiny_obj_loader.h	/^struct tag_sizes {$/;"	s	namespace:tinyobj
@@ -897,12 +904,12 @@ world	src/main.cpp	/^Patronus::PhysicalWorld * world = nullptr;$/;"	v
 ~MaterialFileReader	Includes/tiny_obj_loader.h	/^  virtual ~MaterialFileReader() {}$/;"	f	class:tinyobj::MaterialFileReader
 ~MaterialReader	Includes/tiny_obj_loader.h	/^MaterialReader::~MaterialReader() {}$/;"	f	class:tinyobj::MaterialReader
 ~Mesh	src/Patronus/Mesh.cpp	/^Mesh::~Mesh(){$/;"	f	class:Mesh
+~PerspectiveView	Includes/PerspectiveView.h	/^    virtual ~PerspectiveView(){}$/;"	f	class:PerspectiveView
 ~PhysicalWorld	src/BulletPhysics/PhysicalWorld.cpp	/^PhysicalWorld::~PhysicalWorld(){$/;"	f	class:Patronus::PhysicalWorld
 ~Program	src/Lumos/Program.cpp	/^Program::~Program(){$/;"	f	class:Lumos::Program
 ~Shader	Includes/Shader.h	/^        virtual ~Shader(){};$/;"	f	class:Lumos::Shader
 ~Shaper	src/Patronus/Shaper.cpp	/^Shaper::~Shaper(){$/;"	f	class:Shaper
 ~Transformable	Includes/Transformable.h	/^        virtual ~Transformable(){}$/;"	f	class:Patronus::Transformable
-~View	Includes/View.h	/^    virtual ~View(){}$/;"	f	class:View
 ~View_bullet	Includes/View_bullet.h	/^    virtual ~View_bullet(){}$/;"	f	class:View_bullet
 ~View_renderer	src/Output/View_renderer.cpp	/^View_renderer::~View_renderer(){$/;"	f	class:View_renderer
 ~WindowManager	src/Output/WindowManager.cpp	/^WindowManager::~WindowManager()$/;"	f	class:WindowManager

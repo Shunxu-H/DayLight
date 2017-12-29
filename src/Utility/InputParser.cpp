@@ -3,7 +3,7 @@
 #include "InputParser.h"
 
 
-Flag Cmd::string2flag(const std::string & str){
+ Flag Cmd::string2flag(const std::string & str){
     if (str.compare("-hl") == 0 or str.compare("--headless") == 0){
         return Flag::HEADLEASS;
     }
@@ -25,10 +25,17 @@ Flag Cmd::string2flag(const std::string & str){
     else if (str.compare("-rl") == 0 or str.compare("--render_list") == 0){
         return Flag::RENDER_LIST;
     }
+    else if (str.compare("-loop") == 0 ){
+        return Flag::LOOP;
+    }
+    else if (str.compare("-lf") == 0 or str.compare("--load_file") == 0){
+        return Flag::LOAD_FILE;
+    }
     else if (str.compare("-h") == 0 or str.compare("--help") == 0){
         return Flag::HELP;
     }
-    else 
+
+    else
         return Flag::NOT_A_FLAG;
 }
 

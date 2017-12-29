@@ -39,6 +39,8 @@ enum class Flag{
     CAMERA_DIRECTORY,
     RENDER_LIST,
     HELP,
+    LOOP,
+    LOAD_FILE,
     NOT_A_FLAG
 };
 

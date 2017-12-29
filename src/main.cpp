@@ -180,7 +180,20 @@ void parseCmdLn(int argc, char *argv[]){
     winMan = new WindowManager_headless{WINDOW_WIDTH, WINDOW_HEIGHT};
   else
     winMan = new WindowManager{WINDOW_WIDTH, WINDOW_HEIGHT};
+
+  if (parser.has(Flag::LOAD_FILE)){
+     vargs = parser.get(Flag::WINDOW_DIMENTSION).getArgs();
+     if (vargs.size() != 1){
+      displayHelp();
+      exit( EXIT_FAILURE );
+     }
+     shaper = new Patronus::Shaper(vargs[0]);
+  }
+  else
+    std::cout << "Load File unspecified, Loaded default" << std::endl;
 }
+
+
 
 #include "ArrayBuffer.h"
 
@@ -208,7 +221,7 @@ int main(int argc, char *argv[])
   world = new Patronus::PhysicalWorld();
   // openGL resource management
   gProgram = new Lumos::Program( );
-  shaper = new Patronus::Shaper( );
+  shaper = new Patronus::Shaper( "./data/indoor/0004dd3cb11e50530676f77b55262d38.obj" );
 
   gProgram->loadShaders( "./GLSL" );
   GLError( __PRETTY_FUNCTION__ , __LINE__ );

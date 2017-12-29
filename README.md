@@ -36,11 +36,14 @@ Depth Mask:
 - [X] Build 'openGl self management'
 - [X] Test GLObject(seems working, more tests required)
 - [ ] Memory Leak
-	* - Shaper is taking in Cameras as pointer, which is unnecessary 
+  * -[X] Loop memory Leak
+	* -[ ] Shaper is taking in Cameras as pointer, which is unnecessary
+	* -[ ] Free global resource before exiting
 - [ ] Make sure x11 works on the vision machines
 - [X] Rebuild GUI
 - [ ] Remake help.txt
 - [ ] Copy all necessary files to build directory with CMake
+- [ ] Propagate mouse event to subviewport
 - [ ] Rebuild Navigation with x11
 	* - [ ] pan
 	* - [ ] tilt

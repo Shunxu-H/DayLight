@@ -36,7 +36,7 @@ View_bullet::View_bullet(
     const size_t & w,
     const size_t & h,
     const std::shared_ptr< Patronus::Camera > & cam )
-:View(x, y, w, h, cam), m_debugMode(1)
+:PerspectiveView(x, y, w, h, cam), m_debugMode(1)
 {
     world->setDebugView(this);
 }

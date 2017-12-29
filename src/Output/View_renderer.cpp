@@ -34,7 +34,7 @@ View_renderer::View_renderer(
         const size_t & h,
 		const std::shared_ptr<Patronus::Camera> & cam,
 		const std::string & shaderId )
-    : View(x, y, w, h, cam, shaderId)
+    : PerspectiveView(x, y, w, h, cam, shaderId)
     , _Multisampled_FBO(0)
     , _Multisampled_ColorBuffer(0)
     , _Multisampled_DepthBuffer(0)
@@ -112,7 +112,7 @@ void View_renderer::resizeGL(const size_t & w, const size_t &h){
 void View_renderer::initializeGL(){
     _makeMultisampledBuffers();
     _makeOutTextures();
-	View::initializeGL();
+	PerspectiveView::initializeGL();
 }
 
 

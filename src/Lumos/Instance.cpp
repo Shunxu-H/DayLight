@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 #include "Instance.h"
-#include "View.h"
+// #include "View.h"
 #include "Utility.h"
 
 #include "Extern.h"
@@ -117,7 +117,7 @@ void Instance::renderMesh( Material * materialInUse ) const{
 
 
 
-void Instance::renderBoundngBox( const View & view ) const{
+void Instance::renderBoundngBox( const PerspectiveView & view ) const{
 
     // Cube 1x1x1, centered on origin
     GLfloat vertices[] = {

@@ -244,7 +244,7 @@ namespace Utils {
 
 
     }
-    
+
     int glExtCheckFramebufferStatus(char *errorMessage)
     {
         GLenum status;

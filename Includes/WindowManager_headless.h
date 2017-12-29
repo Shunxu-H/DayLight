@@ -55,6 +55,7 @@ public:
                         const size_t &h = 500 );
     virtual ~WindowManager_headless();
     void render();
+		void render_infintitely();
 /*
     void updateAllViews();
 

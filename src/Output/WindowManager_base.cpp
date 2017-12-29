@@ -39,7 +39,7 @@ void WindowManager_base::positionAllViewsToFitAllInstances(){
     float radius;
     Patronus::Shaper::getBoundingSphere(Patronus::Shaper::global_vertices, &position, &radius);
 
-    for( View * v: _views )
+    for( PerspectiveView * v: _views )
         v->fitSphere(position, radius);
 
 }

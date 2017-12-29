@@ -39,7 +39,7 @@ THE SOFTWARE.
 #include <EGL/egl.h>
 #include "WindowManager_base.h"
 
-class View;
+class PerspectiveView;
 
 class WindowManager : public WindowManager_base
 {
@@ -84,6 +84,7 @@ private:
     void _headlessInit();
     void _render();
     void _keyboard_handle(const XEvent & event);
+    void _button_handle (const XEvent & event);
 
 };
 

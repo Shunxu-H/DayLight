@@ -24,14 +24,14 @@ THE SOFTWARE.
 #ifndef VIEW_BULLET_H
 #define VIEW_BULLET_H
 
-#include "View.h"
+#include "PerspectiveView.h"
 #include "LinearMath/btIDebugDraw.h"
 
 /**
  * [View_bullet]
  * Used to help debug Bullet physics, visualize loaded data
  */
-class View_bullet: public View, public btIDebugDraw{
+class View_bullet: public PerspectiveView, public btIDebugDraw{
 public:
     View_bullet(
             const size_t & x,

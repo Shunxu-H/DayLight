@@ -24,9 +24,9 @@ THE SOFTWARE.
 #ifndef VIEW_RENDERER_H
 #define VIEW_RENDERER_H
 
-#include "View.h"
+#include "PerspectiveView.h"
 
-class View_renderer : public View{
+class View_renderer : public PerspectiveView {
 public:
     View_renderer(
             const size_t & x = 0,

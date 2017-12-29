@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include <vector>
 
 
-class View;
+class PerspectiveView;
 
 class WindowManager_base
 {
@@ -58,7 +58,7 @@ public:
 
 protected:
 
-    std::vector< View* > _views;
+    std::vector< PerspectiveView* > _views;
 
 	size_t _width;
 	size_t _height;
