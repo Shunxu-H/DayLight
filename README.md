@@ -35,8 +35,13 @@ Depth Mask:
 - [X] Minimize image file ( bit map, text array, lossiless compression)
 - [X] Build 'openGl self management'
 - [X] Test GLObject(seems working, more tests required)
+- [ ] Refracture Code base
+  * - [X] Make Class Widget
+  * - [ ] Make Class View
+  * - [ ] Isolate Lumos and Patronus
 - [ ] Memory Leak
   * -[X] Loop memory Leak
+  * -[ ] Not using global pointer so the destructor is called
 	* -[ ] Shaper is taking in Cameras as pointer, which is unnecessary
 	* -[ ] Free global resource before exiting
 - [ ] Make sure x11 works on the vision machines
@@ -44,6 +49,8 @@ Depth Mask:
 - [ ] Remake help.txt
 - [ ] Copy all necessary files to build directory with CMake
 - [ ] Propagate mouse event to subviewport
+  * - [ ] derive WindowManager and View from EventCatcher
+  * - [ ] build event catcher for Views
 - [ ] Rebuild Navigation with x11
 	* - [ ] pan
 	* - [ ] tilt

@@ -24,9 +24,9 @@ THE SOFTWARE.
 #include "GL_include.h"
 #include "WindowManager_base.h"
 #include "Extern.h"
+
 WindowManager_base::WindowManager_base( const size_t & w, const size_t & h )
-	:_width(w)
-	,_height(h)
+	: Widget("Main", 0, 0, w, h)
 {
 
 

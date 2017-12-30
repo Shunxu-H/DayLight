@@ -70,6 +70,9 @@ public:
     virtual int loop() override;
 protected:
 
+		virtual void _expose() override;
+		virtual void _keyboard_handle(const XEvent & xev)override;
+		virtual void _button_handle(const XEvent & xev)override;
 private:
 
     Display    *_x_display;
@@ -84,8 +87,6 @@ private:
 
     void _headlessInit();
     void _headlessInitWithX11();
-    void _render();
-    void _keyboard_handle(const XEvent & event);
 
 };
 

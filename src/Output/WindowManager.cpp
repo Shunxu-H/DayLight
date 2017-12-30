@@ -354,6 +354,12 @@ void WindowManager::_X11WindowInit(){
 
 }
 
+
+void WindowManager::_expose(){
+    render();
+}
+
+
 void WindowManager::show(){
     // printf( "Making context current\n" );
     // glXMakeCurrent( _x_display, _win, _xContex );

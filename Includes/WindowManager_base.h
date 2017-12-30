@@ -27,10 +27,10 @@ THE SOFTWARE.
 #include <cstddef>
 #include <vector>
 
-
+#include "Widget.h"
 class PerspectiveView;
 
-class WindowManager_base
+class WindowManager_base : public Widget
 {
 public:
 	WindowManager_base(
@@ -41,14 +41,6 @@ public:
 
 
 
-	inline size_t
-    	getWidth() const { return _width; }
-    inline  void
-    	setWidth( const size_t & w) {  _width = w; }
-    inline size_t
-    	getHeight() const { return _height; }
-    inline  void
-    	setHeight( const size_t & h) {  _height = h; }
 
 		// move the camera so the all the meshes are shown
     void positionAllViewsToFitAllInstances();
@@ -58,10 +50,11 @@ public:
 
 protected:
 
+		virtual void _expose()=0;
+		virtual void _keyboard_handle(const XEvent & xev)=0;
+		virtual void _button_handle(const XEvent & xev)=0;
     std::vector< PerspectiveView* > _views;
 
-	size_t _width;
-	size_t _height;
 
 private:
 

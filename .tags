@@ -285,15 +285,18 @@ View_renderer	Includes/View_renderer.h	/^class View_renderer : public Perspectiv
 View_renderer	src/Output/View_renderer.cpp	/^View_renderer::View_renderer($/;"	f	class:View_renderer
 WHITE	Includes/Color.h	/^    const static color4 WHITE ;$/;"	m	class:Color
 WHITE	src/Utility/Color.cpp	/^const color4 Color::WHITE  = color4{ 1.00f,  1.00f,  1.00f, 1.00f };$/;"	m	class:Color	file:
+WIDGET_H	Includes/Widget.h	2;"	d
 WINDOWMANAGER_BASE_H	Includes/WindowManager_base.h	25;"	d
 WINDOWMANAGER_H	Includes/WindowManager.h	25;"	d
 WINDOWMANAGER_HEADLESS_H	Includes/WindowManager_headless.h	25;"	d
 WINDOW_DIMENTSION	Includes/InputParser.h	/^    WINDOW_DIMENTSION,$/;"	m	class:Flag
 WINDOW_HEIGHT	src/main.cpp	/^size_t WINDOW_HEIGHT = 600, WINDOW_WIDTH = 800;$/;"	v
 WINDOW_WIDTH	src/main.cpp	/^size_t WINDOW_HEIGHT = 600, WINDOW_WIDTH = 800;$/;"	v
+Widget	Includes/Widget.h	/^class Widget {$/;"	c
+Widget	src/Output/Widget.cpp	/^Widget::Widget( const std::string & title,$/;"	f	class:Widget
 WindowManager	Includes/WindowManager.h	/^class WindowManager : public WindowManager_base$/;"	c
 WindowManager	src/Output/WindowManager.cpp	/^WindowManager::WindowManager(const size_t &w, const size_t &h )$/;"	f	class:WindowManager
-WindowManager_base	Includes/WindowManager_base.h	/^class WindowManager_base$/;"	c
+WindowManager_base	Includes/WindowManager_base.h	/^class WindowManager_base : public Widget$/;"	c
 WindowManager_base	src/Output/WindowManager_base.cpp	/^WindowManager_base::WindowManager_base( const size_t & w, const size_t & h )$/;"	f	class:WindowManager_base
 WindowManager_headless	Includes/WindowManager_headless.h	/^class WindowManager_headless : public WindowManager_base$/;"	c
 WindowManager_headless	src/Output/WindowManager_headless.cpp	/^WindowManager_headless::WindowManager_headless(const size_t &w, const size_t &h )$/;"	f	class:WindowManager_headless
@@ -320,10 +323,12 @@ _attenuation	Includes/Light.h	/^        float _attenuation;$/;"	m	class:Patronus
 _boundingBox	Includes/Mesh.h	/^        BoundingBox _boundingBox;$/;"	m	class:Patronus::Mesh
 _broadphase	Includes/PhysicalWorld.h	/^        btBroadphaseInterface* _broadphase;$/;"	m	class:Patronus::PhysicalWorld
 _button_handle	src/Output/WindowManager.cpp	/^void WindowManager::_button_handle(const XEvent & event){$/;"	f	class:WindowManager
+_button_handle	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_button_handle(const XEvent & xev){$/;"	f	class:WindowManager_headless
 _bytesPerEntry	Includes/ArrayBuffer.h	/^        size_t _bytesPerEntry;$/;"	m	class:Lumos::ArrayBuffer
 _camId	Includes/Camera.h	/^        std::string _camId;$/;"	m	class:Patronus::Camera
 _camInUse	Includes/PerspectiveView.h	/^    Patronus::Camera * _camInUse;$/;"	m	class:PerspectiveView
 _cameras	Includes/Shaper.h	/^        std::vector< Camera * > _cameras;$/;"	m	class:Patronus::Shaper
+_catchEvent	src/Output/Widget.cpp	/^void Widget::_catchEvent(const XEvent & xev){$/;"	f	class:Widget
 _collisionConfiguration	Includes/PhysicalWorld.h	/^        btDefaultCollisionConfiguration* _collisionConfiguration;$/;"	m	class:Patronus::PhysicalWorld
 _compare	src/Utility/Utility.cpp	/^    bool _compare(std::pair<int, std::shared_ptr<float>> p1, std::pair<int, std::shared_ptr<float>> p2){$/;"	f	namespace:Utils
 _coneAngle	Includes/Light.h	/^        float _coneAngle;$/;"	m	class:Patronus::Light
@@ -342,6 +347,8 @@ _egl_display	Includes/WindowManager.h	/^    EGLDisplay  _egl_display;$/;"	m	clas
 _egl_display	Includes/WindowManager_headless.h	/^    EGLDisplay  _egl_display;$/;"	m	class:WindowManager_headless
 _egl_surface	Includes/WindowManager.h	/^    EGLSurface  _egl_surface;$/;"	m	class:WindowManager
 _egl_surface	Includes/WindowManager_headless.h	/^    EGLSurface  _egl_surface;$/;"	m	class:WindowManager_headless
+_expose	src/Output/WindowManager.cpp	/^void WindowManager::_expose(){$/;"	f	class:WindowManager
+_expose	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_expose(){$/;"	f	class:WindowManager_headless
 _faces	Includes/Mesh.h	/^        std::vector< Face > _faces;$/;"	m	class:Patronus::Mesh
 _far	Includes/Camera.h	/^        float _far;$/;"	m	class:Patronus::Camera
 _flag	Includes/InputParser.h	/^    Flag _flag;$/;"	m	class:Cmd
@@ -351,7 +358,7 @@ _headlessInit	src/Output/WindowManager.cpp	/^void WindowManager::_headlessInit()
 _headlessInit	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_headlessInit(){$/;"	f	class:WindowManager_headless
 _headlessInitWithX11	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_headlessInitWithX11(){$/;"	f	class:WindowManager_headless
 _height	Includes/PerspectiveView.h	/^		size_t _width, _height;$/;"	m	class:PerspectiveView
-_height	Includes/WindowManager_base.h	/^	size_t _height;$/;"	m	class:WindowManager_base
+_height	Includes/Widget.h	/^  size_t _width, _height;$/;"	m	class:Widget
 _id	Includes/Instance.h	/^        std::string _id;$/;"	m	class:Lumos::Instance
 _id	Includes/Mesh.h	/^        std::string _id;$/;"	m	class:Patronus::Mesh
 _indices	Includes/Mesh.h	/^        std::vector< unsigned int > _indices;$/;"	m	class:Patronus::Mesh
@@ -360,6 +367,7 @@ _intensity	Includes/Light.h	/^        color3 _intensity;$/;"	m	class:Patronus::L
 _isOn	Includes/Light.h	/^        bool _isOn;$/;"	m	class:Patronus::Light
 _isOn	Includes/Transformable.h	/^        bool _isOn;$/;"	m	class:Patronus::Transformable
 _keyboard_handle	src/Output/WindowManager.cpp	/^void WindowManager::_keyboard_handle(const XEvent & event){$/;"	f	class:WindowManager
+_keyboard_handle	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_keyboard_handle(const XEvent & xev){$/;"	f	class:WindowManager_headless
 _lights	Includes/Shaper.h	/^        std::vector<Light> _lights;$/;"	m	class:Patronus::Shaper
 _loadColorIndicesToBuffer	src/Patronus/Mesh.cpp	/^void Mesh::_loadColorIndicesToBuffer( ){$/;"	f	class:Mesh
 _loadColorToBuffer	src/Patronus/Mesh.cpp	/^void Mesh::_loadColorToBuffer( ){$/;"	f	class:Mesh
@@ -400,6 +408,7 @@ _shaderId	Includes/PerspectiveView.h	/^    std::string _shaderId;$/;"	m	class:Pe
 _shading_pipes	Includes/Program.h	/^        std::unordered_map<std::string, shading_pipe> _shading_pipes;$/;"	m	class:Lumos::Program
 _shapes	Includes/Shaper.h	/^        std::vector<Mesh> _shapes;$/;"	m	class:Patronus::Shaper
 _solver	Includes/PhysicalWorld.h	/^        btSequentialImpulseConstraintSolver* _solver;$/;"	m	class:Patronus::PhysicalWorld
+_title	Includes/Widget.h	/^  std::string _title;$/;"	m	class:Widget
 _translate	Includes/Transformable.h	/^        point3 _translate;$/;"	m	class:Patronus::Transformable
 _type	Includes/Camera.h	/^        CameraType _type;$/;"	m	class:Patronus::Camera
 _type	Includes/Light.h	/^        LightType _type;$/;"	m	class:Patronus::Light
@@ -414,14 +423,16 @@ _vertices_combinded	Includes/Mesh.h	/^        std::vector< Vertex > _vertices_co
 _views	Includes/WindowManager_base.h	/^    std::vector< PerspectiveView* > _views;$/;"	m	class:WindowManager_base
 _visibles	Includes/PerspectiveView.h	/^    std::vector< Lumos::Instance * > _visibles;$/;"	m	class:PerspectiveView
 _width	Includes/PerspectiveView.h	/^		size_t _width, _height;$/;"	m	class:PerspectiveView
-_width	Includes/WindowManager_base.h	/^	size_t _width;$/;"	m	class:WindowManager_base
+_width	Includes/Widget.h	/^  size_t _width, _height;$/;"	m	class:Widget
 _win	Includes/WindowManager.h	/^    Window      _win;$/;"	m	class:WindowManager
 _win	Includes/WindowManager_headless.h	/^    Window      _win;$/;"	m	class:WindowManager_headless
 _x	Includes/PerspectiveView.h	/^		size_t _x, _y;$/;"	m	class:PerspectiveView
+_x	Includes/Widget.h	/^  size_t _x, _y;$/;"	m	class:Widget
 _xContex	Includes/WindowManager.h	/^    GLXContext  _xContex;$/;"	m	class:WindowManager
 _x_display	Includes/WindowManager.h	/^    Display    *_x_display;$/;"	m	class:WindowManager
 _x_display	Includes/WindowManager_headless.h	/^    Display    *_x_display;$/;"	m	class:WindowManager_headless
 _y	Includes/PerspectiveView.h	/^		size_t _x, _y;$/;"	m	class:PerspectiveView
+_y	Includes/Widget.h	/^  size_t _x, _y;$/;"	m	class:Widget
 addArg	Includes/InputParser.h	/^    inline void addArg(const std::string & s){ _args.push_back(s);}$/;"	f	class:Cmd
 addCamera	Includes/Shaper.h	/^        inline void addCamera( Camera * c ) { _cameras.push_back(c); }$/;"	f	class:Patronus::Shaper
 addFace	src/Patronus/Mesh.cpp	/^void Mesh::addFace(const Face &f){$/;"	f	class:Mesh
@@ -447,6 +458,7 @@ callback_t	Includes/tiny_obj_loader.h	/^} callback_t;$/;"	t	namespace:tinyobj	ty
 callback_t_	Includes/tiny_obj_loader.h	/^  callback_t_()$/;"	f	struct:tinyobj::callback_t_
 callback_t_	Includes/tiny_obj_loader.h	/^typedef struct callback_t_ {$/;"	s	namespace:tinyobj
 catchEvent	src/Output/EventCatcher.cpp	/^void EventCatcher::catchEvent(const XEvent & xev){$/;"	f	class:EventCatcher
+children	Includes/Widget.h	/^  std::vector<Widget> children;$/;"	m	class:Widget
 cleanAndMkdir	src/Utility/Utility.cpp	/^    void cleanAndMkdir(const std::string & path){$/;"	f	namespace:Utils
 clearAll	src/BulletPhysics/PhysicalWorld.cpp	/^void PhysicalWorld::clearAll(){$/;"	f	class:Patronus::PhysicalWorld
 clearAll	src/Patronus/Shaper.cpp	/^void Shaper::clearAll(){$/;"	f	class:Shaper
@@ -537,7 +549,7 @@ getGlObjId	Includes/GLObject.h	/^            getGlObjId()const { return _glObjId
 getGlobalMax	src/Patronus/Shaper.cpp	/^point3 Shaper::getGlobalMax(){$/;"	f	class:Shaper
 getGlobalMin	src/Patronus/Shaper.cpp	/^point3 Shaper::getGlobalMin(){$/;"	f	class:Shaper
 getHeight	Includes/PerspectiveView.h	/^    inline size_t getHeight() const {return _height;}$/;"	f	class:PerspectiveView
-getHeight	Includes/WindowManager_base.h	/^    	getHeight() const { return _height; }$/;"	f	class:WindowManager_base
+getHeight	Includes/Widget.h	/^  inline size_t getHeight() const {return _height;}$/;"	f	class:Widget
 getId	Includes/Camera.h	/^            getId() const { return _camId; }$/;"	f	class:Patronus::Camera
 getId	Includes/Instance.h	/^            getId() const { return _id; }$/;"	f	class:Lumos::Instance
 getId	Includes/Mesh.h	/^            getId() const { return _id; }$/;"	f	class:Patronus::Mesh
@@ -570,6 +582,7 @@ getRidgidBody	Includes/Instance.h	/^            getRidgidBody() const { return _
 getScale	Includes/Transformable.h	/^            getScale() const { return _scale; }$/;"	f	class:Patronus::Transformable
 getShaderId	Includes/PerspectiveView.h	/^        getShaderId() const { return _shaderId; }$/;"	f	class:PerspectiveView
 getSizeInByte	Includes/ArrayBuffer.h	/^            getSizeInByte() const { return _numOfEntry*_bytesPerEntry; }$/;"	f	class:Lumos::ArrayBuffer
+getTitle	Includes/Widget.h	/^  inline std::string getTitle() const {return _title;}$/;"	f	class:Widget
 getTranslate	Includes/Transformable.h	/^            getTranslate() const { return _translate; }$/;"	f	class:Patronus::Transformable
 getTranslatev4	Includes/Transformable.h	/^            getTranslatev4() const { return point4(_translate, 1.0f); }$/;"	f	class:Patronus::Transformable
 getType	Includes/Camera.h	/^            getType() const { return _type; }$/;"	f	class:Patronus::Camera
@@ -581,10 +594,12 @@ getVertexBuffer	src/Patronus/Shaper.cpp	/^Lumos::ArrayBuffer Shaper::getVertexBu
 getVerticesInds	Includes/Face.h	/^        getVerticesInds() const { return _verticesIndeces; }$/;"	f	class:Face
 getVisibleObjects	src/Output/View_renderer.cpp	/^void View_renderer::getVisibleObjects(){$/;"	f	class:View_renderer
 getWidth	Includes/PerspectiveView.h	/^    inline size_t getWidth() const {return _width;}$/;"	f	class:PerspectiveView
-getWidth	Includes/WindowManager_base.h	/^    	getWidth() const { return _width; }$/;"	f	class:WindowManager_base
+getWidth	Includes/Widget.h	/^  inline size_t getWidth() const {return _width;}$/;"	f	class:Widget
 getWorld	Includes/PhysicalWorld.h	/^            getWorld() const { return _dynamicsWorld; }$/;"	f	class:Patronus::PhysicalWorld
 getX	Includes/PerspectiveView.h	/^    inline size_t getX() const {return _x;}$/;"	f	class:PerspectiveView
+getX	Includes/Widget.h	/^  inline size_t getX() const {return _x;}$/;"	f	class:Widget
 getY	Includes/PerspectiveView.h	/^    inline size_t getY() const {return _y;}$/;"	f	class:PerspectiveView
+getY	Includes/Widget.h	/^  inline size_t getY() const {return _y;}$/;"	f	class:Widget
 getnCamera	Includes/Shaper.h	/^            getnCamera( const size_t & index ){ if (index >= _cameras.size()) return nullptr; else return _cameras[index]; }$/;"	f	class:Patronus::Shaper
 glExtCheckFramebufferStatus	src/Utility/Utility.cpp	/^    int glExtCheckFramebufferStatus(char *errorMessage)$/;"	f	namespace:Utils
 glTexId	Includes/ModelAsset.h	/^        GLuint glTexId;$/;"	m	struct:Lumos::Material
@@ -716,8 +731,14 @@ override	Includes/View_bullet.h	/^    virtual void paintGL() override ;$/;"	m	cl
 override	Includes/View_bullet.h	/^    virtual void resizeGL(const size_t & w, const size_t & h) override ;$/;"	m	class:View_bullet
 override	Includes/View_renderer.h	/^    virtual void initializeGL() override;$/;"	m	class:View_renderer
 override	Includes/View_renderer.h	/^    virtual void resizeGL(const size_t & w, const size_t &h) override;$/;"	m	class:View_renderer
+override	Includes/WindowManager.h	/^		virtual void _button_handle (const XEvent & event)override;$/;"	m	class:WindowManager
+override	Includes/WindowManager.h	/^		virtual void _expose() override;$/;"	m	class:WindowManager
+override	Includes/WindowManager.h	/^		virtual void _keyboard_handle(const XEvent & event)override;$/;"	m	class:WindowManager
 override	Includes/WindowManager.h	/^    virtual int loop() override;$/;"	m	class:WindowManager
 override	Includes/WindowManager.h	/^    virtual void show() override;$/;"	m	class:WindowManager
+override	Includes/WindowManager_headless.h	/^		virtual void _button_handle(const XEvent & xev)override;$/;"	m	class:WindowManager_headless
+override	Includes/WindowManager_headless.h	/^		virtual void _expose() override;$/;"	m	class:WindowManager_headless
+override	Includes/WindowManager_headless.h	/^		virtual void _keyboard_handle(const XEvent & xev)override;$/;"	m	class:WindowManager_headless
 override	Includes/WindowManager_headless.h	/^    virtual int loop() override;$/;"	m	class:WindowManager_headless
 override	Includes/WindowManager_headless.h	/^    virtual void show() override;$/;"	m	class:WindowManager_headless
 paintGL	src/Output/PerspectiveView.cpp	/^void PerspectiveView::paintGL(){$/;"	f	class:PerspectiveView
@@ -787,7 +808,7 @@ setDebugMode	src/Output/View_bullet.cpp	/^void View_bullet::setDebugMode(int deb
 setDebugView	src/BulletPhysics/PhysicalWorld.cpp	/^void PhysicalWorld::setDebugView(View_bullet * debugView){$/;"	f	class:Patronus::PhysicalWorld
 setFarClipDist	Includes/Camera.h	/^            setFarClipDist(const float & dist) { _far = dist; }$/;"	f	class:Patronus::Camera
 setFov	Includes/Camera.h	/^            setFov(const float & fov) { _fov = fov; }$/;"	f	class:Patronus::Camera
-setHeight	Includes/WindowManager_base.h	/^    	setHeight( const size_t & h) {  _height = h; }$/;"	f	class:WindowManager_base
+setHeight	Includes/Widget.h	/^  inline void setHeight(const size_t & h) { _height = h;}$/;"	f	class:Widget
 setId	Includes/Camera.h	/^            setId( const std::string & id ) { _camId = id; }$/;"	f	class:Patronus::Camera
 setId	Includes/Instance.h	/^            setId( const std::string & id ) { _id = id; }$/;"	f	class:Lumos::Instance
 setId	Includes/Mesh.h	/^            setId( const std::string & id ){ _id = id; }$/;"	f	class:Patronus::Mesh
@@ -805,6 +826,7 @@ setPickingColor	Includes/Instance.h	/^            setPickingColor( const color3 
 setRidgidBody	src/Lumos/Instance.cpp	/^void Instance::setRidgidBody(  btRigidBody * const &  arg )$/;"	f	class:Lumos::Instance
 setScale	Includes/Transformable.h	/^            setScale( const point3 & arg ) { _scale=arg; }$/;"	f	class:Patronus::Transformable
 setShaderId	Includes/PerspectiveView.h	/^        setShaderId( const std::string & id) { _shaderId = id; }$/;"	f	class:PerspectiveView
+setTitle	Includes/Widget.h	/^  inline void setTitle(const std::string & t) { _title = t;}$/;"	f	class:Widget
 setTranslate	Includes/Transformable.h	/^            setTranslate( const point3 & arg ) { _translate=arg; }$/;"	f	class:Patronus::Transformable
 setTranslatev4	Includes/Transformable.h	/^            setTranslatev4( const point4 & arg){ _translate = glm::vec3(arg); }$/;"	f	class:Patronus::Transformable
 setType	Includes/Camera.h	/^            setType(const CameraType & type ) { _type = type; }$/;"	f	class:Patronus::Camera
@@ -822,7 +844,9 @@ setUvIndeces	src/Patronus/Face.cpp	/^void Face::setUvIndeces(const int & n1, con
 setVertexBuffer	src/Lumos/ArrayBuffer.cpp	/^void ArrayBuffer::setVertexBuffer( const std::vector<Patronus::Mesh> & meshes ){$/;"	f	class:ArrayBuffer
 setVertexIndeces	src/Patronus/Face.cpp	/^void Face::setVertexIndeces(const int & n1, const int & n2, const int & n3){$/;"	f	class:Face
 setVertexNormalBuffer	src/Lumos/ArrayBuffer.cpp	/^void ArrayBuffer::setVertexNormalBuffer( const std::vector<Patronus::Mesh> & meshes ){$/;"	f	class:ArrayBuffer
-setWidth	Includes/WindowManager_base.h	/^    	setWidth( const size_t & w) {  _width = w; }$/;"	f	class:WindowManager_base
+setWidth	Includes/Widget.h	/^  inline void setWidth(const size_t & w) { _width = w;}$/;"	f	class:Widget
+setX	Includes/Widget.h	/^  inline void setX(const size_t & x) { _x = x;}$/;"	f	class:Widget
+setY	Includes/Widget.h	/^  inline void setY(const size_t & y) { _y = y;}$/;"	f	class:Widget
 shaderId	Includes/ModelAsset.h	/^        std::string shaderId;$/;"	m	struct:Lumos::ModelAsset
 shape_t	Includes/tiny_obj_loader.h	/^} shape_t;$/;"	t	namespace:tinyobj	typeref:struct:tinyobj::__anon5
 shaper	src/main.cpp	/^Patronus::Shaper * shaper = nullptr;$/;"	v
