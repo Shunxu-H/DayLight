@@ -54,16 +54,18 @@ Depth Mask:
 - [ ] Rebuild Navigation with x11
 	* - [ ] pan
 	* - [ ] tilt
-	* - [ ] zoom
+	* - [X] zoom
 	* - [ ] select
 - [ ] Make Texture a separated class
 - [ ] Make FrameBuffer a separated class
 - [ ] Enable more than two shaders in pipes
 - [ ] Deffered rendering
 	* - [ ] Shadow Mapping
+    * - [ ] Make Framebuffer a separated class
 	* - [ ] Glow Effect
 - [ ] Bullet physic detachable
 - [ ] Decide a way to save game state
+- [ ] Figure out a better way to fit all objects in frame
 
 ## Motivation
 

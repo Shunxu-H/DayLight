@@ -121,7 +121,8 @@ WindowManager::WindowManager(const size_t &w, const size_t &h )
     assert(GLEW_OK == glewInit());
 
     glGetError();
-    _views.push_back(new PerspectiveView(0, 0, h, w));
+    addChild(new PerspectiveView(0, 0, h, w));
+
 }
 
 
@@ -369,7 +370,6 @@ void WindowManager::show(){
     // glXSwapBuffers ( _x_display, _win );
     for(auto & v : _views)
         v->initializeGL();
-    sleep( 10 );
 
     // glClearColor ( 1, 0.5, 0, 1 );
     // glClear ( GL_COLOR_BUFFER_BIT );
@@ -560,23 +560,8 @@ int WindowManager::loop()
     while(true) {
         XNextEvent(_x_display, &xev);
 
-        if(xev.type == Expose && xev.xexpose.count==0) {
-            std::cout << "Exposing" << std::endl;
-
-            render();
-            glXSwapBuffers(_x_display, _win);
-        }
-
-        else if(xev.type == KeyPress) {
-
-            _keyboard_handle(xev);
-        }
-        else if (xev.type==ButtonPress) {
-    		    /* tell where the mouse Button was Pressed */
-    			  _button_handle(xev);
-    		}
-        else
-          std::cout << "Unrecognized events" << std::endl;
+        _catchEvent(xev);
+        glXSwapBuffers(_x_display, _win);
     } /* this closes while(1) { */
 } /* this is the } which closes int main(int argc, char *argv[]) { */
 

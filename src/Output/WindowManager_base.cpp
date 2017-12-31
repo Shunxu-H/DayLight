@@ -21,6 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+#include <typeinfo>
 #include "GL_include.h"
 #include "WindowManager_base.h"
 #include "Extern.h"
@@ -39,7 +40,8 @@ void WindowManager_base::positionAllViewsToFitAllInstances(){
     float radius;
     Patronus::Shaper::getBoundingSphere(Patronus::Shaper::global_vertices, &position, &radius);
 
-    for( PerspectiveView * v: _views )
-        v->fitSphere(position, radius);
+    for( auto  w: _children ){
+				dynamic_cast<PerspectiveView*>(w)->fitSphere(position, radius);
+		}
 
 }

@@ -50,7 +50,7 @@ Lumos::Material* Shaper::default_material   = new Lumos::Material();
 std::vector< point3 > Shaper::global_vertices = std::vector< point3 >();
 std::vector< point3 > Shaper::global_normal_vertices{};
 std::vector< point2 > Shaper::global_uv_coords{};
-const float Shaper::multiplier = 10;
+const float Shaper::multiplier = 1;
 
 
 Shaper::Shaper( )

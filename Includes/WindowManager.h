@@ -60,8 +60,6 @@ public:
     void setUpProgram( const std::vector<Lumos::Shader> & shader );
 
     void createMenus();
-
-
 */
     virtual void show() override;
     virtual int loop() override;

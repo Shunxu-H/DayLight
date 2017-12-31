@@ -213,7 +213,7 @@ Patronus	Includes/PhysicalWorld.h	/^namespace Patronus {$/;"	n
 Patronus	Includes/Shaper.h	/^namespace Patronus {$/;"	n
 Patronus	Includes/Transformable.h	/^namespace Patronus {$/;"	n
 Patronus	src/BulletPhysics/PhysicalWorld.cpp	/^namespace Patronus {$/;"	n	file:
-PerspectiveView	Includes/PerspectiveView.h	/^class PerspectiveView$/;"	c
+PerspectiveView	Includes/PerspectiveView.h	/^class PerspectiveView : public View$/;"	c
 PerspectiveView	src/Output/PerspectiveView.cpp	/^PerspectiveView::PerspectiveView($/;"	f	class:PerspectiveView
 PhysicalWorld	Includes/PhysicalWorld.h	/^    class PhysicalWorld{$/;"	c	namespace:Patronus
 PhysicalWorld	src/BulletPhysics/PhysicalWorld.cpp	/^PhysicalWorld::PhysicalWorld(){$/;"	f	class:Patronus::PhysicalWorld
@@ -268,6 +268,7 @@ VBO_TEXCOORD	Includes/ModelAsset.h	/^        GLuint VBO_TEXCOORD;$/;"	m	struct:L
 VBO_VERT	Includes/ModelAsset.h	/^        GLuint VBO_VERT;$/;"	m	struct:Lumos::ModelAsset
 VERTEX	Includes/Config.h	/^	VERTEX,$/;"	e	enum:ObjType
 VIEW_BULLET_H	Includes/View_bullet.h	25;"	d
+VIEW_H	Includes/View.h	2;"	d
 VIEW_RENDERER_H	Includes/View_renderer.h	25;"	d
 Vector2	Includes/obj_loader.h	/^        Vector2()$/;"	f	struct:objl::Vector2
 Vector2	Includes/obj_loader.h	/^        Vector2(float X_, float Y_)$/;"	f	struct:objl::Vector2
@@ -279,6 +280,8 @@ Vertex	Includes/Mesh.h	/^    struct Vertex{$/;"	s	namespace:Patronus
 Vertex	Includes/obj_loader.h	/^    struct Vertex$/;"	s	namespace:objl
 VertexTriangluation	Includes/obj_loader.h	/^        void VertexTriangluation(std::vector<unsigned int>& oIndices,$/;"	f	class:objl::Loader
 Vertices	Includes/obj_loader.h	/^        std::vector<Vertex> Vertices;$/;"	m	struct:objl::Mesh
+View	Includes/View.h	/^class View: public Widget{$/;"	c
+View	src/Output/View.cpp	/^View::View($/;"	f	class:View
 View_bullet	Includes/View_bullet.h	/^class View_bullet: public PerspectiveView, public btIDebugDraw{$/;"	c
 View_bullet	src/Output/View_bullet.cpp	/^View_bullet::View_bullet($/;"	f	class:View_bullet
 View_renderer	Includes/View_renderer.h	/^class View_renderer : public PerspectiveView {$/;"	c
@@ -322,6 +325,7 @@ _at	Includes/Camera.h	/^        glm::vec3 _at;$/;"	m	class:Patronus::Camera
 _attenuation	Includes/Light.h	/^        float _attenuation;$/;"	m	class:Patronus::Light
 _boundingBox	Includes/Mesh.h	/^        BoundingBox _boundingBox;$/;"	m	class:Patronus::Mesh
 _broadphase	Includes/PhysicalWorld.h	/^        btBroadphaseInterface* _broadphase;$/;"	m	class:Patronus::PhysicalWorld
+_button_handle	src/Output/PerspectiveView.cpp	/^void PerspectiveView::_button_handle(const XEvent & xev)$/;"	f	class:PerspectiveView
 _button_handle	src/Output/WindowManager.cpp	/^void WindowManager::_button_handle(const XEvent & event){$/;"	f	class:WindowManager
 _button_handle	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_button_handle(const XEvent & xev){$/;"	f	class:WindowManager_headless
 _bytesPerEntry	Includes/ArrayBuffer.h	/^        size_t _bytesPerEntry;$/;"	m	class:Lumos::ArrayBuffer
@@ -329,6 +333,7 @@ _camId	Includes/Camera.h	/^        std::string _camId;$/;"	m	class:Patronus::Cam
 _camInUse	Includes/PerspectiveView.h	/^    Patronus::Camera * _camInUse;$/;"	m	class:PerspectiveView
 _cameras	Includes/Shaper.h	/^        std::vector< Camera * > _cameras;$/;"	m	class:Patronus::Shaper
 _catchEvent	src/Output/Widget.cpp	/^void Widget::_catchEvent(const XEvent & xev){$/;"	f	class:Widget
+_children	Includes/Widget.h	/^  std::vector<Widget * > _children;$/;"	m	class:Widget
 _collisionConfiguration	Includes/PhysicalWorld.h	/^        btDefaultCollisionConfiguration* _collisionConfiguration;$/;"	m	class:Patronus::PhysicalWorld
 _compare	src/Utility/Utility.cpp	/^    bool _compare(std::pair<int, std::shared_ptr<float>> p1, std::pair<int, std::shared_ptr<float>> p2){$/;"	f	namespace:Utils
 _coneAngle	Includes/Light.h	/^        float _coneAngle;$/;"	m	class:Patronus::Light
@@ -347,6 +352,7 @@ _egl_display	Includes/WindowManager.h	/^    EGLDisplay  _egl_display;$/;"	m	clas
 _egl_display	Includes/WindowManager_headless.h	/^    EGLDisplay  _egl_display;$/;"	m	class:WindowManager_headless
 _egl_surface	Includes/WindowManager.h	/^    EGLSurface  _egl_surface;$/;"	m	class:WindowManager
 _egl_surface	Includes/WindowManager_headless.h	/^    EGLSurface  _egl_surface;$/;"	m	class:WindowManager_headless
+_expose	src/Output/View.cpp	/^void View::_expose()$/;"	f	class:View
 _expose	src/Output/WindowManager.cpp	/^void WindowManager::_expose(){$/;"	f	class:WindowManager
 _expose	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_expose(){$/;"	f	class:WindowManager_headless
 _faces	Includes/Mesh.h	/^        std::vector< Face > _faces;$/;"	m	class:Patronus::Mesh
@@ -357,15 +363,16 @@ _glObjId	Includes/GLObject.h	/^        GLuint _glObjId;$/;"	m	class:Lumos::GLObj
 _headlessInit	src/Output/WindowManager.cpp	/^void WindowManager::_headlessInit(){$/;"	f	class:WindowManager
 _headlessInit	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_headlessInit(){$/;"	f	class:WindowManager_headless
 _headlessInitWithX11	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_headlessInitWithX11(){$/;"	f	class:WindowManager_headless
-_height	Includes/PerspectiveView.h	/^		size_t _width, _height;$/;"	m	class:PerspectiveView
 _height	Includes/Widget.h	/^  size_t _width, _height;$/;"	m	class:Widget
 _id	Includes/Instance.h	/^        std::string _id;$/;"	m	class:Lumos::Instance
 _id	Includes/Mesh.h	/^        std::string _id;$/;"	m	class:Patronus::Mesh
 _indices	Includes/Mesh.h	/^        std::vector< unsigned int > _indices;$/;"	m	class:Patronus::Mesh
 _instances	Includes/PhysicalWorld.h	/^        std::vector< Lumos::Instance * > _instances;$/;"	m	class:Patronus::PhysicalWorld
 _intensity	Includes/Light.h	/^        color3 _intensity;$/;"	m	class:Patronus::Light
+_isExposed	Includes/View.h	/^    bool _isExposed;$/;"	m	class:View
 _isOn	Includes/Light.h	/^        bool _isOn;$/;"	m	class:Patronus::Light
 _isOn	Includes/Transformable.h	/^        bool _isOn;$/;"	m	class:Patronus::Transformable
+_keyboard_handle	src/Output/PerspectiveView.cpp	/^void PerspectiveView::_keyboard_handle(const XEvent & xev)$/;"	f	class:PerspectiveView
 _keyboard_handle	src/Output/WindowManager.cpp	/^void WindowManager::_keyboard_handle(const XEvent & event){$/;"	f	class:WindowManager
 _keyboard_handle	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_keyboard_handle(const XEvent & xev){$/;"	f	class:WindowManager_headless
 _lights	Includes/Shaper.h	/^        std::vector<Light> _lights;$/;"	m	class:Patronus::Shaper
@@ -422,19 +429,17 @@ _verticesIndeces	Includes/Face.h	/^    std::vector< int > _verticesIndeces;$/;"	
 _vertices_combinded	Includes/Mesh.h	/^        std::vector< Vertex > _vertices_combinded;$/;"	m	class:Patronus::Mesh
 _views	Includes/WindowManager_base.h	/^    std::vector< PerspectiveView* > _views;$/;"	m	class:WindowManager_base
 _visibles	Includes/PerspectiveView.h	/^    std::vector< Lumos::Instance * > _visibles;$/;"	m	class:PerspectiveView
-_width	Includes/PerspectiveView.h	/^		size_t _width, _height;$/;"	m	class:PerspectiveView
 _width	Includes/Widget.h	/^  size_t _width, _height;$/;"	m	class:Widget
 _win	Includes/WindowManager.h	/^    Window      _win;$/;"	m	class:WindowManager
 _win	Includes/WindowManager_headless.h	/^    Window      _win;$/;"	m	class:WindowManager_headless
-_x	Includes/PerspectiveView.h	/^		size_t _x, _y;$/;"	m	class:PerspectiveView
 _x	Includes/Widget.h	/^  size_t _x, _y;$/;"	m	class:Widget
 _xContex	Includes/WindowManager.h	/^    GLXContext  _xContex;$/;"	m	class:WindowManager
 _x_display	Includes/WindowManager.h	/^    Display    *_x_display;$/;"	m	class:WindowManager
 _x_display	Includes/WindowManager_headless.h	/^    Display    *_x_display;$/;"	m	class:WindowManager_headless
-_y	Includes/PerspectiveView.h	/^		size_t _x, _y;$/;"	m	class:PerspectiveView
 _y	Includes/Widget.h	/^  size_t _x, _y;$/;"	m	class:Widget
 addArg	Includes/InputParser.h	/^    inline void addArg(const std::string & s){ _args.push_back(s);}$/;"	f	class:Cmd
 addCamera	Includes/Shaper.h	/^        inline void addCamera( Camera * c ) { _cameras.push_back(c); }$/;"	f	class:Patronus::Shaper
+addChild	src/Output/Widget.cpp	/^void Widget::addChild(Widget* w){$/;"	f	class:Widget
 addFace	src/Patronus/Mesh.cpp	/^void Mesh::addFace(const Face &f){$/;"	f	class:Mesh
 addMaterial	src/Patronus/Shaper.cpp	/^void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const GLint & wrapMode ){$/;"	f	class:Shaper
 addNormal	src/Patronus/Mesh.cpp	/^void Mesh::addNormal(const glm::vec3& n){$/;"	f	class:Mesh
@@ -458,7 +463,6 @@ callback_t	Includes/tiny_obj_loader.h	/^} callback_t;$/;"	t	namespace:tinyobj	ty
 callback_t_	Includes/tiny_obj_loader.h	/^  callback_t_()$/;"	f	struct:tinyobj::callback_t_
 callback_t_	Includes/tiny_obj_loader.h	/^typedef struct callback_t_ {$/;"	s	namespace:tinyobj
 catchEvent	src/Output/EventCatcher.cpp	/^void EventCatcher::catchEvent(const XEvent & xev){$/;"	f	class:EventCatcher
-children	Includes/Widget.h	/^  std::vector<Widget> children;$/;"	m	class:Widget
 cleanAndMkdir	src/Utility/Utility.cpp	/^    void cleanAndMkdir(const std::string & path){$/;"	f	namespace:Utils
 clearAll	src/BulletPhysics/PhysicalWorld.cpp	/^void PhysicalWorld::clearAll(){$/;"	f	class:Patronus::PhysicalWorld
 clearAll	src/Patronus/Shaper.cpp	/^void Shaper::clearAll(){$/;"	f	class:Shaper
@@ -548,7 +552,6 @@ getFovy	Includes/Camera.h	/^            getFovy() const { return _fov; }$/;"	f	c
 getGlObjId	Includes/GLObject.h	/^            getGlObjId()const { return _glObjId; }$/;"	f	class:Lumos::GLObject
 getGlobalMax	src/Patronus/Shaper.cpp	/^point3 Shaper::getGlobalMax(){$/;"	f	class:Shaper
 getGlobalMin	src/Patronus/Shaper.cpp	/^point3 Shaper::getGlobalMin(){$/;"	f	class:Shaper
-getHeight	Includes/PerspectiveView.h	/^    inline size_t getHeight() const {return _height;}$/;"	f	class:PerspectiveView
 getHeight	Includes/Widget.h	/^  inline size_t getHeight() const {return _height;}$/;"	f	class:Widget
 getId	Includes/Camera.h	/^            getId() const { return _camId; }$/;"	f	class:Patronus::Camera
 getId	Includes/Instance.h	/^            getId() const { return _id; }$/;"	f	class:Lumos::Instance
@@ -593,12 +596,9 @@ getUvInds	Includes/Face.h	/^        getUvInds() const { return _uvIndeces; }$/;"
 getVertexBuffer	src/Patronus/Shaper.cpp	/^Lumos::ArrayBuffer Shaper::getVertexBuffer( )const$/;"	f	class:Shaper
 getVerticesInds	Includes/Face.h	/^        getVerticesInds() const { return _verticesIndeces; }$/;"	f	class:Face
 getVisibleObjects	src/Output/View_renderer.cpp	/^void View_renderer::getVisibleObjects(){$/;"	f	class:View_renderer
-getWidth	Includes/PerspectiveView.h	/^    inline size_t getWidth() const {return _width;}$/;"	f	class:PerspectiveView
 getWidth	Includes/Widget.h	/^  inline size_t getWidth() const {return _width;}$/;"	f	class:Widget
 getWorld	Includes/PhysicalWorld.h	/^            getWorld() const { return _dynamicsWorld; }$/;"	f	class:Patronus::PhysicalWorld
-getX	Includes/PerspectiveView.h	/^    inline size_t getX() const {return _x;}$/;"	f	class:PerspectiveView
 getX	Includes/Widget.h	/^  inline size_t getX() const {return _x;}$/;"	f	class:Widget
-getY	Includes/PerspectiveView.h	/^    inline size_t getY() const {return _y;}$/;"	f	class:PerspectiveView
 getY	Includes/Widget.h	/^  inline size_t getY() const {return _y;}$/;"	f	class:Widget
 getnCamera	Includes/Shaper.h	/^            getnCamera( const size_t & index ){ if (index >= _cameras.size()) return nullptr; else return _cameras[index]; }$/;"	f	class:Patronus::Shaper
 glExtCheckFramebufferStatus	src/Utility/Utility.cpp	/^    int glExtCheckFramebufferStatus(char *errorMessage)$/;"	f	namespace:Utils
@@ -630,7 +630,8 @@ instantiate_indexedDraw	src/Patronus/Mesh.cpp	/^Lumos::Instance* Mesh::instantia
 instantiate_sequentialDraw	src/Patronus/Mesh.cpp	/^Lumos::Instance* Mesh::instantiate_sequentialDraw ( ){$/;"	f	class:Mesh
 intValues	Includes/tiny_obj_loader.h	/^  std::vector<int> intValues;$/;"	m	struct:tinyobj::__anon2
 ior	Includes/tiny_obj_loader.h	/^  float ior;       \/\/ index of refraction$/;"	m	struct:tinyobj::__anon1
-isClick	src/Output/PerspectiveView.cpp	/^bool PerspectiveView::isClick(const size_t & x, const size_t & y){$/;"	f	class:PerspectiveView
+isClick	src/Output/Widget.cpp	/^bool Widget::isClick(const size_t & x, const size_t & y)const{$/;"	f	class:Widget
+isExposed	Includes/View.h	/^    inline bool isExposed() const {return _isExposed; }$/;"	f	class:View
 isExtensionSupported	src/Output/WindowManager.cpp	/^static bool isExtensionSupported(const char *extList, const char *extension)$/;"	f	file:
 isFlag	Includes/InputParser.h	/^    inline bool isFlag( const Flag & _f) const {return _f == _flag;}$/;"	f	class:Cmd
 isInUse	src/Lumos/ArrayBuffer.cpp	/^bool ArrayBuffer::isInUse() const{$/;"	f	class:ArrayBuffer
@@ -683,7 +684,7 @@ minPos	Includes/Mesh.h	/^        glm::vec3 minPos;$/;"	m	struct:Patronus::Boundi
 moveForward	src/Patronus/Camera.cpp	/^void Camera::moveForward( const float & sensitivity ){$/;"	f	class:Camera
 mtllib_cb	Includes/tiny_obj_loader.h	/^  void (*mtllib_cb)(void *user_data, const material_t *materials,$/;"	m	struct:tinyobj::callback_t_
 multiplier	Includes/Shaper.h	/^        static const float multiplier;$/;"	m	class:Patronus::Shaper
-multiplier	src/Patronus/Shaper.cpp	/^const float Shaper::multiplier = 10;$/;"	m	class:Shaper	file:
+multiplier	src/Patronus/Shaper.cpp	/^const float Shaper::multiplier = 1;$/;"	m	class:Shaper	file:
 mystrtok	src/Utility/Utility.cpp	/^    std::deque<std::string> mystrtok (const std::string& str, const char* delim)$/;"	f	namespace:Utils
 name	Includes/obj_loader.h	/^        std::string name;$/;"	m	struct:objl::Material
 name	Includes/tiny_obj_loader.h	/^  std::string name;$/;"	m	struct:tinyobj::__anon1
@@ -722,11 +723,17 @@ operator []	src/Utility/InputParser.cpp	/^std::string Cmd::operator [] (const si
 override	Includes/ArrayBuffer.h	/^        bool isInUse() const override;$/;"	m	class:Lumos::ArrayBuffer
 override	Includes/ArrayBuffer.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::ArrayBuffer
 override	Includes/ArrayBuffer.h	/^        void use() const override;$/;"	m	class:Lumos::ArrayBuffer
+override	Includes/PerspectiveView.h	/^		virtual void _button_handle(const XEvent & xev) override;$/;"	m	class:PerspectiveView
+override	Includes/PerspectiveView.h	/^		virtual void _keyboard_handle(const XEvent & xev) override;$/;"	m	class:PerspectiveView
+override	Includes/PerspectiveView.h	/^    virtual void initializeGL() override;$/;"	m	class:PerspectiveView
+override	Includes/PerspectiveView.h	/^    virtual void paintGL() override;$/;"	m	class:PerspectiveView
+override	Includes/PerspectiveView.h	/^    virtual void resizeGL(const size_t & w, const size_t & h) override;$/;"	m	class:PerspectiveView
 override	Includes/Program.h	/^        bool isInUse() const override;$/;"	m	class:Lumos::Program
 override	Includes/Program.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::Program
 override	Includes/Program.h	/^        void use() const override;$/;"	m	class:Lumos::Program
 override	Includes/Shader.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::Shader
 override	Includes/Shader.h	/^        void use() const override;$/;"	m	class:Lumos::Shader
+override	Includes/View.h	/^    virtual void _expose() override;$/;"	m	class:View
 override	Includes/View_bullet.h	/^    virtual void paintGL() override ;$/;"	m	class:View_bullet
 override	Includes/View_bullet.h	/^    virtual void resizeGL(const size_t & w, const size_t & h) override ;$/;"	m	class:View_bullet
 override	Includes/View_renderer.h	/^    virtual void initializeGL() override;$/;"	m	class:View_renderer
