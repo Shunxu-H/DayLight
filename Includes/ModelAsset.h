@@ -25,31 +25,13 @@ THE SOFTWARE.
 #define MODELASSET_H
 
 #include "GL_include.h"
-#include "GL_include.h"
-#include <opencv2/opencv.hpp>
+#include "Material.h"
 
 /**
  * @TODO: Make Texture a separated class
  */
 namespace Lumos {
-    struct Material{
-        float reflexitivity;
-        std::string id;
-        color3 transmittance;
-        color3 specular;
-        color4 diffuseColor;
-        GLuint glTexId;
-        cv::Mat texture;
-        Material( const color4 & c = color4(1.0f, 1.0f, 1.0f, 1.0f),
-                  const float & reflexitivity_ = 0.3
-                ): reflexitivity(reflexitivity_), diffuseColor(c), glTexId(0){}
 
-        ~Material(){
-
-        }
-        void loadUniforms() const;
-
-    };
 
     struct MaterialPack{
         Material * material;

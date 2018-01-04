@@ -27,8 +27,6 @@ THE SOFTWARE.
 #include <climits>
 
 
-#include <opencv2/opencv.hpp>
-
 #include "GL_include.h"
 #include "Utility.h"
 #include "Shaper.h"
@@ -120,9 +118,7 @@ void Shaper::clearAll(){
     global_uv_coords.clear();
 
     for (Lumos::Material * m : _materials ){
-      if(m->glTexId != 0)
-      glDeleteTextures(1, &(m->glTexId));
-      delete m;
+        delete m;
     }
     _materials.clear();
 }
@@ -208,13 +204,15 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
     std::string err;
     bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, f_name.c_str(), curDir.c_str(), true);
 
+    if (!ret) {
+        return false;
+    }
+
     if (!err.empty()) { // `err` may contain warning message.
         std::cerr << err << std::endl;
     }
 
-    if (!ret) {
-        return false;
-    }
+
 
     assert(attrib.vertices.size() % 3 == 0 && attrib.normals.size() % 3 == 0 && attrib.texcoords.size() % 2 == 0 );
 
@@ -231,8 +229,10 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
 
             if( std::experimental::filesystem::exists(( curDir + m.diffuse_texname).c_str())){
                 cv::Mat im = cv::imread(( curDir + m.diffuse_texname).c_str());
-                newMaterial->texture = im;
-                cv::flip(im, newMaterial->texture, 0);
+                cv::Mat flipped;
+                cv::flip(im, flipped, 0);
+                newMaterial->texture.make2DTexure(flipped);
+
             }
             else{
                 std::cout << "Texture file does not exist: " << m.diffuse_texname << std::endl;
@@ -308,33 +308,7 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
 }
 
 
-void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const GLint & wrapMode ){
-
-    if (m->texture.empty())
-    {
-        _materials.push_back(m);
-        return;
-    }
-
-    // get texture if image is avaible
-    glGenTextures(1, &(m->glTexId));
-    glBindTexture(GL_TEXTURE_2D,  m->glTexId);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minMagFiler);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, minMagFiler);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
-    glTexImage2D(GL_TEXTURE_2D,     // Type of texture
-                     0,                 // Pyramid level (for mip-mapping) - 0 is the top level
-                     GL_RGB,            // Internal colour format to convert to
-                     m->texture.cols,          // Image width  i.e. 640 for Kinect in standard mode
-                     m->texture.rows,          // Image height i.e. 480 for Kinect in standard mode
-                     0,                 // Border width in pixels (can either be 1 or 0)
-                     GL_BGR, // Input image format (i.e. GL_RGB, GL_RGBA, GL_BGR etc.)
-                     GL_UNSIGNED_BYTE,  // Image data type
-                     m->texture.ptr());
-
-    glBindTexture(GL_TEXTURE_2D, 0);
-
+void Shaper::addMaterial( Lumos::Material * m){
     _materials.push_back(m);
 }
 

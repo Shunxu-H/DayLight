@@ -16,7 +16,7 @@ View::View(
 
 
 
-void View::_expose()
+bool View::_expose()
 {
     if(_isExposed)
     {
@@ -28,4 +28,5 @@ void View::_expose()
         initializeGL();
         paintGL();
     }
+    return true;
 }

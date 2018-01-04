@@ -93,9 +93,7 @@ namespace Patronus {
         Lumos::ArrayBuffer getVertexBuffer()const;
         Lumos::ArrayBuffer getNormalBuffer()const;
 
-        void addMaterial( Lumos::Material * m,
-                          const GLint & minMagFiler = GL_LINEAR,
-                          const GLint & wrapMode = GL_REPEAT );
+        void addMaterial( Lumos::Material * m);
 
 
 

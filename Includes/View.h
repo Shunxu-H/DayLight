@@ -20,7 +20,7 @@ public:
 
     inline bool isExposed() const {return _isExposed; }
 protected:
-    virtual void _expose() override;
+    virtual bool _expose() override;
 private:
     bool _isExposed;
 };

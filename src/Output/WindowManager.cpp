@@ -121,7 +121,7 @@ WindowManager::WindowManager(const size_t &w, const size_t &h )
     assert(GLEW_OK == glewInit());
 
     glGetError();
-    addChild(new PerspectiveView(0, 0, h, w));
+    addChild(new PerspectiveView(0, 0, w, h));
 
 }
 
@@ -233,9 +233,10 @@ void WindowManager::_X11WindowInit(){
     printf( "Creating colormap\n" );
     XSetWindowAttributes swa;
     Colormap cmap;
-    swa.colormap = cmap = XCreateColormap( _x_display,
-                                 RootWindow( _x_display, vi->screen ),
-                                 vi->visual, AllocNone );
+    swa.colormap = cmap = XCreateColormap(  _x_display,
+                                            RootWindow( _x_display, vi->screen ),
+                                            vi->visual,
+                                            AllocNone );
     swa.background_pixmap = None ;
     swa.border_pixel      = 0;
     swa.event_mask        = ExposureMask | KeyPressMask | ButtonPress;
@@ -261,7 +262,7 @@ void WindowManager::_X11WindowInit(){
 
     // Get the default screen's GLX extension list
     const char *glxExts = glXQueryExtensionsString( _x_display,
-                                          DefaultScreen( _x_display ) );
+                                                    DefaultScreen( _x_display ) );
 
     // NOTE: It is not necessary to create or make current to a context before
     // calling glXGetProcAddressARB
@@ -323,7 +324,7 @@ void WindowManager::_X11WindowInit(){
             ctxErrorOccurred = false;
 
             printf( "Failed to create GL 3.0 context"
-              " ... using old-style GLX context\n" );
+                    " ... using old-style GLX context\n" );
             _xContex = glXCreateContextAttribsARB( _x_display, bestFbc, 0,
                                         True, context_attribs );
         }
@@ -356,26 +357,14 @@ void WindowManager::_X11WindowInit(){
 }
 
 
-void WindowManager::_expose(){
+bool WindowManager::_expose(){
     render();
+    return true;
 }
 
 
 void WindowManager::show(){
-    // printf( "Making context current\n" );
-    // glXMakeCurrent( _x_display, _win, _xContex );
 
-    // glClearColor( 0, 0.5, 1, 1 );
-    // glClear( GL_COLOR_BUFFER_BIT );
-    // glXSwapBuffers ( _x_display, _win );
-    for(auto & v : _views)
-        v->initializeGL();
-
-    // glClearColor ( 1, 0.5, 0, 1 );
-    // glClear ( GL_COLOR_BUFFER_BIT );
-    // glXSwapBuffers ( _x_display, _win );
-
-    // sleep( 1 );
 }
 
 
@@ -485,7 +474,7 @@ void WindowManager::_headlessInit(){
 }
 
 
-void WindowManager::_keyboard_handle(const XEvent & event){
+bool WindowManager::_keyboard_handle(const XEvent & event){
 
     if (event.type == KeyPress)
     {
@@ -514,10 +503,10 @@ void WindowManager::_keyboard_handle(const XEvent & event){
     {
         printf( "KeyRelease: %x\n", event.xkey.keycode );
     }
-
+    return true;
 }
 
-void WindowManager::_button_handle(const XEvent & event){
+bool WindowManager::_button_handle(const XEvent & event){
 
     if (event.xbutton.type == ButtonPress)
     {
@@ -549,6 +538,7 @@ void WindowManager::_button_handle(const XEvent & event){
                   << event.xbutton.y);
     }
 
+    return true;
 }
 
 
@@ -560,7 +550,19 @@ int WindowManager::loop()
     while(true) {
         XNextEvent(_x_display, &xev);
 
-        _catchEvent(xev);
+        if(xev.type == Expose
+            && xev.xexpose.count==0) { // only render immediate exposures
+            _internal_expose_handle();
+        }
+        else if(xev.type == KeyPress) {
+            _internal_keyboard_handle(xev);
+        }
+        else if (xev.type==ButtonPress) {
+            _internal_button_handle(xev);
+        }
+        else
+          std::cout << "Unrecognized events" << std::endl;
+          
         glXSwapBuffers(_x_display, _win);
     } /* this closes while(1) { */
 } /* this is the } which closes int main(int argc, char *argv[]) { */
@@ -568,11 +570,9 @@ int WindowManager::loop()
 
 void WindowManager::render(){
 
-    for(auto & v: _views)
-        v->paintGL();
 }
-/*
 
+/*
 void WindowManager::updateAllViews(){
     for(View* & v : _views )
         v->update();

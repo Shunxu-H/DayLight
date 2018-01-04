@@ -76,12 +76,12 @@ void PerspectiveView::initializeGL(){
 }
 
 
-void PerspectiveView::_keyboard_handle(const XEvent & xev)
+bool PerspectiveView::_keyboard_handle(const XEvent & xev)
 {
-
+    return true;
 }
 
-void PerspectiveView::_button_handle(const XEvent & xev)
+bool PerspectiveView::_button_handle(const XEvent & xev)
 {
     if (xev.xbutton.type == ButtonPress)
     {
@@ -131,6 +131,7 @@ void PerspectiveView::_button_handle(const XEvent & xev)
     }
 
     _expose();
+    return true;
 }
 
 

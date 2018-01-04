@@ -37,7 +37,7 @@ Depth Mask:
 - [X] Test GLObject(seems working, more tests required)
 - [ ] Refracture Code base
   * - [X] Make Class Widget
-  * - [ ] Make Class View
+  * - [X] Make Class View
   * - [ ] Isolate Lumos and Patronus
 - [ ] Memory Leak
   * -[X] Loop memory Leak
@@ -46,16 +46,15 @@ Depth Mask:
 	* -[ ] Free global resource before exiting
 - [ ] Make sure x11 works on the vision machines
 - [X] Rebuild GUI
+- [ ] build resize event
 - [ ] Remake help.txt
 - [ ] Copy all necessary files to build directory with CMake
-- [ ] Propagate mouse event to subviewport
-  * - [ ] derive WindowManager and View from EventCatcher
-  * - [ ] build event catcher for Views
+- [X] Propagate mouse event to subviewport
 - [ ] Rebuild Navigation with x11
 	* - [ ] pan
 	* - [ ] tilt
 	* - [X] zoom
-	* - [ ] select
+	* - [X] select
 - [ ] Make Texture a separated class
 - [ ] Make FrameBuffer a separated class
 - [ ] Enable more than two shaders in pipes

@@ -23,6 +23,11 @@ Widget::Widget( const std::string & title,
 
 }
 
+Widget::~Widget(){
+    for(Widget *& w: _children)
+        delete w;
+}
+
 bool Widget::isClick(const size_t & x, const size_t & y)const{
     return  (_x <= x && x <= _x + _width ) &&
             (_y <= y && y <= _y + _height);
@@ -32,32 +37,35 @@ void Widget::addChild(Widget* w){
     _children.push_back(w);
 }
 
-void Widget::_catchEvent(const XEvent & xev){
 
-
-    for (Widget * w : _children){
-        if(xev.type==ButtonPress && w->isClick(xev.xbutton.x, xev.xbutton.y)){
-            XEvent curEv(xev);
-            curEv.xbutton.x -= w->_x;
-            curEv.xbutton.y -= w->_y;
-            w->_catchEvent(curEv);
+void Widget::_internal_keyboard_handle(const XEvent & xev){
+    if(_keyboard_handle(xev))
+    {
+        for (Widget * w : _children){
+            w->_internal_keyboard_handle(xev);
         }
-        else
-          w->_catchEvent(xev);
     }
+}
 
-    if(xev.type == Expose
-        && xev.xexpose.count==0) { // only render immediate exposures
-        _expose();
+void Widget::_internal_button_handle(const XEvent & xev){
+    if(_button_handle(xev))
+    {
+        for (Widget * w : _children)
+        {
+            if(xev.type==ButtonPress && w->isClick(xev.xbutton.x, xev.xbutton.y)){
+                XEvent curEv(xev);
+                curEv.xbutton.x -= w->_x;
+                curEv.xbutton.y -= w->_y;
+                w->_internal_button_handle(curEv);
+            }
+        }
     }
-    else if(xev.type == KeyPress) {
-        _keyboard_handle(xev);
-    }
-    else if (xev.type==ButtonPress) {
-        _button_handle(xev);
-    }
-    else
-      std::cout << "Unrecognized events" << std::endl;
+}
 
-
+void Widget::_internal_expose_handle(){
+    if(_expose()){
+        for (Widget * w : _children){
+            w->_internal_expose_handle();
+        }
+    }
 }

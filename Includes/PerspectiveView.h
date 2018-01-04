@@ -80,8 +80,8 @@ public:
 protected:
 		void getMouseBeam(const int & mouseX, const int & moustY, point3 * start, point3 * direction )const;
 
-		virtual void _keyboard_handle(const XEvent & xev) override;
-		virtual void _button_handle(const XEvent & xev) override;
+		virtual bool _keyboard_handle(const XEvent & xev) override;
+		virtual bool _button_handle(const XEvent & xev) override;
 
     Patronus::Camera * _camInUse;
     GLuint _VAO;

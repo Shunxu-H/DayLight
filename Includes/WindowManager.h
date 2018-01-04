@@ -64,9 +64,9 @@ public:
     virtual void show() override;
     virtual int loop() override;
 protected:
-		virtual void _expose() override;
-		virtual void _keyboard_handle(const XEvent & event)override;
-		virtual void _button_handle (const XEvent & event)override;
+		virtual bool _expose() override;
+		virtual bool _keyboard_handle(const XEvent & event)override;
+		virtual bool _button_handle (const XEvent & event)override;
 private:
 
     Display    *_x_display;

@@ -149,6 +149,7 @@ Loader	Includes/obj_loader.h	/^    class Loader$/;"	c	namespace:objl
 Lumos	Includes/ArrayBuffer.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/GLObject.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Instance.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/Material.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Mesh.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/ModelAsset.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/PerspectiveView.h	/^namespace Lumos{$/;"	n
@@ -156,17 +157,19 @@ Lumos	Includes/PhysicalWorld.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Program.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Shader.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Shaper.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/Texture.h	/^namespace Lumos{$/;"	n
 Lumos	Includes/WindowManager_headless.h	/^namespace Lumos {$/;"	n
 Lumos	src/Lumos/Instance.cpp	/^namespace Lumos {$/;"	n	file:
 Lumos	src/Lumos/Program.cpp	/^namespace Lumos{$/;"	n	file:
 Lumos	src/Lumos/Shader.cpp	/^namespace Lumos {$/;"	n	file:
+MATERIAL_H	Includes/Material.h	2;"	d
 MODELASSET_H	Includes/ModelAsset.h	25;"	d
 MOVING	Includes/Config.h	/^	MOVING,$/;"	e	enum:OpMode
 MagnitudeV3	Includes/obj_loader.h	/^        float MagnitudeV3(const Vector3 in)$/;"	f	namespace:objl::math
-Material	Includes/ModelAsset.h	/^        Material( const color4 & c = color4(1.0f, 1.0f, 1.0f, 1.0f),$/;"	f	struct:Lumos::Material
-Material	Includes/ModelAsset.h	/^    struct Material{$/;"	s	namespace:Lumos
+Material	Includes/Material.h	/^    struct Material{$/;"	s	namespace:Lumos
 Material	Includes/obj_loader.h	/^        Material()$/;"	f	struct:objl::Material
 Material	Includes/obj_loader.h	/^    struct Material$/;"	s	namespace:objl
+Material	src/Lumos/Material.cpp	/^Material::Material( const color4 & c,$/;"	f	class:Material
 MaterialFileReader	Includes/tiny_obj_loader.h	/^  explicit MaterialFileReader(const std::string &mtl_basepath)$/;"	f	class:tinyobj::MaterialFileReader
 MaterialFileReader	Includes/tiny_obj_loader.h	/^class MaterialFileReader : public MaterialReader {$/;"	c	namespace:tinyobj
 MaterialPack	Includes/ModelAsset.h	/^        MaterialPack(Material * m_, const GLuint & drawStart_, const GLuint & drawCnt_ )$/;"	f	struct:Lumos::MaterialPack
@@ -246,12 +249,15 @@ Shaper	src/Patronus/Shaper.cpp	/^Shaper::Shaper( )$/;"	f	class:Shaper
 Shaper	src/Patronus/Shaper.cpp	/^Shaper::Shaper( const std::string & fileName )$/;"	f	class:Shaper
 TEXTURE_DIR	src/main.cpp	/^std::string TEXTURE_DIR = ".\/scene_file\/texture\/";$/;"	v
 TEXTURE_DIRECTORY	Includes/InputParser.h	/^    TEXTURE_DIRECTORY,$/;"	m	class:Flag
-TINYOBJLOADER_IMPLEMENTATION	src/Patronus/Shaper.cpp	41;"	d	file:
+TEXTURE_H	Includes/Texture.h	2;"	d
+TINYOBJLOADER_IMPLEMENTATION	src/Patronus/Shaper.cpp	39;"	d	file:
 TINYOBJ_SSCANF_BUFFER_SIZE	Includes/tiny_obj_loader.h	237;"	d
 TINY_OBJ_LOADER_H_	Includes/tiny_obj_loader.h	36;"	d
 TRANSFORM	Includes/Config.h	/^	TRANSFORM$/;"	e	enum:OpMode
 TRANSFORMABLE_H	Includes/Transformable.h	25;"	d
 TRANSLATE	Includes/Config.h	/^	TRANSLATE,$/;"	e	enum:TransfromMode
+Texture	Includes/Texture.h	/^    class Texture: public GLObject{$/;"	c	namespace:Lumos
+Texture	src/Lumos/Texture.cpp	/^Texture::Texture(cv::Mat im)$/;"	f	class:Texture
 TextureCoordinate	Includes/obj_loader.h	/^        Vector2 TextureCoordinate;$/;"	m	struct:objl::Vertex
 Transformable	Includes/Transformable.h	/^        Transformable(const point3 & pos = point3 (0.0f, 0.0f, 0.0f)):$/;"	f	class:Patronus::Transformable
 Transformable	Includes/Transformable.h	/^    class Transformable{$/;"	c	namespace:Patronus
@@ -325,14 +331,13 @@ _at	Includes/Camera.h	/^        glm::vec3 _at;$/;"	m	class:Patronus::Camera
 _attenuation	Includes/Light.h	/^        float _attenuation;$/;"	m	class:Patronus::Light
 _boundingBox	Includes/Mesh.h	/^        BoundingBox _boundingBox;$/;"	m	class:Patronus::Mesh
 _broadphase	Includes/PhysicalWorld.h	/^        btBroadphaseInterface* _broadphase;$/;"	m	class:Patronus::PhysicalWorld
-_button_handle	src/Output/PerspectiveView.cpp	/^void PerspectiveView::_button_handle(const XEvent & xev)$/;"	f	class:PerspectiveView
-_button_handle	src/Output/WindowManager.cpp	/^void WindowManager::_button_handle(const XEvent & event){$/;"	f	class:WindowManager
-_button_handle	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_button_handle(const XEvent & xev){$/;"	f	class:WindowManager_headless
+_button_handle	Includes/Widget.h	/^  inline virtual bool _button_handle(const XEvent & xev){return true;};$/;"	f	class:Widget
+_button_handle	src/Output/PerspectiveView.cpp	/^bool PerspectiveView::_button_handle(const XEvent & xev)$/;"	f	class:PerspectiveView
+_button_handle	src/Output/WindowManager.cpp	/^bool WindowManager::_button_handle(const XEvent & event){$/;"	f	class:WindowManager
 _bytesPerEntry	Includes/ArrayBuffer.h	/^        size_t _bytesPerEntry;$/;"	m	class:Lumos::ArrayBuffer
 _camId	Includes/Camera.h	/^        std::string _camId;$/;"	m	class:Patronus::Camera
 _camInUse	Includes/PerspectiveView.h	/^    Patronus::Camera * _camInUse;$/;"	m	class:PerspectiveView
 _cameras	Includes/Shaper.h	/^        std::vector< Camera * > _cameras;$/;"	m	class:Patronus::Shaper
-_catchEvent	src/Output/Widget.cpp	/^void Widget::_catchEvent(const XEvent & xev){$/;"	f	class:Widget
 _children	Includes/Widget.h	/^  std::vector<Widget * > _children;$/;"	m	class:Widget
 _collisionConfiguration	Includes/PhysicalWorld.h	/^        btDefaultCollisionConfiguration* _collisionConfiguration;$/;"	m	class:Patronus::PhysicalWorld
 _compare	src/Utility/Utility.cpp	/^    bool _compare(std::pair<int, std::shared_ptr<float>> p1, std::pair<int, std::shared_ptr<float>> p2){$/;"	f	namespace:Utils
@@ -352,9 +357,9 @@ _egl_display	Includes/WindowManager.h	/^    EGLDisplay  _egl_display;$/;"	m	clas
 _egl_display	Includes/WindowManager_headless.h	/^    EGLDisplay  _egl_display;$/;"	m	class:WindowManager_headless
 _egl_surface	Includes/WindowManager.h	/^    EGLSurface  _egl_surface;$/;"	m	class:WindowManager
 _egl_surface	Includes/WindowManager_headless.h	/^    EGLSurface  _egl_surface;$/;"	m	class:WindowManager_headless
-_expose	src/Output/View.cpp	/^void View::_expose()$/;"	f	class:View
-_expose	src/Output/WindowManager.cpp	/^void WindowManager::_expose(){$/;"	f	class:WindowManager
-_expose	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_expose(){$/;"	f	class:WindowManager_headless
+_expose	Includes/Widget.h	/^  inline virtual bool _expose(){return true;}$/;"	f	class:Widget
+_expose	src/Output/View.cpp	/^bool View::_expose()$/;"	f	class:View
+_expose	src/Output/WindowManager.cpp	/^bool WindowManager::_expose(){$/;"	f	class:WindowManager
 _faces	Includes/Mesh.h	/^        std::vector< Face > _faces;$/;"	m	class:Patronus::Mesh
 _far	Includes/Camera.h	/^        float _far;$/;"	m	class:Patronus::Camera
 _flag	Includes/InputParser.h	/^    Flag _flag;$/;"	m	class:Cmd
@@ -369,12 +374,15 @@ _id	Includes/Mesh.h	/^        std::string _id;$/;"	m	class:Patronus::Mesh
 _indices	Includes/Mesh.h	/^        std::vector< unsigned int > _indices;$/;"	m	class:Patronus::Mesh
 _instances	Includes/PhysicalWorld.h	/^        std::vector< Lumos::Instance * > _instances;$/;"	m	class:Patronus::PhysicalWorld
 _intensity	Includes/Light.h	/^        color3 _intensity;$/;"	m	class:Patronus::Light
+_internal_button_handle	src/Output/Widget.cpp	/^void Widget::_internal_button_handle(const XEvent & xev){$/;"	f	class:Widget
+_internal_expose_handle	src/Output/Widget.cpp	/^void Widget::_internal_expose_handle(){$/;"	f	class:Widget
+_internal_keyboard_handle	src/Output/Widget.cpp	/^void Widget::_internal_keyboard_handle(const XEvent & xev){$/;"	f	class:Widget
 _isExposed	Includes/View.h	/^    bool _isExposed;$/;"	m	class:View
 _isOn	Includes/Light.h	/^        bool _isOn;$/;"	m	class:Patronus::Light
 _isOn	Includes/Transformable.h	/^        bool _isOn;$/;"	m	class:Patronus::Transformable
-_keyboard_handle	src/Output/PerspectiveView.cpp	/^void PerspectiveView::_keyboard_handle(const XEvent & xev)$/;"	f	class:PerspectiveView
-_keyboard_handle	src/Output/WindowManager.cpp	/^void WindowManager::_keyboard_handle(const XEvent & event){$/;"	f	class:WindowManager
-_keyboard_handle	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_keyboard_handle(const XEvent & xev){$/;"	f	class:WindowManager_headless
+_keyboard_handle	Includes/Widget.h	/^  inline virtual bool _keyboard_handle(const XEvent & xev){return true;};$/;"	f	class:Widget
+_keyboard_handle	src/Output/PerspectiveView.cpp	/^bool PerspectiveView::_keyboard_handle(const XEvent & xev)$/;"	f	class:PerspectiveView
+_keyboard_handle	src/Output/WindowManager.cpp	/^bool WindowManager::_keyboard_handle(const XEvent & event){$/;"	f	class:WindowManager
 _lights	Includes/Shaper.h	/^        std::vector<Light> _lights;$/;"	m	class:Patronus::Shaper
 _loadColorIndicesToBuffer	src/Patronus/Mesh.cpp	/^void Mesh::_loadColorIndicesToBuffer( ){$/;"	f	class:Mesh
 _loadColorToBuffer	src/Patronus/Mesh.cpp	/^void Mesh::_loadColorToBuffer( ){$/;"	f	class:Mesh
@@ -415,6 +423,7 @@ _shaderId	Includes/PerspectiveView.h	/^    std::string _shaderId;$/;"	m	class:Pe
 _shading_pipes	Includes/Program.h	/^        std::unordered_map<std::string, shading_pipe> _shading_pipes;$/;"	m	class:Lumos::Program
 _shapes	Includes/Shaper.h	/^        std::vector<Mesh> _shapes;$/;"	m	class:Patronus::Shaper
 _solver	Includes/PhysicalWorld.h	/^        btSequentialImpulseConstraintSolver* _solver;$/;"	m	class:Patronus::PhysicalWorld
+_textureTarget	Includes/Texture.h	/^        GLenum _textureTarget;$/;"	m	class:Lumos::Texture
 _title	Includes/Widget.h	/^  std::string _title;$/;"	m	class:Widget
 _translate	Includes/Transformable.h	/^        point3 _translate;$/;"	m	class:Patronus::Transformable
 _type	Includes/Camera.h	/^        CameraType _type;$/;"	m	class:Patronus::Camera
@@ -427,7 +436,6 @@ _varyings	Includes/Shader.h	/^        std::vector<std::string> _varyings;$/;"	m	
 _vertices	Includes/Mesh.h	/^        std::vector< point3 > _vertices;$/;"	m	class:Patronus::Mesh
 _verticesIndeces	Includes/Face.h	/^    std::vector< int > _verticesIndeces;$/;"	m	class:Face
 _vertices_combinded	Includes/Mesh.h	/^        std::vector< Vertex > _vertices_combinded;$/;"	m	class:Patronus::Mesh
-_views	Includes/WindowManager_base.h	/^    std::vector< PerspectiveView* > _views;$/;"	m	class:WindowManager_base
 _visibles	Includes/PerspectiveView.h	/^    std::vector< Lumos::Instance * > _visibles;$/;"	m	class:PerspectiveView
 _width	Includes/Widget.h	/^  size_t _width, _height;$/;"	m	class:Widget
 _win	Includes/WindowManager.h	/^    Window      _win;$/;"	m	class:WindowManager
@@ -441,7 +449,7 @@ addArg	Includes/InputParser.h	/^    inline void addArg(const std::string & s){ _
 addCamera	Includes/Shaper.h	/^        inline void addCamera( Camera * c ) { _cameras.push_back(c); }$/;"	f	class:Patronus::Shaper
 addChild	src/Output/Widget.cpp	/^void Widget::addChild(Widget* w){$/;"	f	class:Widget
 addFace	src/Patronus/Mesh.cpp	/^void Mesh::addFace(const Face &f){$/;"	f	class:Mesh
-addMaterial	src/Patronus/Shaper.cpp	/^void Shaper::addMaterial( Lumos::Material * m, const GLint & minMagFiler, const GLint & wrapMode ){$/;"	f	class:Shaper
+addMaterial	src/Patronus/Shaper.cpp	/^void Shaper::addMaterial( Lumos::Material * m){$/;"	f	class:Shaper
 addNormal	src/Patronus/Mesh.cpp	/^void Mesh::addNormal(const glm::vec3& n){$/;"	f	class:Mesh
 addNormalIndex	Includes/Face.h	/^        addNormalIndex( const int & indx ) { _normalIndeces.push_back(indx); }$/;"	f	class:Face
 addUvIndex	Includes/Face.h	/^        addUvIndex( const int & indx ) { _uvIndeces.push_back(indx); }$/;"	f	class:Face
@@ -491,7 +499,7 @@ default_mesh_shader_id	src/Lumos/Shader.cpp	/^const std::string Shader::default_
 depth_shader_id	Includes/Shader.h	/^        static const std::string depth_shader_id;$/;"	m	class:Lumos::Shader
 depth_shader_id	src/Lumos/Shader.cpp	/^const std::string Shader::depth_shader_id = "depth";$/;"	m	class:Lumos::Shader	file:
 diffuse	Includes/tiny_obj_loader.h	/^  float diffuse[3];$/;"	m	struct:tinyobj::__anon1
-diffuseColor	Includes/ModelAsset.h	/^        color4 diffuseColor;$/;"	m	struct:Lumos::Material
+diffuseColor	Includes/Material.h	/^        color4 diffuseColor;$/;"	m	struct:Lumos::Material
 diffuse_texname	Includes/tiny_obj_loader.h	/^  std::string diffuse_texname;             \/\/ map_Kd$/;"	m	struct:tinyobj::__anon1
 disableShadingPipe	src/Lumos/Program.cpp	/^void Program::disableShadingPipe( const std::string & pipe_name ){$/;"	f	class:Lumos::Program
 displacement_texname	Includes/tiny_obj_loader.h	/^  std::string displacement_texname;        \/\/ disp$/;"	m	struct:tinyobj::__anon1
@@ -585,6 +593,7 @@ getRidgidBody	Includes/Instance.h	/^            getRidgidBody() const { return _
 getScale	Includes/Transformable.h	/^            getScale() const { return _scale; }$/;"	f	class:Patronus::Transformable
 getShaderId	Includes/PerspectiveView.h	/^        getShaderId() const { return _shaderId; }$/;"	f	class:PerspectiveView
 getSizeInByte	Includes/ArrayBuffer.h	/^            getSizeInByte() const { return _numOfEntry*_bytesPerEntry; }$/;"	f	class:Lumos::ArrayBuffer
+getTarget	Includes/Texture.h	/^        inline GLenum getTarget() const$/;"	f	class:Lumos::Texture
 getTitle	Includes/Widget.h	/^  inline std::string getTitle() const {return _title;}$/;"	f	class:Widget
 getTranslate	Includes/Transformable.h	/^            getTranslate() const { return _translate; }$/;"	f	class:Patronus::Transformable
 getTranslatev4	Includes/Transformable.h	/^            getTranslatev4() const { return point4(_translate, 1.0f); }$/;"	f	class:Patronus::Transformable
@@ -602,7 +611,6 @@ getX	Includes/Widget.h	/^  inline size_t getX() const {return _x;}$/;"	f	class:W
 getY	Includes/Widget.h	/^  inline size_t getY() const {return _y;}$/;"	f	class:Widget
 getnCamera	Includes/Shaper.h	/^            getnCamera( const size_t & index ){ if (index >= _cameras.size()) return nullptr; else return _cameras[index]; }$/;"	f	class:Patronus::Shaper
 glExtCheckFramebufferStatus	src/Utility/Utility.cpp	/^    int glExtCheckFramebufferStatus(char *errorMessage)$/;"	f	namespace:Utils
-glTexId	Includes/ModelAsset.h	/^        GLuint glTexId;$/;"	m	struct:Lumos::Material
 glXCreateContextAttribsARB	src/Output/WindowManager_headless.cpp	/^static glXCreateContextAttribsARBProc glXCreateContextAttribsARB = NULL;$/;"	v	file:
 glXCreateContextAttribsARBProc	src/Output/WindowManager.cpp	/^typedef GLXContext (*glXCreateContextAttribsARBProc)(Display*, GLXFBConfig, GLXContext, Bool, const int*);$/;"	t	file:
 glXCreateContextAttribsARBProc	src/Output/WindowManager_headless.cpp	/^typedef GLXContext (*glXCreateContextAttribsARBProc)(Display*, GLXFBConfig, GLXContext, Bool, const int*);$/;"	t	file:
@@ -615,9 +623,10 @@ global_vertices	src/Patronus/Shaper.cpp	/^std::vector< point3 > Shaper::global_v
 group_cb	Includes/tiny_obj_loader.h	/^  void (*group_cb)(void *user_data, const char **names, int num_names);$/;"	m	struct:tinyobj::callback_t_
 has	src/Utility/InputParser.cpp	/^bool InputParser::has(const Flag & f) const{$/;"	f	class:InputParser
 hasAttribute	src/Lumos/Program.cpp	/^bool Program::hasAttribute( const GLchar * attribName ) const {$/;"	f	class:Lumos::Program
+hasTexture	Includes/Material.h	/^        inline bool hasTexture() const { return !texture.isEmpty();}$/;"	f	struct:Lumos::Material
 hasUniform	src/Lumos/Program.cpp	/^bool Program::hasUniform( const GLchar * uniformName ) const {$/;"	f	class:Lumos::Program
 history	Includes/Keyboard.h	/^	std::vector<std::string> history;$/;"	m	class:Keyboard
-id	Includes/ModelAsset.h	/^        std::string id;$/;"	m	struct:Lumos::Material
+id	Includes/Material.h	/^        std::string id;$/;"	m	struct:Lumos::Material
 illum	Includes/obj_loader.h	/^        int illum;$/;"	m	struct:objl::Material
 illum	Includes/tiny_obj_loader.h	/^  int illum;$/;"	m	struct:tinyobj::__anon1
 inTriangle	Includes/obj_loader.h	/^        bool inTriangle(Vector3 point, Vector3 tri1, Vector3 tri2, Vector3 tri3)$/;"	f	namespace:objl::algorithm
@@ -631,12 +640,14 @@ instantiate_sequentialDraw	src/Patronus/Mesh.cpp	/^Lumos::Instance* Mesh::instan
 intValues	Includes/tiny_obj_loader.h	/^  std::vector<int> intValues;$/;"	m	struct:tinyobj::__anon2
 ior	Includes/tiny_obj_loader.h	/^  float ior;       \/\/ index of refraction$/;"	m	struct:tinyobj::__anon1
 isClick	src/Output/Widget.cpp	/^bool Widget::isClick(const size_t & x, const size_t & y)const{$/;"	f	class:Widget
+isEmpty	Includes/Texture.h	/^        inline bool isEmpty() const$/;"	f	class:Lumos::Texture
 isExposed	Includes/View.h	/^    inline bool isExposed() const {return _isExposed; }$/;"	f	class:View
 isExtensionSupported	src/Output/WindowManager.cpp	/^static bool isExtensionSupported(const char *extList, const char *extension)$/;"	f	file:
 isFlag	Includes/InputParser.h	/^    inline bool isFlag( const Flag & _f) const {return _f == _flag;}$/;"	f	class:Cmd
 isInUse	src/Lumos/ArrayBuffer.cpp	/^bool ArrayBuffer::isInUse() const{$/;"	f	class:ArrayBuffer
 isInUse	src/Lumos/Program.cpp	/^bool Program::isInUse() const {$/;"	f	class:Lumos::Program
 isInUse	src/Lumos/Shader.cpp	/^bool Shader::isInUse() const{$/;"	f	class:Lumos::Shader
+isInUse	src/Lumos/Texture.cpp	/^bool Texture::isInUse() const$/;"	f	class:Texture
 isLoaded	Includes/Shaper.h	/^            isLoaded() const { return _shapes.size() > 0; }$/;"	f	class:Patronus::Shaper
 isOn	Includes/Light.h	/^        bool isOn() const { return _isOn; }$/;"	f	class:Patronus::Light
 isOn	Includes/Transformable.h	/^        bool isOn() const { return _isOn; }$/;"	f	class:Patronus::Transformable
@@ -649,7 +660,7 @@ loadCamerasFromDir	src/Patronus/Camera.cpp	/^void Camera::loadCamerasFromDir( co
 loadFile	src/Patronus/Shaper.cpp	/^bool Shaper::loadFile( const std::string & fileName ){$/;"	f	class:Shaper
 loadInstance	src/BulletPhysics/PhysicalWorld.cpp	/^void PhysicalWorld::loadInstance( Patronus::Mesh & mesh ){$/;"	f	class:Patronus::PhysicalWorld
 loadShaders	src/Lumos/Program.cpp	/^void Program::loadShaders( const std::string & GLSL_path ){$/;"	f	class:Lumos::Program
-loadUniforms	src/Lumos/ModelAsset.cpp	/^void Material::loadUniforms() const{$/;"	f	class:Material
+loadUniforms	src/Lumos/Material.cpp	/^void Material::loadUniforms() const{$/;"	f	class:Material
 loadUniforms	src/Patronus/Camera.cpp	/^void Camera::loadUniforms( const unsigned int & width, const unsigned int & height ) const{$/;"	f	class:Camera
 logOpenGLError	src/Utility/Utility.cpp	/^    void logOpenGLError(const std::string & sourceFile ){$/;"	f	namespace:Utils
 loop	src/Output/WindowManager.cpp	/^int WindowManager::loop()$/;"	f	class:WindowManager
@@ -658,6 +669,7 @@ m_debugMode	Includes/View_bullet.h	/^    int m_debugMode;$/;"	m	class:View_bulle
 m_debugMode	Includes/btDebugDrawer.h	/^        int m_debugMode;$/;"	m	class:GLDebugDrawer
 m_mtlBasePath	Includes/tiny_obj_loader.h	/^  std::string m_mtlBasePath;$/;"	m	class:tinyobj::MaterialFileReader
 main	src/main.cpp	/^int main(int argc, char *argv[])$/;"	f
+make2DTexure	src/Lumos/Texture.cpp	/^void Texture::make2DTexure( const cv::Mat & im,$/;"	f	class:Texture
 makeDirectionalLight	src/Patronus/Light.cpp	/^Light Light::makeDirectionalLight(const point3 & position, const point3 & intensity, const float & ambientCoefficient){$/;"	f	class:Light
 makePointLight	src/Patronus/Light.cpp	/^Light Light::makePointLight( const point3 & position,$/;"	f	class:Light
 map_Ka	Includes/obj_loader.h	/^        std::string map_Ka;$/;"	m	struct:objl::Material
@@ -723,8 +735,8 @@ operator []	src/Utility/InputParser.cpp	/^std::string Cmd::operator [] (const si
 override	Includes/ArrayBuffer.h	/^        bool isInUse() const override;$/;"	m	class:Lumos::ArrayBuffer
 override	Includes/ArrayBuffer.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::ArrayBuffer
 override	Includes/ArrayBuffer.h	/^        void use() const override;$/;"	m	class:Lumos::ArrayBuffer
-override	Includes/PerspectiveView.h	/^		virtual void _button_handle(const XEvent & xev) override;$/;"	m	class:PerspectiveView
-override	Includes/PerspectiveView.h	/^		virtual void _keyboard_handle(const XEvent & xev) override;$/;"	m	class:PerspectiveView
+override	Includes/PerspectiveView.h	/^		virtual bool _button_handle(const XEvent & xev) override;$/;"	m	class:PerspectiveView
+override	Includes/PerspectiveView.h	/^		virtual bool _keyboard_handle(const XEvent & xev) override;$/;"	m	class:PerspectiveView
 override	Includes/PerspectiveView.h	/^    virtual void initializeGL() override;$/;"	m	class:PerspectiveView
 override	Includes/PerspectiveView.h	/^    virtual void paintGL() override;$/;"	m	class:PerspectiveView
 override	Includes/PerspectiveView.h	/^    virtual void resizeGL(const size_t & w, const size_t & h) override;$/;"	m	class:PerspectiveView
@@ -733,19 +745,19 @@ override	Includes/Program.h	/^        void stopUsing() const override;$/;"	m	cla
 override	Includes/Program.h	/^        void use() const override;$/;"	m	class:Lumos::Program
 override	Includes/Shader.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::Shader
 override	Includes/Shader.h	/^        void use() const override;$/;"	m	class:Lumos::Shader
-override	Includes/View.h	/^    virtual void _expose() override;$/;"	m	class:View
+override	Includes/Texture.h	/^        bool isInUse() const override;$/;"	m	class:Lumos::Texture
+override	Includes/Texture.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::Texture
+override	Includes/Texture.h	/^        void use() const override;$/;"	m	class:Lumos::Texture
+override	Includes/View.h	/^    virtual bool _expose() override;$/;"	m	class:View
 override	Includes/View_bullet.h	/^    virtual void paintGL() override ;$/;"	m	class:View_bullet
 override	Includes/View_bullet.h	/^    virtual void resizeGL(const size_t & w, const size_t & h) override ;$/;"	m	class:View_bullet
 override	Includes/View_renderer.h	/^    virtual void initializeGL() override;$/;"	m	class:View_renderer
 override	Includes/View_renderer.h	/^    virtual void resizeGL(const size_t & w, const size_t &h) override;$/;"	m	class:View_renderer
-override	Includes/WindowManager.h	/^		virtual void _button_handle (const XEvent & event)override;$/;"	m	class:WindowManager
-override	Includes/WindowManager.h	/^		virtual void _expose() override;$/;"	m	class:WindowManager
-override	Includes/WindowManager.h	/^		virtual void _keyboard_handle(const XEvent & event)override;$/;"	m	class:WindowManager
+override	Includes/WindowManager.h	/^		virtual bool _button_handle (const XEvent & event)override;$/;"	m	class:WindowManager
+override	Includes/WindowManager.h	/^		virtual bool _expose() override;$/;"	m	class:WindowManager
+override	Includes/WindowManager.h	/^		virtual bool _keyboard_handle(const XEvent & event)override;$/;"	m	class:WindowManager
 override	Includes/WindowManager.h	/^    virtual int loop() override;$/;"	m	class:WindowManager
 override	Includes/WindowManager.h	/^    virtual void show() override;$/;"	m	class:WindowManager
-override	Includes/WindowManager_headless.h	/^		virtual void _button_handle(const XEvent & xev)override;$/;"	m	class:WindowManager_headless
-override	Includes/WindowManager_headless.h	/^		virtual void _expose() override;$/;"	m	class:WindowManager_headless
-override	Includes/WindowManager_headless.h	/^		virtual void _keyboard_handle(const XEvent & xev)override;$/;"	m	class:WindowManager_headless
 override	Includes/WindowManager_headless.h	/^    virtual int loop() override;$/;"	m	class:WindowManager_headless
 override	Includes/WindowManager_headless.h	/^    virtual void show() override;$/;"	m	class:WindowManager_headless
 paintGL	src/Output/PerspectiveView.cpp	/^void PerspectiveView::paintGL(){$/;"	f	class:PerspectiveView
@@ -776,7 +788,7 @@ printFramebufferInfo	src/Utility/Utility.cpp	/^    void printFramebufferInfo(GLe
 progConfig	src/main.cpp	/^Config progConfig;$/;"	v
 readFromFile	src/Lumos/Shader.cpp	/^Shader Shader::readFromFile(const std::string & fileName, const GLenum & shaderType ){$/;"	f	class:Lumos::Shader
 readFromFiles	src/Lumos/Shader.cpp	/^std::vector<Shader> Shader::readFromFiles( const std::string & shaderDir ){$/;"	f	class:Lumos::Shader
-reflexitivity	Includes/ModelAsset.h	/^        float reflexitivity;$/;"	m	struct:Lumos::Material
+reflexitivity	Includes/Material.h	/^        float reflexitivity;$/;"	m	struct:Lumos::Material
 remove	Includes/Utility.h	/^    void remove(std::vector<T>* v, unsigned int &index){$/;"	f	namespace:Utils
 remove_all	src/Utility/Utility.cpp	/^    void remove_all( const std::experimental::filesystem::path & path ){$/;"	f	namespace:Utils
 render	src/Output/WindowManager.cpp	/^void WindowManager::render(){$/;"	f	class:WindowManager
@@ -862,7 +874,7 @@ sheen_texname	Includes/tiny_obj_loader.h	/^  std::string sheen_texname;      \/\
 shininess	Includes/tiny_obj_loader.h	/^  float shininess;$/;"	m	struct:tinyobj::__anon1
 show	src/Output/WindowManager.cpp	/^void WindowManager::show(){$/;"	f	class:WindowManager
 show	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::show(){$/;"	f	class:WindowManager_headless
-specular	Includes/ModelAsset.h	/^        color3 specular;$/;"	m	struct:Lumos::Material
+specular	Includes/Material.h	/^        color3 specular;$/;"	m	struct:Lumos::Material
 specular	Includes/tiny_obj_loader.h	/^  float specular[3];$/;"	m	struct:tinyobj::__anon1
 specular_highlight_texname	Includes/tiny_obj_loader.h	/^  std::string specular_highlight_texname;  \/\/ map_Ns$/;"	m	struct:tinyobj::__anon1
 specular_texname	Includes/tiny_obj_loader.h	/^  std::string specular_texname;            \/\/ map_Ks$/;"	m	struct:tinyobj::__anon1
@@ -870,6 +882,7 @@ split	Includes/obj_loader.h	/^        inline void split(const std::string &in,$/
 stopUsing	src/Lumos/ArrayBuffer.cpp	/^void ArrayBuffer::stopUsing() const{$/;"	f	class:ArrayBuffer
 stopUsing	src/Lumos/Program.cpp	/^void Program::stopUsing() const {$/;"	f	class:Lumos::Program
 stopUsing	src/Lumos/Shader.cpp	/^void Shader::stopUsing() const{$/;"	f	class:Lumos::Shader
+stopUsing	src/Lumos/Texture.cpp	/^void Texture::stopUsing() const$/;"	f	class:Texture
 str2int	Includes/Utility.h	/^    constexpr unsigned int str2int(const char* str, int h = 0)$/;"	f	namespace:Utils
 string2flag	src/Utility/InputParser.cpp	/^ Flag Cmd::string2flag(const std::string & str){$/;"	f	class:Cmd
 stringValues	Includes/tiny_obj_loader.h	/^  std::vector<std::string> stringValues;$/;"	m	struct:tinyobj::__anon2
@@ -885,7 +898,7 @@ texcoord_cb	Includes/tiny_obj_loader.h	/^  void (*texcoord_cb)(void *user_data, 
 texcoord_index	Includes/tiny_obj_loader.h	/^  int texcoord_index;$/;"	m	struct:tinyobj::__anon3
 texcoords	Includes/tiny_obj_loader.h	/^  std::vector<float> texcoords;  \/\/ 'vt'$/;"	m	struct:tinyobj::__anon6
 textConfig	Includes/Keyboard.h	/^struct textConfig$/;"	s
-texture	Includes/ModelAsset.h	/^        cv::Mat texture;$/;"	m	struct:Lumos::Material
+texture	Includes/Material.h	/^        Texture texture;$/;"	m	struct:Lumos::Material
 tinyobj	Includes/tiny_obj_loader.h	/^namespace tinyobj {$/;"	n
 toChar	src/Utility/Utility.cpp	/^    std::shared_ptr<char> toChar(const std::string& str){$/;"	f	namespace:Utils
 toImageFile_color	src/Output/View_renderer.cpp	/^void View_renderer::toImageFile_color( const std::string & fileName ){$/;"	f	class:View_renderer
@@ -894,7 +907,7 @@ toUniqueColor	src/Utility/Color.cpp	/^color3 Color::toUniqueColor ( const int & 
 toUniqueInt	src/Utility/Color.cpp	/^int Color::toUniqueInt( const int & r, const int & g, const int & b ){$/;"	f	class:Color
 transMode	Includes/Config.h	/^	TransfromMode transMode;$/;"	m	struct:Config
 translate	src/Patronus/Transformable.cpp	/^void Transformable::translate ( const float & x, const float & y, const float & z ){$/;"	f	class:Transformable
-transmittance	Includes/ModelAsset.h	/^        color3 transmittance;$/;"	m	struct:Lumos::Material
+transmittance	Includes/Material.h	/^        color3 transmittance;$/;"	m	struct:Lumos::Material
 transmittance	Includes/tiny_obj_loader.h	/^  float transmittance[3];$/;"	m	struct:tinyobj::__anon1
 tryParseDouble	Includes/tiny_obj_loader.h	/^static bool tryParseDouble(const char *s, const char *s_end, double *result) {$/;"	f	namespace:tinyobj
 turnOff	Includes/Light.h	/^            turnOff() { _isOn = false; }$/;"	f	class:Patronus::Light
@@ -907,6 +920,7 @@ update	Includes/Mesh.h	/^        void update( const point3 & p){$/;"	f	struct:Pa
 use	src/Lumos/ArrayBuffer.cpp	/^void ArrayBuffer::use() const{$/;"	f	class:ArrayBuffer
 use	src/Lumos/Program.cpp	/^void Program::use() const {$/;"	f	class:Lumos::Program
 use	src/Lumos/Shader.cpp	/^void Shader::use() const{$/;"	f	class:Lumos::Shader
+use	src/Lumos/Texture.cpp	/^void Texture::use() const$/;"	f	class:Texture
 usemtl_cb	Includes/tiny_obj_loader.h	/^  void (*usemtl_cb)(void *user_data, const char *name, int material_id);$/;"	m	struct:tinyobj::callback_t_
 uvCoords	Includes/Mesh.h	/^        point2 uvCoords;$/;"	m	struct:Patronus::Vertex
 v	Includes/tiny_obj_loader.h	/^  std::vector<float> v;$/;"	m	struct:tinyobj::obj_shape
@@ -931,7 +945,7 @@ world	src/main.cpp	/^Patronus::PhysicalWorld * world = nullptr;$/;"	v
 ~GLObject	src/Lumos/GLObject.cpp	/^GLObject::~GLObject(){$/;"	f	class:GLObject
 ~Keyboard	Includes/Keyboard.h	/^	~Keyboard(){};$/;"	f	class:Keyboard
 ~Loader	Includes/obj_loader.h	/^        ~Loader()$/;"	f	class:objl::Loader
-~Material	Includes/ModelAsset.h	/^        ~Material(){$/;"	f	struct:Lumos::Material
+~Material	Includes/Material.h	/^        ~Material(){$/;"	f	struct:Lumos::Material
 ~MaterialFileReader	Includes/tiny_obj_loader.h	/^  virtual ~MaterialFileReader() {}$/;"	f	class:tinyobj::MaterialFileReader
 ~MaterialReader	Includes/tiny_obj_loader.h	/^MaterialReader::~MaterialReader() {}$/;"	f	class:tinyobj::MaterialReader
 ~Mesh	src/Patronus/Mesh.cpp	/^Mesh::~Mesh(){$/;"	f	class:Mesh
@@ -940,9 +954,11 @@ world	src/main.cpp	/^Patronus::PhysicalWorld * world = nullptr;$/;"	v
 ~Program	src/Lumos/Program.cpp	/^Program::~Program(){$/;"	f	class:Lumos::Program
 ~Shader	Includes/Shader.h	/^        virtual ~Shader(){};$/;"	f	class:Lumos::Shader
 ~Shaper	src/Patronus/Shaper.cpp	/^Shaper::~Shaper(){$/;"	f	class:Shaper
+~Texture	src/Lumos/Texture.cpp	/^Texture::~Texture()$/;"	f	class:Texture
 ~Transformable	Includes/Transformable.h	/^        virtual ~Transformable(){}$/;"	f	class:Patronus::Transformable
 ~View_bullet	Includes/View_bullet.h	/^    virtual ~View_bullet(){}$/;"	f	class:View_bullet
 ~View_renderer	src/Output/View_renderer.cpp	/^View_renderer::~View_renderer(){$/;"	f	class:View_renderer
+~Widget	src/Output/Widget.cpp	/^Widget::~Widget(){$/;"	f	class:Widget
 ~WindowManager	src/Output/WindowManager.cpp	/^WindowManager::~WindowManager()$/;"	f	class:WindowManager
 ~WindowManager_base	Includes/WindowManager_base.h	/^	virtual ~WindowManager_base(){};$/;"	f	class:WindowManager_base
 ~WindowManager_headless	src/Output/WindowManager_headless.cpp	/^WindowManager_headless::~WindowManager_headless()$/;"	f	class:WindowManager_headless

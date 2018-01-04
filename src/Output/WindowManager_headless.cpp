@@ -216,17 +216,7 @@ void WindowManager_headless::_headlessInit(){
 }
 
 
-void WindowManager_headless::_expose(){
-    render();
-}
 
-void WindowManager_headless::_keyboard_handle(const XEvent & xev){
-
-}
-
-void WindowManager_headless::_button_handle(const XEvent & xev){
-
-}
 
 int WindowManager_headless::loop()
 {

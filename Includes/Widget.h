@@ -14,6 +14,8 @@ public:
           const size_t & w = 500,
           const size_t & h = 500
         );
+
+  virtual ~Widget();
   /**
   * SETTERS AND GETTERS
   */
@@ -38,10 +40,12 @@ public:
   bool isClick(const size_t & x, const size_t & y) const;
   void addChild(Widget* w);
 protected:
-  virtual void _catchEvent(const XEvent & xev);
-  virtual void _expose()=0;
-  virtual void _keyboard_handle(const XEvent & xev)=0;
-  virtual void _button_handle(const XEvent & xev)=0;
+  inline virtual bool _expose(){return true;}
+  inline virtual bool _keyboard_handle(const XEvent & xev){return true;};
+  inline virtual bool _button_handle(const XEvent & xev){return true;};
+  void _internal_keyboard_handle(const XEvent & xev);
+  void _internal_button_handle(const XEvent & xev);
+  void _internal_expose_handle();
   std::string _title;
   size_t _x, _y;
   size_t _width, _height;
