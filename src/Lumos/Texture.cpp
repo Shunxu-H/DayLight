@@ -9,7 +9,7 @@ using namespace Lumos;
    GL_TEXTURE_1D, GL_TEXTURE_2D, GL_TEXTURE_3D, GL_TEXTURE_1D_ARRAY, GL_TEXTURE_2D_ARRAY, GL_TEXTURE_RECTANGLE, GL_TEXTURE_CUBE_MAP, GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_BUFFER, GL_TEXTURE_2D_MULTISAMPLE or GL_TEXTURE_2D_MULTISAMPLE_ARRAY.
 
  */
-Texture::Texture(cv::Mat im)
+Texture::Texture()
     : GLObject( [](GLuint * id){glGenTextures(1, id);},
                 [](const GLuint * id){glDeleteTextures(1, id);} )
     , _textureTarget(0)
@@ -18,6 +18,14 @@ Texture::Texture(cv::Mat im)
 {
 
 
+}
+
+Texture & Texture::operator = (const Texture & that ){
+    GLObject::operator=(that);
+    this->_textureTarget = that._textureTarget;
+    this->_internalFormat = that._internalFormat;
+    this->_dataType = that._dataType;
+    return *this;
 }
 
 void Texture::make2DTexure( const cv::Mat & im,

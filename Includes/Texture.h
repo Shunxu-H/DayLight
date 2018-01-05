@@ -8,7 +8,9 @@ namespace Lumos{
 
     class Texture: public GLObject{
     public:
-        Texture(cv::Mat im=cv::Mat{});
+        Texture();
+        Texture(const Texture & that)=delete; // mark to remember to build glAttachShader
+        Texture & operator = (const Texture & that ); // remmeber to build later
         virtual ~Texture();
 
         void use() const override;
@@ -17,7 +19,7 @@ namespace Lumos{
 
         inline GLenum getTarget() const
             { return _textureTarget; }
-        inline bool isEmpty() const
+        inline bool isInitialized() const
             { return _textureTarget == 0; }
 
         void make2DTexure(const cv::Mat & im,

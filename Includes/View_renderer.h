@@ -25,6 +25,7 @@ THE SOFTWARE.
 #define VIEW_RENDERER_H
 
 #include "PerspectiveView.h"
+// #include "FrameBuffer_base.h"
 
 class View_renderer : public PerspectiveView {
 public:

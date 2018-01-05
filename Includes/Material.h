@@ -17,7 +17,7 @@ namespace Lumos {
         ~Material(){
 
         }
-        inline bool hasTexture() const { return !texture.isEmpty();}
+        inline bool hasTexture() const { return !texture.isInitialized();}
         void loadUniforms() const;
 
     };

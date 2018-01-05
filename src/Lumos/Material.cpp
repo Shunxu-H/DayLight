@@ -26,7 +26,7 @@ void Material::loadUniforms() const{
         gProgram->setUniform("transmittance", transmittance);
     }
     if (gProgram->hasUniform("hasTexture")){
-        gProgram->setUniform("hasTexture", !texture.isEmpty());
+        gProgram->setUniform("hasTexture", !texture.isInitialized());
     }
     if (gProgram->hasUniform("diffuseColor"))
         gProgram->setUniform("diffuseColor", diffuseColor );

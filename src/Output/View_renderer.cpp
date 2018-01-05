@@ -218,11 +218,11 @@ cv::Mat View_renderer::_saveDepthImage(const std::string & fileName){
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     glBindTexture(GL_TEXTURE_2D, _out_DepthTextureObject);
-	glGetTexImage ( GL_TEXTURE_2D,
-	                0,
-	                GL_DEPTH_COMPONENT, // GL will convert to this format
-	                GL_UNSIGNED_BYTE,   // Using this data type per-pixel
-	                img.data );
+	  glGetTexImage ( GL_TEXTURE_2D,
+  	                0,
+  	                GL_DEPTH_COMPONENT, // GL will convert to this format
+  	                GL_UNSIGNED_BYTE,   // Using this data type per-pixel
+  	                img.data );
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
