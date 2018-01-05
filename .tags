@@ -79,10 +79,12 @@ EXTERN_H	Includes/Extern.h	25;"	d
 EventCatcher	Includes/EventCatcher.h	/^class EventCatcher{$/;"	c
 FACE_H	Includes/Face.h	25;"	d
 FILL	Includes/Config.h	/^	FILL,$/;"	e	enum:FillMode
+FRAMEBUFFER_H	Includes/FrameBuffer.h	2;"	d
 Face	Includes/Face.h	/^class Face$/;"	c
 Face	src/Patronus/Face.cpp	/^Face::Face(){$/;"	f	class:Face
 FillMode	Includes/Config.h	/^enum FillMode$/;"	g
 Flag	Includes/InputParser.h	/^enum class Flag{$/;"	c
+Framebuffer	Includes/FrameBuffer.h	/^    class Framebuffer: public GLObject{$/;"	c	namespace:Lumos
 GLDebugDrawer	Includes/btDebugDrawer.h	/^class GLDebugDrawer : public btIDebugDraw$/;"	c
 GLDebugDrawer	src/BulletPhysics/btDebugDrawer.cpp	/^GLDebugDrawer::GLDebugDrawer()$/;"	f	class:GLDebugDrawer
 GLError	Includes/Utility.h	40;"	d
@@ -147,6 +149,7 @@ LoadedVertices	Includes/obj_loader.h	/^        std::vector<Vertex> LoadedVertice
 Loader	Includes/obj_loader.h	/^        Loader()$/;"	f	class:objl::Loader
 Loader	Includes/obj_loader.h	/^    class Loader$/;"	c	namespace:objl
 Lumos	Includes/ArrayBuffer.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/FrameBuffer.h	/^namespace Lumos$/;"	n
 Lumos	Includes/GLObject.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Instance.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Material.h	/^namespace Lumos {$/;"	n
@@ -340,13 +343,16 @@ _camInUse	Includes/PerspectiveView.h	/^    Patronus::Camera * _camInUse;$/;"	m	c
 _cameras	Includes/Shaper.h	/^        std::vector< Camera * > _cameras;$/;"	m	class:Patronus::Shaper
 _children	Includes/Widget.h	/^  std::vector<Widget * > _children;$/;"	m	class:Widget
 _collisionConfiguration	Includes/PhysicalWorld.h	/^        btDefaultCollisionConfiguration* _collisionConfiguration;$/;"	m	class:Patronus::PhysicalWorld
+_colorTexBuffer	Includes/FrameBuffer.h	/^        Texture _colorTexBuffer;$/;"	m	class:Lumos::Framebuffer
 _compare	src/Utility/Utility.cpp	/^    bool _compare(std::pair<int, std::shared_ptr<float>> p1, std::pair<int, std::shared_ptr<float>> p2){$/;"	f	namespace:Utils
 _coneAngle	Includes/Light.h	/^        float _coneAngle;$/;"	m	class:Patronus::Light
 _coneDirection	Includes/Light.h	/^        glm::vec3 _coneDirection;$/;"	m	class:Patronus::Light
 _curFileName	Includes/Shaper.h	/^        std::string _curFileName;$/;"	m	class:Patronus::Shaper
+_dataType	Includes/Texture.h	/^        GLenum _dataType;$/;"	m	class:Lumos::Texture
 _deleteFunc	Includes/GLObject.h	/^        void (*_deleteFunc)(const GLuint *); \/\/ function will be called when refCount is 0$/;"	m	class:Lumos::GLObject
 _deleteMultisampledBuffers	src/Output/View_renderer.cpp	/^void View_renderer::_deleteMultisampledBuffers(){$/;"	f	class:View_renderer
 _deleteOutTextures	src/Output/View_renderer.cpp	/^void View_renderer::_deleteOutTextures(){$/;"	f	class:View_renderer
+_depthTexBuffer	Includes/FrameBuffer.h	/^        Texture _depthTexBuffer; $/;"	m	class:Lumos::Framebuffer
 _dispatcher	Includes/PhysicalWorld.h	/^        btCollisionDispatcher* _dispatcher;$/;"	m	class:Patronus::PhysicalWorld
 _drawer	Includes/PhysicalWorld.h	/^        GLDebugDrawer * _drawer;$/;"	m	class:Patronus::PhysicalWorld
 _dynamicsWorld	Includes/PhysicalWorld.h	/^        btDiscreteDynamicsWorld* _dynamicsWorld;$/;"	m	class:Patronus::PhysicalWorld
@@ -374,6 +380,7 @@ _id	Includes/Mesh.h	/^        std::string _id;$/;"	m	class:Patronus::Mesh
 _indices	Includes/Mesh.h	/^        std::vector< unsigned int > _indices;$/;"	m	class:Patronus::Mesh
 _instances	Includes/PhysicalWorld.h	/^        std::vector< Lumos::Instance * > _instances;$/;"	m	class:Patronus::PhysicalWorld
 _intensity	Includes/Light.h	/^        color3 _intensity;$/;"	m	class:Patronus::Light
+_internalFormat	Includes/Texture.h	/^        GLint _internalFormat;$/;"	m	class:Lumos::Texture
 _internal_button_handle	src/Output/Widget.cpp	/^void Widget::_internal_button_handle(const XEvent & xev){$/;"	f	class:Widget
 _internal_expose_handle	src/Output/Widget.cpp	/^void Widget::_internal_expose_handle(){$/;"	f	class:Widget
 _internal_keyboard_handle	src/Output/Widget.cpp	/^void Widget::_internal_keyboard_handle(const XEvent & xev){$/;"	f	class:Widget
@@ -593,6 +600,7 @@ getRidgidBody	Includes/Instance.h	/^            getRidgidBody() const { return _
 getScale	Includes/Transformable.h	/^            getScale() const { return _scale; }$/;"	f	class:Patronus::Transformable
 getShaderId	Includes/PerspectiveView.h	/^        getShaderId() const { return _shaderId; }$/;"	f	class:PerspectiveView
 getSizeInByte	Includes/ArrayBuffer.h	/^            getSizeInByte() const { return _numOfEntry*_bytesPerEntry; }$/;"	f	class:Lumos::ArrayBuffer
+getTarget	Includes/FrameBuffer.h	/^        inline GLenum getTarget() const$/;"	f	class:Lumos::Framebuffer
 getTarget	Includes/Texture.h	/^        inline GLenum getTarget() const$/;"	f	class:Lumos::Texture
 getTitle	Includes/Widget.h	/^  inline std::string getTitle() const {return _title;}$/;"	f	class:Widget
 getTranslate	Includes/Transformable.h	/^            getTranslate() const { return _translate; }$/;"	f	class:Patronus::Transformable
@@ -640,6 +648,7 @@ instantiate_sequentialDraw	src/Patronus/Mesh.cpp	/^Lumos::Instance* Mesh::instan
 intValues	Includes/tiny_obj_loader.h	/^  std::vector<int> intValues;$/;"	m	struct:tinyobj::__anon2
 ior	Includes/tiny_obj_loader.h	/^  float ior;       \/\/ index of refraction$/;"	m	struct:tinyobj::__anon1
 isClick	src/Output/Widget.cpp	/^bool Widget::isClick(const size_t & x, const size_t & y)const{$/;"	f	class:Widget
+isEmpty	Includes/FrameBuffer.h	/^        inline bool isEmpty() const$/;"	f	class:Lumos::Framebuffer
 isEmpty	Includes/Texture.h	/^        inline bool isEmpty() const$/;"	f	class:Lumos::Texture
 isExposed	Includes/View.h	/^    inline bool isExposed() const {return _isExposed; }$/;"	f	class:View
 isExtensionSupported	src/Output/WindowManager.cpp	/^static bool isExtensionSupported(const char *extList, const char *extension)$/;"	f	file:
@@ -670,7 +679,11 @@ m_debugMode	Includes/btDebugDrawer.h	/^        int m_debugMode;$/;"	m	class:GLDe
 m_mtlBasePath	Includes/tiny_obj_loader.h	/^  std::string m_mtlBasePath;$/;"	m	class:tinyobj::MaterialFileReader
 main	src/main.cpp	/^int main(int argc, char *argv[])$/;"	f
 make2DTexure	src/Lumos/Texture.cpp	/^void Texture::make2DTexure( const cv::Mat & im,$/;"	f	class:Texture
+makeColorTextureBuffer	src/Lumos/Texture.cpp	/^void Texture::makeColorTextureBuffer(const size_t & w, const size_t & h){$/;"	f	class:Texture
+makeDepthTextureBuffer	src/Lumos/Texture.cpp	/^void Texture::makeDepthTextureBuffer(const size_t & w, const size_t & h){$/;"	f	class:Texture
 makeDirectionalLight	src/Patronus/Light.cpp	/^Light Light::makeDirectionalLight(const point3 & position, const point3 & intensity, const float & ambientCoefficient){$/;"	f	class:Light
+makeMultisampledColorTextureBuffer	src/Lumos/Texture.cpp	/^void Texture::makeMultisampledColorTextureBuffer(const size_t & w,$/;"	f	class:Texture
+makeMultisampledDepthTextureBuffer	src/Lumos/Texture.cpp	/^void Texture::makeMultisampledDepthTextureBuffer(const size_t & w,$/;"	f	class:Texture
 makePointLight	src/Patronus/Light.cpp	/^Light Light::makePointLight( const point3 & position,$/;"	f	class:Light
 map_Ka	Includes/obj_loader.h	/^        std::string map_Ka;$/;"	m	struct:objl::Material
 map_Kd	Includes/obj_loader.h	/^        std::string map_Kd;$/;"	m	struct:objl::Material
@@ -735,6 +748,9 @@ operator []	src/Utility/InputParser.cpp	/^std::string Cmd::operator [] (const si
 override	Includes/ArrayBuffer.h	/^        bool isInUse() const override;$/;"	m	class:Lumos::ArrayBuffer
 override	Includes/ArrayBuffer.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::ArrayBuffer
 override	Includes/ArrayBuffer.h	/^        void use() const override;$/;"	m	class:Lumos::ArrayBuffer
+override	Includes/FrameBuffer.h	/^        bool isInUse() const override;$/;"	m	class:Lumos::Framebuffer
+override	Includes/FrameBuffer.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::Framebuffer
+override	Includes/FrameBuffer.h	/^        void use() const override;$/;"	m	class:Lumos::Framebuffer
 override	Includes/PerspectiveView.h	/^		virtual bool _button_handle(const XEvent & xev) override;$/;"	m	class:PerspectiveView
 override	Includes/PerspectiveView.h	/^		virtual bool _keyboard_handle(const XEvent & xev) override;$/;"	m	class:PerspectiveView
 override	Includes/PerspectiveView.h	/^    virtual void initializeGL() override;$/;"	m	class:PerspectiveView

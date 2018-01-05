@@ -267,10 +267,18 @@ void View_renderer::_makeMultisampledBuffers(){
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     //----------------------
     //Now make a multisample color buffer
-    glGenRenderbuffers(1, &_Multisampled_ColorBuffer);
-    glBindRenderbuffer(GL_RENDERBUFFER, _Multisampled_ColorBuffer);
+    //glGenRenderbuffers(1, &_Multisampled_ColorBuffer);
+    //glBindRenderbuffer(GL_RENDERBUFFER, _Multisampled_ColorBuffer);
     //samples=4, format=GL_RGBA8, width=256, height=256
-    glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_RGBA8, _width, _height);
+    //glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_RGBA8, _width, _height);
+    glGenTextures(1, &_Multisampled_ColorBuffer);
+    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, _Multisampled_ColorBuffer);
+    glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE,
+                            samples,
+                            GL_RGBA,
+                            _width,
+                            _height,
+                            GL_FALSE);
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     //----------------------
@@ -278,28 +286,38 @@ void View_renderer::_makeMultisampledBuffers(){
     //You must give it the same samples as the color RB, same width and height as well
     //else you will either get a GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT or some other error
 
-    glGenRenderbuffers(1, &_Multisampled_DepthBuffer);
+    //glGenRenderbuffers(1, &_Multisampled_DepthBuffer);
     // glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE,
     //                         samples,
     //                         GL_DEPTH_COMPONENT32F,
     //                         _width, _height, GL_FALSE);
 
-    glBindRenderbuffer(GL_RENDERBUFFER, _Multisampled_DepthBuffer);
+    //glBindRenderbuffer(GL_RENDERBUFFER, _Multisampled_DepthBuffer);
     //samples=4, format=GL_DEPTH_COMPONENT24, width=256, height=256
-    glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_DEPTH_COMPONENT32F, _width, _height);
+    //glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_DEPTH_COMPONENT32F, _width, _height);
     //----------------------
-
+    glGenTextures(1, &_Multisampled_DepthBuffer);
+    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, _Multisampled_DepthBuffer);
+    glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE,
+                            samples,
+                            GL_DEPTH_COMPONENT32F,
+                            _width,
+                            _height,
+                            GL_FALSE);
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
     //It's time to attach the RBs to the FBO
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _Multisampled_ColorBuffer);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _Multisampled_DepthBuffer);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, _Multisampled_ColorBuffer, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, _Multisampled_DepthBuffer, 0);
     //----------------------
     //Make sure FBO status is good
 
     GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
     glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
-    assert(Utils::glExtCheckFramebufferStatus(ErrorMessage) == 1);
+    if(Utils::glExtCheckFramebufferStatus(ErrorMessage) != 1){
+        std::cerr << ErrorMessage << std::endl;
+        exit(EXIT_FAILURE);
+    }
 
 
 
