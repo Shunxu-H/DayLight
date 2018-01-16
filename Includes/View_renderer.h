@@ -41,7 +41,7 @@ public:
 
     void toImageFile_color( const std::string & fileName );
     void toImageFile_depth( const std::string & fileName );
-    void getVisibleObjects();
+    void getVisibleObjects(const std::string & path);
     void generateMasks();
     void generateData();
 

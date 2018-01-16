@@ -31,7 +31,10 @@ namespace Lumos {
 
 
 Instance::Instance( Patronus::Mesh * meshPtr, const ModelAsset & asset)
-    :_meshPtr(meshPtr), _asset(asset), _rigidBody( nullptr )
+    :_meshPtr(meshPtr)
+    , _asset(asset)
+    , _rigidBody( nullptr )
+    , _pickingColor(0.0f, 0.0f, 0.0f)
 {
 
 }

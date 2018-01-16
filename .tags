@@ -5,9 +5,9 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 ARRAYBUFFER_H	Includes/ArrayBuffer.h	25;"	d
-ARRAY_SIZE_X	src/BulletPhysics/PhysicalWorld.cpp	34;"	d	file:
-ARRAY_SIZE_Y	src/BulletPhysics/PhysicalWorld.cpp	33;"	d	file:
-ARRAY_SIZE_Z	src/BulletPhysics/PhysicalWorld.cpp	35;"	d	file:
+ARRAY_SIZE_X	src/BulletPhysics/PhysicalWorld.cpp	36;"	d	file:
+ARRAY_SIZE_Y	src/BulletPhysics/PhysicalWorld.cpp	35;"	d	file:
+ARRAY_SIZE_Z	src/BulletPhysics/PhysicalWorld.cpp	37;"	d	file:
 ATTRIB_N_UNIFORM_SETTERS	src/Lumos/Program.cpp	206;"	d	file:
 AngleBetweenV3	Includes/obj_loader.h	/^        float AngleBetweenV3(const Vector3 a, const Vector3 b)$/;"	f	namespace:objl::math
 ArrayBuffer	Includes/ArrayBuffer.h	/^    class ArrayBuffer: public GLObject{$/;"	c	namespace:Lumos
@@ -557,6 +557,7 @@ getAttrib	src/Lumos/Program.cpp	/^GLint Program::getAttrib(const GLchar* attribN
 getBoundingSphere	src/Patronus/Shaper.cpp	/^void Shaper::getBoundingSphere(const std::vector< point3 > & points, point3 * position, float * radius){$/;"	f	class:Shaper
 getCamInUse	Includes/PerspectiveView.h	/^        getCamInUse() const { return _camInUse; }$/;"	f	class:PerspectiveView
 getColor	src/Utility/Color.cpp	/^float* Color::getColor(const float& a, const float& b, const float& c){$/;"	f	class:Color
+getColor2InstanceMapping	src/BulletPhysics/PhysicalWorld.cpp	/^    PhysicalWorld::getColor2InstanceMapping()$/;"	f	class:Patronus::PhysicalWorld
 getConeAngle	Includes/Light.h	/^            getConeAngle() const { return _coneAngle; }$/;"	f	class:Patronus::Light
 getConeDirection	Includes/Light.h	/^            getConeDirection() const { return _coneDirection; }$/;"	f	class:Patronus::Light
 getCurFileName	Includes/Shaper.h	/^            getCurFileName() const { return _curFileName; }$/;"	f	class:Patronus::Shaper
@@ -615,7 +616,7 @@ getUp	Includes/Camera.h	/^            getUp() const { return _up; }$/;"	f	class:
 getUvInds	Includes/Face.h	/^        getUvInds() const { return _uvIndeces; }$/;"	f	class:Face
 getVertexBuffer	src/Patronus/Shaper.cpp	/^Lumos::ArrayBuffer Shaper::getVertexBuffer( )const$/;"	f	class:Shaper
 getVerticesInds	Includes/Face.h	/^        getVerticesInds() const { return _verticesIndeces; }$/;"	f	class:Face
-getVisibleObjects	src/Output/View_renderer.cpp	/^void View_renderer::getVisibleObjects(){$/;"	f	class:View_renderer
+getVisibleObjects	src/Output/View_renderer.cpp	/^void View_renderer::getVisibleObjects(const std::string & path){$/;"	f	class:View_renderer
 getWidth	Includes/Widget.h	/^  inline size_t getWidth() const {return _width;}$/;"	f	class:Widget
 getWorld	Includes/PhysicalWorld.h	/^            getWorld() const { return _dynamicsWorld; }$/;"	f	class:Patronus::PhysicalWorld
 getX	Includes/Widget.h	/^  inline size_t getX() const {return _x;}$/;"	f	class:Widget
@@ -634,6 +635,7 @@ global_vertices	src/Patronus/Shaper.cpp	/^std::vector< point3 > Shaper::global_v
 group_cb	Includes/tiny_obj_loader.h	/^  void (*group_cb)(void *user_data, const char **names, int num_names);$/;"	m	struct:tinyobj::callback_t_
 has	src/Utility/InputParser.cpp	/^bool InputParser::has(const Flag & f) const{$/;"	f	class:InputParser
 hasAttribute	src/Lumos/Program.cpp	/^bool Program::hasAttribute( const GLchar * attribName ) const {$/;"	f	class:Lumos::Program
+hasSetPickingColorProperly	src/BulletPhysics/PhysicalWorld.cpp	/^bool PhysicalWorld::hasSetPickingColorProperly()const{$/;"	f	class:Patronus::PhysicalWorld
 hasTexture	Includes/Material.h	/^        inline bool hasTexture() const { return !texture.isInitialized();}$/;"	f	struct:Lumos::Material
 hasUniform	src/Lumos/Program.cpp	/^bool Program::hasUniform( const GLchar * uniformName ) const {$/;"	f	class:Lumos::Program
 history	Includes/Keyboard.h	/^	std::vector<std::string> history;$/;"	m	class:Keyboard
@@ -828,6 +830,7 @@ rotate	src/Patronus/Transformable.cpp	/^void Transformable::rotate ( const float
 rotateAroundFocus	src/Patronus/Camera.cpp	/^void Camera::rotateAroundFocus( const float & x_axis, const float & y_axis){$/;"	f	class:Camera
 roughness	Includes/tiny_obj_loader.h	/^  float roughness;                \/\/ [0, 1] default 0$/;"	m	struct:tinyobj::__anon1
 roughness_texname	Includes/tiny_obj_loader.h	/^  std::string roughness_texname;  \/\/ map_Pr$/;"	m	struct:tinyobj::__anon1
+saveColor2InstanceMapping	src/BulletPhysics/PhysicalWorld.cpp	/^    PhysicalWorld::saveColor2InstanceMapping(const std::string & filename)$/;"	f	class:Patronus::PhysicalWorld
 scale	src/Patronus/Transformable.cpp	/^void Transformable::scale ( const float & x, const float & y, const float & z ){$/;"	f	class:Transformable
 selectMode	Includes/Config.h	/^	SelectMode selectMode;$/;"	m	struct:Config
 selectWithBean	src/BulletPhysics/PhysicalWorld.cpp	/^Lumos::Instance * PhysicalWorld::selectWithBean( const btVector3 & start, const btVector3 & end ){$/;"	f	class:Patronus::PhysicalWorld
@@ -864,6 +867,7 @@ setNormalIndeces	src/Patronus/Face.cpp	/^void Face::setNormalIndeces(const int &
 setObjId	Includes/GLObject.h	/^            setObjId( const GLuint id) { _glObjId = id; }$/;"	f	class:Lumos::GLObject
 setOrientation	Includes/Transformable.h	/^            setOrientation( const point3 & arg ) { _orientation=arg; }$/;"	f	class:Patronus::Transformable
 setPickingColor	Includes/Instance.h	/^            setPickingColor( const color3 & c ) { _pickingColor = c; }$/;"	f	class:Lumos::Instance
+setPickingColor	src/BulletPhysics/PhysicalWorld.cpp	/^void PhysicalWorld::setPickingColor(){$/;"	f	class:Patronus::PhysicalWorld
 setRidgidBody	src/Lumos/Instance.cpp	/^void Instance::setRidgidBody(  btRigidBody * const &  arg )$/;"	f	class:Lumos::Instance
 setScale	Includes/Transformable.h	/^            setScale( const point3 & arg ) { _scale=arg; }$/;"	f	class:Patronus::Transformable
 setShaderId	Includes/PerspectiveView.h	/^        setShaderId( const std::string & id) { _shaderId = id; }$/;"	f	class:PerspectiveView

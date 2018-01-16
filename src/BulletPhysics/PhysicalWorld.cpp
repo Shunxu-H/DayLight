@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 #include <iostream>
+#include <fstream>
+#include <unordered_map>
 #include "btBulletDynamicsCommon.h"
 #include "PhysicalWorld.h"
 #include "Mesh.h"
@@ -279,5 +281,56 @@ Lumos::Instance * PhysicalWorld::selectWithBean( const btVector3 & start, const 
 
 }
 
+bool PhysicalWorld::hasSetPickingColorProperly()const{
+    for (size_t instanceItr = 0; instanceItr < _instances.size(); instanceItr++){
+        // get color coded material
+        if (_instances[instanceItr]->getPickingColor() != Color::toUniqueColor(instanceItr+1) / 255.0f)
+            return false;
+    }
+    return true;
+}
+
+void PhysicalWorld::setPickingColor(){
+    for (size_t instanceItr = 0; instanceItr <  _instances.size(); instanceItr++){
+        // get color coded material
+        _instances[instanceItr]->setPickingColor( Color::toUniqueColor(instanceItr+1) / 255.0f );
+    }
+}
+
+std::vector<std::tuple<color3, std::string>>
+    PhysicalWorld::getColor2InstanceMapping()
+{
+    if (!hasSetPickingColorProperly())
+        setPickingColor();
+
+    std::vector<std::tuple<color3, std::string>> mappings;
+    using tup = std::tuple<color3, std::string>;
+    for(const auto & instance : _instances )
+    {
+        mappings.push_back(
+            tup(instance->getPickingColor()*255.0f,
+                instance->getId()
+              ));
+    }
+    return mappings;
+}
+
+std::vector<std::tuple<color3, std::string>>
+    PhysicalWorld::saveColor2InstanceMapping(const std::string & filename)
+{
+    std::vector<std::tuple<color3, std::string>> mappings
+        = getColor2InstanceMapping();
+    std::ofstream of(filename.c_str());
+    color3 curColor;
+    for (const auto & tuple : mappings)
+    {
+        curColor = std::get<0>(tuple);
+        of << curColor.x << " " << curColor.y << " " << curColor.z
+           << " " << std::get<1>(tuple) << std::endl;
+
+    }
+    of.close();
+    return mappings;
+}
 
 }

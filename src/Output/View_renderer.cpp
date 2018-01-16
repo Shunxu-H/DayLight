@@ -390,32 +390,29 @@ void View_renderer::_makeOutTextures(){
 
 
 
-void View_renderer::getVisibleObjects(){
+void View_renderer::getVisibleObjects(const std::string & path){
     // color code objects
     size_t numOfInstances = world->getInstances().size();
     std::vector< Lumos::Instance * > worldInstances = world->getInstances();
+    std::vector< std::string > color2instanceName_mapping;
     // 0 is reserved for empty space
-    for (size_t instanceItr = 0; instanceItr < numOfInstances; instanceItr++){
-        // get color coded material
-        worldInstances[instanceItr]->setPickingColor( Color::toUniqueColor(instanceItr+1) / 255.0f );
-        // color3 c3 = Color::toUniqueColor(instanceItr+1);
-        // Debug(c3[0] << " " << c3[1] << " " << c3[2] << "#" << Color::toUniqueInt(c3[0], c3[1], c3[2]));
-    }
+    // for (size_t instanceItr = 0; instanceItr < numOfInstances; instanceItr++){
+    //     // get color coded material
+    //     worldInstances[instanceItr]->setPickingColor( Color::toUniqueColor(instanceItr+1) / 255.0f );
+    //
+    // }
 
     std::string temp = _shaderId;
     _shaderId = Lumos::Shader::mask_shader_id;
     glBindFramebuffer(GL_FRAMEBUFFER, _out_FBO);
     paintGL();
     _shaderId = temp;
-
     //GLubyte * pixels = new GLubyte [width*height*4*sizeof(GLuint)];
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
-
 
     GLint drawId = 0, readId = 0;
     glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
     glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readId);
-    //glMapBufferRange(_ColorBuffer, 0, GLsizeiptr length​, GLbitfield access​);
 
     cv::Mat img(_height, _width, CV_8UC3);
     glPixelStorei(GL_PACK_ALIGNMENT, (img.step & 3)?1:4);
@@ -432,8 +429,7 @@ void View_renderer::getVisibleObjects(){
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     cv::Mat flipped(img);
     cv::flip(img, flipped, 0);
-    cv::imwrite("temp.png", img);
-
+    cv::imwrite(path + "colorCodedScene.png", img);
 
     glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
 
@@ -476,9 +472,11 @@ void View_renderer::getVisibleObjects(){
 }
 
 void View_renderer::generateMasks(){
+    const std::string savePath =  OUTPUT_DIR + shaper->getCurFileName() +
+                    "/" + _camInUse->getId() +
+                    "/mask_";
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
-
-    getVisibleObjects();
+    getVisibleObjects(savePath);
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
 
     // make everythign invisible
@@ -497,9 +495,7 @@ void View_renderer::generateMasks(){
         curOn = ins;
         ins->setPickingColor(color3(1, 1, 1));
         paintGL();
-        _saveBitMap(std::string(  OUTPUT_DIR + shaper->getCurFileName() +
-        							  "/" + _camInUse->getId() +
-        							  "/mask_" + ins->getId() + ".png" ));
+        _saveBitMap(  savePath + ins->getId() + ".png" );
     }
     for (Lumos::Instance * ins : world->getInstances())
     {
@@ -516,7 +512,7 @@ void View_renderer::generateData(){
     std::string parentDir = OUTPUT_DIR + shaper->getCurFileName() + "/";
     Utils::cleanAndMkdir(parentDir + _camInUse->getId());
 
-
+    world->saveColor2InstanceMapping(parentDir + "Color2InstanceMapping.txt");
     generateMasks();
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 

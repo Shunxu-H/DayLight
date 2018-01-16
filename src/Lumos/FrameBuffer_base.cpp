@@ -8,7 +8,7 @@ FrameBuffer_base::FrameBuffer_base(const size_t & w_, const size_t & h_)
     , _width(w_)
     , _height(h_)
 {
-    _initialize(_width, _height);
+    //_initialize(_width, _height);
 
 }
 

@@ -25,8 +25,8 @@ THE SOFTWARE.
 #define PHYSICALWORLD_H
 
 #include <vector>
-#include <set>
-#include <Instance.h>
+#include <tuple>
+#include "Instance.h"
 #include "btBulletDynamicsCommon.h"
 #include "btDebugDrawer.h"
 
@@ -53,13 +53,8 @@ namespace Patronus {
         void test();
 
         /**
-         * @brief selectWithBean, input the start and end position of ray in the world and see if it intersect with any ridgit body in the scene
-         * @param start, start of the ray
-         * @param end, end of the ray
-         * @return the closest instance hit by ray or nullptr if none hit
+         * ASSESORS AND MUTATORS
          */
-        Lumos::Instance * selectWithBean( const btVector3 & start, const btVector3 & end );
-
         inline std::vector< Lumos::Instance * >
             getInstances() { return _instances; }
 
@@ -67,6 +62,38 @@ namespace Patronus {
             getWorld() const { return _dynamicsWorld; }
 
         void clearAll();
+        /**
+         * END OF ASSESORS AND MUTATORS
+         */
+
+        /**
+         * @brief selectWithBean, input the start and end position of ray in the world and see if it intersect with any ridgit body in the scene
+         * @param start, start of the ray
+         * @param end, end of the ray
+         * @return the closest instance hit by ray or nullptr if none hit
+         */
+        Lumos::Instance * selectWithBean( const btVector3 & start, const btVector3 & end );
+
+        /**
+         * Check if a unique picking color is set for each instance in the
+         * physical world
+         * @return boolean indicating whether the statement above is true
+         */
+        bool hasSetPickingColorProperly()const;
+        /**
+         * Assign a unique color to all the instances in the physical world
+         * Note: (0, 0, 0) is reserved to indicate empty space
+         */
+        void setPickingColor();
+
+        /**
+         * generate mapping from picking color to instance id
+         * @return a vector of tuple mapping a color (0~255) to a string(instance
+         * id)
+         */
+        std::vector<std::tuple<color3, std::string>> getColor2InstanceMapping();
+        std::vector<std::tuple<color3, std::string>>
+            saveColor2InstanceMapping(const std::string & filename);
 
     protected:
 

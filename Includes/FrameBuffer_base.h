@@ -18,16 +18,17 @@ namespace Lumos
         void stopUsing() const override;
 
 
-        void blit( const FrameBuffer_base  & that ) const ;
+        void blit( const FrameBuffer_base  & that ) const;
         //void makeMultisampledFrameBuffer(const size_t & w, const size_t & h);
 
+        virtual void save2file(const std::string & filename) const = 0;
     protected:
 
     private:
         bool isInUse() const override; // to disable isInUse
         void use() const override; // to disable use
 
-        virtual void _initialize(const size_t & w, const size_t & h);
+        virtual void _initialize(const size_t & w, const size_t & h) = 0;
         size_t _width;
         size_t _height;
         Texture _colorTexBuffer;

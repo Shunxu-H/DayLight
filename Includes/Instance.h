@@ -103,7 +103,7 @@ namespace Lumos {
         btRigidBody * _rigidBody;
         color3 _pickingColor;
 
-        friend void View_renderer::getVisibleObjects();
+        //friend void View_renderer::getVisibleObjects(const std::string &);
 
 
     };
