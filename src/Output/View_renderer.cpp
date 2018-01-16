@@ -394,13 +394,6 @@ void View_renderer::getVisibleObjects(const std::string & path){
     // color code objects
     size_t numOfInstances = world->getInstances().size();
     std::vector< Lumos::Instance * > worldInstances = world->getInstances();
-    std::vector< std::string > color2instanceName_mapping;
-    // 0 is reserved for empty space
-    // for (size_t instanceItr = 0; instanceItr < numOfInstances; instanceItr++){
-    //     // get color coded material
-    //     worldInstances[instanceItr]->setPickingColor( Color::toUniqueColor(instanceItr+1) / 255.0f );
-    //
-    // }
 
     std::string temp = _shaderId;
     _shaderId = Lumos::Shader::mask_shader_id;
@@ -473,8 +466,7 @@ void View_renderer::getVisibleObjects(const std::string & path){
 
 void View_renderer::generateMasks(){
     const std::string savePath =  OUTPUT_DIR + shaper->getCurFileName() +
-                    "/" + _camInUse->getId() +
-                    "/mask_";
+                    "/" + _camInUse->getId() + "/";
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
     getVisibleObjects(savePath);
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
@@ -495,7 +487,7 @@ void View_renderer::generateMasks(){
         curOn = ins;
         ins->setPickingColor(color3(1, 1, 1));
         paintGL();
-        _saveBitMap(  savePath + ins->getId() + ".png" );
+        _saveBitMap(  savePath + "mask_" + ins->getId() + ".png" );
     }
     for (Lumos::Instance * ins : world->getInstances())
     {
