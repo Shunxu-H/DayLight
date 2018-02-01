@@ -55,10 +55,10 @@ Depth Mask:
 	* - [ ] tilt
 	* - [X] zoom
 	* - [X] select
-- [ ] Make Texture a separated class
+- [X] Make Texture a separated class
 - [ ] Make FrameBuffer a separated class
   * - [X] Make FrameBuffer_base
-  * - [ ] Make FrameBuffer
+  * - [X] Make FrameBuffer
   * - [ ] Make MultisampledFrameBuffer;
 - [ ] Enable more than two shaders in pipes
 - [ ] Deffered rendering
