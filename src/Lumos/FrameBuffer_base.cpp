@@ -24,7 +24,7 @@ THE SOFTWARE.
 */
 #include "FrameBuffer_base.h"
 
-using namespace Lumos;
+namespace Lumos{
 
 FrameBuffer_base::FrameBuffer_base(const size_t & w_, const size_t & h_)
     : GLObject( [](GLuint * id){glGenFramebuffers(1, id);},
@@ -113,5 +113,8 @@ void FrameBuffer_base::stopUsing() const
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
     if(isInUse(GL_READ_FRAMEBUFFER_BINDING))
         glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+
+}
+
 
 }
