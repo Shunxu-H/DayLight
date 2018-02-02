@@ -28,23 +28,33 @@ THE SOFTWARE.
 
 namespace Lumos{
 
-
     class Texture: public GLObject{
     public:
         Texture();
-        Texture(const Texture & that)=delete; // mark to remember to build glAttachShader
-        Texture & operator = (const Texture & that ); // remmeber to build later
+        Texture(const Texture & that)=delete; // mark to remember to build
+        Texture & operator = (const Texture & that );
         virtual ~Texture();
 
         void use() const override;
         bool isInUse() const override;
         void stopUsing() const override;
 
+        inline size_t getWidth() const {
+          int w, miplevel = 0;
+          glGetTexLevelParameteriv(_textureTarget, miplevel, GL_TEXTURE_WIDTH, &w);
+          return w;
+        }
+        inline size_t getHeight() const{
+          int h, miplevel = 0;
+          glGetTexLevelParameteriv(_textureTarget, miplevel, GL_TEXTURE_HEIGHT, &h);
+          return h;
+        }
         inline GLenum getTarget() const
-            { return _textureTarget; }
+          { return _textureTarget; }
         inline bool isInitialized() const
-            { return _textureTarget == 0; }
+          { return _textureTarget != 0; }
 
+        virtual void resize(const GLsizei & w, const GLsizei & h) const = 0;
         void make2DTexure(const cv::Mat & im,
                           const GLint & internalFormat = GL_RGB,
                           const GLint & dataType = GL_UNSIGNED_BYTE,

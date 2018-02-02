@@ -26,11 +26,9 @@ THE SOFTWARE.
 
 namespace Lumos{
 
-FrameBuffer_base::FrameBuffer_base(const size_t & w_, const size_t & h_)
+FrameBuffer_base::FrameBuffer_base()
     : GLObject( [](GLuint * id){glGenFramebuffers(1, id);},
                 [](const GLuint * id){glDeleteFramebuffers(1, id);} )
-    , _width(w_)
-    , _height(h_)
 {
     //_initialize(_width, _height);
 
@@ -39,8 +37,6 @@ FrameBuffer_base::FrameBuffer_base(const size_t & w_, const size_t & h_)
 FrameBuffer_base & FrameBuffer_base::operator = (const FrameBuffer_base & that)
 {
     GLObject::operator = (that);
-    this->_colorTexBuffer = that._colorTexBuffer;
-    this->_depthTexBuffer = that._depthTexBuffer;
     return *this;
 }
 
@@ -62,6 +58,11 @@ void FrameBuffer_base::use(const GLenum & target) const
     glBindFramebuffer(target, _glObjId);
 }
 
+void FrameBuffer_base::use() const
+{
+  glBindFramebuffer(GL_FRAMEBUFFER, _glObjId);
+}
+
 bool FrameBuffer_base::isInUse(const GLint & bindingTarget ) const {
     assert((bindingTarget == GL_DRAW_FRAMEBUFFER_BINDING or
             bindingTarget == GL_READ_FRAMEBUFFER_BINDING) and
@@ -73,16 +74,15 @@ bool FrameBuffer_base::isInUse(const GLint & bindingTarget ) const {
     return fbid == static_cast<GLint>(_glObjId);
 }
 
-void FrameBuffer_base::use() const
-{
-    assert(!"Please do not call this function");
-}
-
 bool FrameBuffer_base::isInUse() const
 {
-    assert(!"Please do not call this function");
-    return true; // to avoid compilation error
+  assert(!"Please use FrameBuffer_base::isInUse(const GLint & bindingTarget ) const" );
+  GLint fbid = 0;
+  glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &fbid);
+  return fbid == static_cast<GLint>(_glObjId);
 }
+
+
 
 void FrameBuffer_base::stopUsing() const
 {

@@ -87,6 +87,23 @@ Texture::~Texture()
 
 }
 
+
+
+void Texture::resize(const GLsizei & w, const GLsizei & h) const{
+  use();
+  assert(w > 0 and h > 0 and "Width and Height must be positive");
+  glTexImage2D (_textureTarget,
+                0,
+                _internalFormat,
+                w,
+                h,
+                0,
+                GL_RED,
+                GL_FLOAT,
+                NULL);
+  stopUsing();
+}
+
 void Texture::makeMultisampledColorTextureBuffer(const size_t & w,
                                                  const size_t & h,
                                                  const GLint & internalFormat,

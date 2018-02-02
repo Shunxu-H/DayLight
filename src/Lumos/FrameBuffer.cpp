@@ -5,16 +5,57 @@
 namespace Lumos{
 
 FrameBuffer::FrameBuffer(const size_t & width, const size_t & height )
-  : FrameBuffer_base(width, height)
+  : FrameBuffer_base()
+  , _colorTexBuffer(width, height)
+  , _depthTexBuffer(width, height)
 {
-    _colorTexBuffer.makeColorTextureBuffer(_width, _height);
-    _depthTexBuffer.makeDepthTextureBuffer(_width, _height);
+  assert(_colorTexBuffer.isInitialized() and _depthTexBuffer.isInitialized()
+        and "_colorTexBuffer or _depthTexBuffer is not initialized properly");
 
+  GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+  use();
+  // attach color
+  glFramebufferTexture2D(GL_FRAMEBUFFER,
+                         GL_COLOR_ATTACHMENT0,
+                         GL_TEXTURE_2D,
+                         _colorTexBuffer.getGlObjId(),
+                         0);
+  glFramebufferTexture2D(GL_FRAMEBUFFER,
+                         GL_DEPTH_ATTACHMENT,
+                         GL_TEXTURE_2D,
+                         _depthTexBuffer.getGlObjId(),
+                         0);
+
+
+  // Set the list of draw buffers.
+  GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+  // check buffer status
+  if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+      throw std::runtime_error ( "Error! FrameBuffer is not complete" );
+
+
+
+  // GLint drawId = 0, readId = 0;
+  // glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
+  // glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readId);
+
+
+  GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
+  glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
+
+  //glViewport(0,0,width,height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
+
+
+  stopUsing();
+  GLError( __PRETTY_FUNCTION__ , __LINE__ );
 }
 
 FrameBuffer & FrameBuffer::operator = ( const FrameBuffer & that){
   FrameBuffer_base::operator=(that);
-
+  _colorTexBuffer = that._colorTexBuffer;
+  _depthTexBuffer = that._depthTexBuffer;
   return *this;
 }
 
@@ -22,6 +63,7 @@ FrameBuffer::~FrameBuffer()
 {
 
 }
+
 
 cv::Mat FrameBuffer::saveColorBuffer2file(const std::string & filename){
 

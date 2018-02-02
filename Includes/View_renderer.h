@@ -25,6 +25,8 @@ THE SOFTWARE.
 #define VIEW_RENDERER_H
 
 #include "PerspectiveView.h"
+#include "FrameBuffer.h"
+#include "MultisampledFrameBuffer.h"
 // #include "FrameBuffer_base.h"
 
 class View_renderer : public PerspectiveView {
@@ -37,11 +39,13 @@ public:
 	          const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
 	          const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
                 );
+    View_renderer(const View_renderer & that) = delete;
+    View_renderer operator = ( const View_renderer & that) = delete;
     virtual ~View_renderer();
 
     void toImageFile_color( const std::string & fileName );
     void toImageFile_depth( const std::string & fileName );
-    void getVisibleObjects(const std::string & path);
+    void getVisibleObjects( const std::string & path );
     void generateMasks();
     void generateData();
 
@@ -52,12 +56,14 @@ protected:
 
 
 private:
-    GLuint _Multisampled_FBO;
-    GLuint _Multisampled_ColorBuffer;
-    GLuint _Multisampled_DepthBuffer;
-    GLuint _out_FBO;
-    GLuint _out_ColorTextureObject;
-    GLuint _out_DepthTextureObject;
+    Lumos::FrameBuffer _frameBuffer;
+    Lumos::MultisampledFrameBuffer _multisampledFrameBuffer;
+    // GLuint _Multisampled_FBO;
+    // GLuint _Multisampled_ColorBuffer;
+    // GLuint _Multisampled_DepthBuffer;
+    // GLuint _out_FBO;
+    // GLuint _out_ColorTextureObject;
+    // GLuint _out_DepthTextureObject;
 
     cv::Mat _saveColorImage(const std::string & fileName);
     cv::Mat _saveDepthImage(const std::string & fileName);

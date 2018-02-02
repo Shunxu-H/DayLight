@@ -29,6 +29,7 @@ CAMERA_DIRECTORY	Includes/InputParser.h	/^    CAMERA_DIRECTORY,$/;"	m	class:Flag
 CAMERA_H	Includes/Camera.h	25;"	d
 CLIPPING	Includes/Config.h	/^	CLIPPING,$/;"	e	enum:OpMode
 COLOR4_BUFFER	Includes/ArrayBuffer.h	/^        COLOR4_BUFFER,$/;"	m	class:Lumos::Type
+COLORTEXBUFFER_H	Includes/ColorTexBuffer.h	2;"	d
 COLOR_H	Includes/Color.h	25;"	d
 COLOR_HIGHTLIGHTED_VERTEX	Includes/Config.h	/^    color4 COLOR_HIGHTLIGHTED_VERTEX;$/;"	m	struct:Config
 COLOR_SELECTION_BOX	Includes/Config.h	/^    color4 COLOR_SELECTION_BOX;$/;"	m	struct:Config
@@ -53,11 +54,15 @@ Cmd	src/Utility/InputParser.cpp	/^Cmd::Cmd(char* s):Cmd(string2flag(s)){};$/;"	f
 Color	Includes/Color.h	/^class Color$/;"	c
 Color	src/Utility/Color.cpp	/^Color::Color(){$/;"	f	class:Color
 ColorMode	Includes/Config.h	/^enum ColorMode$/;"	g
+ColorTexBuffer	Includes/ColorTexBuffer.h	/^class ColorTexBuffer : public Texure{$/;"	c	namespace:Lumos
+ColorTexBuffer	src/Lumos/ColorTexBuffer.cpp	/^ColorTexBuffer::ColorTexBuffer(){$/;"	f	class:Lumos::ColorTexBuffer
+ColorTexBuffer	src/Lumos/ColorTexBuffer.cpp	/^ColorTexBuffer::ColorTexBuffer(const size_t & width, const size_t & height)$/;"	f	class:Lumos::ColorTexBuffer
 Config	Includes/Config.h	/^struct Config$/;"	s
 Config	src/Utility/Config.cpp	/^Config::Config()$/;"	f	class:Config
 CrossV3	Includes/obj_loader.h	/^        Vector3 CrossV3(const Vector3 a, const Vector3 b)$/;"	f	namespace:objl::math
 CurveType	Includes/Config.h	/^enum CurveType {$/;"	g
 DDA	Includes/Config.h	/^	DDA, \/\/ Digital Differential Analyzer$/;"	e	enum:LineAlg
+DEPTHTEXBUFFER_H	Includes/DepthTexBuffer.h	2;"	d
 DGREEN	Includes/Color.h	/^    const static color4 DGREEN;$/;"	m	class:Color
 DGREEN	src/Utility/Color.cpp	/^const color4 Color::DGREEN = color4{ 0.00f,  0.50f,  0.00f, 1.00f };$/;"	m	class:Color	file:
 DGREY	Includes/Color.h	/^    const static color4 DGREY ;$/;"	m	class:Color
@@ -69,6 +74,9 @@ DRAWING	Includes/Config.h	/^	DRAWING,$/;"	e	enum:OpMode
 DRAWSHAPE	Includes/Config.h	/^	DRAWSHAPE$/;"	e	enum:DrawMode
 Debug	Includes/Utility.h	39;"	d
 Debug	Includes/Utility.h	42;"	d
+DepthTexBuffer	Includes/DepthTexBuffer.h	/^class DepthTexBuffer : public Texure{$/;"	c	namespace:Lumos
+DepthTexBuffer	src/Lumos/DepthTexBuffer.cpp	/^DepthTexBuffer::DepthTexBuffer(){$/;"	f	class:Lumos::DepthTexBuffer
+DepthTexBuffer	src/Lumos/DepthTexBuffer.cpp	/^DepthTexBuffer::DepthTexBuffer(const size_t & width, const size_t & height)$/;"	f	class:Lumos::DepthTexBuffer
 DotV3	Includes/obj_loader.h	/^        float DotV3(const Vector3 a, const Vector3 b)$/;"	f	namespace:objl::math
 DrawMode	Includes/Config.h	/^enum DrawMode$/;"	g
 EDGE	Includes/Config.h	/^	EDGE,$/;"	e	enum:ObjType
@@ -89,7 +97,7 @@ FrameBuffer	Includes/FrameBuffer.h	/^  FrameBuffer(){};$/;"	f	class:Lumos::Frame
 FrameBuffer	Includes/FrameBuffer.h	/^class FrameBuffer : public FrameBuffer_base{$/;"	c	namespace:Lumos
 FrameBuffer	src/Lumos/FrameBuffer.cpp	/^FrameBuffer::FrameBuffer(const size_t & width, const size_t & height )$/;"	f	class:Lumos::FrameBuffer
 FrameBuffer_base	Includes/FrameBuffer_base.h	/^    class FrameBuffer_base: public GLObject{$/;"	c	namespace:Lumos
-FrameBuffer_base	src/Lumos/FrameBuffer_base.cpp	/^FrameBuffer_base::FrameBuffer_base(const size_t & w_, const size_t & h_)$/;"	f	class:Lumos::FrameBuffer_base
+FrameBuffer_base	src/Lumos/FrameBuffer_base.cpp	/^FrameBuffer_base::FrameBuffer_base()$/;"	f	class:Lumos::FrameBuffer_base
 GLDebugDrawer	Includes/btDebugDrawer.h	/^class GLDebugDrawer : public btIDebugDraw$/;"	c
 GLDebugDrawer	src/BulletPhysics/btDebugDrawer.cpp	/^GLDebugDrawer::GLDebugDrawer()$/;"	f	class:GLDebugDrawer
 GLError	Includes/Utility.h	40;"	d
@@ -154,6 +162,8 @@ LoadedVertices	Includes/obj_loader.h	/^        std::vector<Vertex> LoadedVertice
 Loader	Includes/obj_loader.h	/^        Loader()$/;"	f	class:objl::Loader
 Loader	Includes/obj_loader.h	/^    class Loader$/;"	c	namespace:objl
 Lumos	Includes/ArrayBuffer.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/ColorTexBuffer.h	/^namespace Lumos{$/;"	n
+Lumos	Includes/DepthTexBuffer.h	/^namespace Lumos{$/;"	n
 Lumos	Includes/FrameBuffer.h	/^namespace Lumos{$/;"	n
 Lumos	Includes/FrameBuffer_base.h	/^namespace Lumos$/;"	n
 Lumos	Includes/GLObject.h	/^namespace Lumos {$/;"	n
@@ -161,6 +171,8 @@ Lumos	Includes/Instance.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Material.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Mesh.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/ModelAsset.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/MultisampledColorTexBuffer.h	/^namespace Lumos{$/;"	n
+Lumos	Includes/MultisampledDepthTexBuffer.h	/^namespace Lumos{$/;"	n
 Lumos	Includes/MultisampledFrameBuffer.h	/^namespace Lumos{$/;"	n
 Lumos	Includes/PerspectiveView.h	/^namespace Lumos{$/;"	n
 Lumos	Includes/PhysicalWorld.h	/^namespace Lumos {$/;"	n
@@ -168,16 +180,24 @@ Lumos	Includes/Program.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Shader.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Shaper.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Texture.h	/^namespace Lumos{$/;"	n
+Lumos	Includes/Texure2D.h	/^namespace Lumos{$/;"	n
 Lumos	Includes/WindowManager_headless.h	/^namespace Lumos {$/;"	n
+Lumos	src/Lumos/ColorTexBuffer.cpp	/^namespace Lumos{$/;"	n	file:
+Lumos	src/Lumos/DepthTexBuffer.cpp	/^namespace Lumos{$/;"	n	file:
 Lumos	src/Lumos/FrameBuffer.cpp	/^namespace Lumos{$/;"	n	file:
 Lumos	src/Lumos/FrameBuffer_base.cpp	/^namespace Lumos{$/;"	n	file:
 Lumos	src/Lumos/Instance.cpp	/^namespace Lumos {$/;"	n	file:
+Lumos	src/Lumos/MultisampledColorTexBuffer.cpp	/^namespace Lumos{$/;"	n	file:
+Lumos	src/Lumos/MultisampledDepthTexBuffer.cpp	/^namespace Lumos{$/;"	n	file:
 Lumos	src/Lumos/MultisampledFrameBuffer.cpp	/^namespace Lumos{$/;"	n	file:
 Lumos	src/Lumos/Program.cpp	/^namespace Lumos{$/;"	n	file:
 Lumos	src/Lumos/Shader.cpp	/^namespace Lumos {$/;"	n	file:
+Lumos	src/Lumos/Texure2d.cpp	/^namespace Lumos{$/;"	n	file:
 MATERIAL_H	Includes/Material.h	2;"	d
 MODELASSET_H	Includes/ModelAsset.h	25;"	d
 MOVING	Includes/Config.h	/^	MOVING,$/;"	e	enum:OpMode
+MULTISAMPLEDCOLORTEXBUFFER_H	Includes/MultisampledColorTexBuffer.h	2;"	d
+MULTISAMPLEDDEPTHTEXBUFFER_H	Includes/MultisampledDepthTexBuffer.h	2;"	d
 MULTISAMPLEDFRAMEBUFFER_H	Includes/MultisampledFrameBuffer.h	2;"	d
 MagnitudeV3	Includes/obj_loader.h	/^        float MagnitudeV3(const Vector3 in)$/;"	f	namespace:objl::math
 Material	Includes/Material.h	/^    struct Material{$/;"	s	namespace:Lumos
@@ -199,8 +219,15 @@ MeshMaterial	Includes/obj_loader.h	/^        Material MeshMaterial;$/;"	m	struct
 MeshName	Includes/obj_loader.h	/^        std::string MeshName;$/;"	m	struct:objl::Mesh
 Mesh_H	Includes/Mesh.h	25;"	d
 ModelAsset	Includes/ModelAsset.h	/^    struct ModelAsset {$/;"	s	namespace:Lumos
-MultisampledFrameBuffer	Includes/MultisampledFrameBuffer.h	/^  class MultisampledFrameBuffer : public FrameBuffer{$/;"	c	namespace:Lumos
+MultisampledColorTexBuffer	Includes/MultisampledColorTexBuffer.h	/^class MultisampledColorTexBuffer : public Texure{$/;"	c	namespace:Lumos
+MultisampledColorTexBuffer	src/Lumos/MultisampledColorTexBuffer.cpp	/^MultisampledColorTexBuffer::MultisampledColorTexBuffer()$/;"	f	class:Lumos::MultisampledColorTexBuffer
+MultisampledColorTexBuffer	src/Lumos/MultisampledColorTexBuffer.cpp	/^MultisampledColorTexBuffer::MultisampledColorTexBuffer(const size_t & width, const size_t & height)$/;"	f	class:Lumos::MultisampledColorTexBuffer
+MultisampledDepthTexBuffer	Includes/MultisampledDepthTexBuffer.h	/^class MultisampledDepthTexBuffer : public Texure{$/;"	c	namespace:Lumos
+MultisampledDepthTexBuffer	src/Lumos/MultisampledDepthTexBuffer.cpp	/^MultisampledDepthTexBuffer::MultisampledDepthTexBuffer()$/;"	f	class:Lumos::MultisampledDepthTexBuffer
+MultisampledDepthTexBuffer	src/Lumos/MultisampledDepthTexBuffer.cpp	/^MultisampledDepthTexBuffer::MultisampledDepthTexBuffer(const size_t & width, const size_t & height)$/;"	f	class:Lumos::MultisampledDepthTexBuffer
+MultisampledFrameBuffer	Includes/MultisampledFrameBuffer.h	/^  class MultisampledFrameBuffer : public FrameBuffer_base{$/;"	c	namespace:Lumos
 MultisampledFrameBuffer	src/Lumos/MultisampledFrameBuffer.cpp	/^MultisampledFrameBuffer::MultisampledFrameBuffer(){}$/;"	f	class:Lumos::MultisampledFrameBuffer
+MultisampledFrameBuffer	src/Lumos/MultisampledFrameBuffer.cpp	/^MultisampledFrameBuffer::MultisampledFrameBuffer(const FrameBuffer & outputBuffer)$/;"	f	class:Lumos::MultisampledFrameBuffer
 MultisampledFrameBuffer	src/Lumos/MultisampledFrameBuffer.cpp	/^MultisampledFrameBuffer::MultisampledFrameBuffer(const size_t & width, const size_t & height)$/;"	f	class:Lumos::MultisampledFrameBuffer
 NAVIGATING	Includes/Config.h	/^    NAVIGATING,$/;"	e	enum:OpMode
 NORMAL	Includes/Config.h	/^	NORMAL,$/;"	e	enum:RenderMode
@@ -264,6 +291,7 @@ Shader	src/Lumos/Shader.cpp	/^Shader::Shader(const std::string & shaderCode, con
 Shaper	Includes/Shaper.h	/^    class Shaper{$/;"	c	namespace:Patronus
 Shaper	src/Patronus/Shaper.cpp	/^Shaper::Shaper( )$/;"	f	class:Shaper
 Shaper	src/Patronus/Shaper.cpp	/^Shaper::Shaper( const std::string & fileName )$/;"	f	class:Shaper
+TEXTURE2D_H	Includes/Texure2D.h	2;"	d
 TEXTURE_DIR	src/main.cpp	/^std::string TEXTURE_DIR = ".\/scene_file\/texture\/";$/;"	v
 TEXTURE_DIRECTORY	Includes/InputParser.h	/^    TEXTURE_DIRECTORY,$/;"	m	class:Flag
 TEXTURE_H	Includes/Texture.h	25;"	d
@@ -276,6 +304,9 @@ TRANSLATE	Includes/Config.h	/^	TRANSLATE,$/;"	e	enum:TransfromMode
 Texture	Includes/Texture.h	/^    class Texture: public GLObject{$/;"	c	namespace:Lumos
 Texture	src/Lumos/Texture.cpp	/^Texture::Texture()$/;"	f	class:Texture
 TextureCoordinate	Includes/obj_loader.h	/^        Vector2 TextureCoordinate;$/;"	m	struct:objl::Vertex
+Texure2D	Includes/Texure2D.h	/^class Texure2D : public Texure{$/;"	c	namespace:Lumos
+Texure2D	src/Lumos/Texure2d.cpp	/^Texure2D::Texure2D()$/;"	f	class:Lumos::Texure2D
+Texure2D	src/Lumos/Texure2d.cpp	/^Texure2D::Texure2D(const size_t & width, const size_t & height)$/;"	f	class:Lumos::Texure2D
 Transformable	Includes/Transformable.h	/^        Transformable(const point3 & pos = point3 (0.0f, 0.0f, 0.0f)):$/;"	f	class:Patronus::Transformable
 Transformable	Includes/Transformable.h	/^    class Transformable{$/;"	c	namespace:Patronus
 TransfromMode	Includes/Config.h	/^enum TransfromMode$/;"	g
@@ -331,9 +362,6 @@ X	Includes/obj_loader.h	/^        float X;$/;"	m	struct:objl::Vector3
 Y	Includes/obj_loader.h	/^        float Y;$/;"	m	struct:objl::Vector2
 Y	Includes/obj_loader.h	/^        float Y;$/;"	m	struct:objl::Vector3
 Z	Includes/obj_loader.h	/^        float Z;$/;"	m	struct:objl::Vector3
-_Multisampled_ColorBuffer	Includes/View_renderer.h	/^    GLuint _Multisampled_ColorBuffer;$/;"	m	class:View_renderer
-_Multisampled_DepthBuffer	Includes/View_renderer.h	/^    GLuint _Multisampled_DepthBuffer;$/;"	m	class:View_renderer
-_Multisampled_FBO	Includes/View_renderer.h	/^    GLuint _Multisampled_FBO;$/;"	m	class:View_renderer
 _TDOGL_PROGRAM_ATTRIB_N_UNIFORM_SETTERS	Includes/Program.h	113;"	d
 _VAO	Includes/PerspectiveView.h	/^    GLuint _VAO;$/;"	m	class:PerspectiveView
 _VBO_COLOR	Includes/Mesh.h	/^        GLuint _VBO_COLOR;$/;"	m	class:Patronus::Mesh
@@ -357,16 +385,16 @@ _camInUse	Includes/PerspectiveView.h	/^    Patronus::Camera * _camInUse;$/;"	m	c
 _cameras	Includes/Shaper.h	/^        std::vector< Camera * > _cameras;$/;"	m	class:Patronus::Shaper
 _children	Includes/Widget.h	/^  std::vector<Widget * > _children;$/;"	m	class:Widget
 _collisionConfiguration	Includes/PhysicalWorld.h	/^        btDefaultCollisionConfiguration* _collisionConfiguration;$/;"	m	class:Patronus::PhysicalWorld
-_colorTexBuffer	Includes/FrameBuffer_base.h	/^        Texture _colorTexBuffer;$/;"	m	class:Lumos::FrameBuffer_base
+_colorTexBuffer	Includes/FrameBuffer.h	/^  ColorTexBuffer _colorTexBuffer;$/;"	m	class:Lumos::FrameBuffer
+_colorTexBuffer	Includes/MultisampledFrameBuffer.h	/^    MultisampledColorTexBuffer _colorTexBuffer;$/;"	m	class:Lumos::MultisampledFrameBuffer
 _compare	src/Utility/Utility.cpp	/^    bool _compare(std::pair<int, std::shared_ptr<float>> p1, std::pair<int, std::shared_ptr<float>> p2){$/;"	f	namespace:Utils
 _coneAngle	Includes/Light.h	/^        float _coneAngle;$/;"	m	class:Patronus::Light
 _coneDirection	Includes/Light.h	/^        glm::vec3 _coneDirection;$/;"	m	class:Patronus::Light
 _curFileName	Includes/Shaper.h	/^        std::string _curFileName;$/;"	m	class:Patronus::Shaper
 _dataType	Includes/Texture.h	/^        GLenum _dataType;$/;"	m	class:Lumos::Texture
 _deleteFunc	Includes/GLObject.h	/^        void (*_deleteFunc)(const GLuint *); \/\/ function will be called when refCount is 0$/;"	m	class:Lumos::GLObject
-_deleteMultisampledBuffers	src/Output/View_renderer.cpp	/^void View_renderer::_deleteMultisampledBuffers(){$/;"	f	class:View_renderer
-_deleteOutTextures	src/Output/View_renderer.cpp	/^void View_renderer::_deleteOutTextures(){$/;"	f	class:View_renderer
-_depthTexBuffer	Includes/FrameBuffer_base.h	/^        Texture _depthTexBuffer;$/;"	m	class:Lumos::FrameBuffer_base
+_depthTexBuffer	Includes/FrameBuffer.h	/^  DepthTexBuffer _depthTexBuffer;$/;"	m	class:Lumos::FrameBuffer
+_depthTexBuffer	Includes/MultisampledFrameBuffer.h	/^    MultisampledDepthTexBuffer _depthTexBuffer;$/;"	m	class:Lumos::MultisampledFrameBuffer
 _dispatcher	Includes/PhysicalWorld.h	/^        btCollisionDispatcher* _dispatcher;$/;"	m	class:Patronus::PhysicalWorld
 _drawer	Includes/PhysicalWorld.h	/^        GLDebugDrawer * _drawer;$/;"	m	class:Patronus::PhysicalWorld
 _dynamicsWorld	Includes/PhysicalWorld.h	/^        btDiscreteDynamicsWorld* _dynamicsWorld;$/;"	m	class:Patronus::PhysicalWorld
@@ -384,15 +412,16 @@ _faces	Includes/Mesh.h	/^        std::vector< Face > _faces;$/;"	m	class:Patronu
 _far	Includes/Camera.h	/^        float _far;$/;"	m	class:Patronus::Camera
 _flag	Includes/InputParser.h	/^    Flag _flag;$/;"	m	class:Cmd
 _fov	Includes/Camera.h	/^        float _fov;$/;"	m	class:Patronus::Camera
+_frameBuffer	Includes/View_renderer.h	/^    Lumos::FrameBuffer _frameBuffer;$/;"	m	class:View_renderer
 _glObjId	Includes/GLObject.h	/^        GLuint _glObjId;$/;"	m	class:Lumos::GLObject
 _headlessInit	src/Output/WindowManager.cpp	/^void WindowManager::_headlessInit(){$/;"	f	class:WindowManager
 _headlessInit	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_headlessInit(){$/;"	f	class:WindowManager_headless
 _headlessInitWithX11	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_headlessInitWithX11(){$/;"	f	class:WindowManager_headless
-_height	Includes/FrameBuffer_base.h	/^        size_t _height;$/;"	m	class:Lumos::FrameBuffer_base
 _height	Includes/Widget.h	/^  size_t _width, _height;$/;"	m	class:Widget
 _id	Includes/Instance.h	/^        std::string _id;$/;"	m	class:Lumos::Instance
 _id	Includes/Mesh.h	/^        std::string _id;$/;"	m	class:Patronus::Mesh
 _indices	Includes/Mesh.h	/^        std::vector< unsigned int > _indices;$/;"	m	class:Patronus::Mesh
+_initialize	src/Lumos/MultisampledFrameBuffer.cpp	/^void MultisampledFrameBuffer::_initialize() const {$/;"	f	class:Lumos::MultisampledFrameBuffer
 _instances	Includes/PhysicalWorld.h	/^        std::vector< Lumos::Instance * > _instances;$/;"	m	class:Patronus::PhysicalWorld
 _intensity	Includes/Light.h	/^        color3 _intensity;$/;"	m	class:Patronus::Light
 _internalFormat	Includes/Texture.h	/^        GLint _internalFormat;$/;"	m	class:Lumos::Texture
@@ -420,21 +449,17 @@ _makeOutTextures	src/Output/View_renderer.cpp	/^void View_renderer::_makeOutText
 _material	Includes/Face.h	/^    Lumos::Material *  _material;$/;"	m	class:Face
 _materials	Includes/Shaper.h	/^        std::vector< Lumos::Material * > _materials;$/;"	m	class:Patronus::Shaper
 _meshPtr	Includes/Instance.h	/^        Patronus::Mesh * _meshPtr;$/;"	m	class:Lumos::Instance
+_multisampledFrameBuffer	Includes/View_renderer.h	/^    Lumos::MultisampledFrameBuffer _multisampledFrameBuffer;$/;"	m	class:View_renderer
 _names	Includes/PhysicalWorld.h	/^        std::set< std::string > _names;$/;"	m	class:Patronus::PhysicalWorld
 _near	Includes/Camera.h	/^        float _near;$/;"	m	class:Patronus::Camera
 _normalIndeces	Includes/Face.h	/^    std::vector< int > _normalIndeces;$/;"	m	class:Face
 _normals	Includes/Mesh.h	/^        std::vector< glm::vec3 > _normals;$/;"	m	class:Patronus::Mesh
 _numOfEntry	Includes/ArrayBuffer.h	/^        size_t _numOfEntry;$/;"	m	class:Lumos::ArrayBuffer
 _orientation	Includes/Transformable.h	/^        point3 _orientation;$/;"	m	class:Patronus::Transformable
-_out_ColorTextureObject	Includes/View_renderer.h	/^    GLuint _out_ColorTextureObject;$/;"	m	class:View_renderer
-_out_DepthTextureObject	Includes/View_renderer.h	/^    GLuint _out_DepthTextureObject;$/;"	m	class:View_renderer
-_out_FBO	Includes/View_renderer.h	/^    GLuint _out_FBO;$/;"	m	class:View_renderer
 _outputBuffer	Includes/MultisampledFrameBuffer.h	/^    FrameBuffer _outputBuffer;$/;"	m	class:Lumos::MultisampledFrameBuffer
 _pickingColor	Includes/Instance.h	/^        color3 _pickingColor;$/;"	m	class:Lumos::Instance
 _refCount	Includes/GLObject.h	/^        unsigned int *_refCount; \/\/ use to keep the reference count for the shader$/;"	m	class:Lumos::GLObject
 _release	src/Lumos/GLObject.cpp	/^void GLObject::_release(){$/;"	f	class:GLObject
-_remakeMultisampledBuffers	src/Output/View_renderer.cpp	/^void View_renderer::_remakeMultisampledBuffers(){$/;"	f	class:View_renderer
-_remakeOutTextures	src/Output/View_renderer.cpp	/^void View_renderer::_remakeOutTextures(){$/;"	f	class:View_renderer
 _render_hidden_view	Includes/WindowManager_headless.h	/^    View_renderer * _render_hidden_view;$/;"	m	class:WindowManager_headless
 _retain	src/Lumos/GLObject.cpp	/^void GLObject::_retain(){$/;"	f	class:GLObject
 _rigidBody	Includes/Instance.h	/^        btRigidBody * _rigidBody;$/;"	m	class:Lumos::Instance
@@ -460,7 +485,6 @@ _vertices	Includes/Mesh.h	/^        std::vector< point3 > _vertices;$/;"	m	class
 _verticesIndeces	Includes/Face.h	/^    std::vector< int > _verticesIndeces;$/;"	m	class:Face
 _vertices_combinded	Includes/Mesh.h	/^        std::vector< Vertex > _vertices_combinded;$/;"	m	class:Patronus::Mesh
 _visibles	Includes/PerspectiveView.h	/^    std::vector< Lumos::Instance * > _visibles;$/;"	m	class:PerspectiveView
-_width	Includes/FrameBuffer_base.h	/^        size_t _width;$/;"	m	class:Lumos::FrameBuffer_base
 _width	Includes/Widget.h	/^  size_t _width, _height;$/;"	m	class:Widget
 _win	Includes/WindowManager.h	/^    Window      _win;$/;"	m	class:WindowManager
 _win	Includes/WindowManager_headless.h	/^    Window      _win;$/;"	m	class:WindowManager_headless
@@ -585,6 +609,9 @@ getFovy	Includes/Camera.h	/^            getFovy() const { return _fov; }$/;"	f	c
 getGlObjId	Includes/GLObject.h	/^            getGlObjId()const { return _glObjId; }$/;"	f	class:Lumos::GLObject
 getGlobalMax	src/Patronus/Shaper.cpp	/^point3 Shaper::getGlobalMax(){$/;"	f	class:Shaper
 getGlobalMin	src/Patronus/Shaper.cpp	/^point3 Shaper::getGlobalMin(){$/;"	f	class:Shaper
+getHeight	Includes/FrameBuffer.h	/^  inline size_t getHeight() const{ return _colorTexBuffer.getHeight(); }$/;"	f	class:Lumos::FrameBuffer
+getHeight	Includes/MultisampledFrameBuffer.h	/^    inline size_t getHeight() const{ return _colorTexBuffer.getHeight(); }$/;"	f	class:Lumos::MultisampledFrameBuffer
+getHeight	Includes/Texture.h	/^        inline size_t getHeight() const{$/;"	f	class:Lumos::Texture
 getHeight	Includes/Widget.h	/^  inline size_t getHeight() const {return _height;}$/;"	f	class:Widget
 getId	Includes/Camera.h	/^            getId() const { return _camId; }$/;"	f	class:Patronus::Camera
 getId	Includes/Instance.h	/^            getId() const { return _id; }$/;"	f	class:Lumos::Instance
@@ -630,6 +657,9 @@ getUvInds	Includes/Face.h	/^        getUvInds() const { return _uvIndeces; }$/;"
 getVertexBuffer	src/Patronus/Shaper.cpp	/^Lumos::ArrayBuffer Shaper::getVertexBuffer( )const$/;"	f	class:Shaper
 getVerticesInds	Includes/Face.h	/^        getVerticesInds() const { return _verticesIndeces; }$/;"	f	class:Face
 getVisibleObjects	src/Output/View_renderer.cpp	/^void View_renderer::getVisibleObjects(const std::string & path){$/;"	f	class:View_renderer
+getWidth	Includes/FrameBuffer.h	/^  inline size_t getWidth() const {  return _colorTexBuffer.getWidth(); }$/;"	f	class:Lumos::FrameBuffer
+getWidth	Includes/MultisampledFrameBuffer.h	/^    inline size_t getWidth() const {  return _colorTexBuffer.getWidth(); }$/;"	f	class:Lumos::MultisampledFrameBuffer
+getWidth	Includes/Texture.h	/^        inline size_t getWidth() const {$/;"	f	class:Lumos::Texture
 getWidth	Includes/Widget.h	/^  inline size_t getWidth() const {return _width;}$/;"	f	class:Widget
 getWorld	Includes/PhysicalWorld.h	/^            getWorld() const { return _dynamicsWorld; }$/;"	f	class:Patronus::PhysicalWorld
 getX	Includes/Widget.h	/^  inline size_t getX() const {return _x;}$/;"	f	class:Widget
@@ -771,12 +801,16 @@ operator []	src/Utility/InputParser.cpp	/^std::string Cmd::operator [] (const si
 override	Includes/ArrayBuffer.h	/^        bool isInUse() const override;$/;"	m	class:Lumos::ArrayBuffer
 override	Includes/ArrayBuffer.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::ArrayBuffer
 override	Includes/ArrayBuffer.h	/^        void use() const override;$/;"	m	class:Lumos::ArrayBuffer
+override	Includes/ColorTexBuffer.h	/^  void resize(const GLsizei & w, const GLsizei & h) override;$/;"	m	class:Lumos::ColorTexBuffer
+override	Includes/DepthTexBuffer.h	/^  void resize(const GLsizei & w, const GLsizei & h) override;$/;"	m	class:Lumos::DepthTexBuffer
 override	Includes/FrameBuffer.h	/^  cv::Mat saveColorBuffer2file(const std::string & filename) override;$/;"	m	class:Lumos::FrameBuffer
 override	Includes/FrameBuffer.h	/^  cv::Mat saveDepthBuffer2file(const std::string & filename) override;$/;"	m	class:Lumos::FrameBuffer
 override	Includes/FrameBuffer.h	/^  void resize(const size_t & width, const size_t & height) override;$/;"	m	class:Lumos::FrameBuffer
-override	Includes/FrameBuffer_base.h	/^        bool isInUse() const override; \/\/ to disable isInUse$/;"	m	class:Lumos::FrameBuffer_base
+override	Includes/FrameBuffer_base.h	/^        bool isInUse() const override;$/;"	m	class:Lumos::FrameBuffer_base
 override	Includes/FrameBuffer_base.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::FrameBuffer_base
-override	Includes/FrameBuffer_base.h	/^        void use() const override; \/\/ to disable use$/;"	m	class:Lumos::FrameBuffer_base
+override	Includes/FrameBuffer_base.h	/^        void use() const override;$/;"	m	class:Lumos::FrameBuffer_base
+override	Includes/MultisampledColorTexBuffer.h	/^  void resize(const GLsizei & w, const GLsizei & h) override;$/;"	m	class:Lumos::MultisampledColorTexBuffer
+override	Includes/MultisampledDepthTexBuffer.h	/^  void resize(const GLsizei & w, const GLsizei & h) override;$/;"	m	class:Lumos::MultisampledDepthTexBuffer
 override	Includes/MultisampledFrameBuffer.h	/^    cv::Mat saveColorBuffer2file(const std::string & filename) override;$/;"	m	class:Lumos::MultisampledFrameBuffer
 override	Includes/MultisampledFrameBuffer.h	/^    cv::Mat saveDepthBuffer2file(const std::string & filename) override;$/;"	m	class:Lumos::MultisampledFrameBuffer
 override	Includes/MultisampledFrameBuffer.h	/^    void resize(const size_t & width, const size_t & height) override;$/;"	m	class:Lumos::MultisampledFrameBuffer
@@ -793,6 +827,7 @@ override	Includes/Shader.h	/^        void use() const override;$/;"	m	class:Lumo
 override	Includes/Texture.h	/^        bool isInUse() const override;$/;"	m	class:Lumos::Texture
 override	Includes/Texture.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::Texture
 override	Includes/Texture.h	/^        void use() const override;$/;"	m	class:Lumos::Texture
+override	Includes/Texure2D.h	/^  void resize(const GLsizei & w, const GLsizei & h) override;$/;"	m	class:Lumos::Texure2D
 override	Includes/View.h	/^    virtual bool _expose() override;$/;"	m	class:View
 override	Includes/View_bullet.h	/^    virtual void paintGL() override ;$/;"	m	class:View_bullet
 override	Includes/View_bullet.h	/^    virtual void resizeGL(const size_t & w, const size_t & h) override ;$/;"	m	class:View_bullet
@@ -844,8 +879,14 @@ renderMode	Includes/Config.h	/^	RenderMode renderMode;$/;"	m	struct:Config
 render_infintitely	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::render_infintitely(){$/;"	f	class:WindowManager_headless
 reportErrorWarning	src/BulletPhysics/btDebugDrawer.cpp	/^void GLDebugDrawer::reportErrorWarning(const char *warningString)$/;"	f	class:GLDebugDrawer
 reportErrorWarning	src/Output/View_bullet.cpp	/^void View_bullet::reportErrorWarning(const char* warningString)$/;"	f	class:View_bullet
+resize	src/Lumos/ColorTexBuffer.cpp	/^void ColorTexBuffer::resize(const GLsizei & w, const GLsizei & h){$/;"	f	class:Lumos::ColorTexBuffer
+resize	src/Lumos/DepthTexBuffer.cpp	/^void DepthTexBuffer::resize(const GLsizei & w, const GLsizei & h) {$/;"	f	class:Lumos::DepthTexBuffer
 resize	src/Lumos/FrameBuffer.cpp	/^void FrameBuffer::resize(const size_t & width, const size_t & height)$/;"	f	class:Lumos::FrameBuffer
+resize	src/Lumos/MultisampledColorTexBuffer.cpp	/^void MultisampledColorTexBuffer::resize(const GLsizei & w, const GLsizei & h)$/;"	f	class:Lumos::MultisampledColorTexBuffer
+resize	src/Lumos/MultisampledDepthTexBuffer.cpp	/^void MultisampledDepthTexBuffer::resize(const GLsizei & w, const GLsizei & h)$/;"	f	class:Lumos::MultisampledDepthTexBuffer
 resize	src/Lumos/MultisampledFrameBuffer.cpp	/^void MultisampledFrameBuffer::resize(const size_t & width, const size_t & height)$/;"	f	class:Lumos::MultisampledFrameBuffer
+resize	src/Lumos/Texture.cpp	/^void Texture::resize(const GLsizei & w, const GLsizei & h) const{$/;"	f	class:Texture
+resize	src/Lumos/Texure2d.cpp	/^void Texure2D::resize(const GLsizei & w, const GLsizei & h)$/;"	f	class:Lumos::Texure2D
 resizeGL	src/Output/PerspectiveView.cpp	/^void PerspectiveView::resizeGL(const size_t & w, const size_t & h){$/;"	f	class:PerspectiveView
 resizeGL	src/Output/View_bullet.cpp	/^void View_bullet::resizeGL(const size_t & w, const size_t & h){$/;"	f	class:View_bullet
 resizeGL	src/Output/View_renderer.cpp	/^void View_renderer::resizeGL(const size_t & w, const size_t &h){$/;"	f	class:View_renderer
@@ -953,11 +994,11 @@ texcoord_index	Includes/tiny_obj_loader.h	/^  int texcoord_index;$/;"	m	struct:t
 texcoords	Includes/tiny_obj_loader.h	/^  std::vector<float> texcoords;  \/\/ 'vt'$/;"	m	struct:tinyobj::__anon6
 textConfig	Includes/Keyboard.h	/^struct textConfig$/;"	s
 texture	Includes/Material.h	/^        Texture texture;$/;"	m	struct:Lumos::Material
-that	Includes/Texture.h	/^        Texture(const Texture & that)=delete; \/\/ mark to remember to build glAttachShader$/;"	m	class:Lumos::Texture
+that	Includes/Texture.h	/^        Texture(const Texture & that)=delete; \/\/ mark to remember to build$/;"	m	class:Lumos::Texture
+that	Includes/View_renderer.h	/^    View_renderer operator = ( const View_renderer & that) = delete;$/;"	m	class:View_renderer
+that	Includes/View_renderer.h	/^    View_renderer(const View_renderer & that) = delete;$/;"	m	class:View_renderer
 tinyobj	Includes/tiny_obj_loader.h	/^namespace tinyobj {$/;"	n
 toChar	src/Utility/Utility.cpp	/^    std::shared_ptr<char> toChar(const std::string& str){$/;"	f	namespace:Utils
-toImageFile_color	src/Output/View_renderer.cpp	/^void View_renderer::toImageFile_color( const std::string & fileName ){$/;"	f	class:View_renderer
-toImageFile_depth	src/Output/View_renderer.cpp	/^void View_renderer::toImageFile_depth( const std::string & fileName ) {$/;"	f	class:View_renderer
 toUniqueColor	src/Utility/Color.cpp	/^color3 Color::toUniqueColor ( const int & i){$/;"	f	class:Color
 toUniqueInt	src/Utility/Color.cpp	/^int Color::toUniqueInt( const int & r, const int & g, const int & b ){$/;"	f	class:Color
 transMode	Includes/Config.h	/^	TransfromMode transMode;$/;"	m	struct:Config
