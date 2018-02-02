@@ -14,6 +14,7 @@ FrameBuffer::FrameBuffer(const size_t & width, const size_t & height )
 
 FrameBuffer & FrameBuffer::operator = ( const FrameBuffer & that){
   FrameBuffer_base::operator=(that);
+
   return *this;
 }
 
@@ -68,10 +69,6 @@ cv::Mat FrameBuffer::saveDepthBuffer2file(const std::string & filename){
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
-    //cv::Point min_loc, max_loc
-    // uint8_t min, max;
-    // cv::minMaxLoc(img, &min, &max, &min_loc, &max_loc);
-    // Debug()
 
     cv::Mat flipped(img);
     cv::flip(img, flipped, 0);
@@ -85,7 +82,10 @@ cv::Mat FrameBuffer::saveDepthBuffer2file(const std::string & filename){
     return img;
 }
 
-
+void FrameBuffer::resize(const size_t & width, const size_t & height)
+{
+  assert("You will eventually have to build this, buddy");
+}
 
 
 

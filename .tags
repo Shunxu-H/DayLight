@@ -85,6 +85,7 @@ Face	Includes/Face.h	/^class Face$/;"	c
 Face	src/Patronus/Face.cpp	/^Face::Face(){$/;"	f	class:Face
 FillMode	Includes/Config.h	/^enum FillMode$/;"	g
 Flag	Includes/InputParser.h	/^enum class Flag{$/;"	c
+FrameBuffer	Includes/FrameBuffer.h	/^  FrameBuffer(){};$/;"	f	class:Lumos::FrameBuffer
 FrameBuffer	Includes/FrameBuffer.h	/^class FrameBuffer : public FrameBuffer_base{$/;"	c	namespace:Lumos
 FrameBuffer	src/Lumos/FrameBuffer.cpp	/^FrameBuffer::FrameBuffer(const size_t & width, const size_t & height )$/;"	f	class:Lumos::FrameBuffer
 FrameBuffer_base	Includes/FrameBuffer_base.h	/^    class FrameBuffer_base: public GLObject{$/;"	c	namespace:Lumos
@@ -160,6 +161,7 @@ Lumos	Includes/Instance.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Material.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Mesh.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/ModelAsset.h	/^namespace Lumos {$/;"	n
+Lumos	Includes/MultisampledFrameBuffer.h	/^namespace Lumos{$/;"	n
 Lumos	Includes/PerspectiveView.h	/^namespace Lumos{$/;"	n
 Lumos	Includes/PhysicalWorld.h	/^namespace Lumos {$/;"	n
 Lumos	Includes/Program.h	/^namespace Lumos {$/;"	n
@@ -170,11 +172,13 @@ Lumos	Includes/WindowManager_headless.h	/^namespace Lumos {$/;"	n
 Lumos	src/Lumos/FrameBuffer.cpp	/^namespace Lumos{$/;"	n	file:
 Lumos	src/Lumos/FrameBuffer_base.cpp	/^namespace Lumos{$/;"	n	file:
 Lumos	src/Lumos/Instance.cpp	/^namespace Lumos {$/;"	n	file:
+Lumos	src/Lumos/MultisampledFrameBuffer.cpp	/^namespace Lumos{$/;"	n	file:
 Lumos	src/Lumos/Program.cpp	/^namespace Lumos{$/;"	n	file:
 Lumos	src/Lumos/Shader.cpp	/^namespace Lumos {$/;"	n	file:
 MATERIAL_H	Includes/Material.h	2;"	d
 MODELASSET_H	Includes/ModelAsset.h	25;"	d
 MOVING	Includes/Config.h	/^	MOVING,$/;"	e	enum:OpMode
+MULTISAMPLEDFRAMEBUFFER_H	Includes/MultisampledFrameBuffer.h	2;"	d
 MagnitudeV3	Includes/obj_loader.h	/^        float MagnitudeV3(const Vector3 in)$/;"	f	namespace:objl::math
 Material	Includes/Material.h	/^    struct Material{$/;"	s	namespace:Lumos
 Material	Includes/obj_loader.h	/^        Material()$/;"	f	struct:objl::Material
@@ -195,6 +199,9 @@ MeshMaterial	Includes/obj_loader.h	/^        Material MeshMaterial;$/;"	m	struct
 MeshName	Includes/obj_loader.h	/^        std::string MeshName;$/;"	m	struct:objl::Mesh
 Mesh_H	Includes/Mesh.h	25;"	d
 ModelAsset	Includes/ModelAsset.h	/^    struct ModelAsset {$/;"	s	namespace:Lumos
+MultisampledFrameBuffer	Includes/MultisampledFrameBuffer.h	/^  class MultisampledFrameBuffer : public FrameBuffer{$/;"	c	namespace:Lumos
+MultisampledFrameBuffer	src/Lumos/MultisampledFrameBuffer.cpp	/^MultisampledFrameBuffer::MultisampledFrameBuffer(){}$/;"	f	class:Lumos::MultisampledFrameBuffer
+MultisampledFrameBuffer	src/Lumos/MultisampledFrameBuffer.cpp	/^MultisampledFrameBuffer::MultisampledFrameBuffer(const size_t & width, const size_t & height)$/;"	f	class:Lumos::MultisampledFrameBuffer
 NAVIGATING	Includes/Config.h	/^    NAVIGATING,$/;"	e	enum:OpMode
 NORMAL	Includes/Config.h	/^	NORMAL,$/;"	e	enum:RenderMode
 Ni	Includes/obj_loader.h	/^        float Ni;$/;"	m	struct:objl::Material
@@ -386,7 +393,6 @@ _height	Includes/Widget.h	/^  size_t _width, _height;$/;"	m	class:Widget
 _id	Includes/Instance.h	/^        std::string _id;$/;"	m	class:Lumos::Instance
 _id	Includes/Mesh.h	/^        std::string _id;$/;"	m	class:Patronus::Mesh
 _indices	Includes/Mesh.h	/^        std::vector< unsigned int > _indices;$/;"	m	class:Patronus::Mesh
-_initialize	src/Lumos/FrameBuffer_base.cpp	/^void FrameBuffer_base::_initialize(const size_t & w, const size_t & h)$/;"	f	class:Lumos::FrameBuffer_base
 _instances	Includes/PhysicalWorld.h	/^        std::vector< Lumos::Instance * > _instances;$/;"	m	class:Patronus::PhysicalWorld
 _intensity	Includes/Light.h	/^        color3 _intensity;$/;"	m	class:Patronus::Light
 _internalFormat	Includes/Texture.h	/^        GLint _internalFormat;$/;"	m	class:Lumos::Texture
@@ -423,6 +429,7 @@ _orientation	Includes/Transformable.h	/^        point3 _orientation;$/;"	m	class
 _out_ColorTextureObject	Includes/View_renderer.h	/^    GLuint _out_ColorTextureObject;$/;"	m	class:View_renderer
 _out_DepthTextureObject	Includes/View_renderer.h	/^    GLuint _out_DepthTextureObject;$/;"	m	class:View_renderer
 _out_FBO	Includes/View_renderer.h	/^    GLuint _out_FBO;$/;"	m	class:View_renderer
+_outputBuffer	Includes/MultisampledFrameBuffer.h	/^    FrameBuffer _outputBuffer;$/;"	m	class:Lumos::MultisampledFrameBuffer
 _pickingColor	Includes/Instance.h	/^        color3 _pickingColor;$/;"	m	class:Lumos::Instance
 _refCount	Includes/GLObject.h	/^        unsigned int *_refCount; \/\/ use to keep the reference count for the shader$/;"	m	class:Lumos::GLObject
 _release	src/Lumos/GLObject.cpp	/^void GLObject::_release(){$/;"	f	class:GLObject
@@ -755,6 +762,7 @@ operator =	src/Lumos/ArrayBuffer.cpp	/^ArrayBuffer& ArrayBuffer::operator = ( co
 operator =	src/Lumos/FrameBuffer.cpp	/^FrameBuffer & FrameBuffer::operator = ( const FrameBuffer & that){$/;"	f	class:Lumos::FrameBuffer
 operator =	src/Lumos/FrameBuffer_base.cpp	/^FrameBuffer_base & FrameBuffer_base::operator = (const FrameBuffer_base & that)$/;"	f	class:Lumos::FrameBuffer_base
 operator =	src/Lumos/GLObject.cpp	/^GLObject& GLObject::operator = (const GLObject & other ){$/;"	f	class:GLObject
+operator =	src/Lumos/MultisampledFrameBuffer.cpp	/^MultisampledFrameBuffer & MultisampledFrameBuffer::operator = ( const MultisampledFrameBuffer & that)$/;"	f	class:Lumos::MultisampledFrameBuffer
 operator =	src/Lumos/Texture.cpp	/^Texture & Texture::operator = (const Texture & that ){$/;"	f	class:Texture
 operator ==	Includes/InputParser.h	/^    bool operator==(const Cmd & rhs) const { return _flag == rhs._flag;}$/;"	f	class:Cmd
 operator ==	Includes/obj_loader.h	/^        bool operator==(const Vector2& other) const$/;"	f	struct:objl::Vector2
@@ -763,9 +771,15 @@ operator []	src/Utility/InputParser.cpp	/^std::string Cmd::operator [] (const si
 override	Includes/ArrayBuffer.h	/^        bool isInUse() const override;$/;"	m	class:Lumos::ArrayBuffer
 override	Includes/ArrayBuffer.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::ArrayBuffer
 override	Includes/ArrayBuffer.h	/^        void use() const override;$/;"	m	class:Lumos::ArrayBuffer
+override	Includes/FrameBuffer.h	/^  cv::Mat saveColorBuffer2file(const std::string & filename) override;$/;"	m	class:Lumos::FrameBuffer
+override	Includes/FrameBuffer.h	/^  cv::Mat saveDepthBuffer2file(const std::string & filename) override;$/;"	m	class:Lumos::FrameBuffer
+override	Includes/FrameBuffer.h	/^  void resize(const size_t & width, const size_t & height) override;$/;"	m	class:Lumos::FrameBuffer
 override	Includes/FrameBuffer_base.h	/^        bool isInUse() const override; \/\/ to disable isInUse$/;"	m	class:Lumos::FrameBuffer_base
 override	Includes/FrameBuffer_base.h	/^        void stopUsing() const override;$/;"	m	class:Lumos::FrameBuffer_base
 override	Includes/FrameBuffer_base.h	/^        void use() const override; \/\/ to disable use$/;"	m	class:Lumos::FrameBuffer_base
+override	Includes/MultisampledFrameBuffer.h	/^    cv::Mat saveColorBuffer2file(const std::string & filename) override;$/;"	m	class:Lumos::MultisampledFrameBuffer
+override	Includes/MultisampledFrameBuffer.h	/^    cv::Mat saveDepthBuffer2file(const std::string & filename) override;$/;"	m	class:Lumos::MultisampledFrameBuffer
+override	Includes/MultisampledFrameBuffer.h	/^    void resize(const size_t & width, const size_t & height) override;$/;"	m	class:Lumos::MultisampledFrameBuffer
 override	Includes/PerspectiveView.h	/^		virtual bool _button_handle(const XEvent & xev) override;$/;"	m	class:PerspectiveView
 override	Includes/PerspectiveView.h	/^		virtual bool _keyboard_handle(const XEvent & xev) override;$/;"	m	class:PerspectiveView
 override	Includes/PerspectiveView.h	/^    virtual void initializeGL() override;$/;"	m	class:PerspectiveView
@@ -830,6 +844,8 @@ renderMode	Includes/Config.h	/^	RenderMode renderMode;$/;"	m	struct:Config
 render_infintitely	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::render_infintitely(){$/;"	f	class:WindowManager_headless
 reportErrorWarning	src/BulletPhysics/btDebugDrawer.cpp	/^void GLDebugDrawer::reportErrorWarning(const char *warningString)$/;"	f	class:GLDebugDrawer
 reportErrorWarning	src/Output/View_bullet.cpp	/^void View_bullet::reportErrorWarning(const char* warningString)$/;"	f	class:View_bullet
+resize	src/Lumos/FrameBuffer.cpp	/^void FrameBuffer::resize(const size_t & width, const size_t & height)$/;"	f	class:Lumos::FrameBuffer
+resize	src/Lumos/MultisampledFrameBuffer.cpp	/^void MultisampledFrameBuffer::resize(const size_t & width, const size_t & height)$/;"	f	class:Lumos::MultisampledFrameBuffer
 resizeGL	src/Output/PerspectiveView.cpp	/^void PerspectiveView::resizeGL(const size_t & w, const size_t & h){$/;"	f	class:PerspectiveView
 resizeGL	src/Output/View_bullet.cpp	/^void View_bullet::resizeGL(const size_t & w, const size_t & h){$/;"	f	class:View_bullet
 resizeGL	src/Output/View_renderer.cpp	/^void View_renderer::resizeGL(const size_t & w, const size_t &h){$/;"	f	class:View_renderer
@@ -839,7 +855,9 @@ roughness	Includes/tiny_obj_loader.h	/^  float roughness;                \/\/ [0
 roughness_texname	Includes/tiny_obj_loader.h	/^  std::string roughness_texname;  \/\/ map_Pr$/;"	m	struct:tinyobj::__anon1
 saveColor2InstanceMapping	src/BulletPhysics/PhysicalWorld.cpp	/^    PhysicalWorld::saveColor2InstanceMapping(const std::string & filename)$/;"	f	class:Patronus::PhysicalWorld
 saveColorBuffer2file	src/Lumos/FrameBuffer.cpp	/^cv::Mat FrameBuffer::saveColorBuffer2file(const std::string & filename){$/;"	f	class:Lumos::FrameBuffer
+saveColorBuffer2file	src/Lumos/MultisampledFrameBuffer.cpp	/^cv::Mat MultisampledFrameBuffer::saveColorBuffer2file(const std::string & filename)$/;"	f	class:Lumos::MultisampledFrameBuffer
 saveDepthBuffer2file	src/Lumos/FrameBuffer.cpp	/^cv::Mat FrameBuffer::saveDepthBuffer2file(const std::string & filename){$/;"	f	class:Lumos::FrameBuffer
+saveDepthBuffer2file	src/Lumos/MultisampledFrameBuffer.cpp	/^cv::Mat MultisampledFrameBuffer::saveDepthBuffer2file(const std::string & filename)$/;"	f	class:Lumos::MultisampledFrameBuffer
 scale	src/Patronus/Transformable.cpp	/^void Transformable::scale ( const float & x, const float & y, const float & z ){$/;"	f	class:Transformable
 selectMode	Includes/Config.h	/^	SelectMode selectMode;$/;"	m	struct:Config
 selectWithBean	src/BulletPhysics/PhysicalWorld.cpp	/^Lumos::Instance * PhysicalWorld::selectWithBean( const btVector3 & start, const btVector3 & end ){$/;"	f	class:Patronus::PhysicalWorld

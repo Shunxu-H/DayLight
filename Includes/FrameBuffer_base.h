@@ -45,13 +45,16 @@ namespace Lumos
         void blit( const FrameBuffer_base  & that ) const;
         //void makeMultisampledFrameBuffer(const size_t & w, const size_t & h);
 
+
         /**
          * it saves the current pixels to a file
          * @param  filename the name for the output files, if it is undefined,
          *         then it won't be saved on the disk
          * @return the pixels on the buffer represented with a
          */
-        virtual cv::Mat save2file(const std::string & filename) const = 0;
+         virtual cv::Mat saveColorBuffer2file(const std::string & filename) = 0;
+         virtual cv::Mat saveDepthBuffer2file(const std::string & filename) = 0;
+         virtual void resize(const size_t & width, const size_t & height) = 0;
     protected:
         size_t _width;
         size_t _height;
@@ -61,7 +64,7 @@ namespace Lumos
         bool isInUse() const override; // to disable isInUse
         void use() const override; // to disable use
 
-        virtual void _initialize(const size_t & w, const size_t & h) = 0;
+        // virtual void _initialize(const size_t & w, const size_t & h) = 0;
     };
 
 }

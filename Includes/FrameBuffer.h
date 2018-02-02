@@ -8,13 +8,14 @@ namespace Lumos{
 
 class FrameBuffer : public FrameBuffer_base{
 public:
-  FrameBuffer();
+  FrameBuffer(){};
   FrameBuffer(const size_t & width, const size_t & height);
   FrameBuffer & operator = ( const FrameBuffer & that);
   virtual ~FrameBuffer();
 
-  cv::Mat saveColorBuffer2file(const std::string & filename);
-  cv::Mat saveDepthBuffer2file(const std::string & filename);
+  cv::Mat saveColorBuffer2file(const std::string & filename) override;
+  cv::Mat saveDepthBuffer2file(const std::string & filename) override;
+  void resize(const size_t & width, const size_t & height) override;
 protected:
 
 private:

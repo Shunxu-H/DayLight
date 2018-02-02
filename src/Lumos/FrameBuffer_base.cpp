@@ -49,29 +49,6 @@ FrameBuffer_base::~FrameBuffer_base()
 
 }
 
-
-void FrameBuffer_base::_initialize(const size_t & w, const size_t & h)
-{
-    assert(not _colorTexBuffer.isInitialized() and
-           not _depthTexBuffer.isInitialized() and
-           "This FrameBuffer has been made"
-          );
-
-    _colorTexBuffer.makeColorTextureBuffer(w, h);
-    _depthTexBuffer.makeDepthTextureBuffer(w, h);
-}
-
-// void FrameBuffer::makeMultisampledFrameBuffer(const size_t & w, const size_t & h)
-// {
-//     assert(not _colorTexBuffer.isInitialized() and
-//            not _depthTexBuffer.isInitialized() and
-//            "This FrameBuffer has been made"
-//           );
-//
-//     _colorTexBuffer.makeMultisampledColorTextureBuffer(w, h);
-//     _depthTexBuffer.makeMultisampledDepthTextureBuffer(w, h);
-// }
-
 void FrameBuffer_base::use(const GLenum & target) const
 {
     assert ((target == GL_FRAMEBUFFER or

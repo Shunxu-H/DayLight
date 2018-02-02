@@ -42,8 +42,6 @@ View_renderer::View_renderer(
     , _out_ColorTextureObject(0)
     , _out_DepthTextureObject(0)
 {
-
-
     glGenFramebuffers(1, &_Multisampled_FBO);
     glGenFramebuffers(1, &_out_FBO);
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
@@ -52,7 +50,6 @@ View_renderer::View_renderer(
     glGetError();
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
-    //QTimer::singleShot(1000, this, SLOT(_checkRendererReady()));
 }
 
 
