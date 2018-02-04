@@ -34,12 +34,6 @@ FrameBuffer_base::FrameBuffer_base()
 
 }
 
-FrameBuffer_base & FrameBuffer_base::operator = (const FrameBuffer_base & that)
-{
-    GLObject::operator = (that);
-    return *this;
-}
-
 FrameBuffer_base::~FrameBuffer_base()
 {
 

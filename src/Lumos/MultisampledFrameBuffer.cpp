@@ -4,22 +4,23 @@
 
 namespace Lumos{
 
+
 MultisampledFrameBuffer::MultisampledFrameBuffer(){}
 
 MultisampledFrameBuffer::MultisampledFrameBuffer(const size_t & width, const size_t & height)
   : FrameBuffer_base()
+  , _colorTexBuffer(width, height, Texture::DEFAULTSAMPLESIZE)
+  , _depthTexBuffer(width, height, Texture::DEFAULTSAMPLESIZE)
   , _outputBuffer(width, height)
-  , _colorTexBuffer(with, height)
-  , _depthTexBuffer(width, height)
 {
   _initialize();
 }
 
 MultisampledFrameBuffer::MultisampledFrameBuffer(const FrameBuffer & outputBuffer)
   : FrameBuffer_base()
+  , _colorTexBuffer(outputBuffer.getWidth(), outputBuffer.getHeight(), Texture::DEFAULTSAMPLESIZE)
+  , _depthTexBuffer(outputBuffer.getWidth(), outputBuffer.getHeight(), Texture::DEFAULTSAMPLESIZE)
   , _outputBuffer(outputBuffer)
-  , _colorTexBuffer(outputBuffer.getWidth(), outputBuffer.getHeight())
-  , _depthTexBuffer(outputBuffer.getWidth(), outputBuffer.getHeight())
 {
   _initialize();
 }
@@ -62,7 +63,8 @@ void MultisampledFrameBuffer::_initialize() const {
       std::cerr << ErrorMessage << std::endl;
       exit(EXIT_FAILURE);
   }
-
+  glEnable(GL_DEPTH_TEST);
+  stopUsing();
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
 }
 
@@ -76,12 +78,12 @@ cv::Mat MultisampledFrameBuffer::saveColorBuffer2file(const std::string & filena
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
   glBlitFramebuffer(  0,
                       0,
-                      _width,
-                      _height,
+                      getWidth(),
+                      getHeight(),
                       0,
                       0,
-                      _width,
-                      _height,
+                      _outputBuffer.getWidth(),
+                      _outputBuffer.getHeight(),
                       GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT,
                       GL_NEAREST
                     );
@@ -98,22 +100,24 @@ cv::Mat MultisampledFrameBuffer::saveDepthBuffer2file(const std::string & filena
 
   glBlitFramebuffer(  0,
                       0,
-                      _width,
-                      _height,
+                      getWidth(),
+                      getHeight(),
                       0,
                       0,
-                      _width,
-                      _height,
+                      _outputBuffer.getWidth(),
+                      _outputBuffer.getHeight(),
                       GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT,
                       GL_NEAREST
                     );
+  GLError( __PRETTY_FUNCTION__ , __LINE__ );
   return _outputBuffer.saveDepthBuffer2file(filename);
 }
 
 void MultisampledFrameBuffer::resize(const size_t & width, const size_t & height)
 {
-  assert(!"You will eventually have to build this, buddy");
-
+  _colorTexBuffer.resize(width, height);
+  _depthTexBuffer.resize(width, height);
+  _outputBuffer.resize(width, height);
 }
 
 

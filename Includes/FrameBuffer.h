@@ -11,7 +11,6 @@ class FrameBuffer : public FrameBuffer_base{
 public:
   FrameBuffer(){};
   FrameBuffer(const size_t & width, const size_t & height);
-  FrameBuffer & operator = ( const FrameBuffer & that);
   virtual ~FrameBuffer();
 
   /**

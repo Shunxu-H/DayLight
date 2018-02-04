@@ -25,8 +25,10 @@ THE SOFTWARE.
 #include "Texture.h"
 #include "Utility.h"
 
-using namespace Lumos;
+namespace Lumos{
 
+
+const GLint Texture::DEFAULTSAMPLESIZE = 4;
 
 /**
  * target
@@ -255,4 +257,6 @@ bool Texture::isInUse() const
 void Texture::stopUsing() const
 {
     glBindTexture(_textureTarget, _glObjId);
+}
+
 }

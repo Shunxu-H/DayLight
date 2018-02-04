@@ -6,11 +6,11 @@
 namespace Lumos{
 
 
-class ColorTexBuffer : public Texure{
+class ColorTexBuffer : public Texture{
 public:
   ColorTexBuffer();
   ColorTexBuffer(const size_t & width, const size_t & height);
-  void resize(const GLsizei & w, const GLsizei & h) override;
+  void resize(const GLsizei & w, const GLsizei & h) const override;
 protected:
 
 private:

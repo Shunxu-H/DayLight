@@ -150,31 +150,49 @@ namespace Utils {
 
     void printFramebufferInfo(GLenum target, GLuint fbo) {
 
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
         int res, i = 0;
         GLint buffer;
 
         glBindFramebuffer(target,fbo);
 
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
         do {
             glGetIntegerv(GL_DRAW_BUFFER0+i, &buffer);
 
+            GLError( __PRETTY_FUNCTION__ , __LINE__ );
             if (buffer != GL_NONE) {
 
                 printf("Shader Output Location %d - color attachment %d\n",
                             i, buffer - GL_COLOR_ATTACHMENT0);
 
-                glGetFramebufferAttachmentParameteriv(target, buffer,
+                glGetFramebufferAttachmentParameteriv(GL_FRAMEBUFFER, buffer,
                             GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE, &res);
+                GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
                 printf("\tAttachment Type: %s\n",
                             res==GL_TEXTURE?"Texture":"Render Buffer");
-                glGetFramebufferAttachmentParameteriv(target, buffer,
+                glGetFramebufferAttachmentParameteriv(GL_FRAMEBUFFER, buffer,
                             GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME, &res);
                 printf("\tAttachment object name: %d\n",res);
+                GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
             }
             ++i;
 
         } while (buffer != GL_NONE);
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
+        // get depth buffer info
+        std::cout << "Depth buffer info: " << std::endl;
+        glGetFramebufferAttachmentParameteriv(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
+                    GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE, &res);
+        printf("\tAttachment Type: %s\n",
+                    res==GL_TEXTURE?"Texture":"Render Buffer");
+        glGetFramebufferAttachmentParameteriv(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
+                    GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME, &res);
+        printf("\tAttachment object name: %d\n",res);
         std::cout << std::endl;
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
     }
 
     namespace fs = std::experimental::filesystem;

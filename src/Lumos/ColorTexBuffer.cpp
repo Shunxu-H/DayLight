@@ -1,5 +1,5 @@
 #include "ColorTexBuffer.h"
-
+#include "Utility.h"
 namespace Lumos{
 
 
@@ -8,7 +8,7 @@ ColorTexBuffer::ColorTexBuffer(){
 }
 
 ColorTexBuffer::ColorTexBuffer(const size_t & width, const size_t & height)
-  : Texture(width, height)
+  : Texture()
 {
   assert(_glObjId != 0 && "GLObject initialization probably failed.");
   assert(_textureTarget == 0);
@@ -22,12 +22,12 @@ ColorTexBuffer::ColorTexBuffer(const size_t & width, const size_t & height)
   glTexParameteri(_textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexImage2D(_textureTarget,
                0,
-               GL_RGBA,
-               w,
-               h,
+               _internalFormat,
+               width,
+               height,
                0,
-               GL_RGBA,
-               GL_UNSIGNED_BYTE,
+               _internalFormat,
+               _dataType,
                NULL);
 
   stopUsing();
@@ -35,7 +35,8 @@ ColorTexBuffer::ColorTexBuffer(const size_t & width, const size_t & height)
 
 }
 
-void ColorTexBuffer::resize(const GLsizei & w, const GLsizei & h){
+void ColorTexBuffer::resize(const GLsizei & w, const GLsizei & h) const
+{
   use();
   assert(w > 0 and h > 0 and "Width and Height must be positive");
   glTexImage2D (_textureTarget,
@@ -47,7 +48,8 @@ void ColorTexBuffer::resize(const GLsizei & w, const GLsizei & h){
                 _internalFormat,
                 _dataType,
                 NULL);
-  stopUsing()
+  stopUsing();
+  GLError( __PRETTY_FUNCTION__ , __LINE__ );
 }
 
 

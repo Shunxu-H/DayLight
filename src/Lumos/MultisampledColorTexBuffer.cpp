@@ -1,5 +1,5 @@
 #include "MultisampledColorTexBuffer.h"
-
+#include "Utility.h"
 namespace Lumos{
 
 
@@ -9,8 +9,12 @@ MultisampledColorTexBuffer::MultisampledColorTexBuffer()
 
 }
 
-MultisampledColorTexBuffer::MultisampledColorTexBuffer(const size_t & width, const size_t & height)
-  : Texture(width, height)
+MultisampledColorTexBuffer::MultisampledColorTexBuffer(
+      const size_t & width,
+      const size_t & height,
+      const GLint & sampleSize)
+  : Texture()
+  , _sampleSize(sampleSize)
 {
   // make sure the object is not initialized
   assert(_glObjId != 0 && "GLObject initialization probably failed.");
@@ -21,15 +25,13 @@ MultisampledColorTexBuffer::MultisampledColorTexBuffer(const size_t & width, con
 
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
-  int samples;
-  //We need to find out what the maximum supported samples is
-  glGetIntegerv(GL_MAX_SAMPLES_EXT, &samples);
+  int samples = getMaximumSampleSize();
   //----------------------
   //If for example, 16 is returned, then you can attempt to make a FBO with samples=0 to 16
   //0 means no multisample. This is like using glFramebufferRenderbufferEXT instead of glRenderbufferStorageMultisampleEXT
   //You can attempt to make sample from 1 to 16, but some of them might fail
   //Now, let's make a FBO
-  assert( samples >= static_cast<int>(sampleSize) && "Multisampler requisition failed.");
+  assert( samples >= _sampleSize && "Multisampler requisition failed.");
 
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
   //----------------------
@@ -40,10 +42,10 @@ MultisampledColorTexBuffer::MultisampledColorTexBuffer(const size_t & width, con
   //glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_RGBA8, _width, _height);
   use();
   glTexImage2DMultisample(_textureTarget,
-                          sampleSize,
+                          _sampleSize,
                           _internalFormat,
-                          w,
-                          h,
+                          width,
+                          height,
                           GL_FALSE);
 
   stopUsing();
@@ -51,17 +53,17 @@ MultisampledColorTexBuffer::MultisampledColorTexBuffer(const size_t & width, con
 
 }
 
-void MultisampledColorTexBuffer::resize(const GLsizei & w, const GLsizei & h)
+void MultisampledColorTexBuffer::resize(const GLsizei & w, const GLsizei & h) const
 {
   use();
   assert(w > 0 and h > 0 and "Width and Height must be positive");
   glTexImage2DMultisample(_textureTarget,
-                          sampleSize,
+                          _sampleSize,
                           _internalFormat,
                           w,
                           h,
                           GL_FALSE);
-  stopUsing()
+  stopUsing();
 
 }
 

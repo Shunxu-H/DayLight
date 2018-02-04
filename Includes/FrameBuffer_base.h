@@ -33,7 +33,6 @@ namespace Lumos
     class FrameBuffer_base: public GLObject{
     public:
         FrameBuffer_base();
-        FrameBuffer_base & operator = (const FrameBuffer_base & that);
         virtual ~FrameBuffer_base();
 
         /**

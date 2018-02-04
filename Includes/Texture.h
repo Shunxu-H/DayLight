@@ -28,59 +28,73 @@ THE SOFTWARE.
 
 namespace Lumos{
 
-    class Texture: public GLObject{
-    public:
-        Texture();
-        Texture(const Texture & that)=delete; // mark to remember to build
-        Texture & operator = (const Texture & that );
-        virtual ~Texture();
+  class Texture: public GLObject{
+  public:
+    /**
+     * STATIC FUNCTIONS
+     */
+    inline static GLint getMaximumSampleSize() {
+      int samples;
+      //We need to find out what the maximum supported samples is
+      glGetIntegerv(GL_MAX_SAMPLES_EXT, &samples);
+      return samples;
+    }
+    static const GLint DEFAULTSAMPLESIZE;
 
-        void use() const override;
-        bool isInUse() const override;
-        void stopUsing() const override;
+    Texture();
+    Texture & operator = (const Texture & that );
+    virtual ~Texture();
 
-        inline size_t getWidth() const {
-          int w, miplevel = 0;
-          glGetTexLevelParameteriv(_textureTarget, miplevel, GL_TEXTURE_WIDTH, &w);
-          return w;
-        }
-        inline size_t getHeight() const{
-          int h, miplevel = 0;
-          glGetTexLevelParameteriv(_textureTarget, miplevel, GL_TEXTURE_HEIGHT, &h);
-          return h;
-        }
-        inline GLenum getTarget() const
-          { return _textureTarget; }
-        inline bool isInitialized() const
-          { return _textureTarget != 0; }
+    void use() const override;
+    bool isInUse() const override;
+    void stopUsing() const override;
 
-        virtual void resize(const GLsizei & w, const GLsizei & h) const = 0;
-        void make2DTexure(const cv::Mat & im,
-                          const GLint & internalFormat = GL_RGB,
-                          const GLint & dataType = GL_UNSIGNED_BYTE,
-                          const GLint & minMagFiler = GL_LINEAR,
-                          const GLint & wrapMode = GL_REPEAT
-                          );
-        void makeMultisampledColorTextureBuffer(const size_t & w,
-                                                const size_t & h,
-                                                const GLint & internalFormat = GL_RGBA,
-                                                const size_t & sampleSize=16);
-        void makeMultisampledDepthTextureBuffer(const size_t & w,
-                                                const size_t & h,
-                                                const GLint & internalFormat = GL_DEPTH_COMPONENT32F,
-                                                const size_t & sampleSize=16);
-        void makeColorTextureBuffer(const size_t & w,
-                                    const size_t & h);
-        void makeDepthTextureBuffer(const size_t & w,
-                                    const size_t & h);
+    inline size_t getWidth() const {
+      use();
+      int w, miplevel = 0;
+      glGetTexLevelParameteriv(_textureTarget, miplevel, GL_TEXTURE_WIDTH, &w);
+      stopUsing();
+      return w;
+    }
+    inline size_t getHeight() const{
+      use();
+      int h, miplevel = 0;
+      glGetTexLevelParameteriv(_textureTarget, miplevel, GL_TEXTURE_HEIGHT, &h);
+      stopUsing();
+      return h;
+    }
+    inline GLenum getTarget() const
+      { return _textureTarget; }
+    inline bool isInitialized() const
+      { return _textureTarget != 0; }
 
-    protected:
+    virtual void resize(const GLsizei & w, const GLsizei & h) const = 0;
+    void make2DTexure(const cv::Mat & im,
+                      const GLint & internalFormat = GL_RGB,
+                      const GLint & dataType = GL_UNSIGNED_BYTE,
+                      const GLint & minMagFiler = GL_LINEAR,
+                      const GLint & wrapMode = GL_REPEAT
+                      );
+    void makeMultisampledColorTextureBuffer(const size_t & w,
+                                            const size_t & h,
+                                            const GLint & internalFormat = GL_RGBA,
+                                            const size_t & sampleSize=16);
+    void makeMultisampledDepthTextureBuffer(const size_t & w,
+                                            const size_t & h,
+                                            const GLint & internalFormat = GL_DEPTH_COMPONENT32F,
+                                            const size_t & sampleSize=16);
+    void makeColorTextureBuffer(const size_t & w,
+                                const size_t & h);
+    void makeDepthTextureBuffer(const size_t & w,
+                                const size_t & h);
 
-    private:
-        GLenum _textureTarget;
-        GLint _internalFormat;
-        GLenum _dataType;
-    };
+  protected:
+    GLenum _textureTarget;
+    GLint _internalFormat;
+    GLenum _dataType;
+
+  private:
+  };
 
 
 }

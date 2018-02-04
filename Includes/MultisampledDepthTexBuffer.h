@@ -6,13 +6,14 @@
 namespace Lumos{
 
 
-class MultisampledDepthTexBuffer : public Texure{
+class MultisampledDepthTexBuffer : public Texture{
 public:
   MultisampledDepthTexBuffer();
-  MultisampledDepthTexBuffer(const size_t & width, const size_t & height);
-  void resize(const GLsizei & w, const GLsizei & h) override;
-protected:
+  MultisampledDepthTexBuffer(const size_t & width, const size_t & height, const GLint & sampleSize);
 
+  void resize(const GLsizei & w, const GLsizei & h) const override;
+protected:
+  GLint _sampleSize;
 private:
 };
 

@@ -18,12 +18,12 @@ FrameBuffer::FrameBuffer(const size_t & width, const size_t & height )
   // attach color
   glFramebufferTexture2D(GL_FRAMEBUFFER,
                          GL_COLOR_ATTACHMENT0,
-                         GL_TEXTURE_2D,
+                         _colorTexBuffer.getTarget(),
                          _colorTexBuffer.getGlObjId(),
                          0);
   glFramebufferTexture2D(GL_FRAMEBUFFER,
                          GL_DEPTH_ATTACHMENT,
-                         GL_TEXTURE_2D,
+                         _depthTexBuffer.getTarget(),
                          _depthTexBuffer.getGlObjId(),
                          0);
 
@@ -36,7 +36,6 @@ FrameBuffer::FrameBuffer(const size_t & width, const size_t & height )
       throw std::runtime_error ( "Error! FrameBuffer is not complete" );
 
 
-
   // GLint drawId = 0, readId = 0;
   // glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
   // glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readId);
@@ -47,17 +46,11 @@ FrameBuffer::FrameBuffer(const size_t & width, const size_t & height )
 
   //glViewport(0,0,width,height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
 
-
+  glEnable(GL_DEPTH_TEST);
   stopUsing();
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
 }
 
-FrameBuffer & FrameBuffer::operator = ( const FrameBuffer & that){
-  FrameBuffer_base::operator=(that);
-  _colorTexBuffer = that._colorTexBuffer;
-  _depthTexBuffer = that._depthTexBuffer;
-  return *this;
-}
 
 FrameBuffer::~FrameBuffer()
 {
@@ -70,7 +63,7 @@ cv::Mat FrameBuffer::saveColorBuffer2file(const std::string & filename){
   _colorTexBuffer.use();
 
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  cv::Mat img(_height, _width, CV_8UC3);
+  cv::Mat img(getHeight(), getWidth(), CV_8UC3);
   glPixelStorei(GL_PACK_ALIGNMENT, (img.step & 3)?1:4);
   glPixelStorei(GL_PACK_ROW_LENGTH, img.step/img.elemSize());
 
@@ -96,11 +89,20 @@ cv::Mat FrameBuffer::saveColorBuffer2file(const std::string & filename){
 
 
 cv::Mat FrameBuffer::saveDepthBuffer2file(const std::string & filename){
-
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    use();
     _depthTexBuffer.use();
+    GLint format = 19;
+    glGetInternalformativ(GL_TEXTURE_2D, GL_FLOAT,
+                          GL_DEPTH_COMPONENTS, 1, &format);
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    assert(format == GL_TRUE);
+    Utils::printFramebufferInfo(GL_READ_FRAMEBUFFER, _glObjId);
 
-    cv::Mat img(_height, _width, CV_8UC1);
+    int value;
+    glGetIntegerv(GL_TEXTURE_BINDING_2D, &value);
+    std::cout << "Value is: " << value << std::endl;
+    cv::Mat img(getHeight(), getWidth(), CV_8UC1);
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 	  glGetTexImage ( GL_TEXTURE_2D,
@@ -108,6 +110,7 @@ cv::Mat FrameBuffer::saveDepthBuffer2file(const std::string & filename){
   	                GL_DEPTH_COMPONENT, // GL will convert to this format
   	                GL_UNSIGNED_BYTE,   // Using this data type per-pixel
   	                img.data );
+    // glTexImage2D(	GL_d * data);
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
@@ -126,7 +129,8 @@ cv::Mat FrameBuffer::saveDepthBuffer2file(const std::string & filename){
 
 void FrameBuffer::resize(const size_t & width, const size_t & height)
 {
-  assert("You will eventually have to build this, buddy");
+  _colorTexBuffer.resize(width, height);
+  _depthTexBuffer.resize(width, height);
 }
 
 
