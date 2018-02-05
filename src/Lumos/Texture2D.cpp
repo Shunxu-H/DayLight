@@ -5,7 +5,8 @@ namespace Lumos{
 
 Texture2D::Texture2D()
 {
-
+  glDeleteTextures(1, &_glObjId);
+  _glObjId = 0;
 }
 
 Texture2D::Texture2D( const cv::Mat & img,
@@ -14,14 +15,17 @@ Texture2D::Texture2D( const cv::Mat & img,
                       const GLint & minMagFiler,
                       const GLint & wrapMode)
 {
-  assert(_glObjId != 0); // make sure object is initialized
-  assert(!img.empty()); // make sure it is a valid image
+  if(img.empty()){
+    glDeleteTextures(1, &_glObjId);
+    _glObjId = 0;
+    return;
+  }
 
   _textureTarget = GL_TEXTURE_2D;
   _internalFormat = internalFormat;
   _dataType = dataType;
 
-  glBindTexture(_textureTarget,  _glObjId);
+  use();
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minMagFiler);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, minMagFiler);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);

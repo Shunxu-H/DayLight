@@ -4,10 +4,13 @@
 using namespace Lumos;
 
 
-Material::Material( const color4 & c,
+Material::Material( const cv::Mat & im,
+                    const color4 & c,
                     const float & reflexitivity_
               )
-        : reflexitivity(reflexitivity_), diffuseColor(c)
+        : reflexitivity(reflexitivity_)
+        , diffuseColor(c)
+        , texture(im)
 {
 
 }

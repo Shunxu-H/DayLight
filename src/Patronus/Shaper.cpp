@@ -55,13 +55,6 @@ Shaper::Shaper( )
 {
 
     _lights.push_back(Light::makeDirectionalLight());
-    /*
-    _lights.push_back(Light::makeDirectionalLight());
-    point3 pos = _lights[1].getTranslate();
-    pos.x = -pos.x;
-    pos.z = -pos.z;
-    _lights[1].setTranslate(pos);
-    */
 }
 
 Shaper::Shaper( const std::string & fileName )
@@ -105,7 +98,6 @@ point3 Shaper::getGlobalMin(){
     for (const point3 & p: Shaper::global_vertices)
         updateMin(p);
     return min;
-
 }
 
 
@@ -224,20 +216,22 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
         global_uv_coords.push_back( point2( attrib.texcoords[i], attrib.texcoords[i+1]));
 
     for ( const tinyobj::material_t & m : materials ){
-        Lumos::Material * newMaterial = new Lumos::Material;
+        Lumos::Material * newMaterial ;
         if ( m.diffuse_texname.size() > 0 ){
 
             if( std::experimental::filesystem::exists(( curDir + m.diffuse_texname).c_str())){
                 cv::Mat im = cv::imread(( curDir + m.diffuse_texname).c_str());
                 cv::Mat flipped;
                 cv::flip(im, flipped, 0);
-                newMaterial->texture.make2DTexure(flipped);
+                newMaterial = new Lumos::Material(flipped);
 
             }
             else{
                 std::cout << "Texture file does not exist: " << m.diffuse_texname << std::endl;
+                newMaterial = new Lumos::Material{};
             }
         }
+        else newMaterial = new Lumos::Material();
         newMaterial->id = m.name;
         newMaterial->diffuseColor = color4( m.diffuse[0], m.diffuse[1], m.diffuse[2], 1.0f ) ;
         newMaterial->reflexitivity = m.shininess;

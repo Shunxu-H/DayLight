@@ -206,7 +206,7 @@ MagnitudeV3	Includes/obj_loader.h	/^        float MagnitudeV3(const Vector3 in)$
 Material	Includes/Material.h	/^    struct Material{$/;"	s	namespace:Lumos
 Material	Includes/obj_loader.h	/^        Material()$/;"	f	struct:objl::Material
 Material	Includes/obj_loader.h	/^    struct Material$/;"	s	namespace:objl
-Material	src/Lumos/Material.cpp	/^Material::Material( const color4 & c,$/;"	f	class:Material
+Material	src/Lumos/Material.cpp	/^Material::Material( const cv::Mat & im,$/;"	f	class:Material
 MaterialFileReader	Includes/tiny_obj_loader.h	/^  explicit MaterialFileReader(const std::string &mtl_basepath)$/;"	f	class:tinyobj::MaterialFileReader
 MaterialFileReader	Includes/tiny_obj_loader.h	/^class MaterialFileReader : public MaterialReader {$/;"	c	namespace:tinyobj
 MaterialPack	Includes/ModelAsset.h	/^        MaterialPack(Material * m_, const GLuint & drawStart_, const GLuint & drawCnt_ )$/;"	f	struct:Lumos::MaterialPack
@@ -741,12 +741,7 @@ m_debugMode	Includes/View_bullet.h	/^    int m_debugMode;$/;"	m	class:View_bulle
 m_debugMode	Includes/btDebugDrawer.h	/^        int m_debugMode;$/;"	m	class:GLDebugDrawer
 m_mtlBasePath	Includes/tiny_obj_loader.h	/^  std::string m_mtlBasePath;$/;"	m	class:tinyobj::MaterialFileReader
 main	src/main.cpp	/^int main(int argc, char *argv[])$/;"	f
-make2DTexure	src/Lumos/Texture.cpp	/^void Texture::make2DTexure( const cv::Mat & im,$/;"	f	class:Lumos::Texture
-makeColorTextureBuffer	src/Lumos/Texture.cpp	/^void Texture::makeColorTextureBuffer(const size_t & w, const size_t & h){$/;"	f	class:Lumos::Texture
-makeDepthTextureBuffer	src/Lumos/Texture.cpp	/^void Texture::makeDepthTextureBuffer(const size_t & w, const size_t & h){$/;"	f	class:Lumos::Texture
 makeDirectionalLight	src/Patronus/Light.cpp	/^Light Light::makeDirectionalLight(const point3 & position, const point3 & intensity, const float & ambientCoefficient){$/;"	f	class:Light
-makeMultisampledColorTextureBuffer	src/Lumos/Texture.cpp	/^void Texture::makeMultisampledColorTextureBuffer(const size_t & w,$/;"	f	class:Lumos::Texture
-makeMultisampledDepthTextureBuffer	src/Lumos/Texture.cpp	/^void Texture::makeMultisampledDepthTextureBuffer(const size_t & w,$/;"	f	class:Lumos::Texture
 makePointLight	src/Patronus/Light.cpp	/^Light Light::makePointLight( const point3 & position,$/;"	f	class:Light
 map_Ka	Includes/obj_loader.h	/^        std::string map_Ka;$/;"	m	struct:objl::Material
 map_Kd	Includes/obj_loader.h	/^        std::string map_Kd;$/;"	m	struct:objl::Material
@@ -805,7 +800,6 @@ operator -	Includes/obj_loader.h	/^        Vector3 operator-(const Vector3& righ
 operator =	src/Lumos/ArrayBuffer.cpp	/^ArrayBuffer& ArrayBuffer::operator = ( const ArrayBuffer & other ){$/;"	f	class:ArrayBuffer
 operator =	src/Lumos/GLObject.cpp	/^GLObject& GLObject::operator = (const GLObject & other ){$/;"	f	class:GLObject
 operator =	src/Lumos/MultisampledFrameBuffer.cpp	/^MultisampledFrameBuffer & MultisampledFrameBuffer::operator = ( const MultisampledFrameBuffer & that)$/;"	f	class:Lumos::MultisampledFrameBuffer
-operator =	src/Lumos/Texture.cpp	/^Texture & Texture::operator = (const Texture & that ){$/;"	f	class:Lumos::Texture
 operator ==	Includes/InputParser.h	/^    bool operator==(const Cmd & rhs) const { return _flag == rhs._flag;}$/;"	f	class:Cmd
 operator ==	Includes/obj_loader.h	/^        bool operator==(const Vector2& other) const$/;"	f	struct:objl::Vector2
 operator ==	Includes/obj_loader.h	/^        bool operator==(const Vector3& other) const$/;"	f	struct:objl::Vector3
