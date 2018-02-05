@@ -35,310 +35,317 @@ View_renderer::View_renderer(
 		const std::shared_ptr<Patronus::Camera> & cam,
 		const std::string & shaderId )
     : PerspectiveView(x, y, w, h, cam, shaderId)
+    , _Multisampled_FBO(0)
+    , _Multisampled_ColorBuffer(0)
+    , _Multisampled_DepthBuffer(0)
     , _frameBuffer(w, h)
 {
-  _multisampledFrameBuffer = Lumos::MultisampledFrameBuffer(w, h);
-  GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
-  _multisampledFrameBuffer.use();
-  glGetError();
-  GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
+    glGenFramebuffers(1, &_Multisampled_FBO);
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+    glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
+    glGetError();
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+    //QTimer::singleShot(1000, this, SLOT(_checkRendererReady()));
 }
 
 
 View_renderer::~View_renderer(){
+  if (_Multisampled_ColorBuffer != 0 and _Multisampled_DepthBuffer != 0)
+      _deleteMultisampledBuffers();
+  //Bind 0, which means render to back buffer, as a result, fb is unbound
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  glDeleteFramebuffers(1, &_Multisampled_FBO);
+}
+
+
+void View_renderer::_deleteMultisampledBuffers(){
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+    assert(_Multisampled_ColorBuffer != 0 and _Multisampled_DepthBuffer != 0);
+    glDeleteRenderbuffers(1, &_Multisampled_ColorBuffer);
+    _Multisampled_ColorBuffer = 0;
+    glDeleteRenderbuffers(1, &_Multisampled_DepthBuffer);
+    _Multisampled_DepthBuffer = 0;
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
 
 }
 
 
+void View_renderer::_remakeMultisampledBuffers(){
+  _deleteMultisampledBuffers();
+  _makeMultisampledBuffers();
+  GLError( __PRETTY_FUNCTION__ , __LINE__ );
+}
+
+void View_renderer::_remakeOutTextures(){
+	_makeOutTextures();
+  GLError( __PRETTY_FUNCTION__ , __LINE__ );
+}
+
 void View_renderer::resizeGL(const size_t & w, const size_t &h){
 	_width = w;
 	_height = h;
-  _multisampledFrameBuffer.resize(w, h);
+	_remakeMultisampledBuffers();
   _frameBuffer.resize(w, h);
   Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
 }
 
 void View_renderer::initializeGL(){
-  _makeMultisampledBuffers();
-  _makeOutTextures();
+    _makeMultisampledBuffers();
+    _makeOutTextures();
 	PerspectiveView::initializeGL();
 }
 
 
 cv::Mat View_renderer::_saveColorImage(const std::string & fileName){
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, _Multisampled_FBO);
 
-  // // blit frame buffer
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // glBindFramebuffer(GL_READ_FRAMEBUFFER, _Multisampled_FBO);
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _out_FBO);
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // glBlitFramebuffer(  0,
-  //                     0,
-  //                     _width,
-  //                     _height,
-  //                     0,
-  //                     0,
-  //                     _width,
-  //                     _height,
-  //                     GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT,
-  //                     GL_NEAREST
-  //                   );
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // cv::Mat img(_height, _width, CV_8UC3);
-  // glPixelStorei(GL_PACK_ALIGNMENT, (img.step & 3)?1:4);
-  // glPixelStorei(GL_PACK_ROW_LENGTH, img.step/img.elemSize());
-  // glBindTexture(GL_TEXTURE_2D, _out_ColorTextureObject);
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // glGetTexImage ( GL_TEXTURE_2D,
-  //                 0,
-  //                 GL_BGR, // GL will convert to this format
-  //                 GL_UNSIGNED_BYTE,   // Using this data type per-pixel
-  //                 img.data );
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // cv::Mat flipped(img);
-  // cv::flip(img, flipped, 0);
-  // if (fileName.size() > 0){
-  //     cv::imwrite(fileName, img);
-  //     //Debug("save " << fileName);
-  // }
-  //
-  // glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // return img;
-  return cv::Mat();
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    _frameBuffer.use(GL_DRAW_FRAMEBUFFER);
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    glBlitFramebuffer(  0,
+                        0,
+                        _width,
+                        _height,
+                        0,
+                        0,
+                        _width,
+                        _height,
+                        GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT,
+                        GL_NEAREST
+                      );
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    cv::Mat img(_height, _width, CV_8UC3);
+    glPixelStorei(GL_PACK_ALIGNMENT, (img.step & 3)?1:4);
+    glPixelStorei(GL_PACK_ROW_LENGTH, img.step/img.elemSize());
+    glBindTexture(GL_TEXTURE_2D, _frameBuffer.getColorTexBuffer().getGlObjId());
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    glGetTexImage ( GL_TEXTURE_2D,
+                    0,
+                    GL_BGR, // GL will convert to this format
+                    GL_UNSIGNED_BYTE,   // Using this data type per-pixel
+                    img.data );
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    cv::Mat flipped(img);
+    cv::flip(img, flipped, 0);
+    if (fileName.size() > 0){
+        cv::imwrite(fileName, img);
+        //Debug("save " << fileName);
+    }
+
+    glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    return img;
 }
 
 cv::Mat View_renderer::_saveBitMap(const std::string & fileName){
-  // cv::Mat compressed(_height, _width, IPL_DEPTH_1U);
-  // cv::Mat colorImg = _saveColorImage("");
-  //
-  // //Grayscale matrix
-  // cv::Mat grayscaleMat (colorImg.size(), CV_8UC1);
-  //
-  // //Convert BGR to Gray
-  // cv::cvtColor( colorImg, grayscaleMat, CV_BGR2GRAY );
-  //
-  // //Binary image
-  // cv::Mat binaryMat(grayscaleMat.size(), grayscaleMat.type());
-  //
-  // //Apply thresholding
-  // cv::threshold(grayscaleMat, binaryMat, 100, 255, cv::THRESH_BINARY);
-  //
-  // if (fileName.size() > 0){
-  //     cv::imwrite(fileName, binaryMat);
-  //     //Debug("save " << fileName);
-  // }
-  // return binaryMat;
-  return cv::Mat();
+    cv::Mat compressed(_height, _width, IPL_DEPTH_1U);
+    cv::Mat colorImg = _saveColorImage("");
+
+    //Grayscale matrix
+    cv::Mat grayscaleMat (colorImg.size(), CV_8UC1);
+
+    //Convert BGR to Gray
+    cv::cvtColor( colorImg, grayscaleMat, CV_BGR2GRAY );
+
+    //Binary image
+    cv::Mat binaryMat(grayscaleMat.size(), grayscaleMat.type());
+
+    //Apply thresholding
+    cv::threshold(grayscaleMat, binaryMat, 100, 255, cv::THRESH_BINARY);
+
+    if (fileName.size() > 0){
+        cv::imwrite(fileName, binaryMat);
+        //Debug("save " << fileName);
+    }
+    return binaryMat;
 }
 
 
 cv::Mat View_renderer::_saveDepthImage(const std::string & fileName){
-  //
-  // // blit frame buffer
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // glBindFramebuffer(GL_READ_FRAMEBUFFER, _Multisampled_FBO);
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _out_FBO);
-  // glBlitFramebuffer(  0,
-  //                     0,
-  //                     _width,
-  //                     _height,
-  //                     0,
-  //                     0,
-  //                     _width,
-  //                     _height,
-  //                     GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT,
-  //                     GL_NEAREST
-  //                   );
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  //
-  // cv::Mat img(_height, _width, CV_8UC1);
-  // // glPixelStorei(GL_PACK_ALIGNMENT, (img.step & 3)?1:4);
-  // // glPixelStorei(GL_PACK_ROW_LENGTH, img.step/img.elemSize());
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // glBindTexture(GL_TEXTURE_2D, _out_DepthTextureObject);
-  // glGetTexImage ( GL_TEXTURE_2D,
-	//                 0,
-	//                 GL_DEPTH_COMPONENT, // GL will convert to this format
-	//                 GL_UNSIGNED_BYTE,   // Using this data type per-pixel
-	//                 img.data );
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  //
-  // //cv::Point min_loc, max_loc
-  // // uint8_t min, max;
-  // // cv::minMaxLoc(img, &min, &max, &min_loc, &max_loc);
-  // // Debug()
-  //
-  // cv::Mat flipped(img);
-  // cv::flip(img, flipped, 0);
-  // if( fileName.size() > 0 ){
-  //     cv::imwrite(fileName, img);
-  //     //Debug("save " << fileName );
-  // }
-  //
-  // glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // return img;
-  return cv::Mat();
+
+    // blit frame buffer
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, _Multisampled_FBO);
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    _frameBuffer.use(GL_DRAW_FRAMEBUFFER);
+    glBlitFramebuffer(  0,
+                        0,
+                        _width,
+                        _height,
+                        0,
+                        0,
+                        _width,
+                        _height,
+                        GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT,
+                        GL_NEAREST
+                      );
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+    cv::Mat img(_height, _width, CV_8UC1);
+    // glPixelStorei(GL_PACK_ALIGNMENT, (img.step & 3)?1:4);
+    // glPixelStorei(GL_PACK_ROW_LENGTH, img.step/img.elemSize());
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    _frameBuffer.getDepthTexBuffer().use();
+	  glGetTexImage ( GL_TEXTURE_2D,
+  	                0,
+  	                GL_DEPTH_COMPONENT, // GL will convert to this format
+  	                GL_UNSIGNED_BYTE,   // Using this data type per-pixel
+  	                img.data );
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+    //cv::Point min_loc, max_loc
+    // uint8_t min, max;
+    // cv::minMaxLoc(img, &min, &max, &min_loc, &max_loc);
+    // Debug()
+
+    cv::Mat flipped(img);
+    cv::flip(img, flipped, 0);
+    if( fileName.size() > 0 ){
+        cv::imwrite(fileName, img);
+        //Debug("save " << fileName );
+    }
+
+    glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    return img;
 }
 
 
 
 void View_renderer::_makeMultisampledBuffers(){
-  //
-  //
-  // assert(_Multisampled_ColorBuffer == 0 and _Multisampled_DepthBuffer == 0 and _Multisampled_FBO != 0);
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  //
-  // glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
-  //
-  // int samples;
-  // char ErrorMessage[1024];
-  // //We need to find out what the maximum supported samples is
-  // glGetIntegerv(GL_MAX_SAMPLES_EXT, &samples);
-  // //----------------------
-  // //If for example, 16 is returned, then you can attempt to make a FBO with samples=0 to 16
-  // //0 means no multisample. This is like using glFramebufferRenderbufferEXT instead of glRenderbufferStorageMultisampleEXT
-  // //You can attempt to make sample from 1 to 16, but some of them might fail
-  // //Now, let's make a FBO
-  // assert( samples >= 4);
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // //----------------------
-  // //Now make a multisample color buffer
-  // //glGenRenderbuffers(1, &_Multisampled_ColorBuffer);
-  // //glBindRenderbuffer(GL_RENDERBUFFER, _Multisampled_ColorBuffer);
-  // //samples=4, format=GL_RGBA8, width=256, height=256
-  // //glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_RGBA8, _width, _height);
-  // glGenTextures(1, &_Multisampled_ColorBuffer);
-  // glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, _Multisampled_ColorBuffer);
-  // glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE,
-  //                         samples,
-  //                         GL_RGBA,
-  //                         _width,
-  //                         _height,
-  //                         GL_FALSE);
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // //----------------------
-  // //Make a depth multisample depth buffer
-  // //You must give it the same samples as the color RB, same width and height as well
-  // //else you will either get a GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT or some other error
-  //
-  // //glGenRenderbuffers(1, &_Multisampled_DepthBuffer);
-  // // glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE,
-  // //                         samples,
-  // //                         GL_DEPTH_COMPONENT32F,
-  // //                         _width, _height, GL_FALSE);
-  //
-  // //glBindRenderbuffer(GL_RENDERBUFFER, _Multisampled_DepthBuffer);
-  // //samples=4, format=GL_DEPTH_COMPONENT24, width=256, height=256
-  // //glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_DEPTH_COMPONENT32F, _width, _height);
-  // //----------------------
-  // glGenTextures(1, &_Multisampled_DepthBuffer);
-  // glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, _Multisampled_DepthBuffer);
-  // glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE,
-  //                         samples,
-  //                         GL_DEPTH_COMPONENT32F,
-  //                         _width,
-  //                         _height,
-  //                         GL_FALSE);
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  //
-  // //It's time to attach the RBs to the FBO
-  // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, _Multisampled_ColorBuffer, 0);
-  // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, _Multisampled_DepthBuffer, 0);
-  // //----------------------
-  // //Make sure FBO status is good
-  //
-  // GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
-  // glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
-  // if(Utils::glExtCheckFramebufferStatus(ErrorMessage) != 1){
-  //     std::cerr << ErrorMessage << std::endl;
-  //     exit(EXIT_FAILURE);
-  // }
-  //
-  //
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+
+    assert(_Multisampled_ColorBuffer == 0 and _Multisampled_DepthBuffer == 0 and _Multisampled_FBO != 0);
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+    glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
+
+    int samples;
+    char ErrorMessage[1024];
+    //We need to find out what the maximum supported samples is
+    glGetIntegerv(GL_MAX_SAMPLES_EXT, &samples);
+    //----------------------
+    //If for example, 16 is returned, then you can attempt to make a FBO with samples=0 to 16
+    //0 means no multisample. This is like using glFramebufferRenderbufferEXT instead of glRenderbufferStorageMultisampleEXT
+    //You can attempt to make sample from 1 to 16, but some of them might fail
+    //Now, let's make a FBO
+    assert( samples >= 4);
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    //----------------------
+    //Now make a multisample color buffer
+    //glGenRenderbuffers(1, &_Multisampled_ColorBuffer);
+    //glBindRenderbuffer(GL_RENDERBUFFER, _Multisampled_ColorBuffer);
+    //samples=4, format=GL_RGBA8, width=256, height=256
+    //glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_RGBA8, _width, _height);
+    glGenTextures(1, &_Multisampled_ColorBuffer);
+    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, _Multisampled_ColorBuffer);
+    glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE,
+                            samples,
+                            GL_RGBA,
+                            _width,
+                            _height,
+                            GL_FALSE);
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    //----------------------
+    //Make a depth multisample depth buffer
+    //You must give it the same samples as the color RB, same width and height as well
+    //else you will either get a GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT or some other error
+
+    //glGenRenderbuffers(1, &_Multisampled_DepthBuffer);
+    // glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE,
+    //                         samples,
+    //                         GL_DEPTH_COMPONENT32F,
+    //                         _width, _height, GL_FALSE);
+
+    //glBindRenderbuffer(GL_RENDERBUFFER, _Multisampled_DepthBuffer);
+    //samples=4, format=GL_DEPTH_COMPONENT24, width=256, height=256
+    //glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, GL_DEPTH_COMPONENT32F, _width, _height);
+    //----------------------
+    glGenTextures(1, &_Multisampled_DepthBuffer);
+    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, _Multisampled_DepthBuffer);
+    glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE,
+                            samples,
+                            GL_DEPTH_COMPONENT32F,
+                            _width,
+                            _height,
+                            GL_FALSE);
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+    //It's time to attach the RBs to the FBO
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, _Multisampled_ColorBuffer, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, _Multisampled_DepthBuffer, 0);
+    //----------------------
+    //Make sure FBO status is good
+
+    GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
+    glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
+    if(Utils::glExtCheckFramebufferStatus(ErrorMessage) != 1){
+        std::cerr << ErrorMessage << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
 }
 
 
 void View_renderer::_makeOutTextures(){
 
-  // assert(_out_ColorTextureObject == 0 and _out_DepthTextureObject == 0 and _out_FBO != 0);
-  //
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  //
-  // glGenTextures(1, &_out_ColorTextureObject);
-  // glBindTexture(GL_TEXTURE_2D, _out_ColorTextureObject);
-  // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  // glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-  //                     _width, _height,
-  //                     0, GL_RGBA, GL_UNSIGNED_BYTE,
-  //                     NULL);
-  //
-  // // create a depth texture
-  // glGenTextures(1, &_out_DepthTextureObject);
-  // glBindTexture(GL_TEXTURE_2D, _out_DepthTextureObject);
-  // glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F,
-  //                     _width, _height,
-  //                     0, GL_DEPTH_COMPONENT, GL_FLOAT,
-  //                     NULL);
-  //
-  //
-  //
-  //
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  // glBindFramebuffer(GL_FRAMEBUFFER, _out_FBO);
-  // // attach color
-  // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _out_ColorTextureObject, 0);
-  // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,  GL_TEXTURE_2D, _out_DepthTextureObject, 0);
-  //
-  //
-  // // Set the list of draw buffers.
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  //
-  // // check buffer status
-  // if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-  //     throw std::runtime_error ( "Error! FrameBuffer is not complete" );
-  //
-  //
-  //
-  // // GLint drawId = 0, readId = 0;
-  // // glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
-  // // glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readId);
-  //
-  //
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
-  //
-  // GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
-  // glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
-  //
-  // //glViewport(0,0,width,height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
-  //
-  //
-  // glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
-  // GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    // assert(_out_ColorTextureObject == 0 and _out_DepthTextureObject == 0 and _out_FBO != 0);
+    // GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    // glGenTextures(1, &_out_ColorTextureObject);
+    // glBindTexture(GL_TEXTURE_2D, _out_ColorTextureObject);
+    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    // glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+    //                     _width, _height,
+    //                     0, GL_RGBA, GL_UNSIGNED_BYTE,
+    //                     NULL);
+    // // create a depth texture
+    // glGenTextures(1, &_out_DepthTextureObject);
+    // glBindTexture(GL_TEXTURE_2D, _out_DepthTextureObject);
+    // glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F,
+    //                     _width, _height,
+    //                     0, GL_DEPTH_COMPONENT, GL_FLOAT,
+    //                     NULL);
+    // GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    // glBindFramebuffer(GL_FRAMEBUFFER, _out_FBO);
+    // // attach color
+    // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _out_ColorTextureObject, 0);
+    // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,  GL_TEXTURE_2D, _out_DepthTextureObject, 0);
+    // // Set the list of draw buffers.
+    // GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    //
+    // // check buffer status
+    // if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    //     throw std::runtime_error ( "Error! FrameBuffer is not complete" );
+    //
+    // GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    //
+    // GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
+    // glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
+    //
+    // glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
+    // GLError( __PRETTY_FUNCTION__ , __LINE__ );
 }
 
 
@@ -352,15 +359,47 @@ void View_renderer::getVisibleObjects(const std::string & path){
     std::string temp = _shaderId;
     _shaderId = Lumos::Shader::mask_shader_id;
     _frameBuffer.use();
+    // glBindFramebuffer(GL_FRAMEBUFFER, _out_FBO);
     paintGL();
     _shaderId = temp;
     //GLubyte * pixels = new GLubyte [width*height*4*sizeof(GLuint)];
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
 
+    GLint drawId = 0, readId = 0;
+    glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawId);
+    glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readId);
 
-    cv::Mat colorCodedScene = _frameBuffer.saveColorBuffer2file(path + "colorCodedScene.png");
+    cv::Mat img(_height, _width, CV_8UC3);
+    glPixelStorei(GL_PACK_ALIGNMENT, (img.step & 3)?1:4);
+    glPixelStorei(GL_PACK_ROW_LENGTH, img.step/img.elemSize());
+    _frameBuffer.getColorTexBuffer().use();
+    // glBindTexture(GL_TEXTURE_2D, _out_ColorTextureObject);
 
-    _frameBuffer.stopUsing();
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    glGetTexImage ( GL_TEXTURE_2D,
+                    0,
+                    GL_BGR, // GL will convert to this format
+                    GL_UNSIGNED_BYTE,   // Using this data type per-pixel
+                    img.data );
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    cv::Mat flipped(img);
+    cv::flip(img, flipped, 0);
+    cv::imwrite(path + "colorCodedScene.png", img);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, _Multisampled_FBO);
+
+    //cv::Mat img = _saveColorImage("temp.png");
+    //glMapBufferRange(_ColorBuffer, 0, GLsizeiptr length​, GLbitfield access​);
+    // glPixelStorei(GL_PACK_ALIGNMENT, (img.step & 3)?1:4);
+    // glPixelStorei(GL_PACK_ROW_LENGTH, img.step/img.elemSize());
+
+    // glReadPixels(0, 0, img.cols, img.rows, GL_BGR_EXT, GL_UNSIGNED_BYTE, img.data);
+    // glGetTextureImage ( GL_TEXTURE_2D,
+    //                     0,
+    //                     GL_BGR, // GL will convert to this format
+    //                     GL_UNSIGNED_BYTE,   // Using this data type per-pixel
+    //                     img.data );
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
 
     std::set<size_t> pickedInstanceIndices;
@@ -372,7 +411,7 @@ void View_renderer::getVisibleObjects(const std::string & path){
 
     for (size_t rowItr = 0; rowItr < static_cast<size_t>(_height); rowItr++){
         for (size_t colItr = 0; colItr < static_cast<size_t>(_width); colItr++){
-            cv::Vec3b p = colorCodedScene.at<cv::Vec3b>(rowItr, colItr);
+            cv::Vec3b p = img.at<cv::Vec3b>(rowItr, colItr);
             pickedInstanceIndices.insert(Color::toUniqueInt(p.val[2], p.val[1], p.val[0]));
         }
     }
@@ -395,15 +434,11 @@ void View_renderer::generateMasks(){
     getVisibleObjects(savePath);
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
 
-    // make everything invisible
+    // make everythign invisible
     for (Lumos::Instance * ins : world->getInstances())
     {
         ins->turnOff();
     }
-
-    // disable anti-aliasing
-    _frameBuffer.use();
-    // save the original shader
     std::string tempShaderId = _shaderId;
     _shaderId = Lumos::Shader::mask_shader_id;
     Lumos::Instance * curOn = nullptr;
@@ -424,7 +459,6 @@ void View_renderer::generateMasks(){
 
     _shaderId = tempShaderId;
 
-    _frameBuffer.stopUsing();
     Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
 
 }
@@ -437,12 +471,32 @@ void View_renderer::generateData(){
     generateMasks();
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
-    _multisampledFrameBuffer.use();
+    toImageFile_color( parentDir + _camInUse->getId() + "/color.png" );
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+    toImageFile_depth( parentDir + _camInUse->getId() + "/depth.png");
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+}
+
+
+
+
+void View_renderer::toImageFile_color( const std::string & fileName ){
+
     paintGL();
-    _multisampledFrameBuffer.saveColorBuffer2file(parentDir + _camInUse->getId() + "/color.png");
-    GLError( __PRETTY_FUNCTION__ , __LINE__ );
-    _multisampledFrameBuffer.saveDepthBuffer2file(parentDir + _camInUse->getId() + "/depth.png");
+    _saveColorImage(fileName);
+
+}
+
+void View_renderer::toImageFile_depth( const std::string & fileName ) {
+    int w = 0, h = 0;
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &w);
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &h);
+
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-
+    paintGL();
+    _saveDepthImage(fileName);
 }

@@ -17,7 +17,9 @@ public:
    * GETTER AND SETTER
    */
   inline size_t getHeight() const{ return _colorTexBuffer.getHeight(); }
-  inline size_t getWidth() const {  return _colorTexBuffer.getWidth(); }
+  inline size_t getWidth() const { return _colorTexBuffer.getWidth(); }
+  inline ColorTexBuffer getColorTexBuffer() const { return _colorTexBuffer; }
+  inline DepthTexBuffer getDepthTexBuffer() const { return _depthTexBuffer; }
 
   cv::Mat saveColorBuffer2file(const std::string & filename) override;
   cv::Mat saveDepthBuffer2file(const std::string & filename) override;

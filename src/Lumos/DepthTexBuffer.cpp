@@ -13,8 +13,8 @@ DepthTexBuffer::DepthTexBuffer(const size_t & width, const size_t & height)
   assert(_glObjId != 0 && "GLObject initialization probably failed.");
   assert(_textureTarget == 0);
   _textureTarget = GL_TEXTURE_2D;
-  _internalFormat = GL_DEPTH_COMPONENT;
-  _dataType = GL_UNSIGNED_BYTE;
+  _internalFormat = GL_DEPTH_COMPONENT32F;
+  _dataType = GL_FLOAT;
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
   use();

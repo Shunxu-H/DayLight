@@ -92,12 +92,12 @@ cv::Mat FrameBuffer::saveDepthBuffer2file(const std::string & filename){
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     use();
     _depthTexBuffer.use();
-    GLint format = 19;
-    glGetInternalformativ(GL_TEXTURE_2D, GL_FLOAT,
-                          GL_DEPTH_COMPONENTS, 1, &format);
-    GLError( __PRETTY_FUNCTION__ , __LINE__ );
-    assert(format == GL_TRUE);
-    Utils::printFramebufferInfo(GL_READ_FRAMEBUFFER, _glObjId);
+    // GLint format = 19;
+    // glGetInternalformativ(GL_TEXTURE_2D, GL_FLOAT,
+    //                       GL_DEPTH_COMPONENTS, 1, &format);
+    // GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    // assert(format == GL_TRUE);
+    Utils::printFramebufferInfo(GL_FRAMEBUFFER, _glObjId);
 
     int value;
     glGetIntegerv(GL_TEXTURE_BINDING_2D, &value);

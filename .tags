@@ -365,6 +365,9 @@ X	Includes/obj_loader.h	/^        float X;$/;"	m	struct:objl::Vector3
 Y	Includes/obj_loader.h	/^        float Y;$/;"	m	struct:objl::Vector2
 Y	Includes/obj_loader.h	/^        float Y;$/;"	m	struct:objl::Vector3
 Z	Includes/obj_loader.h	/^        float Z;$/;"	m	struct:objl::Vector3
+_Multisampled_ColorBuffer	Includes/View_renderer.h	/^  GLuint _Multisampled_ColorBuffer;$/;"	m	class:View_renderer
+_Multisampled_DepthBuffer	Includes/View_renderer.h	/^  GLuint _Multisampled_DepthBuffer;$/;"	m	class:View_renderer
+_Multisampled_FBO	Includes/View_renderer.h	/^  GLuint _Multisampled_FBO;$/;"	m	class:View_renderer
 _TDOGL_PROGRAM_ATTRIB_N_UNIFORM_SETTERS	Includes/Program.h	113;"	d
 _VAO	Includes/PerspectiveView.h	/^    GLuint _VAO;$/;"	m	class:PerspectiveView
 _VBO_COLOR	Includes/Mesh.h	/^        GLuint _VBO_COLOR;$/;"	m	class:Patronus::Mesh
@@ -396,6 +399,7 @@ _coneDirection	Includes/Light.h	/^        glm::vec3 _coneDirection;$/;"	m	class:
 _curFileName	Includes/Shaper.h	/^        std::string _curFileName;$/;"	m	class:Patronus::Shaper
 _dataType	Includes/Texture.h	/^    GLenum _dataType;$/;"	m	class:Lumos::Texture
 _deleteFunc	Includes/GLObject.h	/^        void (*_deleteFunc)(const GLuint *); \/\/ function will be called when refCount is 0$/;"	m	class:Lumos::GLObject
+_deleteMultisampledBuffers	src/Output/View_renderer.cpp	/^void View_renderer::_deleteMultisampledBuffers(){$/;"	f	class:View_renderer
 _depthTexBuffer	Includes/FrameBuffer.h	/^  DepthTexBuffer _depthTexBuffer;$/;"	m	class:Lumos::FrameBuffer
 _depthTexBuffer	Includes/MultisampledFrameBuffer.h	/^    MultisampledDepthTexBuffer _depthTexBuffer;$/;"	m	class:Lumos::MultisampledFrameBuffer
 _dispatcher	Includes/PhysicalWorld.h	/^        btCollisionDispatcher* _dispatcher;$/;"	m	class:Patronus::PhysicalWorld
@@ -415,7 +419,7 @@ _faces	Includes/Mesh.h	/^        std::vector< Face > _faces;$/;"	m	class:Patronu
 _far	Includes/Camera.h	/^        float _far;$/;"	m	class:Patronus::Camera
 _flag	Includes/InputParser.h	/^    Flag _flag;$/;"	m	class:Cmd
 _fov	Includes/Camera.h	/^        float _fov;$/;"	m	class:Patronus::Camera
-_frameBuffer	Includes/View_renderer.h	/^    Lumos::FrameBuffer _frameBuffer;$/;"	m	class:View_renderer
+_frameBuffer	Includes/View_renderer.h	/^  Lumos::FrameBuffer _frameBuffer;$/;"	m	class:View_renderer
 _glObjId	Includes/GLObject.h	/^        GLuint _glObjId;$/;"	m	class:Lumos::GLObject
 _headlessInit	src/Output/WindowManager.cpp	/^void WindowManager::_headlessInit(){$/;"	f	class:WindowManager
 _headlessInit	src/Output/WindowManager_headless.cpp	/^void WindowManager_headless::_headlessInit(){$/;"	f	class:WindowManager_headless
@@ -452,7 +456,7 @@ _makeOutTextures	src/Output/View_renderer.cpp	/^void View_renderer::_makeOutText
 _material	Includes/Face.h	/^    Lumos::Material *  _material;$/;"	m	class:Face
 _materials	Includes/Shaper.h	/^        std::vector< Lumos::Material * > _materials;$/;"	m	class:Patronus::Shaper
 _meshPtr	Includes/Instance.h	/^        Patronus::Mesh * _meshPtr;$/;"	m	class:Lumos::Instance
-_multisampledFrameBuffer	Includes/View_renderer.h	/^    Lumos::MultisampledFrameBuffer _multisampledFrameBuffer;$/;"	m	class:View_renderer
+_multisampledFrameBuffer	Includes/View_renderer.h	/^  Lumos::MultisampledFrameBuffer _multisampledFrameBuffer;$/;"	m	class:View_renderer
 _names	Includes/PhysicalWorld.h	/^        std::set< std::string > _names;$/;"	m	class:Patronus::PhysicalWorld
 _near	Includes/Camera.h	/^        float _near;$/;"	m	class:Patronus::Camera
 _normalIndeces	Includes/Face.h	/^    std::vector< int > _normalIndeces;$/;"	m	class:Face
@@ -463,6 +467,8 @@ _outputBuffer	Includes/MultisampledFrameBuffer.h	/^    FrameBuffer _outputBuffer
 _pickingColor	Includes/Instance.h	/^        color3 _pickingColor;$/;"	m	class:Lumos::Instance
 _refCount	Includes/GLObject.h	/^        unsigned int *_refCount; \/\/ use to keep the reference count for the shader$/;"	m	class:Lumos::GLObject
 _release	src/Lumos/GLObject.cpp	/^void GLObject::_release(){$/;"	f	class:GLObject
+_remakeMultisampledBuffers	src/Output/View_renderer.cpp	/^void View_renderer::_remakeMultisampledBuffers(){$/;"	f	class:View_renderer
+_remakeOutTextures	src/Output/View_renderer.cpp	/^void View_renderer::_remakeOutTextures(){$/;"	f	class:View_renderer
 _render_hidden_view	Includes/WindowManager_headless.h	/^    View_renderer * _render_hidden_view;$/;"	m	class:WindowManager_headless
 _retain	src/Lumos/GLObject.cpp	/^void GLObject::_retain(){$/;"	f	class:GLObject
 _rigidBody	Includes/Instance.h	/^        btRigidBody * _rigidBody;$/;"	m	class:Lumos::Instance
@@ -600,6 +606,7 @@ getBoundingSphere	src/Patronus/Shaper.cpp	/^void Shaper::getBoundingSphere(const
 getCamInUse	Includes/PerspectiveView.h	/^        getCamInUse() const { return _camInUse; }$/;"	f	class:PerspectiveView
 getColor	src/Utility/Color.cpp	/^float* Color::getColor(const float& a, const float& b, const float& c){$/;"	f	class:Color
 getColor2InstanceMapping	src/BulletPhysics/PhysicalWorld.cpp	/^    PhysicalWorld::getColor2InstanceMapping()$/;"	f	class:Patronus::PhysicalWorld
+getColorTexBuffer	Includes/FrameBuffer.h	/^  inline ColorTexBuffer getColorTexBuffer() const { return _colorTexBuffer; }$/;"	f	class:Lumos::FrameBuffer
 getConeAngle	Includes/Light.h	/^            getConeAngle() const { return _coneAngle; }$/;"	f	class:Patronus::Light
 getConeDirection	Includes/Light.h	/^            getConeDirection() const { return _coneDirection; }$/;"	f	class:Patronus::Light
 getCurFileName	Includes/Shaper.h	/^            getCurFileName() const { return _curFileName; }$/;"	f	class:Patronus::Shaper
@@ -607,6 +614,7 @@ getCurrentVaryingsAndUniforms	src/Lumos/Shader.cpp	/^void Shader::getCurrentVary
 getDebugMode	Includes/View_bullet.h	/^    virtual int getDebugMode() const { return m_debugMode;}$/;"	f	class:View_bullet
 getDebugMode	Includes/btDebugDrawer.h	/^        virtual int      getDebugMode() const { return m_debugMode;}$/;"	f	class:GLDebugDrawer
 getDefaultLight	Includes/Shaper.h	/^        inline Light getDefaultLight() const { return _lights[0]; }$/;"	f	class:Patronus::Shaper
+getDepthTexBuffer	Includes/FrameBuffer.h	/^  inline DepthTexBuffer getDepthTexBuffer() const { return _depthTexBuffer; }$/;"	f	class:Lumos::FrameBuffer
 getElement	Includes/obj_loader.h	/^        inline const T & getElement(const std::vector<T> &elements, std::string &index)$/;"	f	namespace:objl::algorithm
 getFarClipDist	Includes/Camera.h	/^            getFarClipDist() const { return _far; }$/;"	f	class:Patronus::Camera
 getFlag	Includes/InputParser.h	/^    inline Flag getFlag() const {return _flag;}$/;"	f	class:Cmd
@@ -663,7 +671,7 @@ getUvInds	Includes/Face.h	/^        getUvInds() const { return _uvIndeces; }$/;"
 getVertexBuffer	src/Patronus/Shaper.cpp	/^Lumos::ArrayBuffer Shaper::getVertexBuffer( )const$/;"	f	class:Shaper
 getVerticesInds	Includes/Face.h	/^        getVerticesInds() const { return _verticesIndeces; }$/;"	f	class:Face
 getVisibleObjects	src/Output/View_renderer.cpp	/^void View_renderer::getVisibleObjects(const std::string & path){$/;"	f	class:View_renderer
-getWidth	Includes/FrameBuffer.h	/^  inline size_t getWidth() const {  return _colorTexBuffer.getWidth(); }$/;"	f	class:Lumos::FrameBuffer
+getWidth	Includes/FrameBuffer.h	/^  inline size_t getWidth() const { return _colorTexBuffer.getWidth(); }$/;"	f	class:Lumos::FrameBuffer
 getWidth	Includes/MultisampledFrameBuffer.h	/^    inline size_t getWidth() const {  return _colorTexBuffer.getWidth(); }$/;"	f	class:Lumos::MultisampledFrameBuffer
 getWidth	Includes/Texture.h	/^    inline size_t getWidth() const {$/;"	f	class:Lumos::Texture
 getWidth	Includes/Widget.h	/^  inline size_t getWidth() const {return _width;}$/;"	f	class:Widget
@@ -835,8 +843,8 @@ override	Includes/Texture2D.h	/^  void resize(const GLsizei & w, const GLsizei &
 override	Includes/View.h	/^    virtual bool _expose() override;$/;"	m	class:View
 override	Includes/View_bullet.h	/^    virtual void paintGL() override ;$/;"	m	class:View_bullet
 override	Includes/View_bullet.h	/^    virtual void resizeGL(const size_t & w, const size_t & h) override ;$/;"	m	class:View_bullet
-override	Includes/View_renderer.h	/^    virtual void initializeGL() override;$/;"	m	class:View_renderer
-override	Includes/View_renderer.h	/^    virtual void resizeGL(const size_t & w, const size_t &h) override;$/;"	m	class:View_renderer
+override	Includes/View_renderer.h	/^  virtual void initializeGL() override;$/;"	m	class:View_renderer
+override	Includes/View_renderer.h	/^  virtual void resizeGL(const size_t & w, const size_t &h) override;$/;"	m	class:View_renderer
 override	Includes/WindowManager.h	/^		virtual bool _button_handle (const XEvent & event)override;$/;"	m	class:WindowManager
 override	Includes/WindowManager.h	/^		virtual bool _expose() override;$/;"	m	class:WindowManager
 override	Includes/WindowManager.h	/^		virtual bool _keyboard_handle(const XEvent & event)override;$/;"	m	class:WindowManager
@@ -998,10 +1006,12 @@ texcoord_index	Includes/tiny_obj_loader.h	/^  int texcoord_index;$/;"	m	struct:t
 texcoords	Includes/tiny_obj_loader.h	/^  std::vector<float> texcoords;  \/\/ 'vt'$/;"	m	struct:tinyobj::__anon6
 textConfig	Includes/Keyboard.h	/^struct textConfig$/;"	s
 texture	Includes/Material.h	/^        Texture2D texture;$/;"	m	struct:Lumos::Material
-that	Includes/View_renderer.h	/^    View_renderer operator = ( const View_renderer & that) = delete;$/;"	m	class:View_renderer
-that	Includes/View_renderer.h	/^    View_renderer(const View_renderer & that) = delete;$/;"	m	class:View_renderer
+that	Includes/View_renderer.h	/^  View_renderer operator = ( const View_renderer & that) = delete;$/;"	m	class:View_renderer
+that	Includes/View_renderer.h	/^  View_renderer(const View_renderer & that) = delete;$/;"	m	class:View_renderer
 tinyobj	Includes/tiny_obj_loader.h	/^namespace tinyobj {$/;"	n
 toChar	src/Utility/Utility.cpp	/^    std::shared_ptr<char> toChar(const std::string& str){$/;"	f	namespace:Utils
+toImageFile_color	src/Output/View_renderer.cpp	/^void View_renderer::toImageFile_color( const std::string & fileName ){$/;"	f	class:View_renderer
+toImageFile_depth	src/Output/View_renderer.cpp	/^void View_renderer::toImageFile_depth( const std::string & fileName ) {$/;"	f	class:View_renderer
 toUniqueColor	src/Utility/Color.cpp	/^color3 Color::toUniqueColor ( const int & i){$/;"	f	class:Color
 toUniqueInt	src/Utility/Color.cpp	/^int Color::toUniqueInt( const int & r, const int & g, const int & b ){$/;"	f	class:Color
 transMode	Includes/Config.h	/^	TransfromMode transMode;$/;"	m	struct:Config
