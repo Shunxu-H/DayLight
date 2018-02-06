@@ -57,6 +57,30 @@ FrameBuffer::~FrameBuffer()
 
 }
 
+cv::Mat FrameBuffer::saveBitMap2file(const std::string & filename){
+    cv::Mat compressed(_colorTexBuffer.getHeight(),
+                       _colorTexBuffer.getWidth(),
+                       IPL_DEPTH_1U);
+    cv::Mat colorImg = saveColorBuffer2file("");
+
+    //Grayscale matrix
+    cv::Mat grayscaleMat (colorImg.size(), CV_8UC1);
+
+    //Convert BGR to Gray
+    cv::cvtColor( colorImg, grayscaleMat, CV_BGR2GRAY );
+
+    //Binary image
+    cv::Mat binaryMat(grayscaleMat.size(), grayscaleMat.type());
+
+    //Apply thresholding
+    cv::threshold(grayscaleMat, binaryMat, 100, 255, cv::THRESH_BINARY);
+
+    if (filename.size() > 0){
+        cv::imwrite(filename, binaryMat);
+        //Debug("save " << fileName);
+    }
+    return binaryMat;
+}
 
 cv::Mat FrameBuffer::saveColorBuffer2file(const std::string & filename){
 
@@ -91,19 +115,19 @@ cv::Mat FrameBuffer::saveColorBuffer2file(const std::string & filename){
 cv::Mat FrameBuffer::saveDepthBuffer2file(const std::string & filename){
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     use();
-    _depthTexBuffer.use();
     // GLint format = 19;
     // glGetInternalformativ(GL_TEXTURE_2D, GL_FLOAT,
     //                       GL_DEPTH_COMPONENTS, 1, &format);
     // GLError( __PRETTY_FUNCTION__ , __LINE__ );
     // assert(format == GL_TRUE);
-    Utils::printFramebufferInfo(GL_FRAMEBUFFER, _glObjId);
+    // Utils::printFramebufferInfo(GL_FRAMEBUFFER, _glObjId);
 
-    int value;
-    glGetIntegerv(GL_TEXTURE_BINDING_2D, &value);
-    std::cout << "Value is: " << value << std::endl;
+    // int value;
+    // glGetIntegerv(GL_TEXTURE_BINDING_2D, &value);
+    // std::cout << "Value is: " << value << std::endl;
     cv::Mat img(getHeight(), getWidth(), CV_8UC1);
 
+    _depthTexBuffer.use();
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 	  glGetTexImage ( GL_TEXTURE_2D,
   	                0,

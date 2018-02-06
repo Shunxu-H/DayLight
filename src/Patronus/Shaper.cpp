@@ -204,8 +204,6 @@ bool Shaper::_loadFile_obj(const std::string & f_name){
         std::cerr << err << std::endl;
     }
 
-
-
     assert(attrib.vertices.size() % 3 == 0 && attrib.normals.size() % 3 == 0 && attrib.texcoords.size() % 2 == 0 );
 
     for ( size_t i = 0; i < attrib.vertices.size(); i+=3 )

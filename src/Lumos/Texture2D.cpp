@@ -5,8 +5,8 @@ namespace Lumos{
 
 Texture2D::Texture2D()
 {
-  glDeleteTextures(1, &_glObjId);
-  _glObjId = 0;
+  // glDeleteTextures(1, &_glObjId);
+  // _glObjId = 0;
 }
 
 Texture2D::Texture2D( const cv::Mat & img,
@@ -16,11 +16,11 @@ Texture2D::Texture2D( const cv::Mat & img,
                       const GLint & wrapMode)
 {
   if(img.empty()){
-    glDeleteTextures(1, &_glObjId);
-    _glObjId = 0;
+    // glDeleteTextures(1, &_glObjId);
+    // _glObjId = 0;
     return;
   }
-
+  assert(_glObjId != 0); // make sure object is initialized
   _textureTarget = GL_TEXTURE_2D;
   _internalFormat = internalFormat;
   _dataType = dataType;

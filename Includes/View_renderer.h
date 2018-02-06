@@ -49,16 +49,13 @@ public:
   void generateMasks();
   void generateData();
 
-  virtual void initializeGL() override;
+
   virtual void resizeGL(const size_t & w, const size_t &h) override;
 
 protected:
 
 
 private:
-  GLuint _Multisampled_FBO;
-  GLuint _Multisampled_ColorBuffer;
-  GLuint _Multisampled_DepthBuffer;
   Lumos::FrameBuffer _frameBuffer;
   Lumos::MultisampledFrameBuffer _multisampledFrameBuffer;
 
@@ -68,12 +65,6 @@ private:
 
   void _saveColorBuffer(const std::string & fileName);
   void _saveDepthBuffer(const std::string & fileName);
-  void _deleteMultisampledBuffers();
-  void _deleteOutTextures();
-  void _makeMultisampledBuffers();
-  void _makeOutTextures();
-  void _remakeMultisampledBuffers();
-  void _remakeOutTextures();
 };
 
 #endif // VIEW_RENDERER_H

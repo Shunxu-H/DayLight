@@ -22,6 +22,7 @@ public:
   inline DepthTexBuffer getDepthTexBuffer() const { return _depthTexBuffer; }
 
   cv::Mat saveColorBuffer2file(const std::string & filename) override;
+  cv::Mat saveBitMap2file(const std::string & filename);
   cv::Mat saveDepthBuffer2file(const std::string & filename) override;
   void resize(const size_t & width, const size_t & height) override;
 protected:

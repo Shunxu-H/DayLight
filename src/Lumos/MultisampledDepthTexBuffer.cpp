@@ -21,7 +21,7 @@ MultisampledDepthTexBuffer::MultisampledDepthTexBuffer(
   assert(_glObjId != 0 && "GLObject initialization probably failed.");
   assert(_textureTarget == 0);
   _textureTarget = GL_TEXTURE_2D_MULTISAMPLE;
-  _internalFormat = GL_DEPTH_COMPONENT;
+  _internalFormat = GL_DEPTH_COMPONENT32F;
   _dataType = GL_UNSIGNED_BYTE;
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
