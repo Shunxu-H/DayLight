@@ -1,7 +1,7 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-project(example)
+project(DayLightViewer)
 
 
 # set library name for later use 
@@ -10,10 +10,12 @@ set(LibImGui imGui)
 set(SOURCE  imgui_impl_glfw.cpp 
             imgui_impl_opengl3.cpp
             libs/gl3w/GL/gl3w.c
+            Window.cpp
             main.cpp
             )
 set(HEADER  imgui_impl_glfw.h 
             imgui_impl_opengl3.h 
+            Window.h
 )
 
 include_directories(libs/gl3w)
