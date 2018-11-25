@@ -8,6 +8,10 @@
             "name": "(gdb) Launch DayLgihtViewer",
             "type": "cppdbg",
             "request": "launch",
+<<<<<<< HEAD
+=======
+            "preLaunchTask": "make",
+>>>>>>> Development
             "program": "${workspaceFolder}/build/bin/DayLightViewer",
             "args": [],
             "stopAtEntry": false,
