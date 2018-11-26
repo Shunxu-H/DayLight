@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include <vector>
 #include <string>
 #include <memory>
-#include "GL_include.h"
+#include "Common/GL_include.h"
 #include "GLObject.h"
 namespace Lumos {
 

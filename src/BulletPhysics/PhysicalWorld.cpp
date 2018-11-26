@@ -26,10 +26,10 @@ THE SOFTWARE.
 #include <unordered_map>
 #include "btBulletDynamicsCommon.h"
 #include "PhysicalWorld.h"
-#include "Mesh.h"
+ #include "Patronus/Mesh.h"
 #include "View_bullet.h"
 
-#include "Utility.h"
+ #include "Common/Utility.h"
 
 
 #define ARRAY_SIZE_Y 5

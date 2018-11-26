@@ -39,7 +39,7 @@ THE SOFTWARE.
 #include <opencv2/opencv.hpp>
 
 
-#include "GL_include.h"
+ #include "Common/GL_include.h"
 #include <EGL/egl.h>
 #include "WindowManager.h"
 
@@ -50,7 +50,7 @@ THE SOFTWARE.
 #include "PhysicalWorld.h"
 #include "Instance.h"
 #include "Config.h"
-#include "Utility.h"
+ #include "Common/Utility.h"
 #include "InputParser.h"
 Config progConfig;
 Patronus::Shaper * shaper = nullptr;

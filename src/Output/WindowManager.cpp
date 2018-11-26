@@ -24,11 +24,11 @@ THE SOFTWARE.
 #include <experimental/filesystem>
 #include <iostream>
 #include <ctime>
-#include "GL_include.h"
+ #include "Common/GL_include.h"
 #include "WindowManager.h"
 #include "Shaper.h"
 #include "Extern.h"
-#include "Utility.h"
+ #include "Common/Utility.h"
 #include "PerspectiveView.h"
 
 #include  <sys/time.h>
@@ -45,8 +45,8 @@ THE SOFTWARE.
 // #include "Shader.h"
 // #include "Renderer.h"
 // #include "View_renderer.h"
-// #include "Utility.h"
-// #include "Extern.h"
+//  #include "Common/Utility.h"
+// #include "Common/Extern.h"
 
 
 namespace fs = std::experimental::filesystem;

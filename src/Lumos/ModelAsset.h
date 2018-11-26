@@ -24,7 +24,7 @@ THE SOFTWARE.
 #ifndef MODELASSET_H
 #define MODELASSET_H
 
-#include "GL_include.h"
+#include "Common/GL_include.h"
 #include "Material.h"
 
 /**

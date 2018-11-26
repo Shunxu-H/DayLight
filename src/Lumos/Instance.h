@@ -25,13 +25,11 @@ THE SOFTWARE.
 #define INSTANCE_H
 
 #include <vector>
-#include "GL_include.h"
-#include "Transformable.h"
-#include "Color.h"
+#include "Common/GL_include.h"
+#include "Patronus/Transformable.h"
+#include "Common/Color.h"
 #include "Shader.h"
-#include "View_renderer.h"
 #include "ModelAsset.h"
-#include "btBulletDynamicsCommon.h"
 
 namespace Patronus {
     class Mesh;

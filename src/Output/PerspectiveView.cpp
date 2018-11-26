@@ -24,13 +24,15 @@ THE SOFTWARE.
 #include <cmath>
 #include <experimental/filesystem>
 #include <fstream>
-#include "GL_include.h"
+#include "Common/GL_include.h"
 #include "PerspectiveView.h"
-#include "Utility.h"
+#include "Common/Utility.h"
+
 #include "Camera.h"
 
-#include "Extern.h"
+#include "Common/Extern.h"
 
+#include "Patronus/PhysicalWorld.h"
 
 PerspectiveView::PerspectiveView(
         const size_t & x,

@@ -24,7 +24,7 @@ THE SOFTWARE.
 #ifndef LIGHT_H
 #define LIGHT_H
 
-#include "GL_include.h"
+ #include "Common/GL_include.h"
 #include "Transformable.h"
 
 namespace Patronus {

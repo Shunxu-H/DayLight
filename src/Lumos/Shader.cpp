@@ -25,9 +25,10 @@ THE SOFTWARE.
 #include <experimental/filesystem>
 #include <fstream>
 #include "Shader.h"
-#include "GL_include.h"
+#include "Lumos/Program.h"
+#include "Common/GL_include.h"
 
-#include "Extern.h"
+#include "Common/Extern.h"
 
 
 #include <cstdio>

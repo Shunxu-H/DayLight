@@ -21,38 +21,37 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef COLOR_H
-	#define COLOR_H
+#ifndef EXTERN_H
+#define EXTERN_H
 
-#include "GL_include.h"
+#include "Config.h"
 
-class Color
+
+namespace Lumos
 {
-public:
-	Color();
+    class Instance; 
+    class Program; 
+} // Lumos
 
-    static int toUniqueInt( const int & r, const int & g, const int & b );
-    static color3 toUniqueColor ( const int & i);
+namespace Patronus
+{
+    class Shaper; 
+    class PhysicalWorld; 
+}
 
+class WindowManager_base; 
 
-    const static color4 BLACK ;
-    const static color4 DGREY ;
-    const static color4 GREY  ;
-    const static color4 LGREY ;
-    const static color4 WHITE ;
-    const static color4 RED   ;
-    const static color4 GREEN ;
-    const static color4 DGREEN;
-    const static color4 BLUE  ;
+extern Config progConfig;
+extern Patronus::Shaper * shaper;
+extern Lumos::Program *gProgram;
+//extern std::vector<Lumos::Instance> drawingInstances;
+extern WindowManager_base * winMan;
+extern Patronus::PhysicalWorld * world;
+extern Lumos::Instance * selectedInstance;
+extern std::string SCENE_FILE_DIR;
+extern std::string TEXTURE_DIR;
+extern std::string CAMERA_DIR;
+extern std::string OUTPUT_DIR;
+extern std::string RENDER_LIST;
 
-	float* getColor(const float&,const float&, const float&);
-	void print (float*);
-
-
-protected:
-
-private:
-};
-
-
-    #endif
+#endif // EXTERN_H

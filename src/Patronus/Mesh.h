@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include <string>
 #include <memory>
 #include <climits>
-#include "GL_include.h"
+ #include "Common/GL_include.h"
 #include "Face.h"
 #include "Instance.h"
 

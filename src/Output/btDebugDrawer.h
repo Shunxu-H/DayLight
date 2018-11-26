@@ -24,7 +24,7 @@ THE SOFTWARE.
 #ifndef BTDEBUGDRAWER_H
 #define BTDEBUGDRAWER_H
 
-#include "GL_include.h"
+ #include "Common/GL_include.h"
 #include "LinearMath/btIDebugDraw.h"
 
 class GLDebugDrawer : public btIDebugDraw

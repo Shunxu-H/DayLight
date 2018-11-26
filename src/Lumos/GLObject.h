@@ -24,7 +24,7 @@ THE SOFTWARE.
 #ifndef GLOBJECT_H
 #define GLOBJECT_H
 
-#include "GL_include.h"
+#include "Common/GL_include.h"
 
 namespace Lumos {
 

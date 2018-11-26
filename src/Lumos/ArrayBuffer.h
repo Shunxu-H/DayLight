@@ -24,9 +24,9 @@ THE SOFTWARE.
 #ifndef ARRAYBUFFER_H
 #define ARRAYBUFFER_H
 
-#include "GL_include.h"
+#include "Common/GL_include.h"
 #include "GLObject.h"
-#include "Mesh.h"
+#include "Patronus/Mesh.h"
 
 
 namespace Lumos {

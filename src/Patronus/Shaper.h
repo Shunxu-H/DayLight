@@ -28,10 +28,10 @@ THE SOFTWARE.
 #include <vector>
 #include <string>
 #include <memory>
-#include "GL_include.h"
+ #include "Common/GL_include.h"
 #include "Camera.h"
 #include "Light.h"
-#include "Mesh.h"
+ #include "Patronus/Mesh.h"
 #include "ArrayBuffer.h"
 
 namespace Lumos {

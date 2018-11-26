@@ -31,12 +31,13 @@ THE SOFTWARE.
 
 
 
-#include "GL_include.h"
+#include "Common/GL_include.h"
 #include "WindowManager_headless.h"
 #include "Shaper.h"
 #include "Extern.h"
-#include "Utility.h"
-
+#include "Common/Utility.h"
+#include "Output/View_renderer.h"
+#include "Patronus/PhysicalWorld.h"
 
 #include <unistd.h>
 
@@ -46,11 +47,12 @@ THE SOFTWARE.
 // #include "Shader.h"
 // #include "Renderer.h"
 // #include "View_renderer.h"
-// #include "Utility.h"
-// #include "Extern.h"
+//  #include "Common/Utility.h"
+// #include "Common/Extern.h"
 
 
 namespace fs = std::experimental::filesystem;
+
 
 // GLfloat
 //    norm_x    =  0.0,

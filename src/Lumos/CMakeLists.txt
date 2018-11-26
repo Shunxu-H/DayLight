@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.0)
 
 project(Lumos)
 
+
+find_package( Bullet REQUIRED )
+
 set(SOURCE  ./ModelAsset.cpp
             ./Shader.cpp
             ./ArrayBuffer.cpp
@@ -23,9 +26,11 @@ set(SOURCE  ./ModelAsset.cpp
 
 set(HEADER  ./DepthTexBuffer.h
             ./ColorTexBuffer.h
+            ./Instance.h
             ./Material.h
             ./ModelAsset.h
             ./Program.h
+            ./GLObject.h
             ./FrameBuffer_base.h
             ./FrameBuffer.h
             ./ArrayBuffer.h
@@ -34,12 +39,14 @@ set(HEADER  ./DepthTexBuffer.h
             ./Shader.h
             ./MultisampledDepthTexBuffer.h
             ./Texture.h
-            ./MultisampledColorTexBuffer.h 
+            ./MultisampledColorTexBuffer.h
 )
 
 
 # external dependency
 # find_package(OpenGL REQUIRED)
+
+
 
 add_library(${PROJECT_NAME} ${SOURCE} ${HEADER})
 target_link_libraries(${PROJECT_NAME} 
@@ -52,4 +59,8 @@ if (APPLE)
         "-framework CoreVideo"
     ) 
 endif()
+
+target_link_libraries( ${PROJECT_NAME} ${BULLET_LIBRARIES} )
+link_libraries(Common)
+include_directories(${CMAKE_SOURCE_DIR}/src)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})

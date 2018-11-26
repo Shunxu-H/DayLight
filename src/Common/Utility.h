@@ -32,8 +32,7 @@ THE SOFTWARE.
 #include <iostream>
 #include <set>
 #include <experimental/filesystem>
-#include "GL_include.h"
-#include "btBulletDynamicsCommon.h"
+ #include "Common/GL_include.h"
 class AEL;
 
 #ifndef NDEBUG

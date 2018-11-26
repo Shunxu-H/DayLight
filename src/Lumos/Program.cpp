@@ -24,14 +24,19 @@ THE SOFTWARE.
 #include <stdexcept>
 #include <vector>
 #include <experimental/filesystem>
-#include "GL_include.h"
+#include "Common/GL_include.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "Program.h"
-#include "Shader.h"
+
+#include "Lumos/Program.h"
+#include "Output/WindowManager_base.h"
+
+#include "Patronus/Shaper.h"
+#include "Patronus/PhysicalWorld.h"
+
 #include "ArrayBuffer.h"
-#include "Utility.h"
-#include "Extern.h"
+#include "Common/Utility.h"
+#include "Common/Extern.h"
 
 namespace Lumos{
 

@@ -1,5 +1,7 @@
 #include "Material.h"
-#include "Extern.h"
+#include "Common/Extern.h"
+
+#include "Lumos/Program.h"
 
 using namespace Lumos;
 

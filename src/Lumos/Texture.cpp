@@ -23,7 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 #include "Texture.h"
-#include "Utility.h"
+#include "Common/Utility.h"
 
 namespace Lumos{
 

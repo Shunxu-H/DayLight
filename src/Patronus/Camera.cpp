@@ -25,11 +25,15 @@ THE SOFTWARE.
 #include <fstream>
 #include <sstream>
 #include <cstdio>
-#include "GL_include.h"
-#include "Utility.h"
+#include "Common/GL_include.h"
+#include "Common/Utility.h"
+#include "Common/Extern.h"
+
+#include "Patronus/Shaper.h"
+
+#include "Lumos/Program.h"
 
 #include "Camera.h"
-#include "Extern.h"
 using namespace Patronus ;
 using namespace std::experimental;
 Camera * Camera::pers = new Camera{"pers"};

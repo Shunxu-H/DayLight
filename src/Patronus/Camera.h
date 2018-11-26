@@ -25,7 +25,7 @@ THE SOFTWARE.
 #define CAMERA_H
 
 #include <string>
-#include "GL_include.h"
+ #include "Common/GL_include.h"
 
 #include "Transformable.h"
 

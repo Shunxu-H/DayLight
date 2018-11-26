@@ -23,9 +23,10 @@ THE SOFTWARE.
 */
 #include "Instance.h"
 // #include "View.h"
-#include "Utility.h"
+#include "Common/Extern.h"
+#include "Common/Utility.h"
 
-#include "Extern.h"
+#include "Patronus/PhysicalWorld.h"
 
 namespace Lumos {
 

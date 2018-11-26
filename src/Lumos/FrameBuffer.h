@@ -1,7 +1,7 @@
 #ifndef FRAMEBUFFER_H
   #define FRAMEBUFFER_H
 
-#include "GL_include.h"
+ #include "Common/GL_include.h"
 #include "FrameBuffer_base.h"
 #include "ColorTexBuffer.h"
 #include "DepthTexBuffer.h"

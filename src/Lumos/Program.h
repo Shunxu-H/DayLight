@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include <unordered_map>
 #include <vector>
 #include <sstream>
-#include "GL_include.h"
+#include "Common/GL_include.h"
 #include "GLObject.h"
 
 #include "Shader.h"

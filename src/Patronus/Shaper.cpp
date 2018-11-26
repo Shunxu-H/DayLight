@@ -27,8 +27,10 @@ THE SOFTWARE.
 #include <climits>
 
 
-#include "GL_include.h"
-#include "Utility.h"
+#include "Common/GL_include.h"
+#include "Common/Utility.h"
+
+#include "Lumos/Program.h"
 #include "Shaper.h"
 #include "Instance.h"
 #include "Face.h"

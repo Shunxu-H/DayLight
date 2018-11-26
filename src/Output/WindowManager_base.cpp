@@ -22,10 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 #include <typeinfo>
-#include "GL_include.h"
-#include "WindowManager_base.h"
-#include "Extern.h"
-
+#include "Common/GL_include.h"
+#include "Output/WindowManager_base.h"
+#include "Common/Extern.h"
+#include "Patronus/Shaper.h"
 WindowManager_base::WindowManager_base( const size_t & w, const size_t & h )
 	: Widget("Main", 0, 0, w, h)
 {

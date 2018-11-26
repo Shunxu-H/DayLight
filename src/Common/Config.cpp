@@ -1,7 +1,6 @@
 #include <cstring>
 #include "Config.h"
 #include "Color.h"
-#include "Shader.h"
 
 
 

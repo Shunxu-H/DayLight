@@ -25,7 +25,7 @@ THE SOFTWARE.
 
 
 
-#include "GL_include.h"
+#include "Common/GL_include.h"
 
 using namespace Lumos;
 
