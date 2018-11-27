@@ -27,8 +27,8 @@ THE SOFTWARE.
 #include <vector>
 #include <tuple>
 #include "Instance.h"
-#include "btBulletDynamicsCommon.h"
-#include "btDebugDrawer.h"
+#include "bullet/btBulletDynamicsCommon.h"
+#include "Output/btDebugDrawer.h"
 
 
 namespace Lumos {

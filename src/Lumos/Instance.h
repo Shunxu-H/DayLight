@@ -30,6 +30,9 @@ THE SOFTWARE.
 #include "Common/Color.h"
 #include "Shader.h"
 #include "ModelAsset.h"
+#include "Output/PerspectiveView.h"
+
+#include "bullet/btBulletCollisionCommon.h"
 
 namespace Patronus {
     class Mesh;

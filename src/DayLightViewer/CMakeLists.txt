@@ -18,6 +18,8 @@ set(HEADER  imgui_impl_glfw.h
             Window.h
 )
 
+
+find_package( Bullet REQUIRED )
 include_directories(libs/gl3w)
 
 # external dependency
@@ -37,4 +39,7 @@ if (APPLE)
         "-framework CoreVideo"
     ) 
 endif()
+
+target_link_libraries( ${PROJECT_NAME} ${BULLET_LIBRARIES} )
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC /usr/local/include/bullet/ )

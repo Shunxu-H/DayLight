@@ -27,6 +27,9 @@ THE SOFTWARE.
 #include "Common/Utility.h"
 
 #include "Patronus/PhysicalWorld.h"
+#include "Patronus/Camera.h"
+
+#include "Lumos/Program.h"
 
 namespace Lumos {
 

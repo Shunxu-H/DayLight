@@ -6,15 +6,18 @@ project(Output)
 set(SOURCE  ./View.cpp
             ./WindowManager.cpp
             ./PerspectiveView.cpp
+            ./btDebugDrawer.cpp
             ./WindowManager_base.cpp
             ./Widget.cpp
             ./WindowManager_headless.cpp
+            ./PhysicalWorld.cpp
             ./EventCatcher.cpp
             ./View_renderer.cpp
             ./View_bullet.cpp
             )
 
 set(HEADER  ./Widget.h
+            ./btDebugDrawer.h
             ./View_renderer.h
             ./View.h
             ./WindowManager_headless.h

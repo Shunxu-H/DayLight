@@ -64,3 +64,5 @@ target_link_libraries( ${PROJECT_NAME} ${BULLET_LIBRARIES} )
 link_libraries(Common)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC /usr/local/include/bullet/ )
+
