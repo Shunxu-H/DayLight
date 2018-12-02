@@ -1,8 +1,10 @@
+
 #include "Window.h"
+#include "Common/GL_include.h"
 
 int main(int, char**)
 {
-    Window win{}; 
+    Daylight::Canvas win{}; 
     win.Show(); 
     return 0;
 }

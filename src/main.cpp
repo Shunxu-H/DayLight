@@ -47,7 +47,7 @@ THE SOFTWARE.
 #include "Program.h"
 #include "WindowManager.h"
 #include "WindowManager_headless.h"
-#include "PhysicalWorld.h"
+#include "Patronus/PhysicalWorld.h"
 #include "Instance.h"
 #include "Config.h"
  #include "Common/Utility.h"

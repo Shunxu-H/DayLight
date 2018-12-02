@@ -6,6 +6,10 @@
 // If you are new to dear imgui, see examples/README.txt and documentation at the top of imgui.cpp.
 // (GLFW is a cross-platform general purpose library for handling windows, inputs, OpenGL/Vulkan graphics context creation, etc.)
 
+
+#include "Common/GL_include.h"
+
+
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -15,7 +19,7 @@
 // Helper libraries are often used for this purpose! Here we are supporting a few common ones: gl3w, glew, glad.
 // You may use another loader/header of your choice (glext, glLoadGen, etc.), or chose to manually implement your own.
 #if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
-#include <GL/gl3w.h>    // Initialize with gl3wInit()
+#include <gl3w/gl3w.h>    // Initialize with gl3wInit()
 #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLEW)
 #include <GL/glew.h>    // Initialize with glewInit()
 #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD)
@@ -23,7 +27,6 @@
 #else
 #include IMGUI_IMPL_OPENGL_LOADER_CUSTOM
 #endif
-
 // Include glfw3.h after our OpenGL definitions
 #include <GLFW/glfw3.h> 
 
@@ -34,18 +37,52 @@
 #pragma comment(lib, "legacy_stdio_definitions")
 #endif
 
-class Window{
+
+
+#include "Common/Config.h"
+
+namespace Patronus {
+    class Shaper; 
+    class PhysicalWorld; 
+}
+namespace Lumos {
+    class Program; 
+    class Instance; 
+}
+
+namespace Daylight {
+
+struct GlResource{
+    Config progConfig;
+    Patronus::Shaper * shaper = nullptr;
+    Lumos::Program * program = nullptr;
+    Patronus::PhysicalWorld * physicalWorld = nullptr;
+    Lumos::Instance * selectedInstance = nullptr;
+    std::string SCENE_FILE_DIR = "./scene_file/";
+    std::string TEXTURE_DIR = "./scene_file/texture/";
+    std::string CAMERA_DIR = "./cameras/";
+    std::string OUTPUT_DIR = "./output/";
+    std::string RENDER_LIST = "./obj_list.txt";
+}; 
+
+class Canvas{
 public:
-    Window(); 
-    ~Window(); 
+    Canvas(); 
+    ~Canvas(); 
     void Show(); 
 private:
+    void _initImgui(); 
+    void _initOpenGl(); 
+
     GLFWwindow* window; 
     bool show_demo_window;
     bool show_another_window;
     ImVec4 clear_color;
+
+    GlResource glResource; 
 }; 
 
 
+}
 
     #endif

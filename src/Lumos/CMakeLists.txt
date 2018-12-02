@@ -60,7 +60,11 @@ if (APPLE)
     ) 
 endif()
 
+
+include_directories(${GLoader_SOURCE_DIR})
+
 target_link_libraries( ${PROJECT_NAME} ${BULLET_LIBRARIES} )
+link_libraries(GLoader)
 link_libraries(Common)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})

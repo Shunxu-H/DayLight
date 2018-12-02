@@ -9,7 +9,6 @@ set(LibImGui imGui)
 
 set(SOURCE  imgui_impl_glfw.cpp 
             imgui_impl_opengl3.cpp
-            libs/gl3w/GL/gl3w.c
             Window.cpp
             main.cpp
             )
@@ -20,7 +19,7 @@ set(HEADER  imgui_impl_glfw.h
 
 
 find_package( Bullet REQUIRED )
-include_directories(libs/gl3w)
+find_package( OpenCV REQUIRED )
 
 # external dependency
 find_package(OpenGL REQUIRED)
@@ -30,7 +29,11 @@ add_executable(${PROJECT_NAME} ${SOURCE} ${HEADER})
 target_link_libraries(${PROJECT_NAME} 
                         ${LibImGui} 
                         ${OPENGL_gl_LIBRARY}
+                        ${OpenCV_LIBS}
+                        GLoader
+                        Common
                         glfw
+                        stdc++fs
                     ) 
 if (APPLE)
     target_link_libraries(${PROJECT_NAME} 
@@ -39,6 +42,14 @@ if (APPLE)
         "-framework CoreVideo"
     ) 
 endif()
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+            CXX_STANDARD 17
+            CXX_EXTENSIONS OFF
+            )
+
+
+include_directories(${GLoader_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
 
 target_link_libraries( ${PROJECT_NAME} ${BULLET_LIBRARIES} )
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})

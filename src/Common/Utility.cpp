@@ -118,10 +118,6 @@ namespace Utils {
                     throw std::runtime_error(o.str());
                     break;
 
-                case GL_TABLE_TOO_LARGE:
-                    o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Table too large!"<< std::endl;
-                    throw std::runtime_error(o.str());
-                    break;
 
                 default:
                     o<<"OpenGL Error in "<<sourceFile<<" at line "<<": Unknown error!"<< std::endl;
@@ -266,34 +262,28 @@ namespace Utils {
     int glExtCheckFramebufferStatus(char *errorMessage)
     {
         GLenum status;
-        status=glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
+        status=glCheckFramebufferStatus(GL_FRAMEBUFFER);
         switch(status)
         {
-            case GL_FRAMEBUFFER_COMPLETE_EXT:
+            case GL_FRAMEBUFFER_COMPLETE:
             break;
-            case GL_FRAMEBUFFER_UNSUPPORTED_EXT:
+            case GL_FRAMEBUFFER_UNSUPPORTED:
             //Choose different formats
             strcpy(errorMessage, "Framebuffer object format is unsupported by the video hardware. (GL_FRAMEBUFFER_UNSUPPORTED_EXT)(FBO - 820)");
             return -1;
-            case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT:
+            case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
             strcpy(errorMessage, "Incomplete attachment. (GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT)(FBO - 820)");
             return -1;
-            case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT:
+            case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
             strcpy(errorMessage, "Incomplete missing attachment. (GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT)(FBO - 820)");
             return -1;
-            case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT:
-            strcpy(errorMessage, "Incomplete dimensions. (GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT)(FBO - 820)");
-            return -1;
-            case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:
-            strcpy(errorMessage, "Incomplete formats. (GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT)(FBO - 820)");
-            return -1;
-            case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT:
+            case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER:
             strcpy(errorMessage, "Incomplete draw buffer. (GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT)(FBO - 820)");
             return -1;
-            case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT:
+            case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER:
             strcpy(errorMessage, "Incomplete read buffer. (GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT)(FBO - 820)");
             return -1;
-            case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT:
+            case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE:
             strcpy(errorMessage, "Incomplete multisample buffer. (GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT)(FBO - 820)");
             return -1;
             default:

@@ -29,18 +29,16 @@ THE SOFTWARE.
 
 
 #define GLM_FORCE_RADIANS
-//#include <QOpenGLFunctions_4_5_Core>
 #define GL_GLEXT_PROTOTYPES
 
 // #include <glbinding/gl/gl.h>
 // #include <glbinding/Binding.h>
 // #define GLEW_EGL
-#include <GL/glew.h>
+#include <gl3w/gl3w.h>
 #include <GL/gl.h>
 #include <GL/glx.h>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <GL/glext.h>
+// #include <glm/gtc/matrix_transform.hpp>
 
 
 

@@ -36,7 +36,7 @@ namespace Lumos{
     inline static GLint getMaximumSampleSize() {
       int samples;
       //We need to find out what the maximum supported samples is
-      glGetIntegerv(GL_MAX_SAMPLES_EXT, &samples);
+      glGetIntegerv(GL_MAX_SAMPLES, &samples);
       return samples;
     }
     static const GLint DEFAULTSAMPLESIZE;

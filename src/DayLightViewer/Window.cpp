@@ -1,14 +1,29 @@
 #include "Window.h"
 #include <stdexcept>
 
+using namespace Daylight; 
+
 static void glfw_error_callback(int error, const char* description)
 {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
 
-Window::Window(){
-    // initialize private members
+Canvas::Canvas(){
+    _initImgui();
+}
 
+Canvas::~Canvas(){
+    // Cleanup
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+
+    glfwDestroyWindow(window);
+    glfwTerminate();
+
+}
+
+void Canvas::_initImgui(){
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
@@ -84,23 +99,25 @@ Window::Window(){
     //IM_ASSERT(font != NULL);
 
     // initialize private members
+
     show_demo_window = true;
     show_another_window = false;
     clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-}
+} 
 
-Window::~Window(){
-    // Cleanup
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+void Canvas::_initOpenGl(){
+    glResource.shaper = nullptr;
+    glResource.program = nullptr;
+    glResource.physicalWorld = nullptr;
+    glResource.selectedInstance = nullptr;
+    glResource.SCENE_FILE_DIR = "./scene_file/";
+    glResource.TEXTURE_DIR = "./scene_file/texture/";
+    glResource.CAMERA_DIR = "./cameras/";
+    glResource.OUTPUT_DIR = "./output/";
+    glResource.RENDER_LIST = "./obj_list.txt";
+} 
 
-    glfwDestroyWindow(window);
-    glfwTerminate();
-
-}
-
-void Window::Show(){
+void Canvas::Show(){
 
     // Main loop
     while (!glfwWindowShouldClose(window))

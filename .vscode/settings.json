@@ -2,6 +2,7 @@
     "files.associations": {
         "ostream": "cpp",
         "memory": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "gl3w.h": "c"
     }
 }

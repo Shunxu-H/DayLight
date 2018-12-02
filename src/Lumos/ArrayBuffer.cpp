@@ -100,7 +100,7 @@ void ArrayBuffer::use() const{
 
 bool ArrayBuffer::isInUse() const{
     GLint currentVertexArrat = 0;
-    glGetIntegerv(GL_VERTEX_ARRAY_BUFFER_BINDING, &currentVertexArrat);
+    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &currentVertexArrat);
     return (currentVertexArrat == static_cast<GLint>( getObjId() ));
 
 }
