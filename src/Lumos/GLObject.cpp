@@ -24,11 +24,10 @@ THE SOFTWARE.
 #include "GLObject.h"
 
 
-
-#include "Common/GL_include.h"
+#include <Common/GL_include.h>
+#include <Lumos/Program.h>
 
 using namespace Lumos;
-
 
 GLObject::GLObject(
             void (*initFunc)(GLuint *),

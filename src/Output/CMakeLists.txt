@@ -10,7 +10,6 @@ set(SOURCE  ./View.cpp
             ./WindowManager_base.cpp
             ./Widget.cpp
             ./WindowManager_headless.cpp
-            ./PhysicalWorld.cpp
             ./EventCatcher.cpp
             ./View_renderer.cpp
             ./View_bullet.cpp

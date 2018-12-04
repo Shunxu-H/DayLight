@@ -25,6 +25,10 @@ THE SOFTWARE.
 #include <fstream>
 #include <sstream>
 #include <cstdio>
+#ifndef GLM_ENABLE_EXPERIMENTAL
+    #define GLM_ENABLE_EXPERIMENTAL
+#endif
+#include <glm/gtx/transform.hpp>
 #include "Common/GL_include.h"
 #include "Common/Utility.h"
 #include "Common/Extern.h"
@@ -40,7 +44,7 @@ Camera * Camera::pers = new Camera{"pers"};
 
 
 
-void Camera::loadCamerasFromDir( const std::string & dir ){
+void Camera::loadCamerasFromDir( const std::string & dir, Shaper * shaper ){
     if ( shaper == nullptr ){
         std::cerr << "Shaper object is uninitialized!" << std::endl;
         //return false;
@@ -110,7 +114,7 @@ Camera::~Camera(){
 
 }
 
-void Camera::loadUniforms( const unsigned int & width, const unsigned int & height ) const{
+void Camera::loadUniforms( Lumos::Program * gProgram, const unsigned int & width, const unsigned int & height ) const{
 
     if (gProgram->hasUniform("camera"))
         gProgram->setUniform("camera", getPerspectiveMatrix());

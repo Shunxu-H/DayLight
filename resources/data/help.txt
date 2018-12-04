@@ -1,0 +1,24 @@
+
+./DayLight [-hl|--headless] [width] [height]
+This option will run Daylight with headless mode.
+
+./DayLight [-wd|--window_dimension] [width] [height]
+This option will change the window dimension. Note: this is invalid if <code>-hl|--headless</code> is defined
+
+./DayLight [-td|--texture_directory] [dir]
+This option will change the default directory where DayLight looks for the texture files(will prepend to the path specified in .mtl files)
+
+./DayLight [-sd|--scene_directory] [dir]
+This option will change the default directory where DayLight looks for the scene files(only support .obj at the moment).
+
+./DayLight [-od|--output_directory] [dir]
+This option will change the default output directory.
+
+./DayLight [-cd|--cameara_directory] [dir]
+This option will change the default directory where DayLight will look for the camera files.
+
+./DayLight [-rd|--render_list] [file]
+Render list is a file contaning the names (without extension) of all the .obj files that will be rendered. This option will chenge the targeted render list
+
+./DayLight [-h|--help]
+This option will display this help menu.

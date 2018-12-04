@@ -32,7 +32,6 @@ THE SOFTWARE.
 #include "GLObject.h"
 
 #include "Shader.h"
-#include "Instance.h"
 
 #include "ArrayBuffer.h"
 
@@ -40,6 +39,11 @@ THE SOFTWARE.
  * @TODO:
  * 1. Enable more than two shaders in pipes
  */
+
+namespace Patronus {
+    class PhysicalWorld; 
+    class Shaper; 
+}
 
 namespace Lumos {
     using shading_pipe = std::vector<Shader>;
@@ -102,8 +106,7 @@ namespace Lumos {
         void bind() const;
 
 
-        void preDrawSetUp();
-
+        void preDrawSetUp( );
 
         /**
           * Credit to Tom Dalling

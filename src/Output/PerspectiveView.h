@@ -25,7 +25,7 @@ THE SOFTWARE.
 	#define PERSPECTIVEVIEW_H
 
 #include <memory>
-#include "Shader.h"
+#include "Lumos/Shader.h"
 #include "View.h"
 
 class WindowManager;

@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "Common/GL_include.h"
 #include "GLObject.h"
 namespace Lumos {
-
+    class Program; 
     class Shader : public GLObject
     {
     public:
@@ -48,7 +48,9 @@ namespace Lumos {
          * @param varyings, will be loaded with varyings
          * @param uniforms, will be loaded with uniforms
          */
-        static void getCurrentVaryingsAndUniforms( std::vector<std::string> & varyings, std::vector<std::string> & uniforms);
+        static void getCurrentVaryingsAndUniforms(
+            std::vector<std::string> & varyings, 
+            std::vector<std::string> & uniforms);
 
         /**
          * @brief readFromFile, creat a shader from file

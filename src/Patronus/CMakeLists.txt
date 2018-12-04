@@ -9,11 +9,14 @@ set(SOURCE  ./Transformable.cpp
             ./Light.cpp
             ./Face.cpp
             ./Camera.cpp
+            ./Instance.cpp
+            ./PhysicalWorld.cpp
             )
 
 set(HEADER  ./Transformable.h
             ./Mesh.h
             ./Light.h
+            ./Instance.h
             ./Face.h
             ./Camera.h
             ./Shaper.h
@@ -26,7 +29,9 @@ find_package( Bullet REQUIRED )
 # find_package(OpenGL REQUIRED)
 
 add_library(${PROJECT_NAME} ${SOURCE} ${HEADER})
-target_link_libraries(${PROJECT_NAME} 
+target_link_libraries(  ${PROJECT_NAME} 
+                        ${BULLET_LIBRARIES}
+                        Common
 #                         ${OPENGL_gl_LIBRARY}
                     ) 
 if (APPLE)
@@ -37,7 +42,5 @@ if (APPLE)
     ) 
 endif()
 
-link_libraries(Common)
-target_link_libraries( ${PROJECT_NAME} ${BULLET_LIBRARIES} )
-include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/libs ${GLoader_SOURCE_DIR})
 target_include_directories(${PROJECT_NAME} PUBLIC /usr/local/include/bullet/ )

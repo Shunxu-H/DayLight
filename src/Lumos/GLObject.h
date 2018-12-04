@@ -27,9 +27,11 @@ THE SOFTWARE.
 #include "Common/GL_include.h"
 
 namespace Lumos {
-
+    class Program; 
     class GLObject{
     public:
+
+        // static Program * gProgram; 
         /**
          * [GLObject constructor]
          * @param initFunc [function that generate the openGL resource

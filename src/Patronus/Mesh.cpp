@@ -21,13 +21,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#include "Common/GL_include.h"
-#include "Common/Extern.h"
+#include <Common/GL_include.h>
+#include <Common/Extern.h>
 
-#include "Patronus/Mesh.h"
-#include "Patronus/Shaper.h"
+#include <Patronus/Mesh.h>
+#include <Patronus/Shaper.h>
 
-#include "ModelAsset.h"
+#include <Lumos/ModelAsset.h>
 
 
 

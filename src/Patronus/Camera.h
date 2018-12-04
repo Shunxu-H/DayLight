@@ -29,7 +29,12 @@ THE SOFTWARE.
 
 #include "Transformable.h"
 
+namespace Lumos{
+    class Program; 
+}
+
 namespace Patronus {
+    class Shaper; 
     enum class CameraType
     {
         ORTHO_XY,
@@ -50,7 +55,7 @@ namespace Patronus {
          *          Must be called after the global shaper object is called because the constructed cameras will be stored there
          * @param dir, the directory containing the necessary file
          */
-        static void loadCamerasFromDir( const std::string & dir );
+        static void loadCamerasFromDir( const std::string & dir, Shaper * shaper );
 
         /**** STATIC FUNCTION OR MEMBER ***/
 
@@ -132,7 +137,7 @@ namespace Patronus {
          * @param width  [width of the viewport]
          * @param height [height of the viewport]
          */
-        void loadUniforms( const unsigned int & width, const unsigned int & height ) const;
+        void loadUniforms(Lumos::Program * gProgram,  const unsigned int & width, const unsigned int & height ) const;
 
 
     protected:

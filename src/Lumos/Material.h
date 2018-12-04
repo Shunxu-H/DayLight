@@ -4,6 +4,7 @@
 #include "Texture2D.h"
 
 namespace Lumos {
+    class Program; 
     struct Material{
         float reflexitivity;
         std::string id;
@@ -19,7 +20,7 @@ namespace Lumos {
 
         }
         inline bool hasTexture() const { return !texture.isInitialized();}
-        void loadUniforms() const;
+        void loadUniforms(Program * program) const;
 
     };
 

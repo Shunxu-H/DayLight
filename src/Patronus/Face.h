@@ -26,7 +26,7 @@ THE SOFTWARE.
 
 #include <vector>
 #include <memory>
-#include "Instance.h"
+#include <Patronus/Instance.h>
 
 class Edge;
 class AEL;

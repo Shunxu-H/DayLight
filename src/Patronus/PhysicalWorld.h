@@ -26,12 +26,14 @@ THE SOFTWARE.
 
 #include <vector>
 #include <tuple>
-#include "Instance.h"
+
+#include <Patronus/Mesh.h>
+
 #include "bullet/btBulletDynamicsCommon.h"
 #include "Output/btDebugDrawer.h"
 
 
-namespace Lumos {
+namespace Patronus {
     class Instance;
 }
 

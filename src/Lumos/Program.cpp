@@ -60,7 +60,7 @@ void Program::enableShadingPipe( const std::string & pipe_name ){
 }
 
 void Program::disableShadingPipe( const std::string & pipe_name ){
-    assert( _shading_pipes.find( pipe_name ) != _shading_pipes.end() );
+    assert( _shading_pipes.find( pipe_name ) != _shading_pipes.end() ); 
 
     _shading_pipes[pipe_name][0].stopUsing();
     _shading_pipes[pipe_name][1].stopUsing();
@@ -70,7 +70,7 @@ void Program::loadShaders( const std::string & GLSL_path ){
 
     {
         namespace fs = std::experimental::filesystem;
-
+        std::cout << fs::current_path() << std::endl;
         for (const auto & p : fs::directory_iterator(GLSL_path))
         {
             std::string curExtension = fs::path(p).extension();
@@ -122,6 +122,7 @@ void Program::loadShaders( const std::string & GLSL_path ){
 
 }
 
+
 void Program::preDrawSetUp() {
     //use();
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
@@ -130,8 +131,8 @@ void Program::preDrawSetUp() {
         world->loadInstance(m);
 
     // compute bounding box
-    if (world->getInstances().size() > 0)
-        winMan->positionAllViewsToFitAllInstances();
+    // if (world->getInstances().size() > 0)
+        //winMan->positionAllViewsToFitAllInstances();
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 }

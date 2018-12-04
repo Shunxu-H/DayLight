@@ -20,13 +20,11 @@ set(SOURCE  ./ModelAsset.cpp
             ./Texture2D.cpp
             ./FrameBuffer_base.cpp
             ./MultisampledDepthTexBuffer.cpp
-            ./Instance.cpp
             ./Material.cpp
             )
 
 set(HEADER  ./DepthTexBuffer.h
             ./ColorTexBuffer.h
-            ./Instance.h
             ./Material.h
             ./ModelAsset.h
             ./Program.h

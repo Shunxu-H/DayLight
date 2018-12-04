@@ -28,14 +28,15 @@ THE SOFTWARE.
 #include <vector>
 #include <string>
 #include <memory>
- #include "Common/GL_include.h"
+#include <Common/GL_include.h>
 #include "Camera.h"
 #include "Light.h"
- #include "Patronus/Mesh.h"
-#include "ArrayBuffer.h"
+#include <Patronus/Mesh.h>
+#include <Lumos/ArrayBuffer.h>
 
 namespace Lumos {
     class Instance;
+    class Program; 
 }
 
 namespace Patronus {
@@ -47,7 +48,7 @@ namespace Patronus {
         virtual ~Shaper();
 
         //static const std::shared_ptr<Camera> _pers;
-        static Lumos::Material * default_material;
+        Lumos::Material * default_material;
         static std::vector< point3 > global_vertices;
         static std::vector< point3 > global_normal_vertices;
         static std::vector< point2 > global_uv_coords;
@@ -73,7 +74,7 @@ namespace Patronus {
         static void getBoundingSphere(const std::vector< point3 > & points, point3 * position, float * radius);
         static void loadGlobalGlBuffer();
 
-        void loadAttribsAndUniform() const;
+        void loadAttribsAndUniform(Lumos::Program * gProgram) const;
 
         inline Light getDefaultLight() const { return _lights[0]; }
         /**

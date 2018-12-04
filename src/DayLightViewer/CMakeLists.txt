@@ -9,12 +9,12 @@ set(LibImGui imGui)
 
 set(SOURCE  imgui_impl_glfw.cpp 
             imgui_impl_opengl3.cpp
-            Window.cpp
+            Canvas.cpp
             main.cpp
             )
 set(HEADER  imgui_impl_glfw.h 
             imgui_impl_opengl3.h 
-            Window.h
+            Canvas.h
 )
 
 
@@ -32,6 +32,8 @@ target_link_libraries(${PROJECT_NAME}
                         ${OpenCV_LIBS}
                         GLoader
                         Common
+                        Patronus
+                        Lumos
                         glfw
                         stdc++fs
                     ) 
@@ -54,3 +56,9 @@ include_directories(${GLoader_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
 target_link_libraries( ${PROJECT_NAME} ${BULLET_LIBRARIES} )
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
 target_include_directories(${PROJECT_NAME} PUBLIC /usr/local/include/bullet/ )
+
+
+# Copy resource files 
+add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>)

@@ -27,26 +27,25 @@ THE SOFTWARE.
 #include <climits>
 
 
-#include "Common/GL_include.h"
-#include "Common/Utility.h"
+#include <Common/GL_include.h>
+#include <Common/Utility.h>
+#include <Common/Extern.h>
 
-#include "Lumos/Program.h"
-#include "Shaper.h"
-#include "Instance.h"
-#include "Face.h"
-#include "ModelAsset.h"
+#include <Lumos/ModelAsset.h>
+#include <Lumos/Program.h>
 
-#include "obj_loader.h"
+#include <Patronus/Shaper.h>
+#include <Patronus/Instance.h>
+#include <Patronus/Face.h>
+
 
 #define TINYOBJLOADER_IMPLEMENTATION // define this in only *one* .cc
-#include "tiny_obj_loader.h"
+#include <tiny_obj_loader.h>
 
-#include "Extern.h"
 
 
 using namespace Patronus;
 
-Lumos::Material* Shaper::default_material   = new Lumos::Material();
 std::vector< point3 > Shaper::global_vertices = std::vector< point3 >();
 std::vector< point3 > Shaper::global_normal_vertices{};
 std::vector< point2 > Shaper::global_uv_coords{};
@@ -55,7 +54,7 @@ const float Shaper::multiplier = 1;
 
 Shaper::Shaper( )
 {
-
+    default_material = new Lumos::Material(); 
     _lights.push_back(Light::makeDirectionalLight());
 }
 
@@ -306,7 +305,7 @@ void Shaper::addMaterial( Lumos::Material * m){
     _materials.push_back(m);
 }
 
-void Shaper::loadAttribsAndUniform() const {
+void Shaper::loadAttribsAndUniform( Lumos::Program * gProgram ) const {
 
     if (gProgram->hasUniform("light.position"))
         gProgram->setUniform("light.position", getDefaultLight().getTranslate() );

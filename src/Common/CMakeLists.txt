@@ -40,5 +40,5 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
             )
 
 
-include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/src ${GLoader_SOURCE_DIR})
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
