@@ -41,7 +41,7 @@ void WindowManager_base::positionAllViewsToFitAllInstances(){
     Patronus::Shaper::getBoundingSphere(Patronus::Shaper::global_vertices, &position, &radius);
 
     for( auto  w: _children ){
-				dynamic_cast<PerspectiveView*>(w)->fitSphere(position, radius);
-		}
+        dynamic_cast<PerspectiveView*>(w)->fitSphere(position, radius);
+    }
 
 }

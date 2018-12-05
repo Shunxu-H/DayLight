@@ -74,7 +74,7 @@ namespace Patronus {
         static void getBoundingSphere(const std::vector< point3 > & points, point3 * position, float * radius);
         static void loadGlobalGlBuffer();
 
-        void loadAttribsAndUniform(Lumos::Program * gProgram) const;
+        void loadAttribsAndUniform() const;
 
         inline Light getDefaultLight() const { return _lights[0]; }
         /**

@@ -22,10 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 #include <algorithm>
-#include "View_renderer.h"
-#include "Extern.h"
- #include "Common/Utility.h"
 
+#include <Common/Extern.h>
+#include <Common/Utility.h>
+
+#include <Patronus/PhysicalWorld.h>
+#include <Patronus/Shaper.h>
+
+#include <Output/View_renderer.h>
 
 View_renderer::View_renderer(
         const size_t & x,

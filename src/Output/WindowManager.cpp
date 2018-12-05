@@ -24,12 +24,15 @@ THE SOFTWARE.
 #include <experimental/filesystem>
 #include <iostream>
 #include <ctime>
- #include "Common/GL_include.h"
-#include "WindowManager.h"
-#include "Shaper.h"
-#include "Extern.h"
- #include "Common/Utility.h"
-#include "PerspectiveView.h"
+
+#include <Common/GL_include.h>
+#include <Common/Extern.h>
+#include <Common/Utility.h>
+
+#include <Output/WindowManager.h>
+#include <Output/PerspectiveView.h>
+
+#include <Patronus/Shaper.h>
 
 #include  <sys/time.h>
 
@@ -117,8 +120,8 @@ WindowManager::WindowManager(const size_t &w, const size_t &h )
 {
 
     _X11WindowInit();
-    glewExperimental = GL_TRUE;
-    assert(GLEW_OK == glewInit());
+    // gl3wExperimental = GL_TRUE;
+    // assert(GLEW_OK == glewInit());
 
     glGetError();
     addChild(new PerspectiveView(0, 0, w, h));

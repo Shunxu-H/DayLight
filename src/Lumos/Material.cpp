@@ -1,7 +1,7 @@
-#include "Material.h"
-#include "Common/Extern.h"
+#include <Common/Extern.h>
 
-#include "Lumos/Program.h"
+#include <Lumos/Program.h>
+#include <Lumos/Material.h>
 
 using namespace Lumos;
 
@@ -19,30 +19,30 @@ Material::Material( const cv::Mat & im,
 
 
 
-void Material::loadUniforms( Program * program ) const{
+void Material::loadUniforms( ) const{
 
-    if (program->hasUniform("tex")){
+    if (gProgram->hasUniform("tex")){
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture.getObjId());
-        program->setUniform("tex", 0);
+        gProgram->setUniform("tex", 0);
         //set to 0 because the texture is bound to GL_TEXTURE0
     }
-    if (program->hasUniform("transmittance")){
-        program->setUniform("transmittance", transmittance);
+    if (gProgram->hasUniform("transmittance")){
+        gProgram->setUniform("transmittance", transmittance);
     }
-    if (program->hasUniform("hasTexture")){
-        program->setUniform("hasTexture", texture.isInitialized());
+    if (gProgram->hasUniform("hasTexture")){
+        gProgram->setUniform("hasTexture", texture.isInitialized());
     }
-    if (program->hasUniform("diffuseColor"))
-        program->setUniform("diffuseColor", diffuseColor );
+    if (gProgram->hasUniform("diffuseColor"))
+        gProgram->setUniform("diffuseColor", diffuseColor );
 
-    if (program->hasUniform("ambient"))
-        program->setUniform("ambient", color3(0.05f, 0.05f, 0.05f) );
+    if (gProgram->hasUniform("ambient"))
+        gProgram->setUniform("ambient", color3(0.05f, 0.05f, 0.05f) );
 
-    if (program->hasUniform("materialShininess"))
-        program->setUniform("materialShininess", reflexitivity );
+    if (gProgram->hasUniform("materialShininess"))
+        gProgram->setUniform("materialShininess", reflexitivity );
 
-    if (program->hasUniform("materialSpecularColor"))
-        program->setUniform("materialSpecularColor", specular);
+    if (gProgram->hasUniform("materialSpecularColor"))
+        gProgram->setUniform("materialSpecularColor", specular);
 
 }

@@ -114,7 +114,7 @@ Camera::~Camera(){
 
 }
 
-void Camera::loadUniforms( Lumos::Program * gProgram, const unsigned int & width, const unsigned int & height ) const{
+void Camera::loadUniforms( const unsigned int & width, const unsigned int & height ) const{
 
     if (gProgram->hasUniform("camera"))
         gProgram->setUniform("camera", getPerspectiveMatrix());

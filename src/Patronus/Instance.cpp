@@ -62,7 +62,7 @@ void Instance::setRidgidBody( Patronus::PhysicalWorld * world, btRigidBody * con
 }
 
 
-void Instance::loadAttribsAndUniform(Program * gProgram) const {
+void Instance::loadAttribsAndUniform() const {
 
     GLuint attribId;
     if (gProgram->hasAttribute("vert")){
@@ -105,18 +105,18 @@ void Instance::loadAttribsAndUniform(Program * gProgram) const {
     Utils::logOpenGLError();
 }
 
-void Instance::renderMesh( Lumos::Program * gProgram, Material * materialInUse ) const{
+void Instance::renderMesh( Material * materialInUse ) const{
 
 
     for (const MaterialPack & mp: _asset.materials ){
         if (materialInUse != mp.material ){
 
             Utils::logOpenGLError();
-            mp.material->loadUniforms(gProgram);
+            mp.material->loadUniforms();
             Utils::logOpenGLError();
             materialInUse = mp.material;
         }
-        loadAttribsAndUniform( gProgram );
+        loadAttribsAndUniform();
         Utils::logOpenGLError();
         glDrawArrays(_asset.drawType, mp.drawStart, mp.drawCnt);
         Utils::logOpenGLError();
@@ -127,7 +127,7 @@ void Instance::renderMesh( Lumos::Program * gProgram, Material * materialInUse )
 
 
 
-void Instance::renderBoundngBox( Program * gProgram, const PerspectiveView & view ) const{
+void Instance::renderBoundngBox( const PerspectiveView & view ) const{
 
     // Cube 1x1x1, centered on origin
     GLfloat vertices[] = {

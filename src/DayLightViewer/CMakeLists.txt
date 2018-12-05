@@ -31,6 +31,7 @@ target_link_libraries(${PROJECT_NAME}
                         ${OPENGL_gl_LIBRARY}
                         ${OpenCV_LIBS}
                         GLoader
+                        Output
                         Common
                         Patronus
                         Lumos

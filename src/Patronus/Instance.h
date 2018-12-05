@@ -56,20 +56,20 @@ namespace Lumos {
         /**
          * @brief bind data to attributes and uniforms of the shaders currently binded to openGL
          */
-        void loadAttribsAndUniform(Program * gProgram) const;
+        void loadAttribsAndUniform() const;
 
         /**
          * [renderMesh render the instance to viewport]
          * @param materialInUse [the last material used, no need to change
          *  material is they are the same]
          */
-        void renderMesh( Program * gProgram, Material * materialInUse ) const;
+        void renderMesh( Material * materialInUse ) const;
 
         /**
          * [renderBoundngBox render the bounding box for the instance]
          * @param v [description]
          */
-        void renderBoundngBox( Program * gProgram, const PerspectiveView & v) const;
+        void renderBoundngBox( const PerspectiveView & v) const;
 
 
         /**

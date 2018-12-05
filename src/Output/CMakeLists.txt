@@ -9,7 +9,6 @@ set(SOURCE  ./View.cpp
             ./btDebugDrawer.cpp
             ./WindowManager_base.cpp
             ./Widget.cpp
-            ./WindowManager_headless.cpp
             ./EventCatcher.cpp
             ./View_renderer.cpp
             ./View_bullet.cpp
@@ -19,7 +18,6 @@ set(HEADER  ./Widget.h
             ./btDebugDrawer.h
             ./View_renderer.h
             ./View.h
-            ./WindowManager_headless.h
             ./PerspectiveView.h
             ./WindowManager.h
             ./WindowManager_base.h
@@ -35,6 +33,13 @@ add_library(${PROJECT_NAME} ${SOURCE} ${HEADER})
 target_link_libraries(${PROJECT_NAME} 
 #                         ${OPENGL_gl_LIBRARY}
                     ) 
+
+
+include_directories(${GLoader_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
+
+target_link_libraries( ${PROJECT_NAME} ${BULLET_LIBRARIES} )
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC /usr/local/include/bullet/ )
 # if (APPLE)
 #     target_link_libraries(${PROJECT_NAME} 
 #         "-framework Cocoa"
@@ -42,4 +47,3 @@ target_link_libraries(${PROJECT_NAME}
 #         "-framework CoreVideo"
 #     ) 
 # endif()
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})

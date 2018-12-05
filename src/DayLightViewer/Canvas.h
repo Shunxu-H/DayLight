@@ -40,6 +40,7 @@
 
 
 #include "Common/Config.h"
+#include <Output/WindowManager_base.h>
 
 namespace Patronus {
     class Shaper; 
@@ -65,11 +66,12 @@ namespace Daylight {
 //     std::string RENDER_LIST = "./obj_list.txt";
 // }; 
 
-class Canvas{
+class Canvas: public WindowManager_base{
 public:
     Canvas(); 
     ~Canvas(); 
-    void Show(); 
+    virtual inline void show() override{}
+    virtual int loop() override; 
 private:
     void _initImgui(); 
     void _initOpenGl(); 

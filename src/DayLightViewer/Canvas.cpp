@@ -131,7 +131,7 @@ void Canvas::_initImgui(){
 //     glResource.RENDER_LIST = "./obj_list.txt";
 // } 
 
-void Canvas::Show(){
+int Canvas::loop(){
 
     // Main loop
     while (!glfwWindowShouldClose(window))
@@ -198,4 +198,5 @@ void Canvas::Show(){
         glfwMakeContextCurrent(window);
         glfwSwapBuffers(window);
     }
+    return 0; 
 }

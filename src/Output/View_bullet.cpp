@@ -22,11 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "btBulletDynamicsCommon.h"
-#include "Instance.h"
-#include "View_bullet.h"
+#include <btBulletDynamicsCommon.h>
+#include <Common/Extern.h>
 
-#include "Extern.h"
+#include <Patronus/Instance.h>
+#include <Patronus/PhysicalWorld.h>
+#include <Patronus/Camera.h>
+
+#include <Lumos/Program.h>
+
+#include <Output/View_bullet.h>
+
 
 
 
@@ -129,10 +135,10 @@ void View_bullet::draw3dText(const btVector3& location,const char* textString)
 {
    //glRasterPos3f(location.x(),  location.y(),  location.z());
    //BMF_DrawString(BMF_GetFont(BMF_kHelvetica10),textString);
-    glPushMatrix();
-    glColor3f(1.0f, 0.0f, 0.0f);
-    std::cout << textString << std::endl;
-    glPopMatrix();
+    // glPushMatrix();
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    // std::cout << textString << std::endl;
+    // glPopMatrix();
 }
 
 void View_bullet::reportErrorWarning(const char* warningString)

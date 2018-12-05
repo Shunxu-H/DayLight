@@ -305,7 +305,7 @@ void Shaper::addMaterial( Lumos::Material * m){
     _materials.push_back(m);
 }
 
-void Shaper::loadAttribsAndUniform( Lumos::Program * gProgram ) const {
+void Shaper::loadAttribsAndUniform( ) const {
 
     if (gProgram->hasUniform("light.position"))
         gProgram->setUniform("light.position", getDefaultLight().getTranslate() );

@@ -33,6 +33,6 @@ int main(int, char**)
 
     gProgram->preDrawSetUp();
 
-    win.Show(); 
+    win.loop(); 
     return 0;
 }

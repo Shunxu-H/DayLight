@@ -20,7 +20,7 @@ namespace Lumos {
 
         }
         inline bool hasTexture() const { return !texture.isInitialized();}
-        void loadUniforms(Program * program) const;
+        void loadUniforms() const;
 
     };
 

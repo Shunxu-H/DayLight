@@ -21,9 +21,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
- #include "Common/GL_include.h"
 #include "btDebugDrawer.h"
 #include <iostream>
+
+#include <Common/GL_include.h>
 
 GLDebugDrawer::GLDebugDrawer()
 :m_debugMode(0)
@@ -35,22 +36,22 @@ void  GLDebugDrawer::drawLine(const btVector3& from,const btVector3& to,const bt
 {
    //      if (m_debugMode > 0)
    {
-      float tmp[ 6 ] = { from.getX(), from.getY(), from.getZ(),
-                    to.getX(), to.getY(), to.getZ() };
+      //float tmp[ 6 ] = { from.getX(), from.getY(), from.getZ(),
+      //              to.getX(), to.getY(), to.getZ() };
 
-      glPushMatrix();
-      {
-         glColor4f(color.getX(), color.getY(), color.getZ(), 1.0f);
-         glVertexPointer( 3,
-                     GL_FLOAT,
-                     0,
-                     &tmp );
+      // glPushMatrix();
+      // {
+      //    glColor4f(color.getX(), color.getY(), color.getZ(), 1.0f);
+      //    glVertexPointer( 3,
+      //                GL_FLOAT,
+      //                0,
+      //                &tmp );
 
-         glPointSize( 5.0f );
-         glDrawArrays( GL_POINTS, 0, 2 );
-         glDrawArrays( GL_LINES, 0, 2 );
-      }
-      glPopMatrix();
+      //    glPointSize( 5.0f );
+      //    glDrawArrays( GL_POINTS, 0, 2 );
+      //    glDrawArrays( GL_LINES, 0, 2 );
+      // }
+      // glPopMatrix();
    }
 }
 
@@ -61,12 +62,12 @@ void GLDebugDrawer::setDebugMode(int debugMode)
 
 void GLDebugDrawer::draw3dText(const btVector3& location,const char* textString)
 {
-   //glRasterPos3f(location.x(),  location.y(),  location.z());
-   //BMF_DrawString(BMF_GetFont(BMF_kHelvetica10),textString);
-    glPushMatrix();
-    glColor3f(1.0f, 0.0f, 0.0f);
-    //renderText(location[0], location[1], location[2], textString);
-    glPopMatrix();
+//    //glRasterPos3f(location.x(),  location.y(),  location.z());
+//    //BMF_DrawString(BMF_GetFont(BMF_kHelvetica10),textString);
+//     glPushMatrix();
+//     glColor3f(1.0f, 0.0f, 0.0f);
+//     //renderText(location[0], location[1], location[2], textString);
+//     glPopMatrix();
 }
 
 void GLDebugDrawer::reportErrorWarning(const char *warningString)

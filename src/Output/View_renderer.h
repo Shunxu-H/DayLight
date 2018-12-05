@@ -24,9 +24,9 @@ THE SOFTWARE.
 #ifndef VIEW_RENDERER_H
 #define VIEW_RENDERER_H
 
-#include "PerspectiveView.h"
-#include "FrameBuffer.h"
-#include "MultisampledFrameBuffer.h"
+#include <Output/PerspectiveView.h>
+#include <Lumos/FrameBuffer.h>
+#include <Lumos/MultisampledFrameBuffer.h>
 // #include "FrameBuffer_base.h"
 
 class View_renderer : public PerspectiveView {
