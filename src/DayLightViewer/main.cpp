@@ -1,16 +1,19 @@
 
-#include "Canvas.h"
-#include "Common/GL_include.h"
+#include <Common/GL_include.h>
+#include <Common/Utility.h>
 #include <Lumos/Program.h>
 #include <Patronus/PhysicalWorld.h>
 #include <Patronus/Shaper.h>
-#include <Common/Utility.h>
+
+#include <DayLightViewer/Canvas.h>
 
 Config progConfig;
 Patronus::Shaper * shaper = nullptr;
 Lumos::Program * gProgram = nullptr;
 Patronus::PhysicalWorld * world = nullptr;
 Lumos::Instance * selectedInstance = nullptr;
+Daylight::Canvas * canvas = nullptr; 
+WindowManager_base * winMan = nullptr;
 std::string SCENE_FILE_DIR = "./scene_file/";
 std::string TEXTURE_DIR = "./scene_file/texture/";
 std::string CAMERA_DIR = "./cameras/";
@@ -20,7 +23,7 @@ std::string RENDER_LIST = "./obj_list.txt";
 int main(int, char**)
 {
 
-    Daylight::Canvas win{}; 
+    winMan = new Daylight::Canvas{}; 
 
     // for physical simulartion
     world = new Patronus::PhysicalWorld();
@@ -33,6 +36,6 @@ int main(int, char**)
 
     gProgram->preDrawSetUp();
 
-    win.loop(); 
-    return 0;
+     
+    return winMan->loop();
 }

@@ -2,6 +2,7 @@
 #include "Canvas.h"
 
 #include <Common/Utility.h>
+#include <Common/Extern.h>
 
 #include <Patronus/PhysicalWorld.h>
 #include <Patronus/Shaper.h>
@@ -17,6 +18,8 @@ static void glfw_error_callback(int error, const char* description)
 
 Canvas::Canvas(){
     _initImgui();
+
+    addChild(new PerspectiveView(0, 0, 500, 500));
 }
 
 Canvas::~Canvas(){
@@ -193,6 +196,7 @@ int Canvas::loop(){
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
+        _internal_expose_handle(); 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwMakeContextCurrent(window);
