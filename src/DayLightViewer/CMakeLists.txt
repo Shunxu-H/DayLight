@@ -7,14 +7,16 @@ project(DayLightViewer)
 # set library name for later use 
 set(LibImGui imGui)
 
-set(SOURCE  imgui_impl_glfw.cpp 
-            imgui_impl_opengl3.cpp
-            Canvas.cpp
-            main.cpp
+set(SOURCE  ./IO/Port.cpp
+            ./Canvas.cpp
+            ./imgui_impl_glfw.cpp
+            ./imgui_impl_opengl3.cpp
+            ./main.cpp
             )
-set(HEADER  imgui_impl_glfw.h 
-            imgui_impl_opengl3.h 
-            Canvas.h
+set(HEADER  ./IO/Port.h
+            ./Canvas.h
+            ./imgui_impl_glfw.h
+            ./imgui_impl_opengl3.h
 )
 
 

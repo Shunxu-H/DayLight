@@ -51,8 +51,10 @@ namespace Lumos {
     class Instance; 
 }
 
-namespace Daylight {
-
+namespace DayLight {
+    namespace IO{
+        class Port; 
+    }
 // struct GlResource{
 //     Config progConfig;
 //     Patronus::Shaper * shaper = nullptr;
@@ -68,6 +70,7 @@ namespace Daylight {
 
 class Canvas: public WindowManager_base{
 public:
+    Canvas(const size_t & w, const size_t & h); 
     Canvas(); 
     ~Canvas(); 
     virtual inline void show() override{}
@@ -75,12 +78,13 @@ public:
 private:
     void _initImgui(); 
     void _initOpenGl(); 
+    void showPort(bool* p_open); 
 
     GLFWwindow* window; 
+    IO::Port * _port; 
     bool show_demo_window;
     bool show_another_window;
-    ImVec4 clear_color;
-
+    
     //GlResource glResource; 
 }; 
 

@@ -9,17 +9,30 @@
 
 #include <Lumos/Program.h>
 
-using namespace Daylight; 
+#include <DayLightViewer/IO/Port.h>
+#include <DayLightViewer/Canvas.h>
+
+using namespace DayLight; 
 
 static void glfw_error_callback(int error, const char* description)
 {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
 
-Canvas::Canvas(){
+Canvas::Canvas(const size_t & w, const size_t & h) 
+    : WindowManager_base(w, h) {
     _initImgui();
 
-    addChild(new PerspectiveView(0, 0, 500, 500));
+    _port = new IO::Port(w, h); 
+
+    addChild(new PerspectiveView(0, 0, _width, _height));
+}
+
+Canvas::Canvas()
+    : WindowManager_base(1280, 720) {
+    _initImgui();
+
+    addChild(new PerspectiveView(0, 0, _width, _height));
 }
 
 Canvas::~Canvas(){
@@ -57,7 +70,7 @@ void Canvas::_initImgui(){
 #endif
 
     // Create window with graphics context
-    window = glfwCreateWindow(1280, 720, "DayLight Viewer", NULL, NULL) ;
+    window = glfwCreateWindow(_width, _height, "DayLight Viewer", NULL, NULL) ;
     if (!window)
         throw new std::runtime_error("Cannot initialize window");
     glfwMakeContextCurrent(window);
@@ -112,27 +125,8 @@ void Canvas::_initImgui(){
 
     show_demo_window = true;
     show_another_window = false;
-    clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 } 
 
-// void Canvas::_initOpenGl(){
-//     // for physical simulartion
-//     glResource.physicalWorld = new Patronus::PhysicalWorld();
-//     // openGL resource management
-
-//     Program * GLObject::gProgram = new Lumos::Program( );
-//     glResource.shaper = new Patronus::Shaper( "./data/indoor/0004dd3cb11e50530676f77b55262d38.obj" );
-
-//     GLObject::gProgram->loadShaders( "./GLSL" );
-//     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-
-//     GLObject::gProgram->preDrawSetUp(glResource.physicalWorld, glResource.shaper);
-//     glResource.SCENE_FILE_DIR = "./scene_file/";
-//     glResource.TEXTURE_DIR = "./scene_file/texture/";
-//     glResource.CAMERA_DIR = "./cameras/";
-//     glResource.OUTPUT_DIR = "./output/";
-//     glResource.RENDER_LIST = "./obj_list.txt";
-// } 
 
 int Canvas::loop(){
 
@@ -167,7 +161,6 @@ int Canvas::loop(){
             ImGui::Checkbox("Another Window", &show_another_window);
 
             ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
             if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
                 counter++;
@@ -187,20 +180,92 @@ int Canvas::loop(){
                 show_another_window = false;
             ImGui::End();
         }
+        
+
+        // event handling 
 
         // Rendering
-        ImGui::Render();
-        int display_w, display_h;
-        glfwMakeContextCurrent(window);
-        glfwGetFramebufferSize(window, &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h);
-        glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-        glClear(GL_COLOR_BUFFER_BIT);
-        _internal_expose_handle(); 
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        {
+            ImGui::Render();
+            
 
-        glfwMakeContextCurrent(window);
-        glfwSwapBuffers(window);
+            int display_w, display_h;
+            glfwMakeContextCurrent(window);
+            glfwGetFramebufferSize(window, &display_w, &display_h);
+            glViewport(0, 0, display_w, display_h);
+            
+            _port->paint(); 
+            //_internal_expose_handle(); 
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+            glfwMakeContextCurrent(window);
+            glfwSwapBuffers(window);
+        }
     }
     return 0; 
+}
+
+void Canvas::showPort(bool* p_open)
+{
+    ImGui::SetNextWindowSize(ImVec2(350, 560), ImGuiCond_FirstUseEver);
+    if (!ImGui::Begin("View", p_open))
+    {
+        ImGui::End();
+        return;
+    }
+
+    // Tip: If you do a lot of custom rendering, you probably want to use your own geometrical types and benefit of overloaded operators, etc.
+    // Define IM_VEC2_CLASS_EXTRA in imconfig.h to create implicit conversions between your types and ImVec2/ImVec4.
+    // ImGui defines overloaded operators but they are internal to imgui.cpp and not exposed outside (to avoid messing with your types)
+    // In this example we are not using the maths operators!
+    ImDrawList* draw_list = ImGui::GetWindowDrawList();
+
+    {
+        static ImVector<ImVec2> points;
+        static bool adding_line = false;
+        if (points.Size >= 2) { ImGui::SameLine(); if (ImGui::Button("Undo")) { points.pop_back(); points.pop_back(); } }
+        ImGui::Text("Left-click and drag to add lines,\nRight-click to undo");
+
+        // Here we are using InvisibleButton() as a convenience to 1) advance the cursor and 2) allows us to use IsItemHovered()
+        // But you can also draw directly and poll mouse/keyboard by yourself. You can manipulate the cursor using GetCursorPos() and SetCursorPos().
+        // If you only use the ImDrawList API, you can notify the owner window of its extends by using SetCursorPos(max).
+        ImVec2 canvas_pos = ImGui::GetCursorScreenPos();            // ImDrawList API uses screen coordinates!
+        ImVec2 canvas_size = ImGui::GetContentRegionAvail();        // Resize canvas to what's available
+        if (canvas_size.x < 50.0f) canvas_size.x = 50.0f;
+        if (canvas_size.y < 50.0f) canvas_size.y = 50.0f;
+        draw_list->AddRectFilledMultiColor(canvas_pos, ImVec2(canvas_pos.x + canvas_size.x, canvas_pos.y + canvas_size.y), IM_COL32(50, 50, 50, 255), IM_COL32(50, 50, 60, 255), IM_COL32(60, 60, 70, 255), IM_COL32(50, 50, 60, 255));
+        draw_list->AddRect(canvas_pos, ImVec2(canvas_pos.x + canvas_size.x, canvas_pos.y + canvas_size.y), IM_COL32(255, 255, 255, 255));
+
+        bool adding_preview = false;
+        ImGui::InvisibleButton("canvas", canvas_size);
+        ImVec2 mouse_pos_in_canvas = ImVec2(ImGui::GetIO().MousePos.x - canvas_pos.x, ImGui::GetIO().MousePos.y - canvas_pos.y);
+        if (adding_line)
+        {
+            adding_preview = true;
+            points.push_back(mouse_pos_in_canvas);
+            if (!ImGui::IsMouseDown(0))
+                adding_line = adding_preview = false;
+        }
+        if (ImGui::IsItemHovered())
+        {
+            if (!adding_line && ImGui::IsMouseClicked(0))
+            {
+                points.push_back(mouse_pos_in_canvas);
+                adding_line = true;
+            }
+            if (ImGui::IsMouseClicked(1) && !points.empty())
+            {
+                adding_line = adding_preview = false;
+                points.pop_back();
+                points.pop_back();
+            }
+        }
+        draw_list->PushClipRect(canvas_pos, ImVec2(canvas_pos.x + canvas_size.x, canvas_pos.y + canvas_size.y), true);      // clip lines within the canvas (if we resize it, etc.)
+        for (int i = 0; i < points.Size - 1; i += 2)
+            draw_list->AddLine(ImVec2(canvas_pos.x + points[i].x, canvas_pos.y + points[i].y), ImVec2(canvas_pos.x + points[i + 1].x, canvas_pos.y + points[i + 1].y), IM_COL32(255, 255, 0, 255), 2.0f);
+        draw_list->PopClipRect();
+        if (adding_preview)
+            points.pop_back();
+    }
+    ImGui::End();
 }
