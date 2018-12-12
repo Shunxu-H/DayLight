@@ -36,6 +36,7 @@ namespace Lumos{
     class Instance;
 };
 
+class GLFWwindow; 
 namespace DayLight::IO{
 
 
@@ -74,6 +75,11 @@ public:
     virtual void initialize();
     virtual void resize(const size_t & w, const size_t & h);
     virtual void paint();
+    
+    void cursorPosHandle(GLFWwindow *, double, double); 
+    void cursorScrollHandle (GLFWwindow *, double, double); 
+
+
 
 protected:
     void getMouseBeam(const int & mouseX, const int & moustY, point3 * start, point3 * direction ) const ;

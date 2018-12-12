@@ -69,14 +69,6 @@ enum DrawMode
 	DRAWSHAPE
 };
 
-enum ClipMode
-{
-	UP,
-	RIGHT,
-	DOWN,
-	LEFT
-};
-
 enum ColorMode
 {
 	RGB,
@@ -113,7 +105,6 @@ struct Config
 	LineAlg lineAlg;
 	OpMode opMode;
 	FillMode fillMode;
-	ClipMode clipMode;
 	RenderMode renderMode;
 	TransfromMode transMode;
 	DrawMode drawMode;

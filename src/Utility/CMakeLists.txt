@@ -13,6 +13,7 @@ set(HEADER  ./Utility.h
             ./InputParser.h
             ./Config.h
             ./Color.h
+            ./Func.h
 )
 
 

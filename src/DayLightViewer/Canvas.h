@@ -1,5 +1,4 @@
-#ifndef WINDOW_H
-    #define WINDOW_H
+#pragma once
 
 #include <memory>
 // dear imgui: standalone example application for GLFW + OpenGL 3, using programmable pipeline
@@ -73,6 +72,9 @@ public:
     Canvas(const size_t & w, const size_t & h); 
     Canvas(); 
     ~Canvas(); 
+
+
+    inline IO::Port * getPort(){return _port;}
     virtual inline void show() override{}
     virtual int loop() override; 
 private:
@@ -90,5 +92,3 @@ private:
 
 
 }
-
-    #endif

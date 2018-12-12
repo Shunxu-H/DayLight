@@ -1,6 +1,8 @@
 #include <stdexcept>
 #include "Canvas.h"
 
+#include <Utility/Func.h>
+
 #include <Common/Utility.h>
 #include <Common/Extern.h>
 
@@ -18,6 +20,7 @@ static void glfw_error_callback(int error, const char* description)
 {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
+
 
 Canvas::Canvas(const size_t & w, const size_t & h) 
     : WindowManager_base(w, h) {
@@ -123,9 +126,19 @@ void Canvas::_initImgui(){
 
     // initialize private members
 
+    // set callback
+    glfwSetWindowUserPointer(window, this);
+    auto scrollCallback = [](GLFWwindow * window, double xoffset, double yoffset){
+        Canvas * canvas = static_cast<Canvas*>(glfwGetWindowUserPointer(window));
+        canvas->getPort()->cursorScrollHandle(window, xoffset, yoffset); 
+    }; 
+
+    glfwSetScrollCallback(window, scrollCallback ); 
+
     show_demo_window = true;
     show_another_window = false;
 } 
+
 
 
 int Canvas::loop(){
@@ -185,22 +198,20 @@ int Canvas::loop(){
         // event handling 
 
         // Rendering
-        {
-            ImGui::Render();
-            
+        ImGui::Render();
+        
 
-            int display_w, display_h;
-            glfwMakeContextCurrent(window);
-            glfwGetFramebufferSize(window, &display_w, &display_h);
-            glViewport(0, 0, display_w, display_h);
-            
-            _port->paint(); 
-            //_internal_expose_handle(); 
-            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        int display_w, display_h;
+        glfwMakeContextCurrent(window);
+        glfwGetFramebufferSize(window, &display_w, &display_h);
+        glViewport(0, 0, display_w, display_h);
+        
+        _port->paint(); 
+        
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-            glfwMakeContextCurrent(window);
-            glfwSwapBuffers(window);
-        }
+        glfwMakeContextCurrent(window);
+        glfwSwapBuffers(window);
     }
     return 0; 
 }

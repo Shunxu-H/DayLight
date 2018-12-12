@@ -36,6 +36,7 @@ THE SOFTWARE.
 #include <Lumos/Program.h>
 
 #include <DayLightViewer/IO/Port.h>
+#include <DayLightViewer/Canvas.h>
 
 using namespace DayLight::IO; 
 
@@ -74,6 +75,15 @@ void Port::initialize(){
 
     glGenVertexArrays(1, &_VAO);
 
+}
+
+
+void Port::cursorPosHandle(GLFWwindow *, double, double){
+
+}
+
+void Port::cursorScrollHandle (GLFWwindow * window, double xoffset, double yoffset){
+    _camInUse->moveForward(yoffset);
 }
 
 
