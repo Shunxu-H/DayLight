@@ -100,9 +100,9 @@ namespace Patronus {
         inline void
             setUp(const point3 & p) { _up= p; }
         inline void
-            setAt(const point3 & p) { _at= p; }
+            setAt(const point3 & p) { if (glm::length(p) == 0) return; _at= p; }
         inline void
-            setAtGlobal( const point3 & p ) { _at = p - _translate; }
+            setAtGlobal( const point3 & p ) { setAt(p - _translate); }
         inline void
             setFov(const float & fov) { _fov = fov; }
         inline void

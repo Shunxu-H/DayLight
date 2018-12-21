@@ -12,6 +12,7 @@ set(SOURCE  ./View.cpp
             ./EventCatcher.cpp
             ./View_renderer.cpp
             ./View_bullet.cpp
+            ./Input/CursorEvent.cpp
             )
 
 set(HEADER  ./Widget.h
@@ -23,6 +24,7 @@ set(HEADER  ./Widget.h
             ./WindowManager_base.h
             ./View_bullet.h
             ./EventCatcher.h
+            ./Input/CursorEvent.h
 )
 
 

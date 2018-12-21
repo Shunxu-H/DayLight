@@ -47,16 +47,20 @@ void Widget::_internal_keyboard_handle(const XEvent & xev){
     }
 }
 
-void Widget::_internal_button_handle(const XEvent & xev){
-    if(_button_handle(xev))
+void Widget::_internal_cursor_handle(const CursorEvent & event){
+    if(_cursor_handle(event))
     {
         for (Widget * w : _children)
         {
-            if(xev.type==ButtonPress && w->isClick(xev.xbutton.x, xev.xbutton.y)){
-                XEvent curEv(xev);
-                curEv.xbutton.x -= w->_x;
-                curEv.xbutton.y -= w->_y;
-                w->_internal_button_handle(curEv);
+            if(event.isPressEvent() && w->isClick(event.loc.x, event.loc.y)){
+                CursorEvent curEv(event);
+                curEv.loc.x -= w->_x;
+                curEv.loc.y -= w->_y;
+                w->_internal_cursor_handle(curEv);
+            }
+            else if (event.isWheelingEvent())
+            {
+                w->_internal_cursor_handle(event);
             }
         }
     }

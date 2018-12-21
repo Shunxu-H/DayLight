@@ -88,54 +88,48 @@ bool PerspectiveView::_keyboard_handle(const XEvent & xev)
     return true;
 }
 
-bool PerspectiveView::_button_handle(const XEvent & xev)
+bool PerspectiveView::_cursor_handle(const CursorEvent & cursorEvent)
 {
-    if (xev.xbutton.type == ButtonPress)
-    {
-        Debug( "PerpectiveView Buton presses at " << xev.xbutton.x << ", "
-                  << xev.xbutton.y  );
-        switch (xev.xbutton.button) {
-          case Button1: // left
-          {
-              Debug("Button1");
-              glm::vec3 out_origin, out_direction;
-              getMouseBeam(xev.xbutton.x, xev.xbutton.y, &out_origin, &out_direction);
-              glm::vec3 out_end = out_origin + out_direction*_camInUse->getFarClipDist();
-              btVector3 start(out_origin.x, out_origin.y, out_origin.z ), end(out_end.x, out_end.y, out_end.z);
+    
+    Debug( "PerpectiveView Buton presses at " << cursorEvent.loc.x << ", "
+                << cursorEvent.loc.y  );
+    switch (cursorEvent.type) {
+        case EVENT_LBUTTONDOWN: // left
+        {
+            Debug("Button1");
+            glm::vec3 out_origin, out_direction;
+            getMouseBeam(cursorEvent.loc.x, cursorEvent.loc.y, &out_origin, &out_direction);
+            glm::vec3 out_end = out_origin + out_direction*_camInUse->getFarClipDist();
+            btVector3 start(out_origin.x, out_origin.y, out_origin.z ), end(out_end.x, out_end.y, out_end.z);
 
-              Lumos::Instance * selected = world->selectWithBean( start, end );
-              if (selected){
-                  _camInUse->setAtGlobal( (selected->getMeshPtr()->getMaxPos() +
-                                         selected->getMeshPtr()->getMinPos()) / 2.0f ) ;
-                  selectedInstance = selected;
-              }
-              else
-                selectedInstance = nullptr;
-          }
-          break;
-          case Button2: // middle
-          Debug("Button2");
-          break;
-          case Button3: // right
-          Debug("Button3");
-          break;
-          case Button4:// wheel up
-              Debug("Button4");
-              _camInUse->moveForward(0.1f);
-          break;
-          case Button5: // wheel down
-              Debug("Button5");
-              _camInUse->moveForward(-0.1f);
-          break;
-          default:
-          Debug("Unknow button " << xev.xbutton.button);
+            Lumos::Instance * selected = world->selectWithBean( start, end );
+            if (selected){
+                _camInUse->setAtGlobal( (selected->getMeshPtr()->getMaxPos() +
+                                        selected->getMeshPtr()->getMinPos()) / 2.0f ) ;
+                selectedInstance = selected;
+            }
+            else
+            selectedInstance = nullptr;
         }
+        break;
+        case EVENT_RBUTTONDOWN: // right
+        Debug("EVENT_RBUTTONDOWN");
+        break;
+        case EVENT_MBUTTONDOWN: // middle
+        Debug("EVENT_MBUTTONDOWN");
+        break;
+        case EVENT_CURSORWHEEL:// wheel up
+            Debug("EVENT_CURSORWHEEL");
+            _camInUse->moveForward(0.1f);
+        break;
+        case EVENT_CURSORHWHEEL: // wheel down
+            Debug("Button5");
+            _camInUse->moveForward(-0.1f);
+        break;
+        default:
+        Debug("Unknow button " << cursorEvent.type);
     }
-    else if (xev.xbutton.type == ButtonRelease) // press 's' for SCREEN SHOT
-    {
-        Debug("Release at " << xev.xbutton.x << ", "
-                  << xev.xbutton.y);
-    }
+
 
     _expose();
     return true;

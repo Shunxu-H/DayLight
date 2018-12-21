@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "EventCatcher.h"
+#include <Output/Input/CursorEvent.h>
 
 class Widget {
 public:
@@ -42,9 +43,9 @@ public:
 protected:
   inline virtual bool _expose(){return true;}
   inline virtual bool _keyboard_handle(const XEvent & xev){return true;};
-  inline virtual bool _button_handle(const XEvent & xev){return true;};
+  inline virtual bool _cursor_handle(const CursorEvent & xev){return true;};
   void _internal_keyboard_handle(const XEvent & xev);
-  void _internal_button_handle(const XEvent & xev);
+  void _internal_cursor_handle(const CursorEvent & xev);
   void _internal_expose_handle();
   std::string _title;
   size_t _x, _y;

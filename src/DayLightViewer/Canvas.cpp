@@ -26,7 +26,7 @@ Canvas::Canvas(const size_t & w, const size_t & h)
     : WindowManager_base(w, h) {
     _initImgui();
 
-    _port = new IO::Port(w, h); 
+    // _port = new IO::Port(w, h); 
 
     addChild(new PerspectiveView(0, 0, _width, _height));
 }
@@ -130,7 +130,11 @@ void Canvas::_initImgui(){
     glfwSetWindowUserPointer(window, this);
     auto scrollCallback = [](GLFWwindow * window, double xoffset, double yoffset){
         Canvas * canvas = static_cast<Canvas*>(glfwGetWindowUserPointer(window));
-        canvas->getPort()->cursorScrollHandle(window, xoffset, yoffset); 
+        if (yoffset > 0)
+            canvas->_internal_cursor_handle(CursorEvent(EVENT_CURSORWHEEL, CursorLocation())); 
+        else if (yoffset < 0)
+            canvas->_internal_cursor_handle(CursorEvent(EVENT_CURSORHWHEEL, CursorLocation())); 
+        //canvas->getPort()->cursorScrollHandle(window, xoffset, yoffset); 
     }; 
 
     glfwSetScrollCallback(window, scrollCallback ); 
@@ -206,7 +210,8 @@ int Canvas::loop(){
         glfwGetFramebufferSize(window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
         
-        _port->paint(); 
+        _internal_expose_handle(); 
+        //_port->paint(); 
         
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

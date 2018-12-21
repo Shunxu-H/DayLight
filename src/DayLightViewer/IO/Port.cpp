@@ -83,9 +83,9 @@ void Port::cursorPosHandle(GLFWwindow *, double, double){
 }
 
 void Port::cursorScrollHandle (GLFWwindow * window, double xoffset, double yoffset){
-    _camInUse->moveForward(yoffset);
+    std::cout << ( std::to_string(_camInUse->getTranslate().x) + " " + std::to_string(_camInUse->getTranslate().y) + " " + std::to_string(_camInUse->getTranslate().z) ) << std::endl; 
+    _camInUse->moveForward(yoffset*0.1f);
 }
-
 
 // bool PerspectiveView::_button_handle(const XEvent & xev)
 // {

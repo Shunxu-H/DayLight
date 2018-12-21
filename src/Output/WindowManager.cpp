@@ -509,37 +509,37 @@ bool WindowManager::_keyboard_handle(const XEvent & event){
     return true;
 }
 
-bool WindowManager::_button_handle(const XEvent & event){
+bool WindowManager::_cursor_handle(const CursorEvent & event){
 
-    if (event.xbutton.type == ButtonPress)
-    {
-        Debug( "Buton presses at " << event.xbutton.x << ", "
-                  << event.xbutton.y  );
-        switch (event.xbutton.button) {
-          case Button1: // left
-          Debug("Button1");
-          break;
-          case Button2: // middle
-          Debug("Button2");
-          break;
-          case Button3: // right
-          Debug("Button3");
-          break;
-          case Button4:// wheel up
-          Debug("Button4");
-          break;
-          case Button5: // wheel down
-          Debug("Button5");
-          break;
-          default:
-          Debug("Unknow button " << event.xbutton.button);
-        }
-    }
-    else if (event.xbutton.type == ButtonRelease) // press 's' for SCREEN SHOT
-    {
-        Debug("Release at " << event.xbutton.x << ", "
-                  << event.xbutton.y);
-    }
+    // if (event.isPressEvent())
+    // {
+    //     Debug( "Buton presses at " << event.loc.x << ", "
+    //               << event.loc.y  );
+    //     switch (event.type) {
+    //       case Button1: // left
+    //       Debug("Button1");
+    //       break;
+    //       case Button2: // middle
+    //       Debug("Button2");
+    //       break;
+    //       case Button3: // right
+    //       Debug("Button3");
+    //       break;
+    //       case Button4:// wheel up
+    //       Debug("Button4");
+    //       break;
+    //       case Button5: // wheel down
+    //       Debug("Button5");
+    //       break;
+    //       default:
+    //       Debug("Unknow button " << event.xbutton.button);
+    //     }
+    // }
+    // else if (event.xbutton.type == ButtonRelease) // press 's' for SCREEN SHOT
+    // {
+    //     Debug("Release at " << event.xbutton.x << ", "
+    //               << event.xbutton.y);
+    // }
 
     return true;
 }
@@ -561,7 +561,7 @@ int WindowManager::loop()
             _internal_keyboard_handle(xev);
         }
         else if (xev.type==ButtonPress) {
-            _internal_button_handle(xev);
+            _internal_cursor_handle(CursorEvent(xev));
         }
         else
           std::cout << "Unrecognized events" << std::endl;

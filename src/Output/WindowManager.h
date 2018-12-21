@@ -39,6 +39,8 @@ THE SOFTWARE.
 #include <EGL/egl.h>
 #include "WindowManager_base.h"
 
+#include <Output/Input/CursorEvent.h>
+
 class PerspectiveView;
 
 class WindowManager : public WindowManager_base
@@ -66,7 +68,7 @@ public:
 protected:
 		virtual bool _expose() override;
 		virtual bool _keyboard_handle(const XEvent & event)override;
-		virtual bool _button_handle (const XEvent & event)override;
+		virtual bool _cursor_handle (const CursorEvent & event)override;
 private:
 
     Display    *_x_display;

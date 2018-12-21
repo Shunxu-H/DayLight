@@ -11,10 +11,12 @@ set(SOURCE  ./Utility.cpp
             ./Color.cpp
             )
 
-set(HEADER  ./Extern.h
-            ./GL_include.h
+set(HEADER  ./Exception.h
+            ./GlResource.h
             ./Utility.h
             ./Config.h
+            ./Extern.h
+            ./GL_include.h
             ./Color.h
 )
 
