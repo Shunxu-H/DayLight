@@ -39,7 +39,7 @@
 
 
 #include "Common/Config.h"
-#include <IO/WindowManager_base.h>
+ #include <IO/WindowManager.h>
 
 namespace Patronus {
     class Shaper; 

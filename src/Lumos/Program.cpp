@@ -28,15 +28,15 @@ THE SOFTWARE.
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Lumos/Program.h"
-#include "IO/WindowManager_base.h"
+#include <Lumos/Program.h>
+#include <IO/WindowManager.h>
 
-#include "Patronus/Shaper.h"
-#include "Patronus/PhysicalWorld.h"
+#include <Patronus/Shaper.h>
+#include <Patronus/PhysicalWorld.h>
 
-#include "ArrayBuffer.h"
-#include "Common/Utility.h"
-#include "Common/Extern.h"
+#include <ArrayBuffer.h>
+#include <Common/Utility.h>
+#include <Common/Extern.h>
 
 namespace Lumos{
 

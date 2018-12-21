@@ -21,72 +21,40 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef WINDOWMANAGER_H
-	#define WINDOWMANAGER_H
+#ifndef WINDOWMANAGER_BASE_H
+#define WINDOWMANAGER_BASE_H
 
-//#include "Renderer.h"
+#include <cstddef>
+#include <vector>
 
-
-#include <opencv2/opencv.hpp>
-/**
- * X11 for window management
- */
-#include  <X11/Xlib.h>
-#include  <X11/Xatom.h>
-#include  <X11/Xutil.h>
-
-
-#include <EGL/egl.h>
-#include "WindowManager_base.h"
-
-#include <IO/Event/CursorEvent.h>
-
+#include "Widget.h"
 class PerspectiveView;
 
-class WindowManager : public WindowManager_base
+class WindowManager_base : public Widget
 {
 public:
-    // Disable copy constructor
-    WindowManager( const WindowManager& ) = delete;
-    // Disable assignment operator
-    WindowManager& operator = ( const WindowManager& ) = delete;
+	WindowManager_base(
+						const size_t & w = 500,
+						const size_t & h = 500
+						);
+	virtual ~WindowManager_base(){};
 
-    WindowManager(  const size_t &w = 500,
-                    const size_t &h = 500 );
-    virtual ~WindowManager();
-    void render();
-/*
-    void updateAllViews();
 
-    void setUpProgram( const std::string & shaderDir );
-    void setUpProgram( const std::vector<Lumos::Shader> & shader );
 
-    void createMenus();
-*/
-    virtual void show() override;
-    virtual int loop() override;
+
+		// move the camera so the all the meshes are shown
+    void positionAllViewsToFitAllInstances();
+
+    virtual int loop() = 0;
+    virtual void show() = 0;
+
 protected:
-		virtual bool _expose() override;
-		virtual bool _keyboard_handle(const XEvent & event)override;
-		virtual bool _cursor_handle (const CursorEvent & event)override;
+
+
 private:
 
-    Display    *_x_display;
-    Window      _win;
-    EGLDisplay  _egl_display;
-    EGLContext  _egl_context;
-    EGLSurface  _egl_surface;
-    GLXContext  _xContex;
-
-    // View * _render_hidden_view;
-
-    void _X11WindowInit();
-    void _eglInitWithWindow();
-
-    void _headlessInit();
-    void _render();
-
 };
+
 
 
 

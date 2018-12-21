@@ -4,10 +4,10 @@ cmake_minimum_required(VERSION 3.0)
 project(IO)
 
 set(SOURCE  ./View.cpp
-            ./WindowManager.cpp
+            ./WindowManagerX11.cpp
             ./PerspectiveView.cpp
             ./btDebugDrawer.cpp
-            ./WindowManager_base.cpp
+            ./WindowManager.cpp
             ./Widget.cpp
             ./EventCatcher.cpp
             ./View_renderer.cpp
@@ -20,8 +20,8 @@ set(HEADER  ./Widget.h
             ./View_renderer.h
             ./View.h
             ./PerspectiveView.h
+            ./WindowManagerX11.h
             ./WindowManager.h
-            ./WindowManager_base.h
             ./View_bullet.h
             ./EventCatcher.h
             ./Event/CursorEvent.h
