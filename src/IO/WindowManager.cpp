@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include <Common/Extern.h>
 #include <Patronus/Shaper.h>
 
-WindowManager_base::WindowManager_base( const size_t & w, const size_t & h )
+WindowManager::WindowManager( const size_t & w, const size_t & h )
 	: Widget("Main", 0, 0, w, h)
 {
 
@@ -35,7 +35,7 @@ WindowManager_base::WindowManager_base( const size_t & w, const size_t & h )
 }
 
 
-void WindowManager_base::positionAllViewsToFitAllInstances(){
+void WindowManager::positionAllViewsToFitAllInstances(){
     // compute bounding circle
     point3 position;
     float radius;

@@ -39,13 +39,13 @@ namespace Patronus
     class PhysicalWorld; 
 }
 
-class WindowManager_base; 
+class WindowManager; 
 
 extern Config progConfig;
 extern Patronus::Shaper * shaper;
 extern Lumos::Program *gProgram;
 //extern std::vector<Lumos::Instance> drawingInstances;
-extern WindowManager_base * winMan;
+extern WindowManager * winMan;
 extern Patronus::PhysicalWorld * world;
 extern Lumos::Instance * selectedInstance;
 extern std::string SCENE_FILE_DIR;

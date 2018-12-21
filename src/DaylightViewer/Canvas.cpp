@@ -22,7 +22,7 @@ static void glfw_error_callback(int error, const char* description)
 
 
 Canvas::Canvas(const size_t & w, const size_t & h) 
-    : WindowManager_base(w, h) {
+    : WindowManager(w, h) {
     _initImgui();
 
     // _port = new IO::Port(w, h); 
@@ -31,7 +31,7 @@ Canvas::Canvas(const size_t & w, const size_t & h)
 }
 
 Canvas::Canvas()
-    : WindowManager_base(1280, 720) {
+    : WindowManager(1280, 720) {
     _initImgui();
 
     addChild(new PerspectiveView(0, 0, _width, _height));

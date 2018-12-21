@@ -21,8 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef WINDOWMANAGER_BASE_H
-#define WINDOWMANAGER_BASE_H
+#pragma once
 
 #include <cstddef>
 #include <vector>
@@ -30,14 +29,14 @@ THE SOFTWARE.
 #include "Widget.h"
 class PerspectiveView;
 
-class WindowManager_base : public Widget
+class WindowManager : public Widget
 {
 public:
-	WindowManager_base(
-						const size_t & w = 500,
-						const size_t & h = 500
-						);
-	virtual ~WindowManager_base(){};
+	WindowManager(
+                const size_t & w = 500,
+                const size_t & h = 500
+                );
+	virtual ~WindowManager(){};
 
 
 
@@ -54,8 +53,3 @@ protected:
 private:
 
 };
-
-
-
-
-#endif

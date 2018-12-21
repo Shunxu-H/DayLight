@@ -109,8 +109,8 @@ static int ctxErrorHandler( Display *dpy, XErrorEvent *ev )
     return 0;
 }
 
-WindowManager::WindowManager(const size_t &w, const size_t &h )
-    :WindowManager_base(w, h)
+WindowManagerX11::WindowManagerX11(const size_t &w, const size_t &h )
+    :WindowManager(w, h)
     ,_x_display(nullptr)
     ,_win(0)
     ,_egl_display(0)
@@ -130,7 +130,7 @@ WindowManager::WindowManager(const size_t &w, const size_t &h )
 
 
 
-WindowManager::~WindowManager()
+WindowManagerX11::~WindowManagerX11()
 {
 
     ////  cleaning up...
@@ -146,7 +146,7 @@ WindowManager::~WindowManager()
 }
 
 
-void WindowManager::_X11WindowInit(){
+void WindowManagerX11::_X11WindowInit(){
     _x_display = XOpenDisplay(NULL);
 
     if (!_x_display)
@@ -360,18 +360,18 @@ void WindowManager::_X11WindowInit(){
 }
 
 
-bool WindowManager::_expose(){
+bool WindowManagerX11::_expose(){
     render();
     return true;
 }
 
 
-void WindowManager::show(){
+void WindowManagerX11::show(){
 
 }
 
 
-void WindowManager::_eglInitWithWindow(){
+void WindowManagerX11::_eglInitWithWindow(){
 
     ///////  the egl part  //////////////////////////////////////////////////////////////////
     //  egl provides an interface to connect the graphics related functionality of openGL ES
@@ -430,7 +430,7 @@ void WindowManager::_eglInitWithWindow(){
 
 }
 
-void WindowManager::_headlessInit(){
+void WindowManagerX11::_headlessInit(){
 
     static const EGLint configAttribs[] = {
         EGL_SURFACE_TYPE, EGL_PBUFFER_BIT,
@@ -477,7 +477,7 @@ void WindowManager::_headlessInit(){
 }
 
 
-bool WindowManager::_keyboard_handle(const XEvent & event){
+bool WindowManagerX11::_keyboard_handle(const XEvent & event){
 
     if (event.type == KeyPress)
     {
@@ -509,7 +509,7 @@ bool WindowManager::_keyboard_handle(const XEvent & event){
     return true;
 }
 
-bool WindowManager::_cursor_handle(const CursorEvent & event){
+bool WindowManagerX11::_cursor_handle(const CursorEvent & event){
 
     // if (event.isPressEvent())
     // {
@@ -546,7 +546,7 @@ bool WindowManager::_cursor_handle(const CursorEvent & event){
 
 
 
-int WindowManager::loop()
+int WindowManagerX11::loop()
 {
     std::cout << "Start looping" << std::endl;
     XEvent xev;
@@ -571,12 +571,12 @@ int WindowManager::loop()
 } /* this is the } which closes int main(int argc, char *argv[]) { */
 
 
-void WindowManager::render(){
+void WindowManagerX11::render(){
 
 }
 
 /*
-void WindowManager::updateAllViews(){
+void WindowManagerX11::updateAllViews(){
     for(View* & v : _views )
         v->update();
 }

@@ -21,8 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef WINDOWMANAGER_H
-	#define WINDOWMANAGER_H
+#pragma once
 
 //#include "Renderer.h"
 
@@ -43,17 +42,17 @@ THE SOFTWARE.
 
 class PerspectiveView;
 
-class WindowManager : public WindowManager_base
+class WindowManagerX11 : public WindowManager
 {
 public:
     // Disable copy constructor
-    WindowManager( const WindowManager& ) = delete;
+    WindowManagerX11( const WindowManagerX11& ) = delete;
     // Disable assignment operator
-    WindowManager& operator = ( const WindowManager& ) = delete;
+    WindowManagerX11& operator = ( const WindowManagerX11& ) = delete;
 
-    WindowManager(  const size_t &w = 500,
+    WindowManagerX11(  const size_t &w = 500,
                     const size_t &h = 500 );
-    virtual ~WindowManager();
+    virtual ~WindowManagerX11();
     void render();
 /*
     void updateAllViews();
@@ -88,6 +87,3 @@ private:
 
 };
 
-
-
-#endif

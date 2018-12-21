@@ -64,7 +64,7 @@ namespace Daylight {
 //     std::string RENDER_LIST = "./obj_list.txt";
 // }; 
 
-class Canvas: public WindowManager_base{
+class Canvas: public WindowManager{
 public:
     Canvas(const size_t & w, const size_t & h); 
     Canvas(); 
