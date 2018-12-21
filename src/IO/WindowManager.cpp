@@ -258,7 +258,7 @@ void WindowManager::_X11WindowInit(){
     // Done with the visual info data
     XFree( vi );
 
-    XStoreName( _x_display, _win, "DayLight" );
+    XStoreName( _x_display, _win, "Daylight" );
 
     printf( "Mapping window\n" );
     XMapWindow( _x_display, _win );

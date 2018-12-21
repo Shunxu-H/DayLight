@@ -8,7 +8,7 @@
 #include <Patronus/PhysicalWorld.h>
 #include <Patronus/Shaper.h>
 
-#include <DayLightViewer/Canvas.h>
+#include <DaylightViewer/Canvas.h>
 
 Config progConfig;
 Patronus::Shaper * shaper = nullptr;

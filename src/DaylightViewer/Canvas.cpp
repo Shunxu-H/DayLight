@@ -11,7 +11,7 @@
 
 #include <Lumos/Program.h>
 
-#include <DayLightViewer/Canvas.h>
+#include <DaylightViewer/Canvas.h>
 
 using namespace Daylight; 
 
@@ -72,7 +72,7 @@ void Canvas::_initImgui(){
 #endif
 
     // Create window with graphics context
-    window = glfwCreateWindow(_width, _height, "DayLight Viewer", NULL, NULL) ;
+    window = glfwCreateWindow(_width, _height, "Daylight Viewer", NULL, NULL) ;
     if (!window)
         throw new std::runtime_error("Cannot initialize window");
     glfwMakeContextCurrent(window);

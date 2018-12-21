@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(DayLight)
+project(Daylight)
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -fPIC")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -fPIC")
@@ -18,4 +18,4 @@ add_subdirectory(${SOURCE_DIR}/Common)
 add_subdirectory(${SOURCE_DIR}/IO)
 add_subdirectory(${SOURCE_DIR}/Lumos)
 add_subdirectory(${SOURCE_DIR}/Patronus)
-add_subdirectory(${SOURCE_DIR}/DayLightViewer)
+add_subdirectory(${SOURCE_DIR}/DaylightViewer)
