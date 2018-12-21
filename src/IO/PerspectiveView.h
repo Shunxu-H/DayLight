@@ -21,12 +21,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef PORT_H
-	#define PORT_H
+#ifndef PERSPECTIVEVIEW_H
+	#define PERSPECTIVEVIEW_H
 
 #include <memory>
-#include <Output/View.h>
 #include <Lumos/Shader.h>
+#include <IO/Event/CursorEvent.h>
+#include "View.h"
+
+class WindowManager;
 
 namespace Patronus {
     class Camera;
@@ -36,22 +39,21 @@ namespace Lumos{
     class Instance;
 };
 
-class GLFWwindow; 
-namespace DayLight::IO{
 
-
-class Port 
+class PerspectiveView : public View
 {
 public:
-    Port(
-        const size_t & w = 500,
-        const size_t & h = 500,
-        const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
-        const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
-    );
+    PerspectiveView(
+            const size_t & x = 0,
+            const size_t & y = 0,
+            const size_t & w = 500,
+            const size_t & h = 500,
+            const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
+            const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
+        );
 
     //View(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
-    virtual ~Port(){}
+    virtual ~PerspectiveView(){}
 
     /**
      * START OF GETTERS AND SETTERS
@@ -72,30 +74,25 @@ public:
 
     void fitSphere(const point3 & position, const float & radius);
     void loadAttribsAndUniform() const;
-    virtual void initialize();
-    virtual void resize(const size_t & w, const size_t & h);
-    virtual void paint();
-    
-    void cursorPosHandle(GLFWwindow *, double, double); 
-    void cursorScrollHandle (GLFWwindow *, double, double); 
-
-
+    virtual void initializeGL() override;
+    virtual void resizeGL(const size_t & w, const size_t & h) override;
+    virtual void paintGL() override;
 
 protected:
-    void getMouseBeam(const int & mouseX, const int & moustY, point3 * start, point3 * direction ) const ;
+    void getMouseBeam(const int & mouseX, const int & moustY, point3 * start, point3 * direction )const;
 
+    virtual bool _keyboard_handle(const XEvent & xev) override;
+    virtual bool _cursor_handle(const CursorEvent & cursorEvent) override;
 
     Patronus::Camera * _camInUse;
     GLuint _VAO;
     std::string _shaderId;
     std::vector< Lumos::Instance * > _visibles;
 private:
-    size_t _width; 
-    size_t _height; 
-    bool _isExposed; 
+		friend class WindowManager;
 
 };
 
-}
+
 
 #endif

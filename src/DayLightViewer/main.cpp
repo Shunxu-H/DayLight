@@ -1,7 +1,10 @@
 
 #include <Common/GL_include.h>
 #include <Common/Utility.h>
+#include <Common/Config.h>
+
 #include <Lumos/Program.h>
+
 #include <Patronus/PhysicalWorld.h>
 #include <Patronus/Shaper.h>
 
@@ -12,7 +15,7 @@ Patronus::Shaper * shaper = nullptr;
 Lumos::Program * gProgram = nullptr;
 Patronus::PhysicalWorld * world = nullptr;
 Lumos::Instance * selectedInstance = nullptr;
-DayLight::Canvas * canvas = nullptr; 
+Daylight::Canvas * canvas = nullptr; 
 WindowManager_base * winMan = nullptr;
 std::string SCENE_FILE_DIR = "./scene_file/";
 std::string TEXTURE_DIR = "./scene_file/texture/";
@@ -23,7 +26,7 @@ std::string RENDER_LIST = "./obj_list.txt";
 int main(int, char**)
 {
 
-    winMan = new DayLight::Canvas{1280, 720}; 
+    winMan = new Daylight::Canvas{1280, 720}; 
 
     // for physical simulartion
     world = new Patronus::PhysicalWorld();

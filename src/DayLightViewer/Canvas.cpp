@@ -11,10 +11,9 @@
 
 #include <Lumos/Program.h>
 
-#include <DayLightViewer/IO/Port.h>
 #include <DayLightViewer/Canvas.h>
 
-using namespace DayLight; 
+using namespace Daylight; 
 
 static void glfw_error_callback(int error, const char* description)
 {

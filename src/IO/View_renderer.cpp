@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include <Patronus/PhysicalWorld.h>
 #include <Patronus/Shaper.h>
 
-#include <Output/View_renderer.h>
+#include <IO/View_renderer.h>
 
 View_renderer::View_renderer(
         const size_t & x,

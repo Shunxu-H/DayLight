@@ -39,7 +39,7 @@
 
 
 #include "Common/Config.h"
-#include <Output/WindowManager_base.h>
+#include <IO/WindowManager_base.h>
 
 namespace Patronus {
     class Shaper; 
@@ -50,10 +50,7 @@ namespace Lumos {
     class Instance; 
 }
 
-namespace DayLight {
-    namespace IO{
-        class Port; 
-    }
+namespace Daylight {
 // struct GlResource{
 //     Config progConfig;
 //     Patronus::Shaper * shaper = nullptr;
@@ -73,8 +70,6 @@ public:
     Canvas(); 
     ~Canvas(); 
 
-
-    inline IO::Port * getPort(){return _port;}
     virtual inline void show() override{}
     virtual int loop() override; 
 private:
@@ -83,7 +78,6 @@ private:
     void showPort(bool* p_open); 
 
     GLFWwindow* window; 
-    IO::Port * _port; 
     bool show_demo_window;
     bool show_another_window;
     

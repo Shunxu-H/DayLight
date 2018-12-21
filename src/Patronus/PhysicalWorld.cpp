@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include <Common/Utility.h>
 #include <Patronus/PhysicalWorld.h>
 #include <Patronus/Mesh.h>
-#include <Output/View_bullet.h>
+#include <IO/View_bullet.h>
 
 #include "btBulletDynamicsCommon.h"
 

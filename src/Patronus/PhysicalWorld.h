@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include <Patronus/Mesh.h>
 
 #include "bullet/btBulletDynamicsCommon.h"
-#include "Output/btDebugDrawer.h"
+#include "IO/btDebugDrawer.h"
 
 
 namespace Patronus {

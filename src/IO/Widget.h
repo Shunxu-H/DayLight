@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include "EventCatcher.h"
-#include <Output/Input/CursorEvent.h>
+#include <IO/Event/CursorEvent.h>
 
 class Widget {
 public:

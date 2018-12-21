@@ -29,8 +29,8 @@ THE SOFTWARE.
 #include <Common/Extern.h>
 #include <Common/Utility.h>
 
-#include <Output/WindowManager.h>
-#include <Output/PerspectiveView.h>
+#include <IO/WindowManager.h>
+#include <IO/PerspectiveView.h>
 
 #include <Patronus/Shaper.h>
 

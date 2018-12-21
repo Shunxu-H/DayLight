@@ -39,7 +39,7 @@ THE SOFTWARE.
 #include <EGL/egl.h>
 #include "WindowManager_base.h"
 
-#include <Output/Input/CursorEvent.h>
+#include <IO/Event/CursorEvent.h>
 
 class PerspectiveView;
 

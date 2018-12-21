@@ -7,14 +7,12 @@ project(DayLightViewer)
 # set library name for later use 
 set(LibImGui imGui)
 
-set(SOURCE  ./IO/Port.cpp
-            ./Canvas.cpp
+set(SOURCE  ./Canvas.cpp
             ./imgui_impl_glfw.cpp
             ./imgui_impl_opengl3.cpp
             ./main.cpp
             )
-set(HEADER  ./IO/Port.h
-            ./Canvas.h
+set(HEADER  ./Canvas.h
             ./imgui_impl_glfw.h
             ./imgui_impl_opengl3.h
 )
@@ -33,7 +31,7 @@ target_link_libraries(${PROJECT_NAME}
                         ${OPENGL_gl_LIBRARY}
                         ${OpenCV_LIBS}
                         GLoader
-                        Output
+                        IO
                         Common
                         Patronus
                         Lumos

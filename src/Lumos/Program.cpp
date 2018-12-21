@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Lumos/Program.h"
-#include "Output/WindowManager_base.h"
+#include "IO/WindowManager_base.h"
 
 #include "Patronus/Shaper.h"
 #include "Patronus/PhysicalWorld.h"

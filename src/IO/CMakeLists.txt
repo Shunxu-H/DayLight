@@ -1,7 +1,7 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-project(Output)
+project(IO)
 
 set(SOURCE  ./View.cpp
             ./WindowManager.cpp
@@ -12,7 +12,7 @@ set(SOURCE  ./View.cpp
             ./EventCatcher.cpp
             ./View_renderer.cpp
             ./View_bullet.cpp
-            ./Input/CursorEvent.cpp
+            ./Event/CursorEvent.cpp
             )
 
 set(HEADER  ./Widget.h
@@ -24,7 +24,7 @@ set(HEADER  ./Widget.h
             ./WindowManager_base.h
             ./View_bullet.h
             ./EventCatcher.h
-            ./Input/CursorEvent.h
+            ./Event/CursorEvent.h
 )
 
 
