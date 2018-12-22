@@ -21,37 +21,36 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef EXTERN_H
-#define EXTERN_H
+#pragma once 
 
 #include "Config.h"
 
 
-namespace Lumos
+namespace Daylight::Lumos
 {
     class Instance; 
     class Program; 
 } // Lumos
 
-namespace Patronus
+namespace Daylight::Patronus
 {
     class Shaper; 
     class PhysicalWorld; 
 }
 
-class WindowManager; 
+namespace Daylight::IO{
+    class WindowManager; 
+}
 
-extern Config progConfig;
-extern Patronus::Shaper * shaper;
-extern Lumos::Program *gProgram;
+extern Daylight::Config progConfig;
+extern Daylight::Patronus::Shaper * shaper;
+extern Daylight::Lumos::Program *gProgram;
 //extern std::vector<Lumos::Instance> drawingInstances;
-extern WindowManager * winMan;
-extern Patronus::PhysicalWorld * world;
-extern Lumos::Instance * selectedInstance;
+extern Daylight::IO::WindowManager * winMan;
+extern Daylight::Patronus::PhysicalWorld * world;
+extern Daylight::Lumos::Instance * selectedInstance;
 extern std::string SCENE_FILE_DIR;
 extern std::string TEXTURE_DIR;
 extern std::string CAMERA_DIR;
 extern std::string OUTPUT_DIR;
 extern std::string RENDER_LIST;
-
-#endif // EXTERN_H

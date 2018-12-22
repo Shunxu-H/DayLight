@@ -34,12 +34,12 @@ THE SOFTWARE.
 #include <Patronus/Mesh.h>
 #include <Lumos/ArrayBuffer.h>
 
-namespace Lumos {
+namespace Daylight::Lumos {
     class Instance;
     class Program; 
 }
 
-namespace Patronus {
+namespace Daylight::Patronus {
     class Shaper{
     public:
         Shaper();
@@ -91,10 +91,10 @@ namespace Patronus {
 
         int getNumOfVertices() const;
 
-        Lumos::ArrayBuffer getVertexBuffer()const;
-        Lumos::ArrayBuffer getNormalBuffer()const;
+        Daylight::Lumos::ArrayBuffer getVertexBuffer()const;
+        Daylight::Lumos::ArrayBuffer getNormalBuffer()const;
 
-        void addMaterial( Lumos::Material * m);
+        void addMaterial( Daylight::Lumos::Material * m);
 
 
 

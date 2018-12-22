@@ -1,9 +1,8 @@
-#ifndef DEPTHTEXBUFFER_H
-  #define DEPTHTEXBUFFER_H
+#pragma once 
 
 #include "Texture.h"
 
-namespace Lumos{
+namespace Daylight::Lumos{
 
 
 class DepthTexBuffer : public Texture{
@@ -19,4 +18,3 @@ private:
 
 }
 
-  #endif

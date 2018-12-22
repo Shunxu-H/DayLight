@@ -1,6 +1,8 @@
 #include "DepthTexBuffer.h"
 #include "Common/Utility.h"
-namespace Lumos{
+
+
+using namespace Daylight::Lumos; 
 
 
 DepthTexBuffer::DepthTexBuffer(){
@@ -46,6 +48,4 @@ void DepthTexBuffer::resize(const GLsizei & w, const GLsizei & h) const
                 _dataType,
                 NULL);
   stopUsing();
-}
-
 }

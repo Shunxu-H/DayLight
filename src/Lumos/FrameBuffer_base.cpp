@@ -24,7 +24,7 @@ THE SOFTWARE.
 */
 #include "FrameBuffer_base.h"
 
-namespace Lumos{
+namespace Daylight::Lumos{
 
 FrameBuffer_base::FrameBuffer_base()
     : GLObject( [](GLuint * id){glGenFramebuffers(1, id);},

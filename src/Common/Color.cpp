@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Color.h"
 
+using namespace Daylight; 
 
 const color4 Color::BLACK  = color4{ 0.00f,  0.00f,  0.00f, 1.00f };
 const color4 Color::DGREY  = color4{ 0.25f,  0.25f,  0.25f, 1.00f };

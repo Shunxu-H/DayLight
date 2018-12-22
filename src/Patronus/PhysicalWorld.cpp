@@ -37,7 +37,7 @@ THE SOFTWARE.
 #define ARRAY_SIZE_X 5
 #define ARRAY_SIZE_Z 5
 
-namespace Patronus {
+namespace Daylight::Patronus {
 
 PhysicalWorld::PhysicalWorld(){
     _drawer = nullptr;
@@ -205,7 +205,7 @@ PhysicalWorld::~PhysicalWorld(){
     delete _dynamicsWorld;
 }
 
-void PhysicalWorld::setDebugView(View_bullet * debugView){
+void PhysicalWorld::setDebugView(Daylight::IO::View_bullet * debugView){
     debugView->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
     _dynamicsWorld->setDebugDrawer(debugView);
 }

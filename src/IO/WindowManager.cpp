@@ -27,6 +27,8 @@ THE SOFTWARE.
 #include <Common/Extern.h>
 #include <Patronus/Shaper.h>
 
+using namespace Daylight::IO;
+
 WindowManager::WindowManager( const size_t & w, const size_t & h )
 	: Widget("Main", 0, 0, w, h)
 {
@@ -39,7 +41,7 @@ void WindowManager::positionAllViewsToFitAllInstances(){
     // compute bounding circle
     point3 position;
     float radius;
-    Patronus::Shaper::getBoundingSphere(Patronus::Shaper::global_vertices, &position, &radius);
+    Daylight::Patronus::Shaper::getBoundingSphere(Daylight::Patronus::Shaper::global_vertices, &position, &radius);
 
     for( auto  w: _children ){
         dynamic_cast<PerspectiveView*>(w)->fitSphere(position, radius);

@@ -40,12 +40,12 @@ THE SOFTWARE.
  * 1. Enable more than two shaders in pipes
  */
 
-namespace Patronus {
+namespace Daylight::Patronus {
     class PhysicalWorld; 
     class Shaper; 
 }
 
-namespace Lumos {
+namespace Daylight::Lumos {
     using shading_pipe = std::vector<Shader>;
 
     /**

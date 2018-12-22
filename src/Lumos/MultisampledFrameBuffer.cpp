@@ -1,8 +1,8 @@
- #include "Common/Utility.h"
+#include "Common/Utility.h"
 #include "MultisampledFrameBuffer.h"
 
 
-namespace Lumos{
+namespace Daylight::Lumos{
 
 
 MultisampledFrameBuffer::MultisampledFrameBuffer(){}

@@ -25,7 +25,7 @@ THE SOFTWARE.
 #include "Texture.h"
 #include "Common/Utility.h"
 
-namespace Lumos{
+using namespace Daylight::Lumos; 
 
 
 const GLint Texture::DEFAULTSAMPLESIZE = 4;
@@ -249,6 +249,4 @@ bool Texture::isInUse() const
 void Texture::stopUsing() const
 {
     glBindTexture(_textureTarget, _glObjId);
-}
-
 }

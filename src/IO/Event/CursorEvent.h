@@ -1,11 +1,10 @@
-#ifndef CURSOREVENT_H
-    #define CURSOREVENT_H
+#pragma once 
 
 #include <cstddef>
 #include <Common/Exception.h>
-
-
 #include  <X11/Xlib.h> // to deal with XEvent
+
+namespace Daylight::IO{
 
 enum CursorEventType{
     EVENT_UNKNOWN       = 0x000000000000,
@@ -49,7 +48,6 @@ struct CursorEvent{
 
 
 
+}
 
 
-
-#endif

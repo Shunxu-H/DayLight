@@ -51,6 +51,7 @@ THE SOFTWARE.
 //  #include "Common/Utility.h"
 // #include "Common/Extern.h"
 
+using namespace Daylight::IO; 
 
 namespace fs = std::experimental::filesystem;
 

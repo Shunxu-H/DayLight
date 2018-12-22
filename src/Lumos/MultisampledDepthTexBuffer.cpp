@@ -1,7 +1,7 @@
 #include "MultisampledDepthTexBuffer.h"
  #include "Common/Utility.h"
 
-namespace Lumos{
+using namespace Daylight::Lumos; 
 
 
 
@@ -66,7 +66,4 @@ const
                           GL_FALSE);
   stopUsing();
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
-}
-
-
 }

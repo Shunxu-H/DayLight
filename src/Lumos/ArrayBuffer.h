@@ -21,15 +21,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef ARRAYBUFFER_H
-#define ARRAYBUFFER_H
+#pragma once 
 
-#include "Common/GL_include.h"
-#include "GLObject.h"
-#include "Patronus/Mesh.h"
+#include <Common/GL_include.h>
+#include <Lumos/GLObject.h>
+#include <Patronus/Mesh.h>
 
 
-namespace Lumos {
+namespace Daylight::Lumos {
 
     enum class Type{
         COLOR4_BUFFER,
@@ -48,9 +47,9 @@ namespace Lumos {
          * [setVertexBuffer move vertex data from CPU to GPU]
          * @param shapes [list of meshes that will be loaded]
          */
-        void setVertexBuffer( const std::vector<Patronus::Mesh> & shapes );
-        void setVertexNormalBuffer( const std::vector<Patronus::Mesh> & shapes );
-        void setColorBuffer( const std::vector<Patronus::Mesh> & shapes );
+        void setVertexBuffer( const std::vector<Daylight::Patronus::Mesh> & shapes );
+        void setVertexNormalBuffer( const std::vector<Daylight::Patronus::Mesh> & shapes );
+        void setColorBuffer( const std::vector<Daylight::Patronus::Mesh> & shapes );
         virtual ~ArrayBuffer();
 
         /**
@@ -76,4 +75,3 @@ namespace Lumos {
     };
 }
 
-#endif // ARRAYBUFFER_H

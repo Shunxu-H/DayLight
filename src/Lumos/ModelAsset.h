@@ -21,8 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef MODELASSET_H
-#define MODELASSET_H
+#pragma once
 
 #include "Common/GL_include.h"
 #include "Material.h"
@@ -30,7 +29,7 @@ THE SOFTWARE.
 /**
  * @TODO: Make Texture a separated class
  */
-namespace Lumos {
+namespace Daylight::Lumos {
 
 
     struct MaterialPack{
@@ -54,5 +53,3 @@ namespace Lumos {
         GLint drawCount;
     };
 }
-
-#endif // MODELASSET_H

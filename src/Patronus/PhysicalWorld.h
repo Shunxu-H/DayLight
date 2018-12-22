@@ -33,12 +33,18 @@ THE SOFTWARE.
 #include "IO/btDebugDrawer.h"
 
 
-namespace Patronus {
-    class Instance;
+namespace Daylight {
+    namespace Lumos{
+        class Instance;
+    }
+    namespace IO
+    {
+        class View_bullet;
+    } // IO
+    
 }
 
-class View_bullet;
-namespace Patronus {
+namespace Daylight::Patronus {
     class PhysicalWorld{
     public:
         PhysicalWorld();
@@ -47,17 +53,17 @@ namespace Patronus {
         /**
          * @brief loadInstance, load one instance in the physical world, make it interactable in the world
          */
-        void loadInstance( Patronus::Mesh & mesh );
+        void loadInstance( Daylight::Patronus::Mesh & mesh );
 
 
-        void setDebugView(View_bullet * debugView);
+        void setDebugView(Daylight::IO::View_bullet * debugView);
         void draw();
         void test();
 
         /**
          * ASSESORS AND MUTATORS
          */
-        inline std::vector< Lumos::Instance * >
+        inline std::vector< Daylight::Lumos::Instance * >
             getInstances() { return _instances; }
 
         inline btDiscreteDynamicsWorld*
@@ -74,7 +80,7 @@ namespace Patronus {
          * @param end, end of the ray
          * @return the closest instance hit by ray or nullptr if none hit
          */
-        Lumos::Instance * selectWithBean( const btVector3 & start, const btVector3 & end );
+        Daylight::Lumos::Instance * selectWithBean( const btVector3 & start, const btVector3 & end );
 
         /**
          * Check if a unique picking color is set for each instance in the
@@ -100,14 +106,14 @@ namespace Patronus {
     protected:
 
     private:
-        std::vector< Lumos::Instance * > _instances;
+        std::vector< Daylight::Lumos::Instance * > _instances;
         std::set< std::string > _names;
         btBroadphaseInterface* _broadphase;
         btDefaultCollisionConfiguration* _collisionConfiguration;
         btCollisionDispatcher* _dispatcher;
         btSequentialImpulseConstraintSolver* _solver;
         btDiscreteDynamicsWorld* _dynamicsWorld;
-        GLDebugDrawer * _drawer;
+        Daylight::IO::GLDebugDrawer * _drawer;
 
     };
 }

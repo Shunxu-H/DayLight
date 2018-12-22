@@ -40,7 +40,8 @@ THE SOFTWARE.
 #include <IO/WindowManager.h>
 #include <IO/Event/CursorEvent.h>
 
-class PerspectiveView;
+
+namespace Daylight::IO{
 
 class WindowManagerX11 : public WindowManager
 {
@@ -87,3 +88,4 @@ private:
 
 };
 
+}

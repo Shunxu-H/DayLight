@@ -24,20 +24,19 @@ THE SOFTWARE.
 
 #include "glm/gtc/matrix_transform.hpp"
 
-#include "Instance.h"
-// #include "View.h"
-#include "Common/Extern.h"
-#include "Common/Utility.h"
+#include <Common/Extern.h>
+#include <Common/Utility.h>
 
-#include "Patronus/PhysicalWorld.h"
-#include "Patronus/Camera.h"
+#include <Patronus/PhysicalWorld.h>
+#include <Patronus/Camera.h>
 
-#include "Lumos/Program.h"
+#include <Lumos/Instance.h>
+#include <Lumos/Program.h>
 
-namespace Lumos {
+using namespace Daylight::Lumos; 
 
 
-Instance::Instance( Patronus::Mesh * meshPtr, const ModelAsset & asset)
+Instance::Instance( Daylight::Patronus::Mesh * meshPtr, const ModelAsset & asset)
     :_meshPtr(meshPtr)
     , _asset(asset)
     , _rigidBody( nullptr )
@@ -50,7 +49,7 @@ Instance::Instance( Patronus::Mesh * meshPtr, const ModelAsset & asset)
 //    //if (_rigidBody) delete _rigidBody;
 //}
 
-void Instance::setRidgidBody( Patronus::PhysicalWorld * world, btRigidBody * const &  arg )
+void Instance::setRidgidBody( Daylight::Patronus::PhysicalWorld * world, btRigidBody * const &  arg )
 {
     if(_rigidBody){
         world->getWorld()->removeRigidBody(_rigidBody);
@@ -127,7 +126,7 @@ void Instance::renderMesh( Material * materialInUse ) const{
 
 
 
-void Instance::renderBoundngBox( const PerspectiveView & view ) const{
+void Instance::renderBoundngBox( const Daylight::IO::PerspectiveView & view ) const{
 
     // Cube 1x1x1, centered on origin
     GLfloat vertices[] = {
@@ -198,7 +197,5 @@ void Instance::renderBoundngBox( const PerspectiveView & view ) const{
 
     glDeleteBuffers(1, &vbo_vertices);
     glDeleteBuffers(1, &ibo_elements);
-
-}
 
 }

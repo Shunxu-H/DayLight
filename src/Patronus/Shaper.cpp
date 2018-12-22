@@ -33,9 +33,10 @@ THE SOFTWARE.
 
 #include <Lumos/ModelAsset.h>
 #include <Lumos/Program.h>
+#include <Lumos/Instance.h>
+#include <Lumos/ArrayBuffer.h>
 
 #include <Patronus/Shaper.h>
-#include <Patronus/Instance.h>
 #include <Patronus/Face.h>
 
 
@@ -44,7 +45,7 @@ THE SOFTWARE.
 
 
 
-using namespace Patronus;
+using namespace Daylight::Patronus;
 
 std::vector< point3 > Shaper::global_vertices = std::vector< point3 >();
 std::vector< point3 > Shaper::global_normal_vertices{};
@@ -336,16 +337,16 @@ void Shaper::_loadDefaultObjects(){
     _lights.push_back(Light());
 }
 
-Lumos::ArrayBuffer Shaper::getVertexBuffer( )const
+Daylight::Lumos::ArrayBuffer Shaper::getVertexBuffer( )const
 {
-    Lumos::ArrayBuffer ret{};
+    Daylight::Lumos::ArrayBuffer ret{};
     ret.setVertexBuffer(_shapes);
     return ret;
 }
 
-Lumos::ArrayBuffer Shaper::getNormalBuffer( )const
+Daylight::Lumos::ArrayBuffer Shaper::getNormalBuffer( )const
 {
-    Lumos::ArrayBuffer ret{};
+    Daylight::Lumos::ArrayBuffer ret{};
     ret.setVertexNormalBuffer(_shapes);
     return ret;
 }

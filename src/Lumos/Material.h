@@ -1,9 +1,8 @@
-#ifndef MATERIAL_H
-  #define MATERIAL_H
+#pragma once
 
 #include "Texture2D.h"
 
-namespace Lumos {
+namespace Daylight::Lumos {
     class Program; 
     struct Material{
         float reflexitivity;
@@ -27,5 +26,3 @@ namespace Lumos {
 
 
 }
-
-#endif // MATERIAL_H

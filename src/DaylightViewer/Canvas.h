@@ -41,14 +41,6 @@
 #include "Common/Config.h"
  #include <IO/WindowManager.h>
 
-namespace Patronus {
-    class Shaper; 
-    class PhysicalWorld; 
-}
-namespace Lumos {
-    class Program; 
-    class Instance; 
-}
 
 namespace Daylight {
 // struct GlResource{
@@ -64,25 +56,37 @@ namespace Daylight {
 //     std::string RENDER_LIST = "./obj_list.txt";
 // }; 
 
-class Canvas: public WindowManager{
-public:
-    Canvas(const size_t & w, const size_t & h); 
-    Canvas(); 
-    ~Canvas(); 
+    namespace Patronus {
+        class Shaper; 
+        class PhysicalWorld; 
+    }
+    namespace Lumos {
+        class Program; 
+        class Instance; 
+    }
 
-    virtual inline void show() override{}
-    virtual int loop() override; 
-private:
-    void _initImgui(); 
-    void _initOpenGl(); 
-    void showPort(bool* p_open); 
+    namespace IO{
 
-    GLFWwindow* window; 
-    bool show_demo_window;
-    bool show_another_window;
-    
-    //GlResource glResource; 
-}; 
+        class Canvas: public WindowManager{
+        public:
+            Canvas(const size_t & w, const size_t & h); 
+            Canvas(); 
+            ~Canvas(); 
 
+            virtual inline void show() override{}
+            virtual int loop() override; 
+        private:
+            void _initImgui(); 
+            void _initOpenGl(); 
+            void showPort(bool* p_open); 
+
+            GLFWwindow* window; 
+            bool show_demo_window;
+            bool show_another_window;
+            
+            //GlResource glResource; 
+        }; 
+
+    }
 
 }

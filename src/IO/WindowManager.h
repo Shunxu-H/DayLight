@@ -27,7 +27,8 @@ THE SOFTWARE.
 #include <vector>
 
 #include "Widget.h"
-class PerspectiveView;
+
+namespace Daylight::IO{ 
 
 class WindowManager : public Widget
 {
@@ -53,3 +54,5 @@ protected:
 private:
 
 };
+
+}

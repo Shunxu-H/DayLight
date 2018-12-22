@@ -1,9 +1,8 @@
-#ifndef MULTISAMPLEDDEPTHTEXBUFFER_H
-  #define MULTISAMPLEDDEPTHTEXBUFFER_H
+#pragma once 
 
 #include "Texture.h"
 
-namespace Lumos{
+namespace Daylight::Lumos{
 
 
 class MultisampledDepthTexBuffer : public Texture{
@@ -19,5 +18,3 @@ private:
 
 
 }
-
-  #endif

@@ -32,7 +32,7 @@ THE SOFTWARE.
 
 
 
-using namespace Patronus;
+using namespace Daylight::Patronus;
 
 
 Mesh::~Mesh(){
@@ -92,7 +92,7 @@ void Mesh::addVertex( const Vertex & v){
 }
 
 
-Lumos::Instance* Mesh::instantiate_sequentialDraw ( ){
+Daylight::Lumos::Instance* Mesh::instantiate_sequentialDraw ( ){
 
 
 
@@ -187,7 +187,7 @@ void Mesh::_loadColorToBuffer( ){
 
 
 
-Lumos::Instance* Mesh::instantiate_indexedDraw ( const GLuint & VAO ){
+Daylight::Lumos::Instance* Mesh::instantiate_indexedDraw ( const GLuint & VAO ){
     throw std::runtime_error("aborting such design for now");
 }
 

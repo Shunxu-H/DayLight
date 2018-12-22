@@ -1,8 +1,7 @@
 #include "MultisampledColorTexBuffer.h"
 #include "Common/Utility.h"
-namespace Lumos{
 
-
+using namespace Daylight::Lumos; 
 
 MultisampledColorTexBuffer::MultisampledColorTexBuffer()
 {
@@ -64,8 +63,5 @@ void MultisampledColorTexBuffer::resize(const GLsizei & w, const GLsizei & h) co
                           h,
                           GL_FALSE);
   stopUsing();
-
-}
-
 
 }

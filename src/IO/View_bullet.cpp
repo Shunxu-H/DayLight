@@ -25,7 +25,7 @@ THE SOFTWARE.
 #include <btBulletDynamicsCommon.h>
 #include <Common/Extern.h>
 
-#include <Patronus/Instance.h>
+#include <Lumos/Instance.h>
 #include <Patronus/PhysicalWorld.h>
 #include <Patronus/Camera.h>
 
@@ -34,14 +34,14 @@ THE SOFTWARE.
 #include <IO/View_bullet.h>
 
 
-
+using namespace Daylight::IO; 
 
 View_bullet::View_bullet(
     const size_t & x,
     const size_t & y,
     const size_t & w,
     const size_t & h,
-    const std::shared_ptr< Patronus::Camera > & cam )
+    const std::shared_ptr< Daylight::Patronus::Camera > & cam )
 :PerspectiveView(x, y, w, h, cam), m_debugMode(1)
 {
     world->setDebugView(this);

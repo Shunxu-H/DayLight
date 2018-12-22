@@ -35,19 +35,19 @@ THE SOFTWARE.
 
 #include "bullet/btBulletCollisionCommon.h"
 
-namespace Patronus {
+namespace Daylight::Patronus {
     class Mesh;
     class PhysicalWorld; 
 }
 
-namespace Lumos {
+namespace Daylight::Lumos {
     class ArrayBuffer;
     class Program; 
 
-    class Instance: public Patronus::Transformable{
+    class Instance: public Daylight::Patronus::Transformable {
     public:
         Instance(
-                  Patronus::Mesh * meshPtr = nullptr,
+                  Daylight::Patronus::Mesh * meshPtr = nullptr,
                   const ModelAsset & asset = ModelAsset()
                 );
 
@@ -69,7 +69,7 @@ namespace Lumos {
          * [renderBoundngBox render the bounding box for the instance]
          * @param v [description]
          */
-        void renderBoundngBox( const PerspectiveView & v) const;
+        void renderBoundngBox( const Daylight::IO::PerspectiveView & v) const;
 
 
         /**
@@ -86,11 +86,11 @@ namespace Lumos {
         inline std::string
             getId() const { return _id; }
 
-        void setRidgidBody(  Patronus::PhysicalWorld * world, btRigidBody * const &  arg );
+        void setRidgidBody(  Daylight::Patronus::PhysicalWorld * world, btRigidBody * const &  arg );
         inline btRigidBody*
             getRidgidBody() const { return _rigidBody; }
 
-        inline Patronus::Mesh *
+        inline Daylight::Patronus::Mesh *
             getMeshPtr() const { return _meshPtr; }
 
         inline color3
@@ -101,7 +101,7 @@ namespace Lumos {
     protected:
 
     private:
-        Patronus::Mesh * _meshPtr;
+        Daylight::Patronus::Mesh * _meshPtr;
         ModelAsset _asset;
         std::string _id;
         btRigidBody * _rigidBody;

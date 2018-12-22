@@ -31,6 +31,8 @@ THE SOFTWARE.
 
 #include <IO/View_renderer.h>
 
+using namespace Daylight::IO;
+
 View_renderer::View_renderer(
         const size_t & x,
         const size_t & y,
@@ -122,7 +124,7 @@ void View_renderer::getVisibleObjects(const std::string & path){
     for (size_t rowItr = 0; rowItr < static_cast<size_t>(_height); rowItr++){
         for (size_t colItr = 0; colItr < static_cast<size_t>(_width); colItr++){
             cv::Vec3b p = img.at<cv::Vec3b>(rowItr, colItr);
-            pickedInstanceIndices.insert(Color::toUniqueInt(p.val[2], p.val[1], p.val[0]));
+            pickedInstanceIndices.insert(Daylight::Color::toUniqueInt(p.val[2], p.val[1], p.val[0]));
         }
     }
 

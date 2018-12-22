@@ -1,6 +1,6 @@
 #include "Texture2D.h"
 
-namespace Lumos{
+using namespace Daylight::Lumos; 
 
 
 Texture2D::Texture2D()
@@ -56,7 +56,5 @@ void Texture2D::resize(const GLsizei & w, const GLsizei & h) const
              _dataType,            // Image data type
              0);
 stopUsing();
-
-}
 
 }

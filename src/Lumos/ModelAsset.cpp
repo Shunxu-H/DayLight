@@ -27,4 +27,4 @@ THE SOFTWARE.
 #include "Common/Extern.h"
 
 
-using namespace Lumos;
+using namespace Daylight::Lumos;

@@ -23,6 +23,8 @@ THE SOFTWARE.
 */
 #include "Face.h"
 
+using namespace Daylight::Patronus; 
+
 Face::Face(){
 
 }

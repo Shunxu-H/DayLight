@@ -1,8 +1,9 @@
-#ifndef EVENTCATCHER_H
-#define EVENTCATCHER_H
+#pragma once 
 
 #include  <X11/Xlib.h>
 
+
+namespace Daylight::IO{
 
 class EventCatcher{
 
@@ -16,11 +17,4 @@ private:
 
 };
 
-
-
-
-
-
-
-
-#endif
+}

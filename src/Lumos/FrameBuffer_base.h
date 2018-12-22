@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include "GLObject.h"
 #include "Texture.h"
 
-namespace Lumos
+namespace Daylight::Lumos
 {
     class FrameBuffer_base: public GLObject{
     public:

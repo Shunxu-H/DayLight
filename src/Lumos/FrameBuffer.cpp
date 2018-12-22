@@ -2,7 +2,7 @@
  #include "Common/Utility.h"
 #include "FrameBuffer.h"
 
-namespace Lumos{
+using namespace Daylight::Lumos; 
 
 FrameBuffer::FrameBuffer(const size_t & width, const size_t & height )
   : FrameBuffer_base()
@@ -155,9 +155,4 @@ void FrameBuffer::resize(const size_t & width, const size_t & height)
 {
   _colorTexBuffer.resize(width, height);
   _depthTexBuffer.resize(width, height);
-}
-
-
-
-
 }

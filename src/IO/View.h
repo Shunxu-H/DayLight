@@ -1,8 +1,9 @@
-#ifndef VIEW_H
-  #define VIEW_H
+#pragma once
 
 #include <string>
 #include "Widget.h"
+
+namespace Daylight::IO{
 
 class View: public Widget{
 public:
@@ -25,7 +26,5 @@ private:
     bool _isExposed;
 };
 
+}
 
-
-
-#endif

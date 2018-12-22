@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "Transformable.h"
 
 
-using namespace Patronus;
+using namespace Daylight::Patronus;
 
 
 void Transformable::translate ( const float & x, const float & y, const float & z ){

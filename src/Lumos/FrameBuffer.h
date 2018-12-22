@@ -1,11 +1,10 @@
-#ifndef FRAMEBUFFER_H
-  #define FRAMEBUFFER_H
+#pragma once
 
- #include "Common/GL_include.h"
+#include "Common/GL_include.h"
 #include "FrameBuffer_base.h"
 #include "ColorTexBuffer.h"
 #include "DepthTexBuffer.h"
-namespace Lumos{
+namespace Daylight::Lumos{
 
 class FrameBuffer : public FrameBuffer_base{
 public:
@@ -37,6 +36,3 @@ private:
 }
 
 
-
-
-  #endif

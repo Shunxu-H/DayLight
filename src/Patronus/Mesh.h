@@ -21,23 +21,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef Mesh_H
-    #define Mesh_H
+#pragma once
 
 #include <vector>
 #include <string>
 #include <memory>
 #include <climits>
- #include "Common/GL_include.h"
-#include "Face.h"
-#include "Instance.h"
 
-namespace Lumos {
+#include <Common/GL_include.h>
+#include "Face.h"
+#include <Lumos/Instance.h>
+
+namespace Daylight::Lumos {
     class ArrayBuffer;
     struct Material;
 }
 
-namespace Patronus {
+namespace Daylight::Patronus {
 
     struct BoundingBox{
         glm::vec3 minPos;
@@ -177,6 +177,3 @@ namespace Patronus {
 
 
 }
-
-
-#endif

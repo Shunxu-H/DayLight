@@ -1,10 +1,11 @@
-#ifndef WIDGET_H
-  #define WIDGET_H
+#pragma once 
 
 #include <vector>
 #include <string>
 #include "EventCatcher.h"
 #include <IO/Event/CursorEvent.h>
+
+namespace Daylight::IO{
 
 class Widget {
 public:
@@ -55,6 +56,6 @@ private:
 
 };
 
+}
 
 
-#endif

@@ -53,7 +53,7 @@ THE SOFTWARE.
  #include "Common/Utility.h"
 #include "InputParser.h"
 Config progConfig;
-Patronus::Shaper * shaper = nullptr;
+Daylight::Patronus::Shaper * shaper = nullptr;
 Lumos::Program * gProgram = nullptr;
 WindowManager_base * winMan = nullptr;
 Patronus::PhysicalWorld * world = nullptr;

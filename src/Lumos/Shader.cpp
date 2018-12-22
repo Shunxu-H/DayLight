@@ -35,7 +35,7 @@ THE SOFTWARE.
 
 
 
-namespace Lumos {
+using namespace Daylight::Lumos;
 
 
 
@@ -180,8 +180,4 @@ std::vector<Shader> Shader::readFromFiles( const std::string & shaderDir ){
     }
 
     return shaders;
-}
-
-
-
 }

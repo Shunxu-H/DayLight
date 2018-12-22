@@ -3,7 +3,7 @@
 #include <Lumos/Program.h>
 #include <Lumos/Material.h>
 
-using namespace Lumos;
+using namespace Daylight::Lumos;
 
 
 Material::Material( const cv::Mat & im,

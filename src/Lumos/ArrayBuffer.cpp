@@ -23,10 +23,9 @@ THE SOFTWARE.
 */
 #include "Common/GL_include.h"
 #include "ArrayBuffer.h"
- #include "Patronus/Mesh.h"
+#include "Patronus/Mesh.h"
 
-using namespace Lumos;
-
+using namespace Daylight::Lumos; 
 
 ArrayBuffer::ArrayBuffer( )
     : GLObject( [](GLuint * id){glGenBuffers(1, id);},
@@ -51,10 +50,10 @@ ArrayBuffer& ArrayBuffer::operator = ( const ArrayBuffer & other ){
     return *this;
 }
 
-void ArrayBuffer::setVertexBuffer( const std::vector<Patronus::Mesh> & meshes ){
+void ArrayBuffer::setVertexBuffer( const std::vector<Daylight::Patronus::Mesh> & meshes ){
     _numOfEntry = 0;
     _bytesPerEntry = sizeof(point3);
-    for ( const Patronus::Mesh & mesh: meshes )
+    for ( const Daylight::Patronus::Mesh & mesh: meshes )
         _numOfEntry += mesh.getNumOfFaces()*3;
 
     glBindBuffer( GL_ARRAY_BUFFER, _glObjId );
@@ -63,17 +62,17 @@ void ArrayBuffer::setVertexBuffer( const std::vector<Patronus::Mesh> & meshes ){
                   nullptr, GL_STATIC_DRAW);
 
     size_t startPos = 0;
-    for ( const Patronus::Mesh & mesh: meshes ){
+    for ( const Daylight::Patronus::Mesh & mesh: meshes ){
         mesh.copyVertexData( &startPos );
     }
 
 }
 
 
-void ArrayBuffer::setVertexNormalBuffer( const std::vector<Patronus::Mesh> & meshes ){
+void ArrayBuffer::setVertexNormalBuffer( const std::vector<Daylight::Patronus::Mesh> & meshes ){
     _numOfEntry = 0;
     _bytesPerEntry = sizeof(color3);
-    for ( const Patronus::Mesh & mesh: meshes )
+    for ( const Daylight::Patronus::Mesh & mesh: meshes )
         _numOfEntry += mesh.getNumOfFaces()*3;
 
     glBindBuffer( GL_ARRAY_BUFFER, _glObjId );
@@ -82,12 +81,12 @@ void ArrayBuffer::setVertexNormalBuffer( const std::vector<Patronus::Mesh> & mes
                   nullptr, GL_STATIC_DRAW);
 
     size_t startPos = 0;
-    for ( const Patronus::Mesh & mesh: meshes ){
+    for ( const Daylight::Patronus::Mesh & mesh: meshes ){
         mesh.copyVertexNormalData( &startPos );
     }
 }
 
-void ArrayBuffer::setColorBuffer( const std::vector<Patronus::Mesh> & shapes  ){
+void ArrayBuffer::setColorBuffer( const std::vector<Daylight::Patronus::Mesh> & shapes  ){
 
 }
 

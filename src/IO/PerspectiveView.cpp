@@ -37,7 +37,7 @@ THE SOFTWARE.
 
 #include <IO/PerspectiveView.h>
 
-
+using namespace Daylight::IO; 
 
 PerspectiveView::PerspectiveView(
         const size_t & x,

@@ -1,9 +1,8 @@
-#ifndef TEXTURE2D_H
-  #define TEXTURE2D_H
+#pragma once
 
 #include "Texture.h"
 
-namespace Lumos{
+namespace Daylight::Lumos{
 
 
 class Texture2D : public Texture{
@@ -25,4 +24,3 @@ private:
 
 }
 
-  #endif

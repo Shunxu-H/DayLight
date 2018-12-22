@@ -21,11 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef CONFIG_H
-	#define CONFIG_H
+
+#pragma once
 
 #include "Color.h"
 
+namespace Daylight{
 
 const int INITIAL_WIN_SIZE[] = {500, 500};
 
@@ -127,5 +128,4 @@ struct Config
 
 };
 
-
-	#endif
+}

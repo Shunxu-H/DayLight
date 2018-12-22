@@ -6,7 +6,7 @@
 #include "MultisampledColorTexBuffer.h"
 #include "MultisampledDepthTexBuffer.h"
 
-namespace Lumos{
+namespace Daylight::Lumos{
   class MultisampledFrameBuffer : public FrameBuffer_base{
   public:
     MultisampledFrameBuffer();
@@ -18,7 +18,7 @@ namespace Lumos{
      * GETTER AND SETTER
      */
     inline size_t getHeight() const{ return _colorTexBuffer.getHeight(); }
-    inline size_t getWidth() const {  return _colorTexBuffer.getWidth(); }
+    inline size_t getWidth() const { return _colorTexBuffer.getWidth();  }
 
 
     cv::Mat saveColorBuffer2file(const std::string & filename) override;

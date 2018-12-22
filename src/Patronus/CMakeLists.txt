@@ -9,14 +9,12 @@ set(SOURCE  ./Transformable.cpp
             ./Light.cpp
             ./Face.cpp
             ./Camera.cpp
-            ./Instance.cpp
             ./PhysicalWorld.cpp
             )
 
 set(HEADER  ./Transformable.h
             ./Mesh.h
             ./Light.h
-            ./Instance.h
             ./Face.h
             ./Camera.h
             ./Shaper.h

@@ -5,7 +5,7 @@
  * Static functions
  */
 
-
+using namespace Daylight::IO; 
 
 
 Widget::Widget( const std::string & title,

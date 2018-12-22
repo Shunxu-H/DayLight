@@ -21,11 +21,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef VIEW_BULLET_H
-#define VIEW_BULLET_H
+#pragma once 
 
 #include "PerspectiveView.h"
 #include "LinearMath/btIDebugDraw.h"
+
+
+
+namespace Daylight::IO
+{
+    
 
 /**
  * [View_bullet]
@@ -38,7 +43,7 @@ public:
             const size_t & y,
             const size_t & w = 500,
             const size_t & h = 500,
-            const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr )
+            const std::shared_ptr< Daylight::Patronus::Camera > & cam = std::shared_ptr<Daylight::Patronus::Camera>( nullptr )
          );
     virtual ~View_bullet(){}
 
@@ -66,4 +71,5 @@ private:
 
 };
 
-#endif // VIEW_BULLET_H
+
+} // Daylight::IO

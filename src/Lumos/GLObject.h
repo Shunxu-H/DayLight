@@ -21,12 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef GLOBJECT_H
-#define GLOBJECT_H
+#pragma once
 
 #include "Common/GL_include.h"
 
-namespace Lumos {
+namespace Daylight::Lumos {
     class Program; 
     class GLObject{
     public:
@@ -98,5 +97,3 @@ namespace Lumos {
 
     };
 }
-
-#endif // GLOBJECT_H

@@ -1,6 +1,8 @@
 #include "EventCatcher.h"
 #include <iostream>
 
+using namespace Daylight::IO; 
+
 void EventCatcher::catchEvent(const XEvent & xev){
 
     if(xev.type == Expose && xev.xexpose.count==0) {

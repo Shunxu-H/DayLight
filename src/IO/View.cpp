@@ -1,5 +1,6 @@
 #include "View.h"
 
+using namespace Daylight::IO; 
 
 View::View(
       const std::string & title ,

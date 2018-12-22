@@ -21,6 +21,7 @@ set(SOURCE  ./ModelAsset.cpp
             ./FrameBuffer_base.cpp
             ./MultisampledDepthTexBuffer.cpp
             ./Material.cpp
+            ./Instance.cpp
             )
 
 set(HEADER  ./DepthTexBuffer.h
@@ -38,6 +39,7 @@ set(HEADER  ./DepthTexBuffer.h
             ./MultisampledDepthTexBuffer.h
             ./Texture.h
             ./MultisampledColorTexBuffer.h
+            ./Instance.h
 )
 
 

@@ -26,6 +26,8 @@ THE SOFTWARE.
 
 #include <Common/GL_include.h>
 
+using namespace Daylight::IO; 
+
 GLDebugDrawer::GLDebugDrawer()
 :m_debugMode(0)
 {

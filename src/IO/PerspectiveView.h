@@ -21,24 +21,25 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef PERSPECTIVEVIEW_H
-	#define PERSPECTIVEVIEW_H
-
+#pragma once 
 #include <memory>
 #include <Lumos/Shader.h>
 #include <IO/Event/CursorEvent.h>
 #include "View.h"
 
-class WindowManager;
+namespace Daylight::IO{
+    class WindowManager; 
+}
 
-namespace Patronus {
+namespace Daylight::Patronus {
     class Camera;
 };
 
-namespace Lumos{
+namespace Daylight::Lumos{
     class Instance;
 };
 
+namespace Daylight::IO{
 
 class PerspectiveView : public View
 {
@@ -93,6 +94,6 @@ private:
 
 };
 
+}
 
 
-#endif

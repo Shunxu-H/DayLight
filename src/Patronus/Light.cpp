@@ -24,7 +24,7 @@ THE SOFTWARE.
  #include "Common/GL_include.h"
 #include "Light.h"
 
-using namespace Patronus;
+using namespace Daylight::Patronus;
 
 
 Light Light::makeDirectionalLight(const point3 & position, const point3 & intensity, const float & ambientCoefficient){

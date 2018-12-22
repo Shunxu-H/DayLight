@@ -13,7 +13,7 @@
 
 #include <DaylightViewer/Canvas.h>
 
-using namespace Daylight; 
+using namespace Daylight::IO; 
 
 static void glfw_error_callback(int error, const char* description)
 {

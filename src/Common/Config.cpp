@@ -2,7 +2,7 @@
 #include "Config.h"
 #include "Color.h"
 
-
+using namespace Daylight; 
 
 Config::Config()
 {

@@ -21,13 +21,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef VIEW_RENDERER_H
-#define VIEW_RENDERER_H
+#pragma once 
 
 #include <IO/PerspectiveView.h>
 #include <Lumos/FrameBuffer.h>
 #include <Lumos/MultisampledFrameBuffer.h>
 // #include "FrameBuffer_base.h"
+
+
+namespace Daylight::IO
+{
+  
+
 
 class View_renderer : public PerspectiveView {
 public:
@@ -67,4 +72,4 @@ private:
   void _saveDepthBuffer(const std::string & fileName);
 };
 
-#endif // VIEW_RENDERER_H
+} // Daylight::IO

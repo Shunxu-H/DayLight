@@ -29,7 +29,7 @@ THE SOFTWARE.
  * Transformable
  * EVerything that can be moved in the scene will be inheriting from this class
  */
-namespace Patronus {
+namespace Daylight::Patronus {
     class Transformable{
     public:
         Transformable(const point3 & pos = point3 (0.0f, 0.0f, 0.0f)):

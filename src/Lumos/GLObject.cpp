@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include <Common/GL_include.h>
 #include <Lumos/Program.h>
 
-using namespace Lumos;
+using namespace Daylight::Lumos;
 
 GLObject::GLObject(
             void (*initFunc)(GLuint *),

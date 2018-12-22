@@ -38,7 +38,7 @@ THE SOFTWARE.
 #include <Common/Utility.h>
 #include <Common/Extern.h>
 
-namespace Lumos{
+using namespace Daylight::Lumos; 
 
 Program::Program(){
     // attach this to openGL
@@ -205,10 +205,6 @@ bool Program::hasUniform( const GLchar * uniformName ) const {
     return true;
 }
 
-
-
-
-
 #define ATTRIB_N_UNIFORM_SETTERS(OGL_TYPE, TYPE_PREFIX, TYPE_SUFFIX) \
 \
     void Program::setAttrib(const GLchar* name, OGL_TYPE v0) \
@@ -288,7 +284,4 @@ void Program::setUniform(const GLchar* uniformName, const glm::vec3& v) {
 
 void Program::setUniform(const GLchar* uniformName, const glm::vec4& v) {
     setUniform4v(uniformName, glm::value_ptr(v));
-}
-
-
 }

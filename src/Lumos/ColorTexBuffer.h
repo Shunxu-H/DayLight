@@ -1,9 +1,8 @@
-#ifndef COLORTEXBUFFER_H
-  #define COLORTEXBUFFER_H
+#pragma once 
 
 #include "Texture.h"
 
-namespace Lumos{
+namespace Daylight::Lumos{
 
 
 class ColorTexBuffer : public Texture{
@@ -19,4 +18,3 @@ private:
 
 }
 
-  #endif
