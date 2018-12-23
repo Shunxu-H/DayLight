@@ -8,7 +8,7 @@
 #include <Patronus/PhysicalWorld.h>
 #include <Patronus/Shaper.h>
 
-#include <DaylightViewer/Canvas.h>
+#include <DaylightViewer/WindowManagerImgui.h>
 
 Daylight::Config progConfig;
 Daylight::Patronus::Shaper * shaper = nullptr;
@@ -25,14 +25,14 @@ std::string RENDER_LIST = "./obj_list.txt";
 int main(int, char**)
 {
 
-    winMan = new Daylight::IO::Canvas{1280, 720}; 
+    winMan = new Daylight::IO::WindowManagerImgui{1280, 720}; 
 
     // for physical simulartion
     world = new Daylight::Patronus::PhysicalWorld();
     // openGL resource management
     gProgram = new Daylight::Lumos::Program( );
     shaper = new Daylight::Patronus::Shaper( "./data/indoor/0004dd3cb11e50530676f77b55262d38.obj" );
-
+    Daylight::Patronus::Camera::loadCamerasFromDir("./data/camera", shaper); 
     gProgram->loadShaders( "./GLSL" );
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 

@@ -67,11 +67,11 @@ namespace Daylight {
 
     namespace IO{
 
-        class Canvas: public WindowManager{
+        class WindowManagerImgui: public WindowManager{
         public:
-            Canvas(const size_t & w, const size_t & h); 
-            Canvas(); 
-            ~Canvas(); 
+            WindowManagerImgui(const size_t & w, const size_t & h); 
+            WindowManagerImgui(); 
+            ~WindowManagerImgui(); 
 
             virtual inline void show() override{}
             virtual int loop() override; 

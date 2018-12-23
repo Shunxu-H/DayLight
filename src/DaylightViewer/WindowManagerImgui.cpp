@@ -1,5 +1,4 @@
 #include <stdexcept>
-#include "Canvas.h"
 
 #include <Utility/Func.h>
 
@@ -11,7 +10,7 @@
 
 #include <Lumos/Program.h>
 
-#include <DaylightViewer/Canvas.h>
+#include <DaylightViewer/WindowManagerImgui.h>
 
 using namespace Daylight::IO; 
 
@@ -21,7 +20,7 @@ static void glfw_error_callback(int error, const char* description)
 }
 
 
-Canvas::Canvas(const size_t & w, const size_t & h) 
+WindowManagerImgui::WindowManagerImgui(const size_t & w, const size_t & h) 
     : WindowManager(w, h) {
     _initImgui();
 
@@ -30,14 +29,14 @@ Canvas::Canvas(const size_t & w, const size_t & h)
     addChild(new PerspectiveView(0, 0, _width, _height));
 }
 
-Canvas::Canvas()
+WindowManagerImgui::WindowManagerImgui()
     : WindowManager(1280, 720) {
     _initImgui();
 
     addChild(new PerspectiveView(0, 0, _width, _height));
 }
 
-Canvas::~Canvas(){
+WindowManagerImgui::~WindowManagerImgui(){
     // Cleanup
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
@@ -48,7 +47,7 @@ Canvas::~Canvas(){
 
 }
 
-void Canvas::_initImgui(){
+void WindowManagerImgui::_initImgui(){
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
@@ -70,7 +69,7 @@ void Canvas::_initImgui(){
     //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
 #endif
-
+    glfwWindowHint(GLFW_SAMPLES, 16);
     // Create window with graphics context
     window = glfwCreateWindow(_width, _height, "Daylight Viewer", NULL, NULL) ;
     if (!window)
@@ -128,12 +127,12 @@ void Canvas::_initImgui(){
     // set callback
     glfwSetWindowUserPointer(window, this);
     auto scrollCallback = [](GLFWwindow * window, double xoffset, double yoffset){
-        Canvas * canvas = static_cast<Canvas*>(glfwGetWindowUserPointer(window));
+        WindowManagerImgui * windowManagerImgui = static_cast<WindowManagerImgui*>(glfwGetWindowUserPointer(window));
         if (yoffset > 0)
-            canvas->_internal_cursor_handle(CursorEvent(EVENT_CURSORWHEEL, CursorLocation())); 
+            windowManagerImgui->_internal_cursor_handle(CursorEvent(EVENT_CURSORWHEEL, CursorLocation())); 
         else if (yoffset < 0)
-            canvas->_internal_cursor_handle(CursorEvent(EVENT_CURSORHWHEEL, CursorLocation())); 
-        //canvas->getPort()->cursorScrollHandle(window, xoffset, yoffset); 
+            windowManagerImgui->_internal_cursor_handle(CursorEvent(EVENT_CURSORHWHEEL, CursorLocation())); 
+        //WindowManagerImgui->getPort()->cursorScrollHandle(window, xoffset, yoffset); 
     }; 
 
     glfwSetScrollCallback(window, scrollCallback ); 
@@ -144,7 +143,7 @@ void Canvas::_initImgui(){
 
 
 
-int Canvas::loop(){
+int WindowManagerImgui::loop(){
 
     // Main loop
     while (!glfwWindowShouldClose(window))
@@ -187,6 +186,19 @@ int Canvas::loop(){
             ImGui::End();
         }
 
+        {
+            
+
+            ImGui::Begin("Viewing Camera");                       
+            ImGui::Text("Choose a viewing camera.");               
+            static int e = 0; 
+            for (size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
+                ImGui::RadioButton( ("Cam " + std::to_string(camPtr)).c_str(), &e, (int)camPtr); 
+            }
+            static_cast<PerspectiveView*>( _children[0] )->setCamInUse(shaper->getnCamera(e)); 
+            ImGui::End();
+        }
+
         // 3. Show another simple window.
         if (show_another_window)
         {
@@ -220,7 +232,7 @@ int Canvas::loop(){
     return 0; 
 }
 
-void Canvas::showPort(bool* p_open)
+void WindowManagerImgui::showPort(bool* p_open)
 {
     ImGui::SetNextWindowSize(ImVec2(350, 560), ImGuiCond_FirstUseEver);
     if (!ImGui::Begin("View", p_open))
@@ -244,20 +256,20 @@ void Canvas::showPort(bool* p_open)
         // Here we are using InvisibleButton() as a convenience to 1) advance the cursor and 2) allows us to use IsItemHovered()
         // But you can also draw directly and poll mouse/keyboard by yourself. You can manipulate the cursor using GetCursorPos() and SetCursorPos().
         // If you only use the ImDrawList API, you can notify the owner window of its extends by using SetCursorPos(max).
-        ImVec2 canvas_pos = ImGui::GetCursorScreenPos();            // ImDrawList API uses screen coordinates!
-        ImVec2 canvas_size = ImGui::GetContentRegionAvail();        // Resize canvas to what's available
-        if (canvas_size.x < 50.0f) canvas_size.x = 50.0f;
-        if (canvas_size.y < 50.0f) canvas_size.y = 50.0f;
-        draw_list->AddRectFilledMultiColor(canvas_pos, ImVec2(canvas_pos.x + canvas_size.x, canvas_pos.y + canvas_size.y), IM_COL32(50, 50, 50, 255), IM_COL32(50, 50, 60, 255), IM_COL32(60, 60, 70, 255), IM_COL32(50, 50, 60, 255));
-        draw_list->AddRect(canvas_pos, ImVec2(canvas_pos.x + canvas_size.x, canvas_pos.y + canvas_size.y), IM_COL32(255, 255, 255, 255));
+        ImVec2 WindowManagerImgui_pos = ImGui::GetCursorScreenPos();            // ImDrawList API uses screen coordinates!
+        ImVec2 WindowManagerImgui_size = ImGui::GetContentRegionAvail();        // Resize WindowManagerImgui to what's available
+        if (WindowManagerImgui_size.x < 50.0f) WindowManagerImgui_size.x = 50.0f;
+        if (WindowManagerImgui_size.y < 50.0f) WindowManagerImgui_size.y = 50.0f;
+        draw_list->AddRectFilledMultiColor(WindowManagerImgui_pos, ImVec2(WindowManagerImgui_pos.x + WindowManagerImgui_size.x, WindowManagerImgui_pos.y + WindowManagerImgui_size.y), IM_COL32(50, 50, 50, 255), IM_COL32(50, 50, 60, 255), IM_COL32(60, 60, 70, 255), IM_COL32(50, 50, 60, 255));
+        draw_list->AddRect(WindowManagerImgui_pos, ImVec2(WindowManagerImgui_pos.x + WindowManagerImgui_size.x, WindowManagerImgui_pos.y + WindowManagerImgui_size.y), IM_COL32(255, 255, 255, 255));
 
         bool adding_preview = false;
-        ImGui::InvisibleButton("canvas", canvas_size);
-        ImVec2 mouse_pos_in_canvas = ImVec2(ImGui::GetIO().MousePos.x - canvas_pos.x, ImGui::GetIO().MousePos.y - canvas_pos.y);
+        ImGui::InvisibleButton("WindowManagerImgui", WindowManagerImgui_size);
+        ImVec2 mouse_pos_in_WindowManagerImgui = ImVec2(ImGui::GetIO().MousePos.x - WindowManagerImgui_pos.x, ImGui::GetIO().MousePos.y - WindowManagerImgui_pos.y);
         if (adding_line)
         {
             adding_preview = true;
-            points.push_back(mouse_pos_in_canvas);
+            points.push_back(mouse_pos_in_WindowManagerImgui);
             if (!ImGui::IsMouseDown(0))
                 adding_line = adding_preview = false;
         }
@@ -265,7 +277,7 @@ void Canvas::showPort(bool* p_open)
         {
             if (!adding_line && ImGui::IsMouseClicked(0))
             {
-                points.push_back(mouse_pos_in_canvas);
+                points.push_back(mouse_pos_in_WindowManagerImgui);
                 adding_line = true;
             }
             if (ImGui::IsMouseClicked(1) && !points.empty())
@@ -275,9 +287,9 @@ void Canvas::showPort(bool* p_open)
                 points.pop_back();
             }
         }
-        draw_list->PushClipRect(canvas_pos, ImVec2(canvas_pos.x + canvas_size.x, canvas_pos.y + canvas_size.y), true);      // clip lines within the canvas (if we resize it, etc.)
+        draw_list->PushClipRect(WindowManagerImgui_pos, ImVec2(WindowManagerImgui_pos.x + WindowManagerImgui_size.x, WindowManagerImgui_pos.y + WindowManagerImgui_size.y), true);      // clip lines within the WindowManagerImgui (if we resize it, etc.)
         for (int i = 0; i < points.Size - 1; i += 2)
-            draw_list->AddLine(ImVec2(canvas_pos.x + points[i].x, canvas_pos.y + points[i].y), ImVec2(canvas_pos.x + points[i + 1].x, canvas_pos.y + points[i + 1].y), IM_COL32(255, 255, 0, 255), 2.0f);
+            draw_list->AddLine(ImVec2(WindowManagerImgui_pos.x + points[i].x, WindowManagerImgui_pos.y + points[i].y), ImVec2(WindowManagerImgui_pos.x + points[i + 1].x, WindowManagerImgui_pos.y + points[i + 1].y), IM_COL32(255, 255, 0, 255), 2.0f);
         draw_list->PopClipRect();
         if (adding_preview)
             points.pop_back();
