@@ -29,73 +29,70 @@ THE SOFTWARE.
 
 #include "View.h"
 
-namespace Daylight::IO{
-    class WindowManager; 
-}
+namespace Daylight {
+    namespace Lumos{
+        class Instance; 
+    }
+    namespace Patronus{
+        class Camera; 
+    }
+    namespace IO{
+        class WindowManager; 
 
-namespace Daylight::Patronus {
-    class Camera;
-};
+        class PerspectiveView : public View
+        {
+        public:
+            PerspectiveView(
+                    const size_t & x = 0,
+                    const size_t & y = 0,
+                    const size_t & w = 500,
+                    const size_t & h = 500,
+                    const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
+                    const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
+                );
 
-namespace Daylight::Lumos{
-    class Instance;
-};
+            //View(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
+            virtual ~PerspectiveView(){}
 
-namespace Daylight::IO{
+            /**
+             * START OF GETTERS AND SETTERS
+             */
+            inline void
+                setCamInUse( Patronus::Camera * cam) { _camInUse = cam; }
+            inline Patronus::Camera*
+                getCamInUse() const { return _camInUse; }
 
-class PerspectiveView : public View
-{
-public:
-    PerspectiveView(
-            const size_t & x = 0,
-            const size_t & y = 0,
-            const size_t & w = 500,
-            const size_t & h = 500,
-            const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
-            const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
-        );
+            inline void
+                setShaderId( const std::string & id) { _shaderId = id; }
+            inline std::string
+                getShaderId() const { return _shaderId; }
 
-    //View(const Patronus::CameraType &vt, const int& mainContext, const int& loc_x, const int& loc_y, const int& window_width, const int& window_height);//, int canvas_width, int canvas_height);
-    virtual ~PerspectiveView(){}
+            /**
+             * END OF GETTERS AND SETTERS
+             */
 
-    /**
-     * START OF GETTERS AND SETTERS
-     */
-    inline void
-        setCamInUse( Patronus::Camera * cam) { _camInUse = cam; }
-    inline Patronus::Camera*
-        getCamInUse() const { return _camInUse; }
+            void fitSphere(const point3 & position, const float & radius);
+            void loadAttribsAndUniform() const;
+            virtual void initializeGL() override;
+            virtual void resizeGL(const size_t & w, const size_t & h) override;
+            virtual void paintGL() override;
 
-    inline void
-        setShaderId( const std::string & id) { _shaderId = id; }
-    inline std::string
-        getShaderId() const { return _shaderId; }
+        protected:
+            void getMouseBeam(const int & mouseX, const int & moustY, point3 * start, point3 * direction )const;
 
-    /**
-     * END OF GETTERS AND SETTERS
-     */
+            virtual bool _keyboard_handle(const KeyboardEvent & xev) override;
+            virtual bool _cursor_handle(const CursorEvent & cursorEvent) override;
 
-    void fitSphere(const point3 & position, const float & radius);
-    void loadAttribsAndUniform() const;
-    virtual void initializeGL() override;
-    virtual void resizeGL(const size_t & w, const size_t & h) override;
-    virtual void paintGL() override;
+            Patronus::Camera * _camInUse;
+            GLuint _VAO;
+            std::string _shaderId;
+            std::vector< Lumos::Instance * > _visibles;
+        private:
+                friend class WindowManager;
 
-protected:
-    void getMouseBeam(const int & mouseX, const int & moustY, point3 * start, point3 * direction )const;
+        };
 
-    virtual bool _keyboard_handle(const KeyboardEvent & xev) override;
-    virtual bool _cursor_handle(const CursorEvent & cursorEvent) override;
-
-    Patronus::Camera * _camInUse;
-    GLuint _VAO;
-    std::string _shaderId;
-    std::vector< Lumos::Instance * > _visibles;
-private:
-		friend class WindowManager;
-
-};
+    }
 
 }
-
 
