@@ -25,6 +25,8 @@ THE SOFTWARE.
 #include <memory>
 #include <Lumos/Shader.h>
 #include <IO/Event/CursorEvent.h>
+#include <IO/Event/KeyboardEvent.h>
+
 #include "View.h"
 
 namespace Daylight::IO{
@@ -82,7 +84,7 @@ public:
 protected:
     void getMouseBeam(const int & mouseX, const int & moustY, point3 * start, point3 * direction )const;
 
-    virtual bool _keyboard_handle(const XEvent & xev) override;
+    virtual bool _keyboard_handle(const KeyboardEvent & xev) override;
     virtual bool _cursor_handle(const CursorEvent & cursorEvent) override;
 
     Patronus::Camera * _camInUse;

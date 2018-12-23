@@ -478,15 +478,15 @@ void WindowManagerX11::_headlessInit(){
 }
 
 
-bool WindowManagerX11::_keyboard_handle(const XEvent & event){
+bool WindowManagerX11::_keyboard_handle(const KeyboardEvent & event){
 
-    if (event.type == KeyPress)
+    if (event.action == Action::KEY_DOWN)
     {
-        printf( "KeyPress: %x\n", event.xkey.keycode );
+        printf( "KeyPress: %x\n", event.code );
 
 
         /* exit on ESC key press */
-        if(event.xkey.keycode == 0x09){
+        if(event.code == 0x09){
             glXMakeCurrent(_x_display, None, NULL);
             glXDestroyContext(_x_display, _xContex);
             XDestroyWindow(_x_display, _win);
@@ -495,7 +495,7 @@ bool WindowManagerX11::_keyboard_handle(const XEvent & event){
             exit(EXIT_SUCCESS);
 
         }
-        else if (event.xkey.keycode == 0x27) // press 's' for SCREEN SHOT
+        else if (event.code == 0x27) // press 's' for SCREEN SHOT
         {
             //screenshot("snapshot.png");
             printf("screen shot!\n" );
@@ -503,9 +503,9 @@ bool WindowManagerX11::_keyboard_handle(const XEvent & event){
 
 
     }
-    else if (event.type == KeyRelease)
+    else if (event.action == Action::KEY_UP)
     {
-        printf( "KeyRelease: %x\n", event.xkey.keycode );
+        printf( "KeyRelease: %x\n", event.code );
     }
     return true;
 }

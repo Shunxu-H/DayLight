@@ -3,28 +3,30 @@ cmake_minimum_required(VERSION 3.0)
 
 project(IO)
 
-set(SOURCE  ./View.cpp
-            ./WindowManagerX11.cpp
-            ./PerspectiveView.cpp
-            ./btDebugDrawer.cpp
-            ./WindowManager.cpp
-            ./Widget.cpp
+set(SOURCE  ./btDebugDrawer.cpp
             ./EventCatcher.cpp
-            ./View_renderer.cpp
-            ./View_bullet.cpp
             ./Event/CursorEvent.cpp
+            ./Event/KeyboardEvent.cpp
+            ./PerspectiveView.cpp
+            ./View_bullet.cpp
+            ./View.cpp
+            ./View_renderer.cpp
+            ./Widget.cpp
+            ./WindowManager.cpp
+            ./WindowManagerX11.cpp
             )
 
-set(HEADER  ./Widget.h
-            ./btDebugDrawer.h
-            ./View_renderer.h
-            ./View.h
-            ./PerspectiveView.h
-            ./WindowManagerX11.h
-            ./WindowManager.h
-            ./View_bullet.h
+set(HEADER  ./btDebugDrawer.h
             ./EventCatcher.h
             ./Event/CursorEvent.h
+            ./Event/KeyboardEvent.h
+            ./PerspectiveView.h
+            ./View_bullet.h
+            ./View.h
+            ./View_renderer.h
+            ./Widget.h
+            ./WindowManager.h
+            ./WindowManagerX11.h
 )
 
 

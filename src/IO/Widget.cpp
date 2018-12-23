@@ -38,11 +38,11 @@ void Widget::addChild(Widget* w){
 }
 
 
-void Widget::_internal_keyboard_handle(const XEvent & xev){
-    if(_keyboard_handle(xev))
+void Widget::_internal_keyboard_handle(const KeyboardEvent & event){
+    if(_keyboard_handle(event))
     {
         for (Widget * w : _children){
-            w->_internal_keyboard_handle(xev);
+            w->_internal_keyboard_handle(event);
         }
     }
 }

@@ -27,32 +27,32 @@ THE SOFTWARE.
 #include "Common/GL_include.h"
 
 namespace Daylight {
-class Color
-{
-public:
-	Color();
+    class Color
+    {
+    public:
+        Color();
 
-    static int toUniqueInt( const int & r, const int & g, const int & b );
-    static color3 toUniqueColor ( const int & i);
-
-
-    const static color4 BLACK ;
-    const static color4 DGREY ;
-    const static color4 GREY  ;
-    const static color4 LGREY ;
-    const static color4 WHITE ;
-    const static color4 RED   ;
-    const static color4 GREEN ;
-    const static color4 DGREEN;
-    const static color4 BLUE  ;
-
-	float* getColor(const float&,const float&, const float&);
-	void print (float*);
+        static int toUniqueInt( const int & r, const int & g, const int & b );
+        static color3 toUniqueColor ( const int & i);
 
 
-protected:
+        const static color4 BLACK ;
+        const static color4 DGREY ;
+        const static color4 GREY  ;
+        const static color4 LGREY ;
+        const static color4 WHITE ;
+        const static color4 RED   ;
+        const static color4 GREEN ;
+        const static color4 DGREEN;
+        const static color4 BLUE  ;
 
-private:
-};
+        float* getColor(const float&,const float&, const float&);
+        void print (float*);
+
+
+    protected:
+
+    private:
+    };
 
 }

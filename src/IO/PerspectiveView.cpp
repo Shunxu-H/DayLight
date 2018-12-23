@@ -83,7 +83,7 @@ void PerspectiveView::initializeGL(){
 }
 
 
-bool PerspectiveView::_keyboard_handle(const XEvent & xev)
+bool PerspectiveView::_keyboard_handle(const KeyboardEvent & xev)
 {
     return true;
 }

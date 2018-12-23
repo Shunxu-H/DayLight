@@ -39,6 +39,7 @@ THE SOFTWARE.
 
 #include <IO/WindowManager.h>
 #include <IO/Event/CursorEvent.h>
+#include <IO/Event/KeyboardEvent.h>
 
 
 namespace Daylight::IO{
@@ -67,7 +68,7 @@ public:
     virtual int loop() override;
 protected:
 		virtual bool _expose() override;
-		virtual bool _keyboard_handle(const XEvent & event)override;
+		virtual bool _keyboard_handle(const KeyboardEvent & event)override;
 		virtual bool _cursor_handle (const CursorEvent & event)override;
 private:
 
