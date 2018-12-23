@@ -134,9 +134,15 @@ void WindowManagerImgui::_initImgui(){
             windowManagerImgui->_internal_cursor_handle(CursorEvent(EVENT_CURSORHWHEEL, CursorLocation())); 
         //WindowManagerImgui->getPort()->cursorScrollHandle(window, xoffset, yoffset); 
     }; 
-
     glfwSetScrollCallback(window, scrollCallback ); 
 
+    auto resizeCallback = [](GLFWwindow * window, int width, int height){
+        WindowManagerImgui * windowManagerImgui = static_cast<WindowManagerImgui*>(glfwGetWindowUserPointer(window));
+        for( Widget* v : windowManagerImgui->_children )
+            static_cast<View*>(v)->resizeGL(width, height); 
+    }; 
+    glfwSetWindowSizeCallback(window, resizeCallback);	
+    
     show_demo_window = true;
     show_another_window = false;
 } 
