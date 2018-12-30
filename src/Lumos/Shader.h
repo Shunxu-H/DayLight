@@ -30,6 +30,8 @@ THE SOFTWARE.
 #include "GLObject.h"
 namespace Daylight::Lumos {
     class Program; 
+    
+
     class Shader : public GLObject
     {
     public:
@@ -69,6 +71,7 @@ namespace Daylight::Lumos {
          * @brief wrapper class to provide access to OpenGL
          */
         void use() const override;
+        
         void stopUsing() const override;
 
         bool isInUse() const;
