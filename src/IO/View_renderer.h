@@ -29,47 +29,49 @@ THE SOFTWARE.
 // #include "FrameBuffer_base.h"
 
 
-namespace Daylight::IO
+namespace Daylight
 {
-  
+  namespace IO{
 
 
-  class View_renderer : public PerspectiveView {
-  public:
-    View_renderer(
-      const size_t & x = 0,
-      const size_t & y = 0,
-      const size_t & w = 500,
-      const size_t & h = 500,
-      const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
-      const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
-    );
-    View_renderer(const View_renderer & that) = delete;
-    View_renderer operator = ( const View_renderer & that) = delete;
-    virtual ~View_renderer();
 
-    void toImageFile_color( const std::string & fileName );
-    void toImageFile_depth( const std::string & fileName );
-    void getVisibleObjects( const std::string & path );
-    void generateMasks();
-    void generateData();
+    class View_renderer : public PerspectiveView {
+    public:
+      View_renderer(
+        const size_t & x = 0,
+        const size_t & y = 0,
+        const size_t & w = 500,
+        const size_t & h = 500,
+        const std::shared_ptr< Patronus::Camera > & cam = std::shared_ptr<Patronus::Camera>( nullptr ),
+        const std::string & shaderId = Lumos::Shader::default_mesh_shader_id
+      );
+      View_renderer(const View_renderer & that) = delete;
+      View_renderer operator = ( const View_renderer & that) = delete;
+      virtual ~View_renderer();
 
-
-    virtual void resizeGL(const size_t & w, const size_t &h) override;
-
-  protected:
+      void toImageFile_color( const std::string & fileName );
+      void toImageFile_depth( const std::string & fileName );
+      void getVisibleObjects( const std::string & path );
+      void generateMasks();
+      void generateData();
 
 
-  private:
-    Lumos::FrameBuffer _frameBuffer;
-    Lumos::MultisampledFrameBuffer _multisampledFrameBuffer;
+      virtual void resizeGL(const size_t & w, const size_t &h) override;
 
-    cv::Mat _saveColorImage(const std::string & fileName);
-    cv::Mat _saveDepthImage(const std::string & fileName);
-    cv::Mat _saveBitMap(const std::string & fileName);
+    protected:
 
-    void _saveColorBuffer(const std::string & fileName);
-    void _saveDepthBuffer(const std::string & fileName);
-  };
+
+    private:
+      Lumos::FrameBuffer _frameBuffer;
+      Lumos::MultisampledFrameBuffer _multisampledFrameBuffer;
+
+      cv::Mat _saveColorImage(const std::string & fileName);
+      cv::Mat _saveDepthImage(const std::string & fileName);
+      cv::Mat _saveBitMap(const std::string & fileName);
+
+      void _saveColorBuffer(const std::string & fileName);
+      void _saveDepthBuffer(const std::string & fileName);
+    };
+  }
 
 } // Daylight::IO

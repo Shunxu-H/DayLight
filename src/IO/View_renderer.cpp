@@ -45,9 +45,9 @@ View_renderer::View_renderer(
     , _multisampledFrameBuffer(w, h)
 {
 
-  _multisampledFrameBuffer.use();
-  glGetError();
-  GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    _multisampledFrameBuffer.use();
+    glGetError();
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
   //QTimer::singleShot(1000, this, SLOT(_checkRendererReady()));
 }
@@ -58,9 +58,9 @@ View_renderer::~View_renderer(){}
 void View_renderer::resizeGL(const size_t & w, const size_t &h){
 	_width = w;
 	_height = h;
-  _multisampledFrameBuffer.resize(w, h);
-  _frameBuffer.resize(w, h);
-  Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
+    _multisampledFrameBuffer.resize(w, h);
+    _frameBuffer.resize(w, h);
+    Utils::logOpenGLError( std::string(__PRETTY_FUNCTION__) + ":" + std::to_string(__LINE__) );
 }
 
 cv::Mat View_renderer::_saveColorImage(const std::string & fileName){
