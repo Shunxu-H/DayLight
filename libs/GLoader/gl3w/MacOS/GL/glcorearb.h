@@ -79,7 +79,7 @@ extern "C" {
 #define GL_VERSION_1_0 1
 typedef void GLvoid;
 typedef unsigned int GLenum;
-#include "KHR/khrplatform.h"
+#include <KHR/khrplatform.h>
 typedef khronos_float_t GLfloat;
 typedef int GLint;
 typedef int GLsizei;
@@ -4637,6 +4637,11 @@ GLAPI void APIENTRY glFramebufferFetchBarrierEXT (void);
 #define GL_TEXTURE_REDUCTION_MODE_EXT     0x9366
 #define GL_WEIGHTED_AVERAGE_EXT           0x9367
 #endif /* GL_EXT_texture_filter_minmax */
+
+#ifndef GL_EXT_texture_sRGB_R8
+#define GL_EXT_texture_sRGB_R8 1
+#define GL_SR8_EXT                        0x8FBD
+#endif /* GL_EXT_texture_sRGB_R8 */
 
 #ifndef GL_EXT_texture_sRGB_decode
 #define GL_EXT_texture_sRGB_decode 1

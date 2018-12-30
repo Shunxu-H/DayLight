@@ -44,12 +44,13 @@ set(HEADER  ./DepthTexBuffer.h
 
 
 # external dependency
-# find_package(OpenGL REQUIRED)
+find_package(OpenCV REQUIRED)
 
 
 
 add_library(${PROJECT_NAME} ${SOURCE} ${HEADER})
-target_link_libraries(${PROJECT_NAME} 
+target_link_libraries(  ${PROJECT_NAME} 
+                        ${OpenCV_LIBS}
 #                         ${OPENGL_gl_LIBRARY}
                     ) 
 if (APPLE)
@@ -57,11 +58,13 @@ if (APPLE)
         "-framework Cocoa"
         "-framework IOKit" 
         "-framework CoreVideo"
+        
     ) 
 endif()
 
 
-include_directories(${GLoader_SOURCE_DIR})
+include_directories(${GLoader_SOURCE_DIR} 
+                    ${OpenCV_INCLUDE_DIRS})
 
 target_link_libraries( ${PROJECT_NAME} ${BULLET_LIBRARIES} )
 link_libraries(GLoader)

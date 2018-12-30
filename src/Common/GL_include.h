@@ -35,8 +35,13 @@ THE SOFTWARE.
 // #include <glbinding/Binding.h>
 // #define GLEW_EGL
 #include <gl3w/gl3w.h>
-#include <GL/gl.h>
-#include <GL/glx.h>
+#ifdef __APPLE__
+    #include <OpenGL/gl.h>
+   #include <OpenGL/glext.h>
+#else 
+    #include <GL/gl.h>
+    #include <GL/glx.h>
+#endif
 #include <glm/glm.hpp>
 // #include <glm/gtc/matrix_transform.hpp>
 

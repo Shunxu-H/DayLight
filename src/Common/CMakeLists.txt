@@ -23,10 +23,11 @@ set(HEADER  ./Exception.h
 
 # external dependency
 # find_package(OpenGL REQUIRED)
-
+find_package( OpenCV REQUIRED )
 add_library(${PROJECT_NAME} SHARED ${SOURCE} ${HEADER})
 target_link_libraries(  ${PROJECT_NAME} 
                         GLoader
+                        ${OpenCV_LIBS}
                     ) 
 if (APPLE)
     target_link_libraries(${PROJECT_NAME} 

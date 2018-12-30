@@ -3,6 +3,10 @@ cmake_minimum_required(VERSION 3.0)
 
 project(IO)
 
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 set(SOURCE  ./btDebugDrawer.cpp
             ./EventCatcher.cpp
             ./Event/CursorEvent.cpp
@@ -33,17 +37,23 @@ set(HEADER  ./btDebugDrawer.h
 # external dependency
 # find_package(OpenGL REQUIRED)
 
+
+find_package( OpenCV REQUIRED )
+find_package( X11 REQUIRED )
 add_library(${PROJECT_NAME} ${SOURCE} ${HEADER})
-target_link_libraries(${PROJECT_NAME} 
-#                         ${OPENGL_gl_LIBRARY}
+target_link_libraries(  ${PROJECT_NAME} 
+                        ${OpenCV_LIBS}
                     ) 
 
-
-include_directories(${GLoader_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
+include_directories(${GLoader_SOURCE_DIR} ${OpenCV_INCLUDE_DIRS} ${X11_LIBRARIES} ${CMAKE_SOURCE_DIR}/src)
 
 target_link_libraries( ${PROJECT_NAME} ${BULLET_LIBRARIES} )
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
-target_include_directories(${PROJECT_NAME} PUBLIC /usr/local/include/bullet/ )
+target_include_directories(${PROJECT_NAME} PUBLIC 
+                            ${PROJECT_SOURCE_DIR}
+                            ${X11_INCLUDE_DIR} 
+                            /usr/local/include/bullet/ )
+
+target_link_libraries(${PROJECT_NAME} "-lstdc++fs")
 # if (APPLE)
 #     target_link_libraries(${PROJECT_NAME} 
 #         "-framework Cocoa"
