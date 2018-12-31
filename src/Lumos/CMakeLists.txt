@@ -6,40 +6,42 @@ project(Lumos)
 
 find_package( Bullet REQUIRED )
 
-set(SOURCE  ./ModelAsset.cpp
-            ./Shader.cpp
-            ./ArrayBuffer.cpp
-            ./Texture.cpp
-            ./GLObject.cpp
-            ./MultisampledColorTexBuffer.cpp
-            ./Program.cpp
-            ./DepthTexBuffer.cpp
-            ./MultisampledFrameBuffer.cpp
-            ./FrameBuffer.cpp
+set(SOURCE  ./ArrayBuffer.cpp
             ./ColorTexBuffer.cpp
-            ./Texture2D.cpp
+            ./DepthTexBuffer.cpp
             ./FrameBuffer_base.cpp
-            ./MultisampledDepthTexBuffer.cpp
-            ./Material.cpp
+            ./FrameBuffer.cpp
+            ./GLObject.cpp
             ./Instance.cpp
+            ./Material.cpp
+            ./ModelAsset.cpp
+            ./MultisampledColorTexBuffer.cpp
+            ./MultisampledDepthTexBuffer.cpp
+            ./MultisampledFrameBuffer.cpp
+            ./Program.cpp
+            ./Shader.cpp
+            ./ShadingPipe.cpp
+            ./Texture2D.cpp
+            ./Texture.cpp
             )
 
-set(HEADER  ./DepthTexBuffer.h
+set(HEADER  ./ArrayBuffer.h
             ./ColorTexBuffer.h
-            ./Material.h
-            ./ModelAsset.h
-            ./Program.h
-            ./GLObject.h
+            ./DepthTexBuffer.h
             ./FrameBuffer_base.h
             ./FrameBuffer.h
-            ./ArrayBuffer.h
-            ./MultisampledFrameBuffer.h
-            ./Texture2D.h
-            ./Shader.h
-            ./MultisampledDepthTexBuffer.h
-            ./Texture.h
-            ./MultisampledColorTexBuffer.h
+            ./GLObject.h
             ./Instance.h
+            ./Material.h
+            ./ModelAsset.h
+            ./MultisampledColorTexBuffer.h
+            ./MultisampledDepthTexBuffer.h
+            ./MultisampledFrameBuffer.h
+            ./Program.h
+            ./Shader.h
+            ./ShadingPipe.h
+            ./Texture2D.h
+            ./Texture.h
 )
 
 

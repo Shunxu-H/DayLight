@@ -30,8 +30,9 @@ add_subdirectory(${SOURCE_DIR}/DaylightViewer)
 # first we can indicate the documentation build as an option and set it to ON by default
 option(BUILD_DOC "Build documentation" OFF)
 
-# check if Doxygen is installed
+
 if (BUILD_DOC)
+    # check if Doxygen is installed
     find_package(Doxygen)
     if (DOXYGEN_FOUND)
         # set input and output files

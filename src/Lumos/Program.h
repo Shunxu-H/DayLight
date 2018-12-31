@@ -21,19 +21,20 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef PROGRAM_H
-#define PROGRAM_H
+#pragma once 
 
 #include <GL/gl.h>
 #include <unordered_map>
 #include <vector>
 #include <sstream>
-#include "Common/GL_include.h"
-#include "GLObject.h"
+#include <Common/GL_include.h>
 
-#include "Shader.h"
+#include <Lumos/GLObject.h>
+#include <Lumos/ShadingPipe.h>
 
-#include "ArrayBuffer.h"
+#include <Lumos/Shader.h>
+
+#include <Lumos/ArrayBuffer.h>
 
 /**
  * @TODO:
@@ -41,7 +42,7 @@ THE SOFTWARE.
  */
 
 namespace Daylight::Lumos {
-    using shading_pipe = std::vector<Shader>;
+    // using shading_pipe = std::vector<Shader>;
 
     /**
      * @brief manages a list of drawing instances, interface between openGL and the rest of the program
@@ -176,11 +177,8 @@ namespace Daylight::Lumos {
     private:
 
 
-        std::unordered_map<std::string, shading_pipe> _shading_pipes;
+        std::unordered_map<std::string, ShadingPipe> _shading_pipes;
 
 
     };
 }
-
-
-#endif // PROGRAM_H

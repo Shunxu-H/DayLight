@@ -87,6 +87,15 @@ Shader::Shader(const std::string & shaderCode, const GLenum & shaderType)
 
 }
 
+GLint Shader::getType () const{
+    GLint type; 
+    glGetShaderiv(
+        _glObjId,
+        GL_SHADER_TYPE,
+        &type);
+    return type; 
+}
+
 
 void Shader::getCurrentVaryingsAndUniforms(
         std::vector<std::string> & varyings, std::vector<std::string> & uniforms){

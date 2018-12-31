@@ -54,16 +54,14 @@ Program::Program(){
 void Program::enableShadingPipe( const std::string & pipe_name ){
     assert( _shading_pipes.find( pipe_name ) != _shading_pipes.end() );
 
-    _shading_pipes[pipe_name][0].use();
-    _shading_pipes[pipe_name][1].use();
+    _shading_pipes[pipe_name].use();
     glLinkProgram(_glObjId);
 }
 
 void Program::disableShadingPipe( const std::string & pipe_name ){
     assert( _shading_pipes.find( pipe_name ) != _shading_pipes.end() ); 
 
-    _shading_pipes[pipe_name][0].stopUsing();
-    _shading_pipes[pipe_name][1].stopUsing();
+    _shading_pipes[pipe_name].stopUsing();
 }
 
 void Program::loadShaders( const std::string & GLSL_path ){
@@ -77,48 +75,19 @@ void Program::loadShaders( const std::string & GLSL_path ){
             std::string curFileName = fs::path(p).filename();
             curFileName = curFileName.substr(0, curFileName.size() - curExtension.size());
 
-            if ( _shading_pipes.find(curFileName) == _shading_pipes.end() )
-                _shading_pipes[curFileName] = shading_pipe(2, Shader());
+            if ( _shading_pipes.find(curFileName) == _shading_pipes.end() ) // not found 
+                _shading_pipes[curFileName] = ShadingPipe();
 
             if ( std::string( fs::path(p).extension() ).compare(".vert") == 0 )
-                _shading_pipes[curFileName][0] = Shader::readFromFile( fs::path( p ), GL_VERTEX_SHADER );
+                _shading_pipes[curFileName].addShader( Shader::readFromFile( fs::path( p ), GL_VERTEX_SHADER )) ;
             else if ( std::string( fs::path(p).extension() ).compare(".frag") == 0 )
-                _shading_pipes[curFileName][1] = Shader::readFromFile( fs::path( p ), GL_FRAGMENT_SHADER );
+                _shading_pipes[curFileName].addShader( Shader::readFromFile( fs::path( p ), GL_FRAGMENT_SHADER ));
         }
 
     }
 
-    for (auto it:_shading_pipes){
-        it.second[0].use();
-        it.second[1].use();
-
-        glLinkProgram( _glObjId );
-
-        it.second[0].stopUsing();
-        it.second[1].stopUsing();
-
-        GLint status;
-        glGetProgramiv( getObjId(), GL_LINK_STATUS, & status );
-
-        // displaying log error
-        if ( status == GL_FALSE ){
-            std::string msg("Program/Shader linking failure: ");
-
-            GLint infoLogLength = 0;
-            glGetProgramiv( _glObjId,
-                            GL_INFO_LOG_LENGTH,
-                            &infoLogLength);
-
-            char* strInfoLog = new char[infoLogLength + 1];
-            glGetProgramInfoLog( getObjId(), GL_INFO_LOG_LENGTH, nullptr, strInfoLog );
-            msg += strInfoLog;
-            delete[] strInfoLog;
-
-            glDeleteProgram( getObjId() );  setObjId( 0 );
-            throw std::runtime_error ( msg );
-
-        }
-    }
+    for (auto it:_shading_pipes)
+        it.second.verify(*this); 
 
 }
 

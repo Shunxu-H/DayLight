@@ -29,12 +29,17 @@ THE SOFTWARE.
 #include "Common/GL_include.h"
 #include "GLObject.h"
 namespace Daylight::Lumos {
-    class Program; 
     
-
+    
     class Shader : public GLObject
     {
     public:
+        // enum class Type{
+        //     UNKONWN, 
+        //     VERTEX, 
+        //     FRAGMENT, 
+        // };  
+
         Shader();
         virtual ~Shader(){};
 
@@ -66,6 +71,9 @@ namespace Daylight::Lumos {
          * @return a vector of shader
          */
         static std::vector<Shader> readFromFiles( const std::string & shaderDir );
+        
+
+        inline GLint getType () const; 
 
         /**
          * @brief wrapper class to provide access to OpenGL
@@ -91,7 +99,7 @@ namespace Daylight::Lumos {
          *        GL_Mesh_SHADER | GL_FRAGMENT_SHADER
          */
         Shader(const std::string & filePath, const GLenum & shaderType );
-
+        // Type _type; 
         std::vector<std::string> _uniforms;
         std::vector<std::string> _varyings;
 
