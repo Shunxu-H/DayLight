@@ -14,11 +14,11 @@ using namespace Daylight::Lumos;
 
 void ShadingPipe::verify(const Program & program) const{
     use();
-        
+    isInUse(); 
     glLinkProgram( program.getObjId() );
 
     stopUsing();
-    
+    isInUse(); 
     GLint status;
     glGetProgramiv( program.getObjId(), GL_LINK_STATUS, & status );
 
@@ -49,18 +49,18 @@ void ShadingPipe::use() const{
 }
 
 bool ShadingPipe::isInUse() const{
+    size_t numOfEnabledShaders = 0; 
+    std::for_each(
+                _shaders.begin(), 
+                _shaders.end(), 
+                [&numOfEnabledShaders] (const Shader & shader) { if (shader.isInUse()) numOfEnabledShaders++;  }
+    ); 
     assert (
-        not (std::all_of(_shaders.begin(), _shaders.end(), 
-        [](Shader shader){ return shader.isInUse(); }) 
-        or 
-        std::all_of(_shaders.begin(), _shaders.end(), 
-        [](Shader shader){ return !shader.isInUse(); }) 
-        )
-        and 
-        "Shader inUse status inconsistent (some are in used while others are not"
-        ); 
-    return std::all_of(_shaders.begin(), _shaders.end(), 
-        [](Shader shader){ return shader.isInUse();});
+        (numOfEnabledShaders == 0 or numOfEnabledShaders == _shaders.size())
+        and "Error: Shaders status inconsistent, some shaders are enabled while others aren't"
+    ); 
+
+    return numOfEnabledShaders == _shaders.size(); 
 
 }
 

@@ -4,12 +4,11 @@
 #include <Lumos/Shader.h>
 #include <vector>
 
-
-/***
- * Store a valid list of shader objects, when enabled, 
- * it forms a complete set of self contained rendering
- * object 
- **/
+/**
+ * @brief and shading pipe object contains a list of openGL shader objects, 
+ * which consist of a complete opengl graphics pipeline
+ * 
+ */
 
 namespace Daylight
 {
@@ -25,10 +24,34 @@ namespace Daylight
             
             inline void addShader(Shader shader) { _shaders.push_back(shader); }
 
+            /**
+             * @brief verify if openGL can compile the shaders attached to the shading pipe,
+             *  throw error is not compiled 
+             * 
+             * @param program opengl program 
+             */
             void verify(const Program & program) const; 
 
+            /**
+             * @brief enable the shading pipe 
+             * 
+             */
             void use() const;
+
+            /**
+             * @brief it verifies all shaders are enabled or disabled, 
+             * throw error if some shaders are enabled while others are 
+             * not
+             * 
+             * @return true all shaders are enabled 
+             * @return false all ahders are disabled
+             */
             bool isInUse() const;
+
+            /**
+             * @brief disable all shaders attahed to the shading pipe
+             * 
+             */
             void stopUsing() const;
         protected:
 
