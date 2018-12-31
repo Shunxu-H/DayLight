@@ -145,7 +145,16 @@ void Shader::stopUsing() const{
 }
 
 bool Shader::isInUse() const{
-    throw std::runtime_error( "have not built yet" );
+    // throw std::runtime_error( "have not built yet" );
+    GLint numOfShadersAttached = 0; 
+    glGetProgramiv(gProgram->getObjId(), GL_ATTACHED_SHADERS, &numOfShadersAttached); 
+    GLuint * shaders = new GLuint[numOfShadersAttached]; 
+    glGetAttachedShaders(gProgram->getObjId(), numOfShadersAttached, NULL, shaders); 
+    for (size_t i = 0; i < numOfShadersAttached; i++)
+        if (shaders[i] == getObjId())
+            return true; 
+    return false; 
+
     /*
     void glGetAttachedShaders(	GLuint program,
     GLsizei maxCount,
