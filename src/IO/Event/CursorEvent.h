@@ -9,6 +9,8 @@ namespace Daylight::IO{
 enum CursorEventType{
     EVENT_UNKNOWN       = 0x000000000000,
     EVENT_CURSORMOVE    = 0x000000000001, 
+    // EVENT_CURSORDOWN    = 0x000000000010, 
+    // EVENT_CURSORDOWN    = 0x000000000010, 
     EVENT_LBUTTONDOWN   = 0x000000000010, 
     EVENT_RBUTTONDOWN   = 0x000000000100, 
     EVENT_MBUTTONDOWN   = 0x000000001000, 
@@ -42,7 +44,8 @@ struct CursorEvent{
     inline bool is(CursorEventType thatType) const { return (this->type & thatType) != 0;}
     inline CursorEvent(const CursorEventType & _eventType, const CursorLocation & _loc)
         :type(_eventType), loc(_loc){}
-    inline bool isPressEvent() const { return type & (EVENT_LBUTTONDBLCLK | EVENT_RBUTTONDBLCLK | EVENT_MBUTTONDBLCLK); }
+    inline bool isPressEvent() const { return type & (EVENT_LBUTTONDOWN | EVENT_RBUTTONDOWN | EVENT_MBUTTONDOWN); }
+    inline bool isReleaseEvent() const { return type & (EVENT_LBUTTONUP | EVENT_RBUTTONUP | EVENT_MBUTTONUP); }
     inline bool isWheelingEvent() const { return type & (EVENT_CURSORWHEEL | EVENT_CURSORHWHEEL); }
 }; 
 

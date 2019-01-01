@@ -124,19 +124,68 @@ void WindowManagerImgui::_initImgui(){
 
     // initialize private members
 
-    // set callback
+    // setting cursor pos callback 
+    auto posCallback = [](GLFWwindow * window, double xpos, double ypos){
+        static_cast<WindowManagerImgui*>(glfwGetWindowUserPointer(window))->setCursorLocation(CursorLocation(xpos, ypos)); 
+    }; 
+    glfwSetCursorPosCallback( window, posCallback); 
+
+    // set scroll event call back 
     glfwSetWindowUserPointer(window, this);
     auto scrollCallback = [](GLFWwindow * window, double xoffset, double yoffset){
+
+        if( ImGui::GetIO().WantCaptureMouse ) return;
+
         WindowManagerImgui * windowManagerImgui = static_cast<WindowManagerImgui*>(glfwGetWindowUserPointer(window));
         if (yoffset > 0)
-            windowManagerImgui->_internal_cursor_handle(CursorEvent(EVENT_CURSORWHEEL, CursorLocation())); 
+            windowManagerImgui->_internal_cursor_handle(CursorEvent(EVENT_CURSORWHEEL, windowManagerImgui->getCursorLocation())); 
         else if (yoffset < 0)
-            windowManagerImgui->_internal_cursor_handle(CursorEvent(EVENT_CURSORHWHEEL, CursorLocation())); 
+            windowManagerImgui->_internal_cursor_handle(CursorEvent(EVENT_CURSORHWHEEL, windowManagerImgui->getCursorLocation())); 
         //WindowManagerImgui->getPort()->cursorScrollHandle(window, xoffset, yoffset); 
     }; 
     glfwSetScrollCallback(window, scrollCallback ); 
 
+    // setting cursor button event call back 
+    auto buttonCallback = [](GLFWwindow * window, int button, int action, int mods){
+
+        if( ImGui::GetIO().WantCaptureMouse ) return;
+        WindowManagerImgui * windowManagerImgui = static_cast<WindowManagerImgui*>(glfwGetWindowUserPointer(window));
+        switch(button){
+        
+        case GLFW_MOUSE_BUTTON_LEFT:
+            windowManagerImgui->_internal_cursor_handle(
+                CursorEvent(
+                    action == GLFW_PRESS?EVENT_LBUTTONDOWN:EVENT_LBUTTONUP, 
+                    windowManagerImgui->getCursorLocation()
+                    )
+                ); 
+            break; 
+        case GLFW_MOUSE_BUTTON_RIGHT:
+            windowManagerImgui->_internal_cursor_handle(
+                CursorEvent(
+                    action == GLFW_PRESS?EVENT_RBUTTONDOWN:EVENT_RBUTTONUP, 
+                    windowManagerImgui->getCursorLocation()
+                    )
+                );
+            break;  
+        case GLFW_MOUSE_BUTTON_MIDDLE:
+            windowManagerImgui->_internal_cursor_handle(
+                CursorEvent(
+                    action == GLFW_PRESS?EVENT_MBUTTONDOWN:EVENT_MBUTTONUP, 
+                    windowManagerImgui->getCursorLocation()
+                    )
+                ); 
+            break; 
+        default:  
+            throw std::logic_error("Unrecognized button type"); 
+        }
+
+    }; 
+
+    glfwSetMouseButtonCallback	(window, buttonCallback); 	
+
     auto resizeCallback = [](GLFWwindow * window, int width, int height){
+        if( ImGui::GetIO().WantCaptureMouse ) return;
         WindowManagerImgui * windowManagerImgui = static_cast<WindowManagerImgui*>(glfwGetWindowUserPointer(window));
         for( Widget* v : windowManagerImgui->_children )
             static_cast<View*>(v)->resizeGL(width, height); 
@@ -193,8 +242,6 @@ int WindowManagerImgui::loop(){
         }
 
         {
-            
-
             ImGui::Begin("Viewing Camera");                       
             ImGui::Text("Choose a viewing camera.");               
             static int e = 0; 
@@ -202,6 +249,19 @@ int WindowManagerImgui::loop(){
                 ImGui::RadioButton( ("Cam " + std::to_string(camPtr)).c_str(), &e, (int)camPtr); 
             }
             static_cast<PerspectiveView*>( _children[0] )->setCamInUse(shaper->getnCamera(e)); 
+            ImGui::End();
+        }
+
+        {
+
+            ImGui::Begin("Selected Object Details");  
+            if(selectedInstance){
+                ImGui::Text( ("Name: " + selectedInstance->getId()).c_str() );            
+                ImGui::Text( ("IsOn: " + std::string(selectedInstance->isOn()? "True":"False")  ).c_str() );            
+                // ImGui::Text( ("Name: " + selectedInstance->getId()).c_str() );            
+
+            }
+             
             ImGui::End();
         }
 
@@ -260,7 +320,7 @@ void WindowManagerImgui::showPort(bool* p_open)
         ImGui::Text("Left-click and drag to add lines,\nRight-click to undo");
 
         // Here we are using InvisibleButton() as a convenience to 1) advance the cursor and 2) allows us to use IsItemHovered()
-        // But you can also draw directly and poll mouse/keyboard by yourself. You can manipulate the cursor using GetCursorPos() and SetCursorPos().
+        // But you can also draw directly and poll mouse/keyboard by yourself. You can manipulate the cursor using getCursorLocation() and SetCursorPos().
         // If you only use the ImDrawList API, you can notify the owner window of its extends by using SetCursorPos(max).
         ImVec2 WindowManagerImgui_pos = ImGui::GetCursorScreenPos();            // ImDrawList API uses screen coordinates!
         ImVec2 WindowManagerImgui_size = ImGui::GetContentRegionAvail();        // Resize WindowManagerImgui to what's available

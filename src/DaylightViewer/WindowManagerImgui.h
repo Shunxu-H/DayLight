@@ -39,8 +39,8 @@
 
 
 #include "Common/Config.h"
- #include <IO/WindowManager.h>
-
+#include <IO/WindowManager.h>
+#include <IO/Event/CursorEvent.h>
 
 namespace Daylight {
 // struct GlResource{
@@ -75,15 +75,20 @@ namespace Daylight {
 
             virtual inline void show() override{}
             virtual int loop() override; 
+
+            inline CursorLocation getCursorLocation() const { return _cursorLocation; }
+            inline void setCursorLocation( const CursorLocation & cursorLocation ){ _cursorLocation = cursorLocation; }
         private:
             void _initImgui(); 
             void _initOpenGl(); 
             void showPort(bool* p_open); 
 
-            GLFWwindow* window; 
             bool show_demo_window;
             bool show_another_window;
             
+            // glfw window management
+            GLFWwindow* window; 
+            CursorLocation _cursorLocation; 
             //GlResource glResource; 
         }; 
 
