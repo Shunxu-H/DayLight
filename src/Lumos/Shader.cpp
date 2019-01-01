@@ -97,44 +97,6 @@ GLint Shader::getType () const{
 }
 
 
-void Shader::getCurrentVaryingsAndUniforms(
-        std::vector<std::string> & varyings, std::vector<std::string> & uniforms){
-
-    // load attributes
-    GLint i;
-    GLint count;
-
-    GLint size; // size of the variable
-    GLenum type; // type of the variable (float, vec3 or mat4, etc)
-
-    const GLsizei bufSize = 128; // maximum name length
-    GLchar name[bufSize]; // variable name in GLSL
-    GLsizei length; // name length
-    glGetProgramiv(gProgram->getObjId(), GL_ACTIVE_ATTRIBUTES, &count);
-    //printf("Active Attributes: %d\n", count);
-
-    for (i = 0; i < count; i++)
-    {
-        glGetActiveAttrib(gProgram->getObjId(), i, bufSize, &length, &size, &type, name);
-
-        //qDebug() << "Attribute " << i << "Type:" << type << " Name: " << name;
-        varyings.push_back( name );
-    }
-
-    // load uniform
-    glGetProgramiv(gProgram->getObjId(), GL_ACTIVE_UNIFORMS, &count);
-    //printf("Active Uniforms: %d\n", count);
-
-    for (i = 0; i < count; i++)
-    {
-        glGetActiveUniform(gProgram->getObjId(), (GLuint)i, bufSize, &length, &size, &type, name);
-
-        //qDebug() << "Uniform " << i << "Type:" << type << " Name: " << name;
-        uniforms.push_back( name );
-    }
-
-}
-
 void Shader::use() const{
     glAttachShader( gProgram->getObjId(), _glObjId );
 }
@@ -150,7 +112,7 @@ bool Shader::isInUse() const{
     glGetProgramiv(gProgram->getObjId(), GL_ATTACHED_SHADERS, &numOfShadersAttached); 
     GLuint * shaders = new GLuint[numOfShadersAttached]; 
     glGetAttachedShaders(gProgram->getObjId(), numOfShadersAttached, NULL, shaders); 
-    for (size_t i = 0; i < numOfShadersAttached; i++)
+    for (int i = 0; i < numOfShadersAttached; i++)
         if (shaders[i] == getObjId())
             return true; 
     return false; 

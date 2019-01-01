@@ -130,6 +130,53 @@ void Program::bind() const{
     glLinkProgram( getObjId() );
 }
 
+std::vector<std::string> Program::getCurrentActiveAttributes(const size_t & maxLengthForName){
+    // load attributes
+    GLint count;
+
+    GLint size; // size of the variable
+    GLenum type; // type of the variable (float, vec3 or mat4, etc)
+
+    GLchar name[maxLengthForName]; // variable name in GLSL
+    GLsizei length; // name length
+
+    // load attributes
+    glGetProgramiv(getObjId(), GL_ACTIVE_ATTRIBUTES, &count);
+    //printf("Active Attributes: %d\n", count);
+    std::vector<std::string> attributes(count); 
+    for (int i = 0; i < count; i++)
+    {
+        glGetActiveAttrib(getObjId(), i, maxLengthForName, &length, &size, &type, name);
+
+        //qDebug() << "Attribute " << i << "Type:" << type << " Name: " << name;
+        attributes.push_back( name );
+    }
+    return attributes; 
+
+}
+
+std::vector<std::string> Program::getCurrentActiveUniforms(const size_t & maxLengthForName){
+    // load attributes
+    GLint count;
+
+    GLint size; // size of the variable
+    GLenum type; // type of the variable (float, vec3 or mat4, etc)
+
+    GLchar name[maxLengthForName]; // variable name in GLSL
+    GLsizei length; // name length
+    // load uniform
+    glGetProgramiv(getObjId(), GL_ACTIVE_UNIFORMS, &count);
+    //printf("Active Uniforms: %d\n", count);
+    std::vector<std::string> uniforms(count); 
+    for (int i = 0; i < count; i++)
+    {
+        glGetActiveUniform(getObjId(), (GLuint)i, maxLengthForName, &length, &size, &type, name);
+
+        uniforms.push_back( name );
+    }
+    return uniforms; 
+} 
+
 
 GLint Program::getAttrib(const GLchar* attribName) const {
     if(!attribName)

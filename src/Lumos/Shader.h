@@ -49,14 +49,6 @@ namespace Daylight::Lumos {
         static const std::string mask_shader_id;
         static const std::string selected_instances_shader_id;
 
-        /**
-         * @brief ask openGL to return a list of uniforms and varyings attached of the shaders attached to the program
-         * @param varyings, will be loaded with varyings
-         * @param uniforms, will be loaded with uniforms
-         */
-        static void getCurrentVaryingsAndUniforms(
-            std::vector<std::string> & varyings, 
-            std::vector<std::string> & uniforms);
 
         /**
          * @brief readFromFile, creat a shader from file
