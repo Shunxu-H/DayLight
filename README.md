@@ -35,10 +35,10 @@ Depth Mask:
 - [X] Minimize image file ( bit map, text array, lossiless compression)
 - [X] Build 'openGl self management'
 - [X] Test GLObject(seems working, more tests required)
-- [ ] Refracture Code base
+- [X] Refracture Code base
   * - [X] Make Class Widget
   * - [X] Make Class View
-  * - [ ] Isolate Lumos and Patronus
+  * - [X] Isolate Lumos and Patronus
 - [ ] Memory Leak
   * -[X] Loop memory Leak
   * -[ ] Not using global pointer so the destructor is called
@@ -46,22 +46,24 @@ Depth Mask:
 	* -[ ] Free global resource before exiting
 - [ ] Make sure x11 works on the vision machines
 - [X] Rebuild GUI
-- [ ] build resize event
+- [X] build resize event
 - [ ] Remake help.txt
-- [ ] Copy all necessary files to build directory with CMake
+- [X] Copy all necessary files to build directory with CMake
 - [X] Propagate mouse event to subviewport
-- [ ] Rebuild Navigation with x11
+- [ ] Rebuild Navigation with ImGui
 	* - [ ] pan
 	* - [ ] tilt
-	* - [X] zoom
-	* - [X] select
+	* - [ ] zoom
+	* - [ ] select
+	* - [ ] Move
 - [X] Make Texture a separated class
-- [ ] Make FrameBuffer a separated class
-  * - [X] Make FrameBuffer_base
+- [X] Make FrameBuffer a separated class
+  * - [X] Make IFrameBuffer
   * - [X] Make FrameBuffer
-  * - [ ] Make MultisampledFrameBuffer;
-- [ ] Enable more than two shaders in pipes
+  * - [X] Make MultisampledFrameBuffer;
+- [X] Enable more than two shaders in pipes
 - [ ] Deffered rendering
+    * - [ ] Make Renderpass
 	* - [ ] Shadow Mapping
     * - [ ] Make Framebuffer a separated class
 	* - [ ] Glow Effect
