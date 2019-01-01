@@ -85,6 +85,23 @@ namespace Daylight::Lumos {
          */
         GLint getAttrib(const GLchar* attribName) const;
 
+
+        /**
+         * @brief Get the Current Active Variyings object
+         * 
+         * @param maxLengthForName the maximum length that a varying can be, default is 128
+         * @return std::vector<std::string> the list of names of the active varying attached to the openGL program
+         */
+        std::vector<std::string> getCurrentActiveAttributes(const size_t & maxLengthForName=128); 
+
+        /**
+         * @brief Get the Current Active Uniforms object
+         * 
+         * @param maxLengthForName the maximum length that a varying can be, default is 128
+         * @return std::vector<std::string> the list of names of the active uniforms attached to the openGL program
+         */
+        std::vector<std::string> getCurrentActiveUniforms(const size_t & maxLengthForName=128); 
+
         /**
          * @brief getUniform: get the OpenGL handler for uniform variable based on the attribName
          * @param uniformName: should match what we have in the shader files
