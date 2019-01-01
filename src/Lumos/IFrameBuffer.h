@@ -22,18 +22,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef FRAMEBUFFER_BASE_H
-  #define FRAMEBUFFER_BASE_H
+#pragma once
 
 #include "GLObject.h"
 #include "Texture.h"
 
 namespace Daylight::Lumos
 {
-    class FrameBuffer_base: public GLObject{
+    class IFrameBuffer: public GLObject{
     public:
-        FrameBuffer_base();
-        virtual ~FrameBuffer_base();
+        IFrameBuffer();
+        virtual ~IFrameBuffer();
 
         /**
          * GETTER AND SETTER
@@ -48,7 +47,7 @@ namespace Daylight::Lumos
         void stopUsing() const override;
 
 
-        void blit( const FrameBuffer_base  & that ) const;
+        void blit( const IFrameBuffer  & that ) const;
         //void makeMultisampledFrameBuffer(const size_t & w, const size_t & h);
 
 
@@ -69,5 +68,3 @@ namespace Daylight::Lumos
     };
 
 }
-
-#endif

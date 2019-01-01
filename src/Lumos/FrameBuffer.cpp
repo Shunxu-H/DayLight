@@ -5,7 +5,7 @@
 using namespace Daylight::Lumos; 
 
 FrameBuffer::FrameBuffer(const size_t & width, const size_t & height )
-  : FrameBuffer_base()
+  : IFrameBuffer()
   , _colorTexBuffer(width, height)
   , _depthTexBuffer(width, height)
 {

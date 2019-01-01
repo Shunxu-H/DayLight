@@ -2,13 +2,13 @@
 #include "MultisampledFrameBuffer.h"
 
 
-namespace Daylight::Lumos{
+using namespace Daylight::Lumos; 
 
 
 MultisampledFrameBuffer::MultisampledFrameBuffer(){}
 
 MultisampledFrameBuffer::MultisampledFrameBuffer(const size_t & width, const size_t & height)
-  : FrameBuffer_base()
+  : IFrameBuffer()
   , _colorTexBuffer(width, height, Texture::DEFAULTSAMPLESIZE)
   , _depthTexBuffer(width, height, Texture::DEFAULTSAMPLESIZE)
   , _outputBuffer(width, height)
@@ -17,7 +17,7 @@ MultisampledFrameBuffer::MultisampledFrameBuffer(const size_t & width, const siz
 }
 
 MultisampledFrameBuffer::MultisampledFrameBuffer(const FrameBuffer & outputBuffer)
-  : FrameBuffer_base()
+  : IFrameBuffer()
   , _colorTexBuffer(outputBuffer.getWidth(), outputBuffer.getHeight(), Texture::DEFAULTSAMPLESIZE)
   , _depthTexBuffer(outputBuffer.getWidth(), outputBuffer.getHeight(), Texture::DEFAULTSAMPLESIZE)
   , _outputBuffer(outputBuffer)
@@ -27,7 +27,7 @@ MultisampledFrameBuffer::MultisampledFrameBuffer(const FrameBuffer & outputBuffe
 
 MultisampledFrameBuffer & MultisampledFrameBuffer::operator = ( const MultisampledFrameBuffer & that)
 {
-  FrameBuffer_base::operator=(that);
+  IFrameBuffer::operator=(that);
   _colorTexBuffer = that._colorTexBuffer;
   _depthTexBuffer = that._depthTexBuffer;
   _outputBuffer = that._outputBuffer;
@@ -120,9 +120,3 @@ void MultisampledFrameBuffer::resize(const size_t & width, const size_t & height
   _outputBuffer.resize(width, height);
 }
 
-
-
-
-
-
-}

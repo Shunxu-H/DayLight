@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Common/GL_include.h"
-#include "FrameBuffer_base.h"
+#include "IFrameBuffer.h"
 #include "ColorTexBuffer.h"
 #include "DepthTexBuffer.h"
 namespace Daylight::Lumos{
 
-class FrameBuffer : public FrameBuffer_base{
+class FrameBuffer : public IFrameBuffer{
 public:
   FrameBuffer(){};
   FrameBuffer(const size_t & width, const size_t & height);

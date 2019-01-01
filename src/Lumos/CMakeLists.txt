@@ -9,9 +9,9 @@ find_package( Bullet REQUIRED )
 set(SOURCE  ./ArrayBuffer.cpp
             ./ColorTexBuffer.cpp
             ./DepthTexBuffer.cpp
-            ./FrameBuffer_base.cpp
             ./FrameBuffer.cpp
             ./GLObject.cpp
+            ./IFrameBuffer.cpp
             ./Instance.cpp
             ./Material.cpp
             ./ModelAsset.cpp
@@ -19,6 +19,8 @@ set(SOURCE  ./ArrayBuffer.cpp
             ./MultisampledDepthTexBuffer.cpp
             ./MultisampledFrameBuffer.cpp
             ./Program.cpp
+            ./RenderPass/IRenderPass.cpp
+            ./RenderPass/ShadowMap.cpp
             ./Shader.cpp
             ./ShadingPipe.cpp
             ./Texture2D.cpp
@@ -28,9 +30,9 @@ set(SOURCE  ./ArrayBuffer.cpp
 set(HEADER  ./ArrayBuffer.h
             ./ColorTexBuffer.h
             ./DepthTexBuffer.h
-            ./FrameBuffer_base.h
             ./FrameBuffer.h
             ./GLObject.h
+            ./IFrameBuffer.h
             ./Instance.h
             ./Material.h
             ./ModelAsset.h
@@ -38,6 +40,8 @@ set(HEADER  ./ArrayBuffer.h
             ./MultisampledDepthTexBuffer.h
             ./MultisampledFrameBuffer.h
             ./Program.h
+            ./RenderPass/IRenderPass.h
+            ./RenderPass/ShadowMap.h
             ./Shader.h
             ./ShadingPipe.h
             ./Texture2D.h

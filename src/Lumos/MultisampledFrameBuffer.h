@@ -1,13 +1,12 @@
-#ifndef MULTISAMPLEDFRAMEBUFFER_H
-  #define MULTISAMPLEDFRAMEBUFFER_H
+#pragma once 
 
-#include "FrameBuffer_base.h"
+#include "IFrameBuffer.h"
 #include "FrameBuffer.h"
 #include "MultisampledColorTexBuffer.h"
 #include "MultisampledDepthTexBuffer.h"
 
 namespace Daylight::Lumos{
-  class MultisampledFrameBuffer : public FrameBuffer_base{
+  class MultisampledFrameBuffer : public IFrameBuffer{
   public:
     MultisampledFrameBuffer();
     MultisampledFrameBuffer(const size_t & width, const size_t & height);
@@ -36,6 +35,3 @@ namespace Daylight::Lumos{
   };
 
 }
-
-
-  #endif

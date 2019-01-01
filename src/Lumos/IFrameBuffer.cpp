@@ -22,11 +22,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#include "FrameBuffer_base.h"
+#include "IFrameBuffer.h"
 
-namespace Daylight::Lumos{
+using namespace Daylight::Lumos; 
 
-FrameBuffer_base::FrameBuffer_base()
+IFrameBuffer::IFrameBuffer()
     : GLObject( [](GLuint * id){glGenFramebuffers(1, id);},
                 [](const GLuint * id){glDeleteFramebuffers(1, id);} )
 {
@@ -34,12 +34,12 @@ FrameBuffer_base::FrameBuffer_base()
 
 }
 
-FrameBuffer_base::~FrameBuffer_base()
+IFrameBuffer::~IFrameBuffer()
 {
 
 }
 
-void FrameBuffer_base::use(const GLenum & target) const
+void IFrameBuffer::use(const GLenum & target) const
 {
     assert ((target == GL_FRAMEBUFFER or
              target == GL_READ_FRAMEBUFFER or
@@ -52,12 +52,12 @@ void FrameBuffer_base::use(const GLenum & target) const
     glBindFramebuffer(target, _glObjId);
 }
 
-void FrameBuffer_base::use() const
+void IFrameBuffer::use() const
 {
   glBindFramebuffer(GL_FRAMEBUFFER, _glObjId);
 }
 
-bool FrameBuffer_base::isInUse(const GLint & bindingTarget ) const {
+bool IFrameBuffer::isInUse(const GLint & bindingTarget ) const {
     assert((bindingTarget == GL_DRAW_FRAMEBUFFER_BINDING or
             bindingTarget == GL_READ_FRAMEBUFFER_BINDING) and
             "bindingTarget is either GL_DRAW_FRAMEBUFFER_BINDING or GL_READ_FRAMEBUFFER_BINDING"
@@ -68,9 +68,9 @@ bool FrameBuffer_base::isInUse(const GLint & bindingTarget ) const {
     return fbid == static_cast<GLint>(_glObjId);
 }
 
-bool FrameBuffer_base::isInUse() const
+bool IFrameBuffer::isInUse() const
 {
-  assert(!"Please use FrameBuffer_base::isInUse(const GLint & bindingTarget ) const" );
+  assert(!"Please use IFrameBuffer::isInUse(const GLint & bindingTarget ) const" );
   GLint fbid = 0;
   glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &fbid);
   return fbid == static_cast<GLint>(_glObjId);
@@ -78,14 +78,11 @@ bool FrameBuffer_base::isInUse() const
 
 
 
-void FrameBuffer_base::stopUsing() const
+void IFrameBuffer::stopUsing() const
 {
     if(isInUse(GL_DRAW_FRAMEBUFFER_BINDING))
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
     if(isInUse(GL_READ_FRAMEBUFFER_BINDING))
         glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
-
-}
-
 
 }
