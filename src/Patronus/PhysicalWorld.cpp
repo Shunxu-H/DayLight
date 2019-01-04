@@ -222,7 +222,10 @@ void PhysicalWorld::loadInstance( Patronus::Mesh & mesh ){
     std::string name = Utils::genUniqueName(
                 _names,
                 mesh.getId() + "_instance");
-
+    Debug("This will have to be eventually gotten rid of"); 
+    if (name.find("Ceiling") != std::string::npos) {
+        newI->turnOff(); 
+    }
     newI->setId(name);
     _names.insert(name);
 

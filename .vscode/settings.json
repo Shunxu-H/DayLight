@@ -50,6 +50,7 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "list": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "*.cuh": "cpp"
     }
 }
