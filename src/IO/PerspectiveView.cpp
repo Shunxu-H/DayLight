@@ -91,9 +91,14 @@ bool PerspectiveView::_keyboard_handle(const KeyboardEvent & xev)
 bool PerspectiveView::_cursor_handle(const CursorEvent & cursorEvent)
 {
     
-    Debug( "PerpectiveView Buton presses at " << cursorEvent.loc.x << ", "
-                << cursorEvent.loc.y  );
     switch (cursorEvent.type) {
+        case EVENT_CURSORMOVE:
+        {
+
+            float sensitivity = 0.001; 
+            _camInUse->panAndPadestal(cursorEvent.data.forMoveEvent.velocity.x*sensitivity, -cursorEvent.data.forMoveEvent.velocity.y*sensitivity ); 
+        }
+        break; 
         case EVENT_LBUTTONDOWN: // left
         {
             Debug("Button1");

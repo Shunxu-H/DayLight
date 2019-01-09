@@ -126,7 +126,13 @@ void WindowManagerImgui::_initImgui(){
 
     // setting cursor pos callback 
     auto posCallback = [](GLFWwindow * window, double xpos, double ypos){
-        static_cast<WindowManagerImgui*>(glfwGetWindowUserPointer(window))->setCursorLocation(CursorLocation(xpos, ypos)); 
+
+        WindowManagerImgui * windowManagerImgui = static_cast<WindowManagerImgui*>(glfwGetWindowUserPointer(window));
+        windowManagerImgui->setCursorLocation(CursorLocation(xpos, ypos)); 
+        CursorLocation curLoc = windowManagerImgui->getCursorLocation(), prevLoc = windowManagerImgui->getPrevCursorLocation();  
+        Velocity v(curLoc.x - prevLoc.x, curLoc.y - prevLoc.y); 
+        
+        windowManagerImgui->_internal_cursor_handle(CursorEvent::makeCursorMoveEvent(prevLoc, v));
     }; 
     glfwSetCursorPosCallback( window, posCallback); 
 

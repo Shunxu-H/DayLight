@@ -28,7 +28,7 @@ Widget::~Widget(){
         delete w;
 }
 
-bool Widget::isClick(const size_t & x, const size_t & y)const{
+bool Widget::isHover(const size_t & x, const size_t & y)const{
     return  (_x <= x && x <= _x + _width ) &&
             (_y <= y && y <= _y + _height);
 }
@@ -52,15 +52,11 @@ void Widget::_internal_cursor_handle(const CursorEvent & event){
     {
         for (Widget * w : _children)
         {
-            if(event.isPressEvent() && w->isClick(event.loc.x, event.loc.y)){
+            if(w->isHover(event.loc.x, event.loc.y)){
                 CursorEvent curEv(event);
                 curEv.loc.x -= w->_x;
                 curEv.loc.y -= w->_y;
                 w->_internal_cursor_handle(curEv);
-            }
-            else if (event.isWheelingEvent())
-            {
-                w->_internal_cursor_handle(event);
             }
         }
     }

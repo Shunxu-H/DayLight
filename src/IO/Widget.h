@@ -35,12 +35,12 @@ namespace Daylight::IO{
     inline void setHeight(const size_t & h) { _height = h;}
 
     /**
-     * [isClick see if a widget is clicked]
+     * [isClick see if a widget is hovered]
      * @param  x [clicking position x in parent widget]
      * @param  y [clicking position y in parent widget]
      * @return   [description]
      */
-    bool isClick(const size_t & x, const size_t & y) const;
+    bool isHover(const size_t & x, const size_t & y) const;
     void addChild(Widget* w);
   protected:
     inline virtual bool _expose(){return true;}

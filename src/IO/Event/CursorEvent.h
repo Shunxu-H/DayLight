@@ -33,10 +33,22 @@ struct CursorLocation {
     inline bool isValid() const { return x != INVALID_DATA && y != INVALID_DATA; }
 }; 
 
+struct Velocity{
+    int x; 
+    int y; 
+    Velocity(int _x=0, int _y=0 ){ x = _x;  y = _y; }
+}; 
+
 
 struct CursorEvent{
     CursorEventType type;
     CursorLocation loc;  
+    struct CursorEventData{
+        struct ForMoveEvent{
+            Velocity velocity; 
+        } forMoveEvent; 
+    } data; 
+    CursorEvent() = default;
     CursorEvent(const CursorEvent & event) = default; 
     inline CursorEvent(const XEvent & xenv){
         throw new Daylight::NotImplementedException(); 
@@ -44,9 +56,17 @@ struct CursorEvent{
     inline bool is(CursorEventType thatType) const { return (this->type & thatType) != 0;}
     inline CursorEvent(const CursorEventType & _eventType, const CursorLocation & _loc)
         :type(_eventType), loc(_loc){}
+    static CursorEvent makeCursorMoveEvent(const CursorLocation & _loc, const Velocity & _velocity){
+        CursorEvent moveEvent;
+        moveEvent.type = EVENT_CURSORMOVE; 
+        moveEvent.loc = _loc; 
+        moveEvent.data.forMoveEvent.velocity = _velocity; 
+        return moveEvent; 
+    }
     inline bool isPressEvent() const { return type & (EVENT_LBUTTONDOWN | EVENT_RBUTTONDOWN | EVENT_MBUTTONDOWN); }
     inline bool isReleaseEvent() const { return type & (EVENT_LBUTTONUP | EVENT_RBUTTONUP | EVENT_MBUTTONUP); }
     inline bool isWheelingEvent() const { return type & (EVENT_CURSORWHEEL | EVENT_CURSORHWHEEL); }
+
 }; 
 
 

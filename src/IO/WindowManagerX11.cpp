@@ -500,8 +500,6 @@ bool WindowManagerX11::_keyboard_handle(const KeyboardEvent & event){
             //screenshot("snapshot.png");
             printf("screen shot!\n" );
         }
-
-
     }
     else if (event.action == Action::KEY_UP)
     {

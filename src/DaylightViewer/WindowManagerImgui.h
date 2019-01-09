@@ -77,7 +77,11 @@ namespace Daylight {
             virtual int loop() override; 
 
             inline CursorLocation getCursorLocation() const { return _cursorLocation; }
-            inline void setCursorLocation( const CursorLocation & cursorLocation ){ _cursorLocation = cursorLocation; }
+            inline void setCursorLocation( const CursorLocation & cursorLocation ){ 
+                _prevCursorLocation = _cursorLocation; 
+                _cursorLocation = cursorLocation; 
+            }
+            inline CursorLocation getPrevCursorLocation() const { return _prevCursorLocation; }
         private:
             void _initImgui(); 
             void _initOpenGl(); 
@@ -89,6 +93,7 @@ namespace Daylight {
             // glfw window management
             GLFWwindow* window; 
             CursorLocation _cursorLocation; 
+            CursorLocation _prevCursorLocation; 
             //GlResource glResource; 
         }; 
 
