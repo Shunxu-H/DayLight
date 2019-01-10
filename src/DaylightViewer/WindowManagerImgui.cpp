@@ -283,7 +283,7 @@ int WindowManagerImgui::loop(){
             ImGui::Begin("Selected Object Details");  
             if(selectedInstance){
                 ImGui::Text( ("Name: " + selectedInstance->getId()).c_str() );            
-                ImGui::Text( ("IsOn: " + std::string(selectedInstance->isOn()? "True":"False")  ).c_str() );            
+                ImGui::Text( ("IsOn: " + std::string(selectedInstance->isVisible()? "True":"False")  ).c_str() );            
                 // ImGui::Text( ("Name: " + selectedInstance->getId()).c_str() );            
 
             }

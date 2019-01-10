@@ -223,7 +223,7 @@ void PerspectiveView::paintGL(){
     Lumos::Material * materialInUse = nullptr;
     Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
     for(Lumos::Instance const * i : world->getInstances()){
-        if (i->isOn())
+        if (i->isVisible())
             i->renderMesh(materialInUse);
     }
 

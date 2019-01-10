@@ -149,7 +149,7 @@ void View_renderer::generateMasks(){
     // make everythign invisible
     for (Lumos::Instance * ins : world->getInstances())
     {
-        ins->turnOff();
+        ins->setVisibility(false);
     }
     _frameBuffer.use();
     std::string tempShaderId = _shaderId;
@@ -160,8 +160,8 @@ void View_renderer::generateMasks(){
     for (Lumos::Instance * ins : _visibles)
     {
         if (curOn != nullptr)
-            curOn->turnOff();
-        ins->turnOn();
+            curOn->setVisibility(false);
+        ins->setVisibility(true);
         curOn = ins;
         ins->setPickingColor(color3(1, 1, 1));
         paintGL();
@@ -171,7 +171,7 @@ void View_renderer::generateMasks(){
     // turn visibility back on for all instances
     for (Lumos::Instance * ins : world->getInstances())
     {
-        ins->turnOn();
+        ins->setVisibility(true);
     }
 
     _shaderId = tempShaderId;

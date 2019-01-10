@@ -224,7 +224,7 @@ void PhysicalWorld::loadInstance( Patronus::Mesh & mesh ){
                 mesh.getId() + "_instance");
     Debug("This will have to be eventually gotten rid of"); 
     if (name.find("Ceiling") != std::string::npos) {
-        newI->turnOff(); 
+        newI->setVisibility(false); 
     }
     newI->setId(name);
     _names.insert(name);

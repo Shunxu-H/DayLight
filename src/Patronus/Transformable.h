@@ -36,7 +36,7 @@ namespace Daylight::Patronus {
             _translate      ( pos ),
             _scale          ( point3 (1.0f, 1.0f, 1.0f)),
             _orientation    ( point3 (0.0f, 0.0f, 0.0f)),
-            _isOn           (true){}
+            _isVisible      (true){}
         virtual ~Transformable(){}
 
         virtual void translate ( const float & x, const float & y, const float & z );
@@ -74,18 +74,16 @@ namespace Daylight::Patronus {
         inline void
             setOrientation( const point3 & arg ) { _orientation=arg; }
 
-        bool isOn() const { return _isOn; }
+        inline bool isVisible() const { return _isVisible; }
         inline void
-            turnOn() { _isOn = true; }
-        inline void
-            turnOff() { _isOn = false; }
+            setVisibility(const bool _visibility ) { _isVisible = _visibility; }
 
 
     protected:
         point3 _translate;
         point3 _scale;
         point3 _orientation;
-        bool _isOn;
+        bool _isVisible;
 
 
     private:
