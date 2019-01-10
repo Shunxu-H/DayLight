@@ -26,7 +26,6 @@ int main(int, char**)
 {
 
     winMan = new Daylight::IO::WindowManagerImgui{1280, 720}; 
-
     // for physical simulartion
     world = new Daylight::Patronus::PhysicalWorld();
     // openGL resource management
@@ -37,7 +36,7 @@ int main(int, char**)
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
     gProgram->preDrawSetUp();
-
+     
      
     return winMan->loop();
 }
