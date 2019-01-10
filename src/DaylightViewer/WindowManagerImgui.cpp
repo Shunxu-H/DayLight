@@ -254,11 +254,27 @@ int WindowManagerImgui::loop(){
         {
             ImGui::Begin("Viewing Camera");                       
             ImGui::Text("Choose a viewing camera.");               
-            static int e = 0; 
+            static int cameraInUseIndex = 0; 
             for (size_t camPtr = 0; camPtr < shaper->getNumOfCameras(); camPtr++){
-                ImGui::RadioButton( ("Cam " + std::to_string(camPtr)).c_str(), &e, (int)camPtr); 
+                ImGui::RadioButton( ("Cam " + std::to_string(camPtr)).c_str(), &cameraInUseIndex, (int)camPtr); 
             }
-            static_cast<PerspectiveView*>( _children[0] )->setCamInUse(shaper->getnCamera(e)); 
+            static_cast<PerspectiveView*>( _children[0] )->setCamInUse(shaper->getnCamera(cameraInUseIndex)); 
+            ImGui::End();
+        }
+
+
+        {
+
+            ImGui::Begin("Shading Pipe In Use");            
+            ImGui::Text("Select a shading pipe.");   
+            static int shadingPipeIndex = 0; 
+            std::vector<std::string> shadingPipeNames = gProgram->getAllShadingPipeNames(); 
+            for( size_t shadingPipeItr = 0; shadingPipeItr < shadingPipeNames.size(); shadingPipeItr ++ ){
+                ImGui::RadioButton( shadingPipeNames[shadingPipeItr].c_str(), &shadingPipeIndex, (int)shadingPipeItr); 
+            } 
+            if (_children.size() > 0)   
+                static_cast<Daylight::IO::PerspectiveView*>(_children[0])->setShaderId(shadingPipeNames[shadingPipeIndex]); 
+             
             ImGui::End();
         }
 
@@ -274,6 +290,7 @@ int WindowManagerImgui::loop(){
              
             ImGui::End();
         }
+
 
         // 3. Show another simple window.
         if (show_another_window)

@@ -51,6 +51,9 @@ namespace Daylight::Lumos {
     class Program: public GLObject{
     public:
         Program();
+        ~Program();
+
+        std::vector<std::string> getAllShadingPipeNames() const;
         /**
          * @brief should only called this constructor
          * @param shaders a vector of Shader to be kinked to this program
@@ -63,7 +66,6 @@ namespace Daylight::Lumos {
          */
         void loadShaders(const std::string & GLSL_path);
 
-        ~Program();
 
         /**
          * [enableShadingPipe enable a shading pipe]

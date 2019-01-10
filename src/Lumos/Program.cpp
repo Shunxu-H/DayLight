@@ -51,6 +51,14 @@ Program::Program(){
 }
 
 
+std::vector<std::string> Program::getAllShadingPipeNames() const{
+    std::vector<std::string> ret{}; 
+    for(auto it = _shading_pipes.begin(); it != _shading_pipes.end(); ++it) {
+        ret.push_back(it->first);
+    }
+    return ret; 
+}
+
 void Program::enableShadingPipe( const std::string & pipe_name ){
     assert( _shading_pipes.find( pipe_name ) != _shading_pipes.end() );
 
