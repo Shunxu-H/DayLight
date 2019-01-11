@@ -27,25 +27,26 @@ set(SOURCE  ./ArrayBuffer.cpp
             ./Texture.cpp
             )
 
-set(HEADER  ./ArrayBuffer.h
+set(HEADER  ./DepthTexBuffer.h
+            ./RenderPass/ShadowMap.h
+            ./RenderPass/IRenderPass.h
             ./ColorTexBuffer.h
-            ./DepthTexBuffer.h
-            ./FrameBuffer.h
-            ./GLObject.h
-            ./IFrameBuffer.h
             ./Instance.h
             ./Material.h
-            ./ModelAsset.h
-            ./MultisampledColorTexBuffer.h
-            ./MultisampledDepthTexBuffer.h
-            ./MultisampledFrameBuffer.h
-            ./Program.h
-            ./RenderPass/IRenderPass.h
-            ./RenderPass/ShadowMap.h
-            ./Shader.h
             ./ShadingPipe.h
+            ./ModelAsset.h
+            ./Program.h
+            ./GLObject.h
+            ./FrameBuffer.h
+            ./ArrayBuffer.h
+            ./MultisampledFrameBuffer.h
             ./Texture2D.h
+            ./Shader.h
+            ./IFrameBuffer.h
+            ./GlslNameConst.h
+            ./MultisampledDepthTexBuffer.h
             ./Texture.h
+            ./MultisampledColorTexBuffer.h
 )
 
 
@@ -78,4 +79,3 @@ link_libraries(Common)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
 target_include_directories(${PROJECT_NAME} PUBLIC /usr/local/include/bullet/ )
-

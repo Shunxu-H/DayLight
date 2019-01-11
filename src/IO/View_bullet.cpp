@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include <Patronus/Camera.h>
 
 #include <Lumos/Program.h>
+#include <Lumos/GlslNameConst.h>
 
 #include <IO/View_bullet.h>
 
@@ -100,9 +101,9 @@ void  View_bullet::drawLine(const btVector3& from,const btVector3& to,const btVe
     //glUniformMatrix4fv(uniform_m, 1, GL_FALSE, glm::value_ptr(m));
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
-    glEnableVertexAttribArray(gProgram->getAttrib("vert"));
+    glEnableVertexAttribArray(gProgram->getAttrib(GLSL_VERT));
     glVertexAttribPointer(
-    gProgram->getAttrib("vert"),  // attribute
+    gProgram->getAttrib(GLSL_VERT),  // attribute
         3,                  // number of elements per vertex, here (x,y,z,w)
         GL_FLOAT,           // the type of each element
         GL_FALSE,           // take our values as-is

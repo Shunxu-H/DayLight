@@ -32,6 +32,7 @@ THE SOFTWARE.
 
 #include <Lumos/Instance.h>
 #include <Lumos/Program.h>
+#include <Lumos/GlslNameConst.h>
 
 using namespace Daylight::Lumos; 
 
@@ -64,8 +65,8 @@ void Instance::setRidgidBody( Daylight::Patronus::PhysicalWorld * world, btRigid
 void Instance::loadAttribsAndUniform() const {
 
     GLuint attribId;
-    if (gProgram->hasAttribute("vert")){
-        attribId = gProgram->getAttrib("vert");
+    if (gProgram->hasAttribute(GLSL_VERT)){
+        attribId = gProgram->getAttrib(GLSL_VERT);
         glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_VERT);
 
         Utils::logOpenGLError();
@@ -174,9 +175,9 @@ void Instance::renderBoundngBox( const Daylight::IO::PerspectiveView & view ) co
     //glUniformMatrix4fv(uniform_m, 1, GL_FALSE, glm::value_ptr(m));
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
-    glEnableVertexAttribArray(gProgram->getAttrib("vert"));
+    glEnableVertexAttribArray(gProgram->getAttrib(GLSL_VERT));
     glVertexAttribPointer(
-    gProgram->getAttrib("vert"),  // attribute
+    gProgram->getAttrib(GLSL_VERT),  // attribute
         3,                  // number of elements per vertex, here (x,y,z,w)
         GL_FLOAT,           // the type of each element
         GL_FALSE,           // take our values as-is

@@ -36,7 +36,5 @@ int main(int, char**)
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
     gProgram->preDrawSetUp();
-     
-     
     return winMan->loop();
 }
