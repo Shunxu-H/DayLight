@@ -25,6 +25,7 @@ set(SOURCE  ./ArrayBuffer.cpp
             ./ShadingPipe.cpp
             ./Texture2D.cpp
             ./Texture.cpp
+            ./CopyFile.cmake
             )
 
 set(HEADER  ./DepthTexBuffer.h
@@ -79,3 +80,16 @@ link_libraries(Common)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
 target_include_directories(${PROJECT_NAME} PUBLIC /usr/local/include/bullet/ )
+
+# copy files
+ADD_CUSTOM_TARGET(
+        copy_shader_files
+        ${CMAKE_COMMAND}
+        # WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        -D SOURCE_DIR=${CMAKE_SOURCE_DIR}
+        -D DESTINATION_DIR=${CMAKE_RUNTIME_OUTPUT_DIRECTORY} 
+        -P ${CMAKE_CURRENT_SOURCE_DIR}/CopyFile.cmake
+        COMMENT "Copying Files for target: test_SphereShader" VERBATIM 
+        )
+
+ADD_DEPENDENCIES ( ${PROJECT_NAME} copy_shader_files )
