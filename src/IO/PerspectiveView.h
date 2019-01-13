@@ -84,11 +84,11 @@ namespace Daylight {
             virtual bool _cursor_handle(const CursorEvent & cursorEvent) override;
 
             Patronus::Camera * _camInUse;
-            GLuint _VAO;
             std::string _shaderId;
             std::vector< Lumos::Instance * > _visibles;
         private:
-                friend class WindowManager;
+            
+            friend class WindowManager;
 
         };
 

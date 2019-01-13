@@ -47,7 +47,6 @@ PerspectiveView::PerspectiveView(
         const std::shared_ptr< Patronus::Camera > & cam,
         const std::string & shaderId )
     : View("perspective view", x, y, w, h)
-    , _VAO( 0 )
     , _shaderId( shaderId )
 {
     if ( cam == nullptr )
@@ -77,8 +76,6 @@ void PerspectiveView::initializeGL(){
     // antialiasing
     glEnable(GL_MULTISAMPLE);
 
-
-    glGenVertexArrays(1, &_VAO);
 
 }
 
@@ -201,7 +198,6 @@ void PerspectiveView::paintGL(){
 
         loadAttribsAndUniform();
 
-        glBindVertexArray(_VAO);
 
         _camInUse->loadUniforms(_width, _height);
         shaper->loadAttribsAndUniform();
@@ -213,9 +209,6 @@ void PerspectiveView::paintGL(){
     gProgram->enableShadingPipe(_shaderId);
 
     loadAttribsAndUniform();
-    Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
-
-    glBindVertexArray(_VAO);
     Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
 
     _camInUse->loadUniforms(_width, _height);

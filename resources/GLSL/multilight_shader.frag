@@ -23,8 +23,6 @@ uniform struct Light {
    vec3 coneDirection;
 } allLights[MAX_LIGHTS];
 
-
-
 in VS_OUT {
     vec3 FragPos;
     vec3 Normal;
@@ -57,7 +55,7 @@ vec3 ApplyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, ve
     }
 
     //ambient
-    vec3 ambient = light.ambientCoefficient * surfaceColor.rgb * light.intensities;
+    vec3 ambient = light.ambientCoefficient * surfaceColor.rgb * light.intensities * 0.5; 
 
     //diffuse
     float diffuseCoefficient = max(0.0, dot(normal, surfaceToLight));
