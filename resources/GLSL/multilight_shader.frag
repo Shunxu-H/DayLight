@@ -1,5 +1,4 @@
-#version 130
-in vec2 fragTexCoord;
+#version 150
 uniform vec3 transmittance;
 uniform bool hasTexture;
 uniform sampler2D tex; //this is the texture
@@ -24,9 +23,13 @@ uniform struct Light {
    vec3 coneDirection;
 } allLights[MAX_LIGHTS];
 
-//in vec2 fragTexCoord;
-in vec3 fragNormal;
-in vec3 fragVert;
+
+
+in VS_OUT {
+    vec3 FragPos;
+    vec3 Normal;
+    vec2 TexCoords;
+} fs_in;
 
 out vec4 outColor;
 //layout (location = 1) out vec4 outTexture;
@@ -71,11 +74,11 @@ vec3 ApplyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, ve
 }
 
 void main() {
-    vec3 normal = normalize(transpose(mat3(inverseModel)) * fragNormal);
-    vec3 surfacePos = vec3(model * vec4(fragVert, 1));
+    vec3 normal = normalize(transpose(mat3(inverseModel)) * fs_in.Normal);
+    vec3 surfacePos = vec3(model * vec4(fs_in.FragPos, 1));
     vec4 surfaceColor;
     if (hasTexture){
-        surfaceColor = texture(tex, fragTexCoord);
+        surfaceColor = texture(tex, fs_in.TexCoords);
     }
     else
         surfaceColor = diffuseColor;

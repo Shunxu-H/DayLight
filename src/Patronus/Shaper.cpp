@@ -63,9 +63,7 @@ Shaper::Shaper( const std::string & fileName )
 {
     loadFile( fileName );
     _lights.push_back(Light::makeDirectionalLight());
-    /*
-    _lights.push_back(Light::makeDirectionalLight());
-    */
+    // _lights.push_back(Light::makePointLight());
 
 }
 
@@ -308,12 +306,9 @@ void Shaper::addMaterial( Lumos::Material * m){
 
 void Shaper::loadAttribsAndUniform( ) const {
 
-    if (gProgram->hasUniform("light.position"))
-        gProgram->setUniform("light.position", getDefaultLight().getTranslate() );
-    if (gProgram->hasUniform("light.intensities"))
-        gProgram->setUniform( "light.intensities", getDefaultLight().getIntensity());
-    if (gProgram->hasUniform("numLights"))
-        gProgram->setUniform( "numLights", static_cast<int> (getLights().size()) );
+    gProgram->setUniform("light.position", getDefaultLight().getTranslate() );
+    gProgram->setUniform("light.intensities", getDefaultLight().getIntensity());
+    gProgram->setUniform("numLights", static_cast<int> (getLights().size()) );
     if (gProgram->hasUniform("allLights[0].isDirectional")){
         size_t i = 0;
         for ( const Patronus::Light & l : _lights ){

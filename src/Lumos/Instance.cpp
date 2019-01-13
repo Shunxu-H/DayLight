@@ -75,31 +75,26 @@ void Instance::loadAttribsAndUniform() const {
         glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
         Utils::logOpenGLError();
     }
-    if (gProgram->hasAttribute("vertNormal")){
-        attribId = gProgram->getAttrib("vertNormal");
+    if (gProgram->hasAttribute(GLSL_NORM)){
+        attribId = gProgram->getAttrib(GLSL_NORM);
         glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_NORMAL);
         glEnableVertexAttribArray(attribId);
         glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
         Utils::logOpenGLError();
     }
-    if (gProgram->hasAttribute("vertTexCoord")){
-        attribId = gProgram->getAttrib("vertTexCoord");
+    if (gProgram->hasAttribute(GLSL_TEXTCOOR)){
+        attribId = gProgram->getAttrib(GLSL_TEXTCOOR);
         glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_TEXCOORD);
         glEnableVertexAttribArray(attribId);
         glVertexAttribPointer(attribId, 2, GL_FLOAT, GL_FALSE, 0, 0);
         Utils::logOpenGLError();
     }
 
-    // load uniform
-    if( gProgram->hasUniform("inverseModel") )
-        gProgram->setUniform( "inverseModel" , getInverseModelMatrix() );
-    Utils::logOpenGLError();
+    gProgram->setUniform( "inverseModel" , getInverseModelMatrix() );
+    
+    gProgram->setUniform("model", getModelMatrix() );
 
-    if( gProgram->hasUniform("model") )
-        gProgram->setUniform("model", getModelMatrix() );
-
-    if( gProgram->hasUniform("pickingColor") )
-        gProgram->setUniform("pickingColor", getPickingColor() );
+    gProgram->setUniform("pickingColor", getPickingColor() );
 
 
     Utils::logOpenGLError();

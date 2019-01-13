@@ -115,15 +115,10 @@ Camera::~Camera(){
 }
 
 void Camera::loadUniforms( const unsigned int & width, const unsigned int & height ) const{
-
-    if (gProgram->hasUniform("camera"))
-        gProgram->setUniform("camera", getPerspectiveMatrix());
-    if (gProgram->hasUniform("cameraPosition"))
-        gProgram->setUniform("cameraPosition", getTranslate() );
-    if (gProgram->hasUniform("projection"))
-        gProgram->setUniform("projection", getProjectionMatrix(static_cast<float>(width)/static_cast<float>(height)));
-    if (gProgram->hasUniform("ModelViewProjectionMatrix"))
-        gProgram->setUniform("ModelViewProjectionMatrix",
+    gProgram->setUniform("camera", getPerspectiveMatrix());
+    gProgram->setUniform("cameraPosition", getTranslate() );
+    gProgram->setUniform("projection", getProjectionMatrix(static_cast<float>(width)/static_cast<float>(height)));
+    gProgram->setUniform("ModelViewProjectionMatrix",
                              getProjectionMatrix( static_cast<float>(width)/static_cast<float>(height) )*
                              getPerspectiveMatrix()*
                              getModelMatrix());

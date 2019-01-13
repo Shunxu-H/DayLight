@@ -27,22 +27,11 @@ void Material::loadUniforms( ) const{
         gProgram->setUniform("tex", 0);
         //set to 0 because the texture is bound to GL_TEXTURE0
     }
-    if (gProgram->hasUniform("transmittance")){
-        gProgram->setUniform("transmittance", transmittance);
-    }
-    if (gProgram->hasUniform("hasTexture")){
-        gProgram->setUniform("hasTexture", texture.isInitialized());
-    }
-    if (gProgram->hasUniform("diffuseColor"))
-        gProgram->setUniform("diffuseColor", diffuseColor );
-
-    if (gProgram->hasUniform("ambient"))
-        gProgram->setUniform("ambient", color3(0.05f, 0.05f, 0.05f) );
-
-    if (gProgram->hasUniform("materialShininess"))
-        gProgram->setUniform("materialShininess", reflexitivity );
-
-    if (gProgram->hasUniform("materialSpecularColor"))
-        gProgram->setUniform("materialSpecularColor", specular);
+    gProgram->setUniform("transmittance", transmittance);
+    gProgram->setUniform("hasTexture", texture.isInitialized());
+    gProgram->setUniform("diffuseColor", diffuseColor );
+    gProgram->setUniform("ambient", color3(0.05f, 0.05f, 0.05f) );
+    gProgram->setUniform("materialShininess", reflexitivity );
+    gProgram->setUniform("materialSpecularColor", specular);
 
 }
