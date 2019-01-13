@@ -82,6 +82,7 @@ void main() {
     }
     else
         surfaceColor = diffuseColor;
+    
     vec3 surfaceToCamera = normalize(cameraPosition - surfacePos);
 
     //combine color from all the lights

@@ -6,7 +6,7 @@ uniform mat4 projection;
 
 in vec3 aPos;
 in vec3 aNormal;
-in vec2 vertTexCoord;
+in vec2 aTexCoords;
 
 out vec3 fragVert;
 out vec2 fragTexCoord;
@@ -20,7 +20,7 @@ out VS_OUT {
 void main() {
     // Pass some variables to the fragment shader
     // fragTexCoord = vertTexCoord;
-    vs_out.TexCoords = vertTexCoord;
+    vs_out.TexCoords = aTexCoords;
     vs_out.Normal = aNormal;
     vs_out.FragPos = aPos;
 

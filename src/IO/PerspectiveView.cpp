@@ -94,7 +94,7 @@ bool PerspectiveView::_cursor_handle(const CursorEvent & cursorEvent)
     switch (cursorEvent.type) {
         case EVENT_CURSORMOVE:
         {
-
+            return true; 
             float sensitivity = 0.001; 
             _camInUse->panAndPadestal(cursorEvent.data.forMoveEvent.velocity.x*sensitivity, -cursorEvent.data.forMoveEvent.velocity.y*sensitivity ); 
         }
