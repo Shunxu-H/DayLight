@@ -38,6 +38,7 @@ THE SOFTWARE.
 
 #include <Patronus/Shaper.h>
 #include <Patronus/Face.h>
+#include <Patronus/LightFactory.h>
 
 
 #define TINYOBJLOADER_IMPLEMENTATION // define this in only *one* .cc
@@ -56,13 +57,13 @@ const float Shaper::multiplier = 1;
 Shaper::Shaper( )
 {
     default_material = new Lumos::Material(); 
-    _lights.push_back(Light::makeDirectionalLight());
+    _lights.push_back(LightFactory::makeDirectionalLight());
 }
 
 Shaper::Shaper( const std::string & fileName )
 {
     loadFile( fileName );
-    _lights.push_back(Light::makeDirectionalLight());
+    _lights.push_back(LightFactory::makeDirectionalLight());
     // _lights.push_back(Light::makePointLight());
 
 }
@@ -306,20 +307,13 @@ void Shaper::addMaterial( Lumos::Material * m){
 
 void Shaper::loadAttribsAndUniform( ) const {
 
-    gProgram->setUniform("light.position", getDefaultLight().getTranslate() );
-    gProgram->setUniform("light.intensities", getDefaultLight().getIntensity());
+    gProgram->setUniform("light.position", getDefaultLight()->getTranslate() );
+    gProgram->setUniform("light.intensities", getDefaultLight()->getIntensity());
     gProgram->setUniform("numLights", static_cast<int> (getLights().size()) );
     if (gProgram->hasUniform("allLights[0].isDirectional")){
         size_t i = 0;
-        for ( const Patronus::Light & l : _lights ){
-
-            gProgram->SetLightUniform("isDirectional", i, l.getType() == Patronus::LightType::DIRECTIONAL);
-            gProgram->SetLightUniform("position", i, l.getTranslatev4());
-            gProgram->SetLightUniform("intensities", i, l.getIntensity());
-            gProgram->SetLightUniform("attenuation", i, l.getAttenuation());
-            gProgram->SetLightUniform("ambientCoefficient", i, l.getAmbientCoefficient());
-            gProgram->SetLightUniform("coneAngle", i, l.getConeAngle());
-            gProgram->SetLightUniform("coneDirection", i, l.getConeDirection());
+        for ( Patronus::ILight * l : _lights ){
+            l->setUniformsAndAttributes(&i); 
             i++;
         }
     }
@@ -329,7 +323,7 @@ void Shaper::loadAttribsAndUniform( ) const {
 
 void Shaper::_loadDefaultObjects(){
     //_pers = std::make_shared<Camera, CameraType> ( CameraType::PERSPECTIVE );
-    _lights.push_back(Light());
+    _lights.push_back(LightFactory::makeDirectionalLight());
 }
 
 Daylight::Lumos::ArrayBuffer Shaper::getVertexBuffer( )const

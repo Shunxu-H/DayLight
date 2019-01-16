@@ -1,6 +1,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <Common/Extern.h>
+#include <Common/Utility.h>
 
 #include <Patronus/PhysicalWorld.h>
 #include <Patronus/Shaper.h>
@@ -33,6 +34,7 @@ void ShadowMap::render(){
     glm::mat4 lightSpaceMatrix;
     float near_plane = 1.0f, far_plane = 7.5f;
     lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+    glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
     lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
     lightSpaceMatrix = lightProjection * lightView;
     // render scene from light's point of view
@@ -48,6 +50,8 @@ void ShadowMap::render(){
     }
 
     gProgram->disableShadingPipe(_shadingPipeId);
+
+    
     
 
 }

@@ -28,11 +28,14 @@ THE SOFTWARE.
 #include <vector>
 #include <string>
 #include <memory>
+
 #include <Common/GL_include.h>
-#include "Camera.h"
-#include "Light.h"
-#include <Patronus/Mesh.h>
+
 #include <Lumos/ArrayBuffer.h>
+
+#include <Patronus/Camera.h>
+#include <Patronus/ILight.h>
+#include <Patronus/Mesh.h>
 
 namespace Daylight::Lumos {
     class Instance;
@@ -76,7 +79,7 @@ namespace Daylight::Patronus {
 
         void loadAttribsAndUniform() const;
 
-        inline Light getDefaultLight() const { return _lights[0]; }
+        inline ILight* getDefaultLight() const { return _lights[0]; }
         /**
          * @brief load file and call corresponding functions based on file extension
          * @param fileName the file targeted to be loaded
@@ -101,7 +104,7 @@ namespace Daylight::Patronus {
         inline bool
             isLoaded() const { return _shapes.size() > 0; }
 
-        inline std::vector< Light > getLights()
+        inline std::vector< ILight* > getLights()
             const { return _lights; }
 
         inline std::vector<Mesh>&
@@ -122,9 +125,9 @@ namespace Daylight::Patronus {
 
     private:
 
-        std::vector<Mesh> _shapes;
-        std::vector< Camera * > _cameras;
-        std::vector<Light> _lights;
+        std::vector< Mesh > _shapes;
+        std::vector< Camera* > _cameras;
+        std::vector< ILight* > _lights;
         std::vector< Lumos::Material * > _materials;
         std::string _curFileName;
 

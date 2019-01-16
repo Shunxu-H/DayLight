@@ -3,22 +3,29 @@ cmake_minimum_required(VERSION 3.0)
 
 project(Patronus)
 
-set(SOURCE  ./Transformable.cpp
-            ./Shaper.cpp
-            ./Mesh.cpp
-            ./Light.cpp
+set(SOURCE  ./Camera.cpp
+            ./DirectionalLight.cpp
             ./Face.cpp
-            ./Camera.cpp
+            ./Light.cpp
+            ./LightFactory.cpp
+            ./Mesh.cpp
             ./PhysicalWorld.cpp
+            ./PointLight.cpp
+            ./Shaper.cpp
+            ./Transformable.cpp
             )
 
-set(HEADER  ./Transformable.h
-            ./Mesh.h
-            ./Light.h
+set(HEADER  ./Camera.h
+            ./DirectionalLight.h
             ./Face.h
-            ./Camera.h
-            ./Shaper.h
+            ./ILight.h
+            ./LightFactory.h
+            ./Light.h
+            ./Mesh.h
             ./PhysicalWorld.h
+            ./PointLight.h
+            ./Shaper.h
+            ./Transformable.h
 )
 
 

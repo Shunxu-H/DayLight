@@ -7,4 +7,7 @@
 #define GLSL_NORM "aNormal"
 #define GLSL_TEXTCOOR "aTexCoords"
 
+/// light related ///
+#define GLSL_LIGHTSPACE_MATRIX "lightSpaceMatrix"
+
 
