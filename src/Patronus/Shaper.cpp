@@ -106,6 +106,7 @@ void Shaper::clearAll(){
 
     _shapes.clear();
     _cameras.clear();
+    std::for_each(_lights.begin(), _lights.end(), []( Patronus::ILight* light ) { delete light; } ); 
     global_vertices.clear();
     global_normal_vertices.clear();
     global_uv_coords.clear();
