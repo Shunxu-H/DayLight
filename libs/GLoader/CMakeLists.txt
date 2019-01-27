@@ -35,4 +35,5 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME} 
                       ${OPENGL_gl_LIBRARY}
+                      "-ldl"
                     ) 
