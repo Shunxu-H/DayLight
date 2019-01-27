@@ -19,15 +19,11 @@ backup/
 *.png
 *.jpg
 
-# Obj file
-*.obj
-*.mtl
-
 # Compiled Object files
 *.slo
 *.lo
 *.o
-*.obj
+# *.obj
 
 # Precompiled Headers
 *.gch
