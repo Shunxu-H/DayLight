@@ -191,8 +191,8 @@ void PerspectiveView::paintGL(){
     //shaper->getnCamera(0)->genFrameBuffer(1080, 720);
     gProgram->use();
     glViewport(0, 0, _width, _height);
-
     // paint selecte instance
+
     if(selectedInstance != nullptr){
         gProgram->enableShadingPipe(Lumos::Shader::selected_instances_shader_id);
 
