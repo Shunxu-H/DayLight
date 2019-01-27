@@ -15,9 +15,6 @@ CTestTestfile.cmake
 build/
 backup/
 
-# Image files
-*.png
-*.jpg
 
 # Compiled Object files
 *.slo
