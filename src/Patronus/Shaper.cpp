@@ -311,12 +311,10 @@ void Shaper::loadAttribsAndUniform( ) const {
     gProgram->setUniform("light.position", getDefaultLight()->getTranslate() );
     gProgram->setUniform("light.intensities", getDefaultLight()->getIntensity());
     gProgram->setUniform("numLights", static_cast<int> (getLights().size()) );
-    if (gProgram->hasUniform("allLights[0].isDirectional")){
-        size_t i = 0;
-        for ( Patronus::ILight * l : _lights ){
-            l->setUniformsAndAttributes(&i); 
-            i++;
-        }
+    size_t i = 0;
+    for ( Patronus::ILight * l : _lights ){
+        l->setUniformsAndAttributes(&i); 
+        i++;
     }
 
 

@@ -48,6 +48,7 @@ PerspectiveView::PerspectiveView(
         const std::string & shaderId )
     : View("perspective view", x, y, w, h)
     , _shaderId( shaderId )
+    , _shadowMap( 5000, 5000 )
 {
     if ( cam == nullptr )
         _camInUse = Patronus::Camera::pers;
@@ -187,27 +188,34 @@ void PerspectiveView::paintGL(){
     glClearColor(0, 0, 0, 1); // black
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
     //shaper->getnCamera(0)->genFrameBuffer(1080, 720);
     gProgram->use();
+
+
+    _shadowMap.render(); 
+    
     glViewport(0, 0, _width, _height);
     // paint selecte instance
 
-    if(selectedInstance != nullptr){
-        gProgram->enableShadingPipe(Lumos::Shader::selected_instances_shader_id);
+    // if(selectedInstance != nullptr){
+    //     gProgram->enableShadingPipe(Lumos::Shader::selected_instances_shader_id);
 
-        loadAttribsAndUniform();
+    //     loadAttribsAndUniform();
 
+    //     _camInUse->loadUniforms(_width, _height);
+    //     shaper->loadAttribsAndUniform();
+    //     selectedInstance->renderMesh(nullptr);
 
-        _camInUse->loadUniforms(_width, _height);
-        shaper->loadAttribsAndUniform();
-        selectedInstance->renderMesh(nullptr);
-
-        gProgram->disableShadingPipe(Lumos::Shader::selected_instances_shader_id);
-    }
+    //     gProgram->disableShadingPipe(Lumos::Shader::selected_instances_shader_id);
+    // }
 
     gProgram->enableShadingPipe(_shaderId);
-
+    if (gProgram->hasUniform("shadowMap")){
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, _shadowMap.getFrameBuffer().getDepthTexBuffer().getGlObjId());
+        gProgram->setUniform("shadowMap", 1);
+        //set to 0 because the texture is bound to GL_TEXTURE0
+    }
     loadAttribsAndUniform();
     Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
 
@@ -219,7 +227,7 @@ void PerspectiveView::paintGL(){
         if (i->isVisible())
             i->renderMesh(materialInUse);
     }
-
+    _shadowMap.getFrameBuffer().saveColorBuffer2file("color.png"); 
     gProgram->disableShadingPipe(_shaderId);
 
 }

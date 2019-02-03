@@ -3,28 +3,25 @@
 uniform mat4 camera;
 uniform mat4 model;
 uniform mat4 projection;
+uniform mat4 lightSpaceMatrix; 
 
 in vec3 aPos;
 in vec3 aNormal;
 in vec2 aTexCoords;
 
-out vec3 fragVert;
-out vec2 fragTexCoord;
-out vec3 fragNormal;
+
 out VS_OUT {
     vec3 FragPos;
     vec3 Normal;
     vec2 TexCoords;
+    vec4 FragPosLightSpace;
 } vs_out;
 
 void main() {
-    // Pass some variables to the fragment shader
-    // fragTexCoord = vertTexCoord;
+    vs_out.FragPos = vec3(model * vec4(aPos, 1.0));
+    vs_out.Normal = transpose(inverse(mat3(model))) * aNormal;
     vs_out.TexCoords = aTexCoords;
-    vs_out.Normal = aNormal;
-    vs_out.FragPos = aPos;
-
-    // Apply all matrix transformations to vert
-    gl_Position = projection * camera * model * vec4(aPos, 1);
+    vs_out.FragPosLightSpace = lightSpaceMatrix * vec4(vs_out.FragPos, 1.0);
+    gl_Position = projection * camera * model * vec4(aPos, 1.0);
 
 }

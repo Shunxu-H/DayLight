@@ -13,6 +13,7 @@ DirectionalLight * LightFactory::makeDirectionalLight(
     dl->setTranslate(position); 
     dl->setIntensity(intensity); 
     dl->setAmbientCoefficient(ambientCoefficient); 
+    dl->setOrientation(glm::vec3(45, 45, -45)); 
     return dl; 
 }
 

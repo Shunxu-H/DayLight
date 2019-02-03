@@ -10,6 +10,7 @@ uniform vec3 cameraPosition;
 uniform float materialShininess;
 uniform vec3 materialSpecularColor;
 uniform vec4 diffuseColor;
+uniform sampler2D shadowMap;
 
 #define MAX_LIGHTS 10
 uniform int numLights;
@@ -27,12 +28,30 @@ in VS_OUT {
     vec3 FragPos;
     vec3 Normal;
     vec2 TexCoords;
+    vec4 FragPosLightSpace;
 } fs_in;
 
 out vec4 outColor;
 //layout (location = 1) out vec4 outTexture;
 
 //layout(location = 0)out vec4 glFragData;
+
+
+float ShadowCalculation(vec4 fragPosLightSpace)
+{
+        // perform perspective divide
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    // transform to [0,1] range
+    projCoords = projCoords * 0.5 + 0.5;
+    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+    float closestDepth = texture(shadowMap, projCoords.xy).r; 
+    // get depth of current fragment from light's perspective
+    float currentDepth = projCoords.z;
+    // check whether current frag pos is in shadow
+    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
+
+    return shadow;
+}
 
 vec3 ApplyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, vec3 surfaceToCamera) {
     vec3 surfaceToLight;
@@ -68,8 +87,11 @@ vec3 ApplyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, ve
     vec3 specular = specularCoefficient * materialSpecularColor * light.intensities;
 
     //linear color (color before gamma correction)
-    return ambient + attenuation*(diffuse + specular);
+    
+    float shadow = ShadowCalculation(fs_in.FragPosLightSpace); 
+    return ambient + ((1.0 - shadow)*attenuation*(diffuse + specular));
 }
+
 
 void main() {
     vec3 normal = normalize(transpose(mat3(inverseModel)) * fs_in.Normal);

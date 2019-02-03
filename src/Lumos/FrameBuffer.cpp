@@ -57,6 +57,7 @@ FrameBuffer::~FrameBuffer()
 
 }
 
+
 cv::Mat FrameBuffer::saveBitMap2file(const std::string & filename){
     cv::Mat compressed(_colorTexBuffer.getHeight(),
                        _colorTexBuffer.getWidth(),
@@ -146,7 +147,7 @@ cv::Mat FrameBuffer::saveDepthBuffer2file(const std::string & filename){
         //Debug("save " << fileName );
     }
 
-    _depthTexBuffer.stopUsing();
+    // _depthTexBuffer.stopUsing();
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     return img;
 }

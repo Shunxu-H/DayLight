@@ -24,6 +24,7 @@ public:
   cv::Mat saveBitMap2file(const std::string & filename);
   cv::Mat saveDepthBuffer2file(const std::string & filename) override;
   void resize(const size_t & width, const size_t & height) override;
+
 protected:
 
 private:

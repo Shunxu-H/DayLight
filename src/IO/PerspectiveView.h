@@ -26,8 +26,9 @@ THE SOFTWARE.
 #include <Lumos/Shader.h>
 #include <IO/Event/CursorEvent.h>
 #include <IO/Event/KeyboardEvent.h>
+#include <Lumos/RenderPass/ShadowMap.h>
 
-#include "View.h"
+#include <IO/View.h>
 
 namespace Daylight {
     namespace Lumos{
@@ -86,6 +87,7 @@ namespace Daylight {
             Patronus::Camera * _camInUse;
             std::string _shaderId;
             std::vector< Lumos::Instance * > _visibles;
+            Lumos::ShadowMap _shadowMap;  
         private:
             
             friend class WindowManager;
