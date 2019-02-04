@@ -26,10 +26,12 @@ THE SOFTWARE.
 #include "Config.h"
 
 
-namespace Daylight::Lumos
+namespace Daylight
 {
-    class Instance; 
-    class Program; 
+    namespace Lumos{
+        class Instance; 
+        class Program; 
+    }
 } // Lumos
 
 namespace Daylight::Patronus

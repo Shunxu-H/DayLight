@@ -185,14 +185,16 @@ void PerspectiveView::paintGL(){
 
     if( gProgram == nullptr )
         return;
+
+    
+    _shadowMap.render(); 
+
     glClearColor(0, 0, 0, 1); // black
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     //shaper->getnCamera(0)->genFrameBuffer(1080, 720);
+    gProgram->enableShadingPipe(_shaderId);
     gProgram->use();
-
-
-    _shadowMap.render(); 
     
     glViewport(0, 0, _width, _height);
     // paint selecte instance
@@ -209,7 +211,6 @@ void PerspectiveView::paintGL(){
     //     gProgram->disableShadingPipe(Lumos::Shader::selected_instances_shader_id);
     // }
 
-    gProgram->enableShadingPipe(_shaderId);
     if (gProgram->hasUniform("shadowMap")){
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, _shadowMap.getFrameBuffer().getDepthTexBuffer().getGlObjId());
@@ -219,17 +220,31 @@ void PerspectiveView::paintGL(){
     loadAttribsAndUniform();
     Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
 
-    _camInUse->loadUniforms(_width, _height);
-    shaper->loadAttribsAndUniform();
+    
+    // load camera uniforms
+    gProgram->setUniform("camera", _camInUse->getPerspectiveMatrix());
+    gProgram->setUniform("cameraPosition", _camInUse->getTranslate() );
+    gProgram->setUniform("projection", _camInUse->getProjectionMatrix(static_cast<float>(_width)/static_cast<float>(_height)));
+    gProgram->setUniform("ModelViewProjectionMatrix",
+                             _camInUse->getProjectionMatrix( static_cast<float>(_width)/static_cast<float>(_height) )*
+                             _camInUse->getPerspectiveMatrix()*
+                             _camInUse->getModelMatrix());
+
+    shaper->loadAttribsAndUniform(*gProgram);
     Lumos::Material * materialInUse = nullptr;
     Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
     for(Lumos::Instance const * i : world->getInstances()){
         if (i->isVisible())
-            i->renderMesh(materialInUse);
+            i->renderMesh(*gProgram, materialInUse);
     }
-    _shadowMap.getFrameBuffer().saveColorBuffer2file("color.png"); 
-    gProgram->disableShadingPipe(_shaderId);
 
+
+    Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
+    gProgram->disableShadingPipe(_shaderId);
+    Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
+    gProgram->stopUsing(); 
+
+    Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
 }
 
 

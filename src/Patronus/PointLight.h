@@ -6,7 +6,7 @@ namespace Daylight{
     namespace Patronus {
         class PointLight : public ILight{
         public:
-            void setUniformsAndAttributes(void * data=nullptr) override;
+            void setUniformsAndAttributes(Lumos::Program program, void * data=nullptr) override;
 
 
             unsigned int getLightType()const override { return LIGHT_POINT; }

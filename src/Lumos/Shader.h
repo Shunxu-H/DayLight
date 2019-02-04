@@ -26,78 +26,75 @@ THE SOFTWARE.
 #include <vector>
 #include <string>
 #include <memory>
-#include "Common/GL_include.h"
-#include "GLObject.h"
-namespace Daylight::Lumos {
-    
-    
-    class Shader : public GLObject
-    {
-    public:
-        // enum class Type{
-        //     UNKONWN, 
-        //     VERTEX, 
-        //     FRAGMENT, 
-        // };  
+#include <Common/GL_include.h>
+#include <Lumos/GLObject.h>
 
-        Shader();
-        virtual ~Shader(){};
+namespace Daylight{
+    namespace Lumos {
+        class Shader : public GLObject
+        {
+        public:
+            // enum class Type{
+            //     UNKONWN, 
+            //     VERTEX, 
+            //     FRAGMENT, 
+            // };  
 
-        static const std::string default_mesh_shader_id;
-        static const std::string default_bbox_shader_id;
-        static const std::string depth_shader_id;
-        static const std::string mask_shader_id;
-        static const std::string selected_instances_shader_id;
+            Shader();
+            virtual ~Shader(){};
 
-
-        /**
-         * @brief readFromFile, creat a shader from file
-         * @param filePath, path to the shader file
-         * @param shaderType,
-         * @return the constructed shader
-         */
-        static Shader readFromFile(const std::string & filePath, const GLenum & shaderType );
-        /**
-         * @brief readFromFiles, construct a vector of shader using the shader files in @shaderDir
-         * @param shaderDir, path to the directory where shader files are stored
-         * @return a vector of shader
-         */
-        static std::vector<Shader> readFromFiles( const std::string & shaderDir );
-        
-
-        inline GLint getType () const; 
-
-        /**
-         * @brief wrapper class to provide access to OpenGL
-         */
-        void use() const override;
-        
-        void stopUsing() const override;
-
-        bool isInUse() const;
+            static const std::string default_mesh_shader_id;
+            static const std::string default_bbox_shader_id;
+            static const std::string depth_shader_id;
+            static const std::string mask_shader_id;
+            static const std::string selected_instances_shader_id;
 
 
-    protected:
+            /**
+             * @brief readFromFile, creat a shader from file
+             * @param filePath, path to the shader file
+             * @param shaderType,
+             * @return the constructed shader
+             */
+            static Shader readFromFile(const std::string & filePath, const GLenum & shaderType );
+            /**
+             * @brief readFromFiles, construct a vector of shader using the shader files in @shaderDir
+             * @param shaderDir, path to the directory where shader files are stored
+             * @return a vector of shader
+             */
+            static std::vector<Shader> readFromFiles( const std::string & shaderDir );
+            
+
+            inline GLint getType () const; 
+
+            /**
+             * @brief wrapper class to provide access to OpenGL
+             */
+            void use(void * data) const override;
+            
+            void stopUsing(void * program) const override;
+
+            bool isInUse() const;
 
 
-    private:
-        /**
-         * @brief Shader
-         * @param filePath file path to the GLSL file
-         * @param shaderType type of shader
-         *        must be one of
-         *        GL_COMPUTE_SHADER | GL_VERTEX_SHADER |
-         *        GL_TESS_CONTROL_SHADER | GL_TESS_EVALUATION_SHADER |
-         *        GL_Mesh_SHADER | GL_FRAGMENT_SHADER
-         */
-        Shader(const std::string & filePath, const GLenum & shaderType );
-        // Type _type; 
-        std::vector<std::string> _uniforms;
-        std::vector<std::string> _varyings;
+        protected:
 
 
+        private:
+            /**
+             * @brief Shader
+             * @param filePath file path to the GLSL file
+             * @param shaderType type of shader
+             *        must be one of
+             *        GL_COMPUTE_SHADER | GL_VERTEX_SHADER |
+             *        GL_TESS_CONTROL_SHADER | GL_TESS_EVALUATION_SHADER |
+             *        GL_Mesh_SHADER | GL_FRAGMENT_SHADER
+             */
+            Shader(const std::string & filePath, const GLenum & shaderType );
+            // Type _type; 
+            std::vector<std::string> _uniforms;
+            std::vector<std::string> _varyings;
 
-    };
-
-
+        };
+    }
 }

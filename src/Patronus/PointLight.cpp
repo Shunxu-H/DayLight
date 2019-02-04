@@ -10,14 +10,14 @@
 
 using namespace Daylight::Patronus; 
 
-void PointLight::setUniformsAndAttributes(void * data){
+void PointLight::setUniformsAndAttributes(Lumos::Program program, void * data){
 
     int i = *static_cast<int*>(data); 
-    gProgram->SetLightUniform("isDirectional", i, getLightType() == LIGHT_DIRECTIONAL);
-    gProgram->SetLightUniform("position", i, getTranslatev4());
-    gProgram->SetLightUniform("intensities", i, getIntensity());
-    gProgram->SetLightUniform("attenuation", i, getAttenuation());
-    gProgram->SetLightUniform("ambientCoefficient", i, getAmbientCoefficient());
-    gProgram->SetLightUniform("coneAngle", i, getConeAngle());
-    gProgram->SetLightUniform("coneDirection", i, getConeDirection());
+    program.SetLightUniform("isDirectional", i, getLightType() == LIGHT_DIRECTIONAL);
+    program.SetLightUniform("position", i, getTranslatev4());
+    program.SetLightUniform("intensities", i, getIntensity());
+    program.SetLightUniform("attenuation", i, getAttenuation());
+    program.SetLightUniform("ambientCoefficient", i, getAmbientCoefficient());
+    program.SetLightUniform("coneAngle", i, getConeAngle());
+    program.SetLightUniform("coneDirection", i, getConeDirection());
 }

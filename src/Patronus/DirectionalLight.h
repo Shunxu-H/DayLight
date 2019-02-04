@@ -1,12 +1,13 @@
 #pragma once 
 
 #include <Patronus/ILight.h>
+#include <Lumos/Program.h>
 
 namespace Daylight{
     namespace Patronus {
         class DirectionalLight : public ILight{
         public:
-            void setUniformsAndAttributes(void * data=nullptr) override;
+            void setUniformsAndAttributes(Lumos::Program program, void* data) override;
 
             unsigned int getLightType()const override { return LIGHT_DIRECTIONAL; }
 

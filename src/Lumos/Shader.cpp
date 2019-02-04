@@ -24,14 +24,16 @@ THE SOFTWARE.
 
 #include <experimental/filesystem>
 #include <fstream>
-#include "Shader.h"
-#include "Lumos/Program.h"
-#include "Common/GL_include.h"
-
-#include "Common/Extern.h"
-
-
 #include <cstdio>
+
+#include "Common/GL_include.h"
+#include "Common/Extern.h"
+#include "Common/Utility.h"
+
+#include "Lumos/Program.h"
+#include "Lumos/Shader.h"
+
+
 
 
 
@@ -53,9 +55,8 @@ Shader::Shader()
 
 Shader::Shader(const std::string & shaderCode, const GLenum & shaderType)
     :GLObject( glCreateShader( shaderType ),
-              [](const GLuint * id){glDeleteBuffers(1, id);})
+              [](GLuint * id){glDeleteShader( *id);})
 {
-
 
     if ( getObjId() == 0 )
         throw std::runtime_error( "glCreateShader failed");
@@ -97,13 +98,15 @@ GLint Shader::getType () const{
 }
 
 
-void Shader::use() const{
-    glAttachShader( gProgram->getObjId(), _glObjId );
+void Shader::use(void * data) const{
+    Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );    
+    glAttachShader( *((GLint*)data), _glObjId );
+    Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
 }
 
 
-void Shader::stopUsing() const{
-    glDetachShader( gProgram->getObjId(), _glObjId );
+void Shader::stopUsing(void * data) const{
+    glDetachShader( Utils::to<GLint>(data), _glObjId );
 }
 
 bool Shader::isInUse() const{

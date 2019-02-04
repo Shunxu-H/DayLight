@@ -306,14 +306,16 @@ void Shaper::addMaterial( Lumos::Material * m){
     _materials.push_back(m);
 }
 
-void Shaper::loadAttribsAndUniform( ) const {
+void Shaper::loadAttribsAndUniform(Lumos::Program program) const {
+    
+    program.setUniform("light.position", getDefaultLight()->getTranslate() );
 
-    gProgram->setUniform("light.position", getDefaultLight()->getTranslate() );
-    gProgram->setUniform("light.intensities", getDefaultLight()->getIntensity());
-    gProgram->setUniform("numLights", static_cast<int> (getLights().size()) );
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    program.setUniform("light.intensities", getDefaultLight()->getIntensity());
+    program.setUniform("numLights", static_cast<int> (getLights().size()) );
     size_t i = 0;
     for ( Patronus::ILight * l : _lights ){
-        l->setUniformsAndAttributes(&i); 
+        l->setUniformsAndAttributes(program, &i); 
         i++;
     }
 

@@ -5,6 +5,7 @@
 
 #include <Lumos/RenderPass/IRenderPass.h>
 #include <Lumos/FrameBuffer.h>
+#include <Lumos/Program.h>
 
 namespace Daylight
 {
@@ -13,7 +14,7 @@ namespace Daylight
     {
         class ShadowMap : public IRenderPass{
         public:
-            ShadowMap(const size_t & width, const size_t & height) : _frameBuffer(width, height), _shadingPipeId("DepthMap"){}
+            ShadowMap(const size_t & width, const size_t & height); 
             void configureShaderAndLoadResources(); 
             void render(); 
 
@@ -27,6 +28,7 @@ namespace Daylight
         private: 
             FrameBuffer _frameBuffer; 
             std::string _shadingPipeId; 
+            Program _program; 
         }; 
     } // Lumos
     

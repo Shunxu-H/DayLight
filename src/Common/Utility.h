@@ -123,5 +123,10 @@ namespace Utils {
                     std::vector<std::experimental::filesystem::path> & all_files,
                     const std::vector<std::string> & obj_list = std::vector<std::string>());
     int glExtCheckFramebufferStatus(char *errorMessage);
+
+    template<typename T>
+    T to(void* data ) {
+        return *static_cast<T*>(data); 
+    }
 }
 #endif

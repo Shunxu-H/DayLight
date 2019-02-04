@@ -16,7 +16,7 @@ namespace Daylight
     namespace Lumos
     {
 
-        class ShadingPipe: public GLObject{
+        class ShadingPipe{
         public:
             inline ShadingPipe(){};
             // ShadingPipe(const ShaingPipe & that) = default; 
@@ -27,16 +27,14 @@ namespace Daylight
             /**
              * @brief verify if openGL can compile the shaders attached to the shading pipe,
              *  throw error is not compiled 
-             * 
-             * @param program opengl program 
              */
-            void verify(const Program & program) const; 
+            void verify() const; 
 
             /**
              * @brief enable the shading pipe 
              * 
              */
-            void use() const;
+            void use(void * program) const;
 
             /**
              * @brief it verifies all shaders are enabled or disabled, 
@@ -52,7 +50,7 @@ namespace Daylight
              * @brief disable all shaders attahed to the shading pipe
              * 
              */
-            void stopUsing() const;
+            void stopUsing(void * program) const;
         protected:
 
         private:

@@ -31,6 +31,7 @@ private:
   ColorTexBuffer _colorTexBuffer;
   DepthTexBuffer _depthTexBuffer;
 
+
 };
 
 

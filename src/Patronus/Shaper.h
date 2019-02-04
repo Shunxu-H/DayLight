@@ -32,114 +32,113 @@ THE SOFTWARE.
 #include <Common/GL_include.h>
 
 #include <Lumos/ArrayBuffer.h>
+#include <Lumos/Program.h>
 
 #include <Patronus/Camera.h>
 #include <Patronus/ILight.h>
 #include <Patronus/Mesh.h>
 
-namespace Daylight::Lumos {
-    class Instance;
-    class Program; 
-}
 
-namespace Daylight::Patronus {
-    class Shaper{
-    public:
-        Shaper();
+namespace Daylight{
+    namespace Patronus {
+        class Shaper{
+        public:
+            Shaper();
 
-        Shaper( const std::string & fileName );
-        virtual ~Shaper();
+            Shaper( const std::string & fileName );
+            virtual ~Shaper();
 
-        //static const std::shared_ptr<Camera> _pers;
-        Lumos::Material * default_material;
-        static std::vector< point3 > global_vertices;
-        static std::vector< point3 > global_normal_vertices;
-        static std::vector< point2 > global_uv_coords;
+            //static const std::shared_ptr<Camera> _pers;
+            Lumos::Material * default_material;
+            static std::vector< point3 > global_vertices;
+            static std::vector< point3 > global_normal_vertices;
+            static std::vector< point2 > global_uv_coords;
 
-        static const float multiplier;
+            static const float multiplier;
 
-        /**
-         * @return global maxinmum of all vertices in the scene
-         */
-        static point3 getGlobalMax();
-        /**
-         * @return global minimum of all vertices in the scene
-         */
-        static point3 getGlobalMin();
+            /**
+             * @return global maxinmum of all vertices in the scene
+             */
+            static point3 getGlobalMax();
+            /**
+             * @return global minimum of all vertices in the scene
+             */
+            static point3 getGlobalMin();
 
 
-        /**
-         * @brief getBoundingSphere, compute the bounding sphere given points loaded in @points
-         * @param points, the points which will be bounded by the computed sphere
-         * @param position, a pointer to a location where the center of the sphere will be stored
-         * @param radius, a pointer to a location where the radius of the sphere will be stored
-         */
-        static void getBoundingSphere(const std::vector< point3 > & points, point3 * position, float * radius);
-        static void loadGlobalGlBuffer();
+            /**
+             * @brief getBoundingSphere, compute the bounding sphere given points loaded in @points
+             * @param points, the points which will be bounded by the computed sphere
+             * @param position, a pointer to a location where the center of the sphere will be stored
+             * @param radius, a pointer to a location where the radius of the sphere will be stored
+             */
+            static void getBoundingSphere(const std::vector< point3 > & points, point3 * position, float * radius);
+            static void loadGlobalGlBuffer();
 
-        void loadAttribsAndUniform() const;
+            void loadAttribsAndUniform(Lumos::Program program) const;
 
-        inline ILight* getDefaultLight() const { return _lights[0]; }
-        /**
-         * @brief load file and call corresponding functions based on file extension
-         * @param fileName the file targeted to be loaded
-         * @return boolean if the file is successfully loaded
-         */
-        bool loadFile( const std::string & fileName );
+            inline ILight* getDefaultLight() const { return _lights[0]; }
+            /**
+             * @brief load file and call corresponding functions based on file extension
+             * @param fileName the file targeted to be loaded
+             * @return boolean if the file is successfully loaded
+             */
+            bool loadFile( const std::string & fileName );
 
-        /**
-         * [clearAll clear all loaded data]
-         */
-        void clearAll();
+            /**
+             * [clearAll clear all loaded data]
+             */
+            void clearAll();
 
-        int getNumOfVertices() const;
+            int getNumOfVertices() const;
 
-        Daylight::Lumos::ArrayBuffer getVertexBuffer()const;
-        Daylight::Lumos::ArrayBuffer getNormalBuffer()const;
+            Daylight::Lumos::ArrayBuffer getVertexBuffer()const;
+            Daylight::Lumos::ArrayBuffer getNormalBuffer()const;
 
-        void addMaterial( Daylight::Lumos::Material * m);
+            void addMaterial( Daylight::Lumos::Material * m);
 
 
 
-        inline bool
-            isLoaded() const { return _shapes.size() > 0; }
+            inline bool
+                isLoaded() const { return _shapes.size() > 0; }
 
-        inline std::vector< ILight* > getLights()
-            const { return _lights; }
+            inline std::vector< ILight* > getLights()
+                const { return _lights; }
 
-        inline std::vector<Mesh>&
-            getMeshes() { return _shapes; }
-        inline void addCamera( Camera * c ) { _cameras.push_back(c); }
-        inline Camera*
-            getnCamera( const size_t & index ){ if (index >= _cameras.size()) return nullptr; else return _cameras[index]; }
-        inline size_t
-            getNumOfCameras() const { return _cameras.size(); }
+            inline std::vector<Mesh>&
+                getMeshes() { return _shapes; }
+            inline void addCamera( Camera * c ) { _cameras.push_back(c); }
+            inline Camera*
+                getnCamera( const size_t & index ){ if (index >= _cameras.size()) return nullptr; else return _cameras[index]; }
+            inline size_t
+                getNumOfCameras() const { return _cameras.size(); }
 
-        inline void
-            setCurFileName( const std::string & fn ) { _curFileName = fn; }
-        inline std::string
-            getCurFileName() const { return _curFileName; }
-
-
-    protected:
-
-    private:
-
-        std::vector< Mesh > _shapes;
-        std::vector< Camera* > _cameras;
-        std::vector< ILight* > _lights;
-        std::vector< Lumos::Material * > _materials;
-        std::string _curFileName;
-
-        /**
-         * @brief _loadDefaultObjects
-         *         construct a point light and perspective camera
-         */
-        void _loadDefaultObjects();
-        bool _loadFile_obj (const std::string & f_name);
+            inline void
+                setCurFileName( const std::string & fn ) { _curFileName = fn; }
+            inline std::string
+                getCurFileName() const { return _curFileName; }
 
 
-    };
+        protected:
+
+        private:
+
+            std::vector< Mesh > _shapes;
+            std::vector< Camera* > _cameras;
+            std::vector< ILight* > _lights;
+            std::vector< Lumos::Material * > _materials;
+            std::string _curFileName;
+
+            /**
+             * @brief _loadDefaultObjects
+             *         construct a point light and perspective camera
+             */
+            void _loadDefaultObjects();
+            bool _loadFile_obj (const std::string & f_name);
+
+
+        };
+    }
 
 }
 

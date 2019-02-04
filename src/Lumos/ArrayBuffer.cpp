@@ -29,11 +29,10 @@ using namespace Daylight::Lumos;
 
 ArrayBuffer::ArrayBuffer( )
     : GLObject( [](GLuint * id){glGenBuffers(1, id);},
-                [](const GLuint * id){glDeleteBuffers(1, id);} )
+                [](GLuint * id){glDeleteBuffers(1, id);} ) 
 {
 
 }
-
 
 ArrayBuffer::ArrayBuffer( const ArrayBuffer & rhs)
     : GLObject( rhs )
@@ -93,7 +92,7 @@ void ArrayBuffer::setColorBuffer( const std::vector<Daylight::Patronus::Mesh> & 
 ArrayBuffer::~ArrayBuffer(){
 }
 
-void ArrayBuffer::use() const{
+void ArrayBuffer::use(void * data) const{
     glBindVertexArray(getObjId());
 }
 
@@ -104,6 +103,6 @@ bool ArrayBuffer::isInUse() const{
 
 }
 
-void ArrayBuffer::stopUsing() const{
+void ArrayBuffer::stopUsing(void * data) const{
     glBindVertexArray(0);
 }

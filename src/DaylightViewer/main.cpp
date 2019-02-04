@@ -32,6 +32,7 @@ int main(int, char**)
     gProgram = new Daylight::Lumos::Program( );
     shaper = new Daylight::Patronus::Shaper( "./data/indoor/0004dd3cb11e50530676f77b55262d38.obj" );
     Daylight::Patronus::Camera::loadCamerasFromDir("./data/camera", shaper); 
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
     gProgram->loadShaders( "./GLSL" );
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 

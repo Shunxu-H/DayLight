@@ -62,11 +62,11 @@ void Instance::setRidgidBody( Daylight::Patronus::PhysicalWorld * world, btRigid
 }
 
 
-void Instance::loadAttribsAndUniform() const {
+void Instance::loadAttribsAndUniform(Program program) const {
 
     GLuint attribId;
-    if (gProgram->hasAttribute(GLSL_VERT)){
-        attribId = gProgram->getAttrib(GLSL_VERT);
+    if (program.hasAttribute(GLSL_VERT)){
+        attribId = program.getAttrib(GLSL_VERT);
         glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_VERT);
 
         Utils::logOpenGLError();
@@ -75,43 +75,43 @@ void Instance::loadAttribsAndUniform() const {
         glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
         Utils::logOpenGLError();
     }
-    if (gProgram->hasAttribute(GLSL_NORM)){
-        attribId = gProgram->getAttrib(GLSL_NORM);
+    if (program.hasAttribute(GLSL_NORM)){
+        attribId = program.getAttrib(GLSL_NORM);
         glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_NORMAL);
         glEnableVertexAttribArray(attribId);
         glVertexAttribPointer(attribId, 3, GL_FLOAT, GL_FALSE, 0, 0);
         Utils::logOpenGLError();
     }
-    if (gProgram->hasAttribute(GLSL_TEXTCOOR)){
-        attribId = gProgram->getAttrib(GLSL_TEXTCOOR);
+    if (program.hasAttribute(GLSL_TEXTCOOR)){
+        attribId = program.getAttrib(GLSL_TEXTCOOR);
         glBindBuffer(GL_ARRAY_BUFFER, _asset.VBO_TEXCOORD);
         glEnableVertexAttribArray(attribId);
         glVertexAttribPointer(attribId, 2, GL_FLOAT, GL_FALSE, 0, 0);
         Utils::logOpenGLError();
     }
 
-    gProgram->setUniform( "inverseModel" , getInverseModelMatrix() );
+    program.setUniform( "inverseModel" , getInverseModelMatrix() );
     
-    gProgram->setUniform("model", getModelMatrix() );
+    program.setUniform("model", getModelMatrix() );
 
-    gProgram->setUniform("pickingColor", getPickingColor() );
+    program.setUniform("pickingColor", getPickingColor() );
 
 
     Utils::logOpenGLError();
 }
 
-void Instance::renderMesh( Material * materialInUse ) const{
+void Instance::renderMesh(Program program, Material * materialInUse ) const{
 
 
     for (const MaterialPack & mp: _asset.materials ){
         if (materialInUse != mp.material ){
 
             Utils::logOpenGLError();
-            mp.material->loadUniforms();
+            mp.material->loadUniforms(program);
             Utils::logOpenGLError();
             materialInUse = mp.material;
         }
-        loadAttribsAndUniform();
+        loadAttribsAndUniform(program);
         Utils::logOpenGLError();
         glDrawArrays(_asset.drawType, mp.drawStart, mp.drawCnt);
         Utils::logOpenGLError();

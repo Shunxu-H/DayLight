@@ -25,57 +25,60 @@ THE SOFTWARE.
 
 #include "GLObject.h"
 
-namespace Daylight::Lumos{
+namespace Daylight{
+  namespace Lumos{
 
-  class Texture: public GLObject{
-  public:
-    /**
-     * STATIC FUNCTIONS
-     */
-    inline static GLint getMaximumSampleSize() {
-      int samples;
-      //We need to find out what the maximum supported samples is
-      glGetIntegerv(GL_MAX_SAMPLES, &samples);
-      return samples;
-    }
-    static const GLint DEFAULTSAMPLESIZE;
+    class Texture: public GLObject{
+    public:
+      /**
+       * STATIC FUNCTIONS
+       */
+      inline static GLint getMaximumSampleSize() {
+        int samples;
+        //We need to find out what the maximum supported samples is
+        glGetIntegerv(GL_MAX_SAMPLES, &samples);
+        return samples;
+      }
+      static const GLint DEFAULTSAMPLESIZE;
 
-    Texture();
-    virtual ~Texture();
+      Texture();
+      virtual ~Texture();
 
-    void use() const override;
-    bool isInUse() const override;
-    void stopUsing() const override;
+      void use(void * data=nullptr) const override;
+      bool isInUse() const override;
+      void stopUsing(void * data=nullptr) const override;
 
-    inline size_t getWidth() const {
-      use();
-      int w, miplevel = 0;
-      glGetTexLevelParameteriv(_textureTarget, miplevel, GL_TEXTURE_WIDTH, &w);
-      stopUsing();
-      return w;
-    }
-    inline size_t getHeight() const{
-      use();
-      int h, miplevel = 0;
-      glGetTexLevelParameteriv(_textureTarget, miplevel, GL_TEXTURE_HEIGHT, &h);
-      stopUsing();
-      return h;
-    }
-    inline GLenum getTarget() const
-      { return _textureTarget; }
-    inline bool isInitialized() const
-      { return _textureTarget != 0; }
+      inline size_t getWidth() const {
+        use();
+        int w, miplevel = 0;
+        glGetTexLevelParameteriv(_textureTarget, miplevel, GL_TEXTURE_WIDTH, &w);
+        stopUsing();
+        return w;
+      }
+      inline size_t getHeight() const{
+        use();
+        int h, miplevel = 0;
+        glGetTexLevelParameteriv(_textureTarget, miplevel, GL_TEXTURE_HEIGHT, &h);
+        stopUsing();
+        return h;
+      }
+      inline GLenum getTarget() const
+        { return _textureTarget; }
+      inline bool isInitialized() const
+        { return _textureTarget != 0; }
 
-    virtual void resize(const GLsizei & w, const GLsizei & h) const = 0;
-    // void make2DTexure(const cvt size_t & h);
+      virtual void resize(const GLsizei & w, const GLsizei & h) const = 0;
+      // void make2DTexure(const cvt size_t & h);
 
-  protected:
-    GLenum _textureTarget;
-    GLint _internalFormat;
-    GLenum _dataType;
+    protected:
+      GLenum _textureTarget;
+      GLint _internalFormat;
+      GLenum _dataType;
 
-  private:
-  };
+    private:
+
+    };
+  }
 
 
 }

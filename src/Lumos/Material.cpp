@@ -19,19 +19,19 @@ Material::Material( const cv::Mat & im,
 
 
 
-void Material::loadUniforms( ) const{
+void Material::loadUniforms(Program program) const{
 
-    if (gProgram->hasUniform("tex")){
+    if (program.hasUniform("tex")){
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture.getObjId());
-        gProgram->setUniform("tex", 0);
+        program.setUniform("tex", 0);
         //set to 0 because the texture is bound to GL_TEXTURE0
     }
-    gProgram->setUniform("transmittance", transmittance);
-    gProgram->setUniform("hasTexture", texture.isInitialized());
-    gProgram->setUniform("diffuseColor", diffuseColor );
-    gProgram->setUniform("ambient", color3(0.05f, 0.05f, 0.05f) );
-    gProgram->setUniform("materialShininess", reflexitivity );
-    gProgram->setUniform("materialSpecularColor", specular);
+    program.setUniform("transmittance", transmittance);
+    program.setUniform("hasTexture", texture.isInitialized());
+    program.setUniform("diffuseColor", diffuseColor );
+    program.setUniform("ambient", color3(0.05f, 0.05f, 0.05f) );
+    program.setUniform("materialShininess", reflexitivity );
+    program.setUniform("materialSpecularColor", specular);
 
 }

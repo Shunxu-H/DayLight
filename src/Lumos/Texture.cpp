@@ -37,7 +37,7 @@ const GLint Texture::DEFAULTSAMPLESIZE = 4;
  */
 Texture::Texture()
     : GLObject( [](GLuint * id){glGenTextures(1, id);},
-                [](const GLuint * id){glDeleteTextures(1, id);} )
+                [](GLuint * id){glDeleteTextures(1, id);} )
     , _textureTarget(0)
     , _internalFormat(0)
     , _dataType(0)
@@ -233,7 +233,7 @@ void Texture::resize(const GLsizei & w, const GLsizei & h) const{
 // }
 
 
-void Texture::use() const
+void Texture::use(void * data) const
 {
     assert(_textureTarget != 0); // make sure the texture is initialized
     glBindTexture(_textureTarget, _glObjId);
@@ -246,7 +246,7 @@ bool Texture::isInUse() const
     return static_cast<GLuint>( data ) == _glObjId;
 }
 
-void Texture::stopUsing() const
+void Texture::stopUsing(void * data) const
 {
     glBindTexture(_textureTarget, _glObjId);
 }

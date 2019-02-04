@@ -3,6 +3,7 @@
 
 #include <Common/GL_include.h>
 #include <Patronus/Transformable.h>
+#include <Lumos/Program.h>
 
 #define LIGHT_DIRECTIONAL   0x00000001u
 #define LIGHT_POINT         0x00000002u
@@ -11,7 +12,7 @@ namespace Daylight{
     namespace Patronus{
         class ILight: public Transformable{
         public:
-            virtual void setUniformsAndAttributes(void* data)=0;
+            virtual void setUniformsAndAttributes(Lumos::Program program, void* data)=0;
             virtual unsigned int getLightType() const = 0; 
              /**
              * @brief setter and getter for private members

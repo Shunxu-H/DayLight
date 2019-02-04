@@ -1,6 +1,8 @@
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <Common/GL_include.h>
 #include <Common/Extern.h>
+#include <Common/Utility.h>
 
 #include <Lumos/GlslNameConst.h>
 #include <Lumos/Program.h>
@@ -8,25 +10,24 @@
 #include <Patronus/Shaper.h>
 #include <Patronus/DirectionalLight.h>
 
-#include <glm/gtc/matrix_transform.hpp>
 
 using namespace Daylight; 
 using namespace Daylight::Patronus; 
 
 
-void DirectionalLight::setUniformsAndAttributes(void * data){
+void DirectionalLight::setUniformsAndAttributes(Lumos::Program program, void* data){
     
     // render scene from light's point of view
-    gProgram->setUniform(GLSL_LIGHTSPACE_MATRIX, getLightSpaceMatrix());
+    program.setUniform(GLSL_LIGHTSPACE_MATRIX, getLightSpaceMatrix());
 
     
     // for multilight shader
-    int i = *static_cast<int*>(data); 
-    gProgram->SetLightUniform("isDirectional", i, getLightType() == LIGHT_DIRECTIONAL);
-    gProgram->SetLightUniform("position", i, getTranslatev4());
-    gProgram->SetLightUniform("intensities", i, getIntensity());
-    gProgram->SetLightUniform("attenuation", i, getAttenuation());
-    gProgram->SetLightUniform("ambientCoefficient", i, getAmbientCoefficient());
+    int i = Utils::to<int>(data); 
+    program.SetLightUniform("isDirectional", i, getLightType() == LIGHT_DIRECTIONAL);
+    program.SetLightUniform("position", i, getTranslatev4());
+    program.SetLightUniform("intensities", i, getIntensity());
+    program.SetLightUniform("attenuation", i, getAttenuation());
+    program.SetLightUniform("ambientCoefficient", i, getAmbientCoefficient());
 }
 
 

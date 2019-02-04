@@ -3,6 +3,7 @@
 #include <stdexcept>
 
 #include <Common/GL_include.h>
+#include <Common/Utility.h>
 
 #include <Lumos/Program.h>
 #include <Lumos/Shader.h>
@@ -12,40 +13,43 @@
 using namespace Daylight::Lumos; 
 
 
-void ShadingPipe::verify(const Program & program) const{
-    use();
-    isInUse(); 
+void ShadingPipe::verify() const{
+    Program program{};
+    GLint progId = program.getObjId(); 
+    use(&progId);
     glLinkProgram( program.getObjId() );
 
-    stopUsing();
-    isInUse(); 
+    stopUsing(&progId);
     GLint status;
     glGetProgramiv( program.getObjId(), GL_LINK_STATUS, & status );
 
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
     // displaying log error
     if ( status == GL_FALSE ){
         std::string msg("Program/Shader linking failure: ");
 
         GLint infoLogLength = 0;
-        glGetProgramiv( _glObjId,
+        glGetProgramiv( program.getGlObjId(),
                         GL_INFO_LOG_LENGTH,
                         &infoLogLength);
 
         char* strInfoLog = new char[infoLogLength + 1];
-        glGetProgramInfoLog( getObjId(), GL_INFO_LOG_LENGTH, nullptr, strInfoLog );
+        glGetProgramInfoLog( program.getObjId(), GL_INFO_LOG_LENGTH, nullptr, strInfoLog );
         msg += strInfoLog;
         delete[] strInfoLog;
 
         // glDeleteProgram( program.getObjId() );  
         // program.setObjId( 0 );
         throw std::runtime_error ( msg );
-
     }
 } 
 
-void ShadingPipe::use() const{
-    auto useShaderFunc = [](Shader shader) {shader.use();}; 
+void ShadingPipe::use(void * program) const{
+    auto useShaderFunc = [program](Shader shader) {shader.use(program);}; 
     std::for_each(_shaders.begin(), _shaders.end(), useShaderFunc); 
+    Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
+    glLinkProgram( Utils::to<GLint>(program) );
+    Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
 }
 
 bool ShadingPipe::isInUse() const{
@@ -64,7 +68,7 @@ bool ShadingPipe::isInUse() const{
 
 }
 
-void ShadingPipe::stopUsing() const{
-    auto stopUseShaderFunc = [](Shader shader) {shader.stopUsing();}; 
+void ShadingPipe::stopUsing(void * program) const{
+    auto stopUseShaderFunc = [program](Shader shader) {shader.stopUsing(program);}; 
     std::for_each(_shaders.begin(), _shaders.end(), stopUseShaderFunc); 
 }

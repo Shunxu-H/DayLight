@@ -13,6 +13,14 @@
 
 using namespace Daylight::Lumos; 
 
+ShadowMap::ShadowMap(const size_t & width, const size_t & height) 
+: _frameBuffer(width, height)
+, _shadingPipeId("DepthMap")
+, _program(){
+
+                
+}
+
 void ShadowMap::configureShaderAndLoadResources(){
 
     
@@ -23,13 +31,27 @@ void ShadowMap::render(){
 
 
     // 0. Clear color
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    _program.bind();
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    _program.enableShadingPipe(_shadingPipeId);
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    _program.use();
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
     glClearColor(0, 0, 0, 1); // black
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    gProgram->use();
     glViewport(0, 0, getWidth(), getHeight());
-    gProgram->enableShadingPipe(_shadingPipeId);
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
     _frameBuffer.use(); 
 
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
     _frameBuffer.getDepthTexBuffer().use(); 
     _frameBuffer.getColorTexBuffer().use(); 
 
@@ -39,7 +61,7 @@ void ShadowMap::render(){
     // glm::mat4 lightSpaceMatrix;
 
 
-    // float near_plane = 1.0f, far_plane = 75.0f;
+    // float near_plane = 1.0f, far_plane = 75.0f;5
     // lightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, near_plane, far_plane);
     // glm::vec3 lightPos(-20.0f, 40.0f, -10.0f);
     // lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
@@ -48,16 +70,24 @@ void ShadowMap::render(){
     // gProgram->setUniform("lightSpaceMatrix", lightSpaceMatrix);
 
     // _camInUse->loadUniforms(_width, _height);
-    shaper->loadAttribsAndUniform();
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    shaper->loadAttribsAndUniform(_program);
     Lumos::Material * materialInUse = nullptr;
-    Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
     for(Lumos::Instance const * i : world->getInstances()){
         if (i->isVisible())
-            i->renderMesh(materialInUse);
+            i->renderMesh(_program, materialInUse);
     }
 
     _frameBuffer.saveDepthBuffer2file("DepthMap.png"); 
-    gProgram->disableShadingPipe(_shadingPipeId);
+    
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    _program.disableShadingPipe(_shadingPipeId);
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
+    _program.stopUsing();
+
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
     // _frameBuffer.stopUsing(); 
 
     // glBindFramebuffer(GL_FRAMEBUFFER, 0);

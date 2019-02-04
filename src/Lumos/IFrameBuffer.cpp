@@ -28,7 +28,7 @@ using namespace Daylight::Lumos;
 
 IFrameBuffer::IFrameBuffer()
     : GLObject( [](GLuint * id){glGenFramebuffers(1, id);},
-                [](const GLuint * id){glDeleteFramebuffers(1, id);} )
+                [](GLuint * id){glDeleteFramebuffers(1, id);}  )
 {
     //_initialize(_width, _height);
 
@@ -52,7 +52,7 @@ void IFrameBuffer::use(const GLenum & target) const
     glBindFramebuffer(target, _glObjId);
 }
 
-void IFrameBuffer::use() const
+void IFrameBuffer::use(void * data) const
 {
   glBindFramebuffer(GL_FRAMEBUFFER, _glObjId);
 }
@@ -78,7 +78,7 @@ bool IFrameBuffer::isInUse() const
 
 
 
-void IFrameBuffer::stopUsing() const
+void IFrameBuffer::stopUsing(void * data) const
 {
     if(isInUse(GL_DRAW_FRAMEBUFFER_BINDING))
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);

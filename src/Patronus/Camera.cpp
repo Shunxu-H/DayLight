@@ -114,17 +114,17 @@ Camera::~Camera(){
 
 }
 
-void Camera::loadUniforms( const unsigned int & width, const unsigned int & height ) const{
-    gProgram->setUniform("camera", getPerspectiveMatrix());
-    gProgram->setUniform("cameraPosition", getTranslate() );
-    gProgram->setUniform("projection", getProjectionMatrix(static_cast<float>(width)/static_cast<float>(height)));
-    gProgram->setUniform("ModelViewProjectionMatrix",
-                             getProjectionMatrix( static_cast<float>(width)/static_cast<float>(height) )*
-                             getPerspectiveMatrix()*
-                             getModelMatrix());
+// void Camera::loadUniforms( const unsigned int & width, const unsigned int & height ) const{
+//     gProgram->setUniform("camera", getPerspectiveMatrix());
+//     gProgram->setUniform("cameraPosition", getTranslate() );
+//     gProgram->setUniform("projection", getProjectionMatrix(static_cast<float>(width)/static_cast<float>(height)));
+//     gProgram->setUniform("ModelViewProjectionMatrix",
+//                              getProjectionMatrix( static_cast<float>(width)/static_cast<float>(height) )*
+//                              getPerspectiveMatrix()*
+//                              getModelMatrix());
 
 
-}
+// }
 
 
 void Camera::moveForward( const float & sensitivity ){

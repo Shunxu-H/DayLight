@@ -139,7 +139,7 @@ namespace Daylight{
              * @param width  [width of the viewport]
              * @param height [height of the viewport]
              */
-            void loadUniforms(const unsigned int & width, const unsigned int & height ) const;
+            // void loadUniforms(const unsigned int & width, const unsigned int & height ) const;
 
 
         protected:

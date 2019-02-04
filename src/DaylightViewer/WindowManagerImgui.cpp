@@ -206,6 +206,7 @@ void WindowManagerImgui::_initImgui(){
 
 int WindowManagerImgui::loop(){
 
+    GLError( __PRETTY_FUNCTION__ , __LINE__ );
     // Main loop
     while (!glfwWindowShouldClose(window))
     {
@@ -216,6 +217,7 @@ int WindowManagerImgui::loop(){
         // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
         glfwPollEvents();
 
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
         if (ImGui::GetIO().Framerate < 40 && rand()%2 == 0){
             continue;  
         }
@@ -306,14 +308,23 @@ int WindowManagerImgui::loop(){
         // event handling 
 
         // Rendering
+
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
         ImGui::Render();
         
 
         int display_w, display_h;
+
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
         glfwMakeContextCurrent(window);
+
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
         glfwGetFramebufferSize(window, &display_w, &display_h);
+
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
         glViewport(0, 0, display_w, display_h);
         
+        GLError( __PRETTY_FUNCTION__ , __LINE__ );
         _internal_expose_handle(); 
         //_port->paint(); 
         

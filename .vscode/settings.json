@@ -51,6 +51,8 @@
         "utility": "cpp",
         "list": "cpp",
         "optional": "cpp",
-        "*.cuh": "cpp"
+        "*.cuh": "cpp",
+        "strstream": "cpp",
+        "valarray": "cpp"
     }
 }

@@ -40,11 +40,11 @@ namespace Daylight::Lumos
         virtual size_t getHeight() const = 0;
         virtual size_t getWidth() const = 0;
 
-        void use() const override;
+        void use(void * data=nullptr) const override;
         void use(const GLenum & target) const ;
         bool isInUse() const override;
         bool isInUse(const GLint & bindingTarget ) const;
-        void stopUsing() const override;
+        void stopUsing(void * data=nullptr) const override;
 
 
         void blit( const IFrameBuffer  & that ) const;
@@ -63,6 +63,7 @@ namespace Daylight::Lumos
     protected:
 
     private:
+ 
 
         // virtual void _initialize(const size_t & w, const size_t & h) = 0;
     };

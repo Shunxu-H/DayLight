@@ -31,7 +31,7 @@ using namespace Daylight::Lumos;
 
 GLObject::GLObject(
             void (*initFunc)(GLuint *),
-            void (*df)(const GLuint *)
+            void (*df)( GLuint *)
             )
 			: _refCount( nullptr )
 			, _deleteFunc( df )
@@ -44,11 +44,12 @@ GLObject::GLObject(
 
 GLObject::GLObject(
 	    GLuint id,
-	    void (*dl)(const GLuint *)
-	    )
+	    void (*df)( GLuint *)	    
+        )
 		: _glObjId(id)
-		, _refCount( nullptr )
-		, _deleteFunc( dl ){
+		, _refCount( nullptr )    
+		, _deleteFunc( df )                  
+{
 	_refCount = new unsigned;
     *_refCount = 1;
 }
@@ -56,7 +57,7 @@ GLObject::GLObject(
 GLObject::GLObject( const GLObject & other )
 	            : _glObjId( other._glObjId )
 	            , _refCount( other._refCount )
-	            , _deleteFunc(other._deleteFunc)
+                , _deleteFunc(other._deleteFunc)
 {
     _retain();
 }
@@ -86,7 +87,7 @@ void GLObject::_release(){
     if(*_refCount == 0){ // delete pointer if nothing pointing to THIS
 
         _deleteFunc( &_glObjId );
-
+        _glObjId = 0; 
         delete _refCount;
         _refCount = nullptr;
     }
