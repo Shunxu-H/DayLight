@@ -15,6 +15,12 @@ FrameBuffer::FrameBuffer(const size_t & width, const size_t & height )
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
   use();
+  
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
   // attach color
   glFramebufferTexture2D(GL_FRAMEBUFFER,
                          GL_COLOR_ATTACHMENT0,
@@ -26,6 +32,8 @@ FrameBuffer::FrameBuffer(const size_t & width, const size_t & height )
                          _depthTexBuffer.getTarget(),
                          _depthTexBuffer.getGlObjId(),
                          0);
+                         
+                         
 
 
   // Set the list of draw buffers.
@@ -43,10 +51,10 @@ FrameBuffer::FrameBuffer(const size_t & width, const size_t & height )
 
   GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
   glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
+  
 
   //glViewport(0,0,width,height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
 
-  glEnable(GL_DEPTH_TEST);
   stopUsing();
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
 }

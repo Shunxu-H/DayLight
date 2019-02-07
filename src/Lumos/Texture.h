@@ -44,7 +44,7 @@ namespace Daylight{
       Texture();
       virtual ~Texture();
 
-      void use(void * data=nullptr) const override;
+      virtual void use(void * data=nullptr) const override;
       bool isInUse() const override;
       void stopUsing(void * data=nullptr) const override;
 

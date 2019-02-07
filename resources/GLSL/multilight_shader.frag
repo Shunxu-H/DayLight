@@ -39,7 +39,7 @@ out vec4 outColor;
 
 float ShadowCalculation(vec4 fragPosLightSpace)
 {
-        // perform perspective divide
+    // perform perspective divide
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     // transform to [0,1] range
     projCoords = projCoords * 0.5 + 0.5;

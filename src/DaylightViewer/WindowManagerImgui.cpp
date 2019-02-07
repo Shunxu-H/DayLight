@@ -269,7 +269,7 @@ int WindowManagerImgui::loop(){
 
             ImGui::Begin("Shading Pipe In Use");            
             ImGui::Text("Select a shading pipe.");   
-            static int shadingPipeIndex = 0; 
+            static int shadingPipeIndex = 7; 
             std::vector<std::string> shadingPipeNames = gProgram->getAllShadingPipeNames(); 
             for( size_t shadingPipeItr = 0; shadingPipeItr < shadingPipeNames.size(); shadingPipeItr ++ ){
                 ImGui::RadioButton( shadingPipeNames[shadingPipeItr].c_str(), &shadingPipeIndex, (int)shadingPipeItr); 

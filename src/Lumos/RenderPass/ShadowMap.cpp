@@ -30,6 +30,8 @@ void ShadowMap::configureShaderAndLoadResources(){
 void ShadowMap::render(){
 
 
+    // _frameBuffer.use(); 
+    glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer.getObjId());
     // 0. Clear color
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
@@ -49,11 +51,10 @@ void ShadowMap::render(){
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-    _frameBuffer.use(); 
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
-    _frameBuffer.getDepthTexBuffer().use(); 
-    _frameBuffer.getColorTexBuffer().use(); 
+    // _frameBuffer.getDepthTexBuffer().use(); 
+    // _frameBuffer.getColorTexBuffer().use(); 
 
     // 1. render depth of scene to texture (from light's perspective)
     // --------------------------------------------------------------
@@ -79,14 +80,16 @@ void ShadowMap::render(){
             i->renderMesh(_program, materialInUse);
     }
 
-    _frameBuffer.saveDepthBuffer2file("DepthMap.png"); 
-    
+    // _frameBuffer.saveDepthBuffer2file("DepthMap.png"); 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     _program.disableShadingPipe(_shadingPipeId);
 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     _program.stopUsing();
 
+    // _frameBuffer.saveDepthBuffer2file("DepthMap.png");
+    // _frameBuffer.stopUsing();
+    glBindFramebuffer(GL_FRAMEBUFFER, 0); 
     GLError( __PRETTY_FUNCTION__ , __LINE__ );
     // _frameBuffer.stopUsing(); 
 

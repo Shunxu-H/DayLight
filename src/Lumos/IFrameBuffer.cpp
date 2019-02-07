@@ -54,7 +54,7 @@ void IFrameBuffer::use(const GLenum & target) const
 
 void IFrameBuffer::use(void * data) const
 {
-  glBindFramebuffer(GL_FRAMEBUFFER, _glObjId);
+    glBindFramebuffer(GL_FRAMEBUFFER, _glObjId);
 }
 
 bool IFrameBuffer::isInUse(const GLint & bindingTarget ) const {
@@ -80,9 +80,7 @@ bool IFrameBuffer::isInUse() const
 
 void IFrameBuffer::stopUsing(void * data) const
 {
-    if(isInUse(GL_DRAW_FRAMEBUFFER_BINDING))
-        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-    if(isInUse(GL_READ_FRAMEBUFFER_BINDING))
-        glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
-
+    glDrawBuffer(GL_NONE);
+    glReadBuffer(GL_NONE);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

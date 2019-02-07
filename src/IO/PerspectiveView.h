@@ -89,7 +89,7 @@ namespace Daylight {
             std::vector< Lumos::Instance * > _visibles;
             Lumos::ShadowMap _shadowMap;  
         private:
-            
+            Lumos::FrameBuffer _framebuffer; 
             friend class WindowManager;
 
         };

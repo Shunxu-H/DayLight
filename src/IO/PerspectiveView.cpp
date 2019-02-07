@@ -49,6 +49,7 @@ PerspectiveView::PerspectiveView(
     : View("perspective view", x, y, w, h)
     , _shaderId( shaderId )
     , _shadowMap( 5000, 5000 )
+    , _framebuffer(w, h)
 {
     if ( cam == nullptr )
         _camInUse = Patronus::Camera::pers;
@@ -189,10 +190,11 @@ void PerspectiveView::paintGL(){
     
     _shadowMap.render(); 
 
+    //shaper->getnCamera(0)->genFrameBuffer(1080, 720);
+    // _framebuffer.use(); 
+
     glClearColor(0, 0, 0, 1); // black
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    //shaper->getnCamera(0)->genFrameBuffer(1080, 720);
     gProgram->enableShadingPipe(_shaderId);
     gProgram->use();
     
@@ -212,7 +214,13 @@ void PerspectiveView::paintGL(){
     // }
 
     if (gProgram->hasUniform("shadowMap")){
+        
+		// glActiveTexture(GL_TEXTURE1);
+		// glBindTexture(GL_TEXTURE_2D, _shadowMap.getFrameBuffer().getDepthTexBuffer().getGlObjId());
+		// glUniform1i(glGetUniformLocation(gProgram->getObjId(), "shadowMap"), 1);
+
         glActiveTexture(GL_TEXTURE1);
+        // _shadowMap.getFrameBuffer().saveDepthBuffer2file("DepthMap.png"); 
         glBindTexture(GL_TEXTURE_2D, _shadowMap.getFrameBuffer().getDepthTexBuffer().getGlObjId());
         gProgram->setUniform("shadowMap", 1);
         //set to 0 because the texture is bound to GL_TEXTURE0
@@ -243,7 +251,9 @@ void PerspectiveView::paintGL(){
     gProgram->disableShadingPipe(_shaderId);
     Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
     gProgram->stopUsing(); 
-
+    // _framebuffer.saveColorBuffer2file("scene.png"); 
+    // _framebuffer.saveDepthBuffer2file("sceneDepth.png"); 
+    // _framebuffer.stopUsing(); 
     Utils::logOpenGLError( std::string(__FUNCTION__) + ":" + std::to_string(__LINE__) );
 }
 

@@ -34,6 +34,11 @@ DepthTexBuffer::DepthTexBuffer(const size_t & width, const size_t & height)
   GLError( __PRETTY_FUNCTION__ , __LINE__ );
 }
 
+void DepthTexBuffer::use(void * data) const{
+  Texture::use();
+  // glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, getObjId(), 0); 
+}
+
 void DepthTexBuffer::resize(const GLsizei & w, const GLsizei & h) const
 {
   use();
