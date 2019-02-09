@@ -26,7 +26,7 @@ int main(int, char**)
 {
 
     winMan = new Daylight::IO::WindowManagerImgui{1280, 720}; 
-    // for physical simulartion
+    // for physical simulation
     world = new Daylight::Patronus::PhysicalWorld();
     // openGL resource management
     gProgram = new Daylight::Lumos::Program( );

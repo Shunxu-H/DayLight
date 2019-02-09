@@ -50,13 +50,32 @@ set(HEADER  ./DepthTexBuffer.h
             ./MultisampledColorTexBuffer.h
 )
 
+set(VERTEX_SHADERS  ./Glsl/mesh_shader.vert
+                    ./Glsl/mask.vert
+                    ./Glsl/depth.vert
+                    ./Glsl/multilight_shader.vert
+                    ./Glsl/Blinn-Phong.vert
+                    ./Glsl/DepthMap.vert
+                    ./Glsl/bbox_shader.vert
+                    ./Glsl/wired_frame_shader.vert
+        )
+
+set(FRAGMENT_SHADERS    ./Glsl/mesh_shader.frag
+                        ./Glsl/depth.frag
+                        ./Glsl/DepthMap.frag
+                        ./Glsl/Blinn-Phong.frag
+                        ./Glsl/mask.frag
+                        ./Glsl/multilight_shader.frag
+                        ./Glsl/wired_frame_shader.frag
+                        ./Glsl/bbox_shader.frag
+                    )
 
 # external dependency
 find_package(OpenCV REQUIRED)
 
 
 
-add_library(${PROJECT_NAME} ${SOURCE} ${HEADER})
+add_library(${PROJECT_NAME} ${SOURCE} ${HEADER} ${VERTEX_SHADERS} ${FRAGMENT_SHADERS})
 target_link_libraries(  ${PROJECT_NAME} 
                         ${OpenCV_LIBS}
 #                         ${OPENGL_gl_LIBRARY}
